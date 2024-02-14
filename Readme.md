@@ -2,9 +2,11 @@
 This projects aims to create an affordable and easy to manufacture, yet as realistic as possible replica of the DSKY used in the Apollo program to interface with the Apollo Guidance Computer (AGC).
 
 ## Repository contents:
-* **iPhone version:** Design based on an iPhone 12 Mini as the substitute for the EL display. Contains:
-  * Assembly file in Autodesk Fusion format
-  * 3MF meshes for 3D printing
+* 3D Models:
+  * **Common Models:** Meshes of models you need to print regardless of what display you want to use
+  * **iPhone version:** Design based on an iPhone 12 Mini as the substitute for the EL display. Contains:
+    * Assembly file in Autodesk Fusion format
+    * 3MF meshes of display assembly
 * Boards
   * Alarm Lights PCB
     * KiCad Project
