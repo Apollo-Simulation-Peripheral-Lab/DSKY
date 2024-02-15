@@ -8,17 +8,20 @@ body {
   background-color: black;
   background-size: 50% auto;
   background-position: center top;
-  .goal {
-    width:100vw;
-    position:absolute;
-    top:22px;
-    left:0;
-    opacity:.5;
-  }
-  .mask {
-    width:100vw;
-    position:absolute;
-    top:22px;
-    left:0px;
-  }
+}
+
+.mask {
+  z-index: 999;
+  width:100vw;
+  position:absolute;
+  top:-3.5vh;
+  left:0px;
+}
+.comp_acty {
+  width:39vw;
+  height:39vw;
+  background-color: #1f1305ff;
+  position:absolute;
+  top:5vh;
+  left:0px;
 }
