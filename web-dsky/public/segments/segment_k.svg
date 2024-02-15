@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="2.0320201"
+   viewBox="0 0 2.0320201 3.8629205"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="segment_k.svg"
+   height="3.8629205"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="77.071429"
+     inkscape:cx="5.4430028"
+     inkscape:cy="-1.1482854"
+     inkscape:window-width="2560"
+     inkscape:window-height="1293"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <metadata
+     id="metadata17">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs15" />
+  <path
+     d="M 0.89962,0 0.0847,3.00567 C 0.0318,3.20675 0,3.3125905 0,3.4607505 c 0,0.0423 0,0.0741 0.0106,0.11642 0.0106,0.127 0.0529,0.20108 0.10583,0.28575 L 1.25943,2.88925 2.03202,0 Z"
+     id="segment_k"
+     style="fill:#1f1305;fill-opacity:1" />
+</svg>
