@@ -20,7 +20,8 @@ body {
 .comp_acty {
   width:39vw;
   height:39vw;
-  background-color: #100d09ff;
+  background: url('/segments/comp_acty.svg') no-repeat;
+  background-size: 100%;
   position:absolute;
   top:5vh;
   left:0px;
