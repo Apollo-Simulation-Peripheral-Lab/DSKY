@@ -427,8 +427,8 @@
       "gencad": "",
       "idf": "",
       "netlist": "Alarm_lights.net",
-      "specctra_dsn": "",
-      "step": "",
+      "specctra_dsn": "Alarm_lights.dsn",
+      "step": "Alarm_lights.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
@@ -456,7 +456,7 @@
     "meta": {
       "version": 1
     },
-    "net_format_name": "KiCad",
+    "net_format_name": "",
     "page_layout_descr_file": "",
     "plot_directory": "",
     "spice_current_sheet_as_root": false,
