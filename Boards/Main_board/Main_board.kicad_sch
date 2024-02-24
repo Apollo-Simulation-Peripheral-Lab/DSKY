@@ -2650,7 +2650,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
       (uuid f1347fe2-8540-42b5-91f9-1ff525452d43)
     )
-    (pin "P5V" input (at 186.69 22.86 180)
+    (pin "P5V" output (at 186.69 22.86 180)
       (effects (font (size 1.27 1.27)) (justify left))
       (uuid 101975e8-a034-4bc3-878f-c5ab5dc6a43b)
     )
