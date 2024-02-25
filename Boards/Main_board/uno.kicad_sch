@@ -2374,10 +2374,6 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 63f9845f-a56b-4d78-b0dc-27dab41a4d89)
   )
-  (hierarchical_label "GND" (shape passive) (at 77.47 60.96 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 6c58ca7b-4b4d-41cc-866e-10e8073fee87)
-  )
   (hierarchical_label "AREF" (shape input) (at 53.34 45.72 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 78ae6fdc-9326-471e-89e9-7df115ed6277)
@@ -2425,6 +2421,31 @@
   (hierarchical_label "D2" (shape bidirectional) (at 53.34 88.9 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid fca548a8-0fc5-4346-8ed8-de6ac753cab4)
+  )
+
+  (symbol (lib_id "power:GND") (at 77.47 60.96 270) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 2090af8e-0848-4cad-ae64-00eba6f9faed)
+    (property "Reference" "#PWR09" (at 71.12 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 73.66 60.96 90)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 77.47 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 77.47 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 300519e1-e80f-4f2a-a95f-628157413474))
+    (instances
+      (project "Main_board"
+        (path "/f30854c1-5bc2-470d-aabe-1768a5b01b46/db5d2aae-362f-424f-a91e-78eff6431564"
+          (reference "#PWR09") (unit 1)
+        )
+      )
+    )
   )
 
   (symbol (lib_id "Connector:Conn_01x10_Pin") (at 58.42 50.8 0) (mirror y) (unit 1)
@@ -2542,8 +2563,8 @@
 
   (symbol (lib_id "power:GND") (at 53.34 48.26 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid d2fc368d-cb8b-4a93-a768-1f409db4ae8e)
-    (property "Reference" "#PWR09" (at 46.99 48.26 0)
+    (uuid bff57f02-5152-4867-bdf5-21c070eb893e)
+    (property "Reference" "#PWR011" (at 46.99 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 49.53 48.26 90)
@@ -2555,11 +2576,11 @@
     (property "Datasheet" "" (at 53.34 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 2d603c5c-1fb3-4c9c-8214-1d3fc306a14d))
+    (pin "1" (uuid 5b5185ac-8095-40aa-9fae-fbcd88a49aee))
     (instances
       (project "Main_board"
         (path "/f30854c1-5bc2-470d-aabe-1768a5b01b46/db5d2aae-362f-424f-a91e-78eff6431564"
-          (reference "#PWR09") (unit 1)
+          (reference "#PWR011") (unit 1)
         )
       )
     )
