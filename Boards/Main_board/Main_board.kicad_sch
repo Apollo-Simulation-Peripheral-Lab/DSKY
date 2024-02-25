@@ -6,9 +6,9 @@
 
   (title_block
     (title "DSKY Main Board")
-    (date "2024-02-23")
+    (date "2024-02-24")
     (rev "1.0.0")
-    (company "Pablo Ortiz López")
+    (company "Pablo Ortiz López, Evan MacDonald")
   )
 
   (lib_symbols
@@ -2535,7 +2535,7 @@
 
   (sheet (at 186.69 19.05) (size 33.02 99.06) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
-    (fill (color 0 0 0 0.0000))
+    (fill (color 255 255 255 1.0000))
     (uuid db5d2aae-362f-424f-a91e-78eff6431564)
     (property "Sheetname" "Arduino UNO Breakout" (at 186.69 18.3384 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
