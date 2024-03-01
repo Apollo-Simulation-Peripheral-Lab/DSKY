@@ -1,0 +1,11 @@
+Program digits: 0-7
+Verb digits: 8-15
+Noun digits: 16-23
+register 1: 24-43
+register 1 sign: 44
+register 2: 45-64
+register 2 sign: 65
+register 3: 66-85
+register 3 sign: 86
+complight: 87
+Alert: 88-101
