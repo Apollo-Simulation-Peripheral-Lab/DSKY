@@ -1,0 +1,14 @@
+{
+    "name": "api-dsky",
+    "dependencies": {
+        "ts-node": "10.9.2",
+        "tsc" : "2.0.4",
+        "typescript": "5.3.3",
+        "@types/node": "20.11.24",
+        "appdata-path": "1.0.0",
+        "cli-select": "1.1.2"
+    },
+    "scripts": {
+        "start": "ts-node src/index.ts"
+    }
+}
