@@ -1,0 +1,24 @@
+B0: P1, P2
+B1: V1, V2
+B2: N1, N2
+B3: S1, S2, S3, COMP, R11
+B4: R12, R13
+B5: R14, R15
+B6: A1, A2, A3, A4, R21
+B7: R22, R23
+B8: R24, R25
+B9: A5, A6, A7, A8, R31
+B10: R32, R33
+B11: R34, R35
+B12: A9, A10, A11, A12, A13, A14, 0b00
+
+Px: Program digit. 4 bit
+Vx: Verb digit. 4 bit
+Nx: Noun digit. 4 bit
+Sx: Sign. 1 bit
+COMP: Computer Activity light. 1 bit
+Rnx: Register n, digit x. 4 bit
+Ax: Alarm light, 1 bit
+
+0xFF: New packet header
+0b00: Padding bits
