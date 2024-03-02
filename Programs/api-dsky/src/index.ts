@@ -33,7 +33,7 @@ const main = async () =>{
             })),
         }).then(r)
     ) as any
-    const serial = new SerialPort({ path: outputSerial.path, baudRate: 9600 })
+    const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
     // Debugging
     serial.on('data', function (data) {
@@ -45,10 +45,10 @@ const main = async () =>{
         let currentPacket = stateToBinaryString(currentState)
         if(lastPacket != currentPacket){
             lastPacket = currentPacket
-            console.log(currentState)
+            //console.log(currentState)
             //console.log(currentPacket)
             let serialPacket = binaryStringToBuffer(currentPacket)
-            //console.log(serialPacket)
+            console.log(serialPacket)
             serial.write(serialPacket)
         }
     })

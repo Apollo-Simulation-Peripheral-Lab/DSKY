@@ -19,7 +19,7 @@ void updateDisplay(){
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(250000);
   pinMode(ledPin, OUTPUT);
 }
 
