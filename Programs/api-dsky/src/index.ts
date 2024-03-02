@@ -1,13 +1,13 @@
-import {getReentryState} from '@/reentry'
-import {stateToBinary, binaryToASCII} from '@/binary'
+import {watchStateReentry} from '@/reentry'
+import {stateToBinaryString, binaryStringToBuffer} from '@/binary'
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
 
-const updateState = async (inputSource) =>{
+const watchState = (inputSource, callback) =>{
     switch(inputSource){
         case "reentry":
         default:
-            return getReentryState()
+            return watchStateReentry(callback)
     }
 }
 
@@ -34,20 +34,24 @@ const main = async () =>{
         }).then(r)
     ) as any
     const serial = new SerialPort({ path: outputSerial.path, baudRate: 9600 })
+    
+    // Debugging
+    serial.on('data', function (data) {
+        console.log('Received:', data.toString())
+    })
 
-    let currentState = {}
-    while(true){
-        try{
-            currentState = await updateState(inputSource)
-            let currentPacket = stateToBinary(currentState)
-            console.log(currentPacket)
-            let serialPacket = binaryToASCII(currentPacket)
+    let lastPacket = ''
+    watchState(inputSource, (currentState) =>{
+        let currentPacket = stateToBinaryString(currentState)
+        if(lastPacket != currentPacket){
+            lastPacket = currentPacket
+            console.log(currentState)
+            //console.log(currentPacket)
+            let serialPacket = binaryStringToBuffer(currentPacket)
+            //console.log(serialPacket)
             serial.write(serialPacket)
-        }catch{
-            console.log("Error updating state.")
         }
-        await new Promise(r => setTimeout(r, 1000))
-    }
+    })
 
 }
 

@@ -2,7 +2,21 @@
 
 using namespace std;
 
-const int ledPin = LED_BUILTIN;
+const uint8_t ledPin = LED_BUILTIN;
+const uint8_t PACKET_SIZE = 14;
+uint8_t dskyState[PACKET_SIZE];
+uint8_t memoryLocation = 0;
+
+void updateDisplay(){
+  // B9 Parsing
+  uint8_t B9 = dskyState[9]; // B9 Value
+  uint8_t KeyRel = (B9 >> 5) & 0x01; // KeyRel(A4) Value
+  if(KeyRel){
+    digitalWrite(ledPin, HIGH);
+  }else{
+    digitalWrite(ledPin, LOW);
+  }
+}
 
 void setup() {
   Serial.begin(9600);
@@ -10,19 +24,14 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available() >= 1) {
-    // Read byte from serial
-    uint8_t receivedByte = Serial.read();
-    
-    // Extract first 4 bits and second 4 bits
-    uint8_t ProgramD1 = receivedByte >> 4;
-    uint8_t ProgramD2 = receivedByte & 0x0F;
-    
-    // Check if ProgramD2 is 1
-    if (ProgramD2 == 1) {
-      digitalWrite(ledPin, HIGH);  // Turn on LED
-    } else {
-      digitalWrite(ledPin, LOW);   // Turn off LED
-    }
+  while(Serial.available() <= 0);
+  uint8_t receivedByte = Serial.read(); // Read the incoming byte
+
+  if (receivedByte == 0xFF) { // Check if received byte is 0xFF
+    memoryLocation = 0; // Reset the array index
+  } else {
+    dskyState[memoryLocation] = receivedByte; // Store the byte in the array
+    memoryLocation = (memoryLocation + 1) % PACKET_SIZE; // Increment array index and wrap around if necessary
   }
+  updateDisplay();
 }
