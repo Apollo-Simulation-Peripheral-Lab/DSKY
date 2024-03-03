@@ -6,8 +6,8 @@
 
   (title_block
     (title "DSKY Alarm Lights")
-    (date "2024-03-01")
-    (rev "1.2.0")
+    (date "2024-03-02")
+    (rev "0.2.0")
     (company "Pablo Ortiz López, Evan MacDonald")
   )
 
