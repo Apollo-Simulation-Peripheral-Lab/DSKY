@@ -1,4 +1,5 @@
 import { watchStateReentry } from '@/reentry'
+import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
 import { updateWebSocketState } from '@/socket'
 import { SerialPort } from 'serialport'
@@ -7,8 +8,10 @@ import * as inquirer from 'inquirer'
 const watchState = (inputSource, callback) =>{
     switch(inputSource){
         case "reentry":
-        default:
             return watchStateReentry(callback)
+        case "random":
+        default:
+            return watchStateRandom(callback)
     }
 }
 
@@ -18,7 +21,10 @@ const main = async () =>{
             message: "Select what AGC do you want to interact with:",
             name: 'inputSource',
             type: 'list',
-            choices: [{name:'Reentry', value: 'reentry'}]
+            choices: [
+                {name:'Reentry', value: 'reentry'},
+                {name:'Random Values', value: 'random'}
+            ]
         }).then(r)
     ) as any
 
