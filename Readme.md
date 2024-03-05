@@ -14,14 +14,21 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
   * **Printable Key faces:** PDF File to be printed with an inkjet printer and then laid on top of the plastic keys.
 * **Firmware:** PlatformIO project containing the firmware to be flashed on the Arduino Nano board.
 * **Programs:** Software required to interface with AGC simulators
-  * **api-dsky**: Will relay data to a connected serial port, and also make it available to websocket on port 3001
+  * **api-dsky**: Will relay data to the chosen serial port, and also make it available via websocket on port 3001
     * Requirements: NodeJS >18
-    * Running: open a terminal in this location and run ``npm install`` then ``npm start``
+    * Running: 
+      * Open a terminal in this location 
+      * Run ``npm install`` 
+      * Run ``npm start``
   * **web-dsky**: Web Application that uses 'api-dsky's websocket to render the EL display
     * Requirements: NodeJS >18
-    * Running: Open a terminal in this location and run ``npm install`` then ``npm run dev``
-    * Rendering: Go to: ``http://{your computer's LAN IP}:3000``
-  * **python-dsky**: Experiment to reading Reentry's data using python
+    * Running: 
+      * Open a terminal in this location 
+      * Run ``npm install``
+      * Run ``npm run build``
+      * Run ``npm start``
+      * Go to: ``http://{your computer's LAN IP}:3000``
+  * **python-dsky**: Experiment to read Reentry's data using python
 * **Boards**
   * Alarm Lights PCB
   * Main PCB
