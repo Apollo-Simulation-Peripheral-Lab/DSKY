@@ -23,23 +23,28 @@ const main = async () =>{
     ) as any
 
     const availableSerial = await SerialPort.list()
+    const serialChoices = availableSerial.map(available => ({
+        value: available, 
+        name:(available as any).friendlyName
+    }))
+    serialChoices.push({value: null, name:"No Serial output"})
     const {outputSerial} = await new Promise(r => 
         inquirer.prompt({
             message: "Select what serial port your DSKY is connected to:",
             name: 'outputSerial',
             type: 'list',
-            choices: availableSerial.map(available => ({
-                value: available, 
-                name:(available as any).friendlyName
-            })),
+            choices: serialChoices,
         }).then(r)
     ) as any
-    const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
+    let serial
+    if(outputSerial){
+        serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
-    // Debugging
-    serial.on('data', function (data) {
-        console.log('Received:', data.toString())
-    })
+        // Debugging
+        serial.on('data', function (data) {
+            console.log('Received:', data.toString())
+        })
+    } 
 
     let lastPacket = ''
     watchState(inputSource, (currentState) =>{
@@ -51,7 +56,7 @@ const main = async () =>{
             //console.log(currentPacket)
             let serialPacket = binaryStringToBuffer(currentPacket)
             console.log(serialPacket)
-            serial.write(serialPacket)
+            if(serial) serial.write(serialPacket)
         }
     })
 

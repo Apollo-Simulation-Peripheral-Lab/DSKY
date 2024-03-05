@@ -1,7 +1,7 @@
 import * as WebSocket from 'ws'
 
 // Create WebSocket server
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 3001 });
 
 let state = {}
 // Function to notify all WebSocket clients
