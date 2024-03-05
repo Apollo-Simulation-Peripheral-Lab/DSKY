@@ -42,7 +42,7 @@ export default function Home() {
           height={1000}
           className="mask"
         ></Image>
-        {!dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
+        {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
           digit={dskyState.ProgramD1}
