@@ -11,7 +11,14 @@ export default function Home() {
   const [dskyState,setDskyState] = useState(OFF_TEST)
 
   useEffect(() => {
-    const ws = new WebSocket('ws://192.168.4.130:8080');
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+
+    let wsURL = `ws://${hostname}:3001`
+    if (protocol === 'https:') {
+      wsURL = `wss://${hostname}/ws`;
+    }
+    const ws = new WebSocket(wsURL);
 
     // Event listener for incoming messages
     ws.onmessage = (event) => {
