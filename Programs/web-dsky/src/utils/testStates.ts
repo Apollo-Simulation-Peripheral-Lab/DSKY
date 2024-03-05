@@ -26,6 +26,34 @@ export const P21_TEST = {
     Register3D5: '8',
 }
 
+export const V35_TEST = {
+    IlluminateCompLight: true,
+    ProgramD1: '8',
+    ProgramD2: '8',
+    VerbD1: '8',
+    VerbD2: '8',
+    NounD1: '8',
+    NounD2: '8',
+    Register1Sign:'+',
+    Register1D1: '8',
+    Register1D2: '8',
+    Register1D3: '8',
+    Register1D4: '8',
+    Register1D5: '8',
+    Register2Sign:'+',
+    Register2D1: '8',
+    Register2D2: '8',
+    Register2D3: '8',
+    Register2D4: '8',
+    Register2D5: '8',
+    Register3Sign:'+',
+    Register3D1: '8',
+    Register3D2: '8',
+    Register3D3: '8',
+    Register3D4: '8',
+    Register3D5: '8',
+}
+
 export const OFF_TEST = {
     IlluminateCompLight: false,
     ProgramD1: '',
