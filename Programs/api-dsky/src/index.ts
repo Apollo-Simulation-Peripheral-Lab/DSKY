@@ -1,5 +1,6 @@
-import {watchStateReentry} from '@/reentry'
-import {stateToBinaryString, binaryStringToBuffer} from '@/binary'
+import { watchStateReentry } from '@/reentry'
+import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
+import { updateWebSocketState } from '@/socket'
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
 
@@ -44,6 +45,7 @@ const main = async () =>{
     watchState(inputSource, (currentState) =>{
         let currentPacket = stateToBinaryString(currentState)
         if(lastPacket != currentPacket){
+            updateWebSocketState(currentState)
             lastPacket = currentPacket
             //console.log(currentState)
             //console.log(currentPacket)

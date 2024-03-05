@@ -1,0 +1,64 @@
+
+.segment_e {
+  position:absolute;
+  height:1.55vh;
+  width:6vh;
+  background: url('/segments/segment_e.svg') no-repeat;
+  background-size: auto 100%;
+  top:0px;
+  left:0px;
+}
+.segment_f {
+  position:absolute;
+  width:2.8vh;
+  height:20vh;
+  background: url('/segments/segment_f.svg') no-repeat;
+  background-size: 100%;
+  top:0px;
+  left:-1.5vh;
+}
+.segment_h {
+  position:absolute;
+  width:3.09vh;
+  height:20vh;
+  background: url('/segments/segment_h.svg') no-repeat;
+  background-size: 100%;
+  top:0px;
+  left:4.15vh;
+}
+.segment_j {
+  position:absolute;
+  height:1.55vh;
+  width:6vh;
+  background: url('/segments/segment_j.svg') no-repeat;
+  background-size: auto 100%;
+  top:4.83vh;
+  left:0;
+}
+.segment_k {
+  position:absolute;
+  width:2.9vh;
+  height:20vh;
+  background: url('/segments/segment_k.svg') no-repeat;
+  background-size: 100%;
+  top:5.7vh;
+  left:-2.65vh;
+}
+.segment_m {
+  position:absolute;
+  width:2.7vh;
+  height:20vh;
+  background: url('/segments/segment_m.svg') no-repeat;
+  background-size: 100%;
+  top:5.65vh;
+  left:3.15vh;
+}
+.segment_n {
+  position:absolute;
+  height:1.6vh;
+  width:7vh;
+  background: url('/segments/segment_n.svg') no-repeat;
+  background-size: auto 100%;
+  top:9.7vh;
+  left:-2.6vh;
+}

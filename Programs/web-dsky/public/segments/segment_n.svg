@@ -27,7 +27,7 @@
      inkscape:cx="-0.65523633"
      inkscape:cy="-1.7191844"
      inkscape:window-width="2560"
-     inkscape:window-height="1293"
+     inkscape:window-height="1279"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -48,5 +48,5 @@
   <path
      d="m 0,0.9842505 c 0.0529,0.0529 0.0741,0.0635 0.127,0.0953 0.0635,0.0317 0.10584,0.0529 0.16934,0.0529 H 4.6355 c 0.11642,0 0.14817,0.0106 0.21167,-0.0529 0.0423,-0.0423 0,0 0.0847,-0.0953 L 4.13812,0 H 1.14303 Z"
      id="segment_n"
-     style="fill:#1f1305;fill-opacity:1" />
+     style="fill:#000000;fill-opacity:1" />
 </svg>
