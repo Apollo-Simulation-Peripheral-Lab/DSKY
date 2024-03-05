@@ -1,0 +1,25 @@
+
+.sign_top {
+  position:absolute;
+  height:3vh;
+  width:2vh;
+  background-color: black;
+  top:0px;
+  left:0px;
+}
+.sign_mid{
+  position:absolute;
+  height:1.5vh;
+  width:5vh;
+  background-color: black;
+  top:3.2vh;
+  left:-1.5vh;
+}
+.sign_bot {
+  position:absolute;
+  height:3vh;
+  width:2vh;
+  background-color: black;
+  top:4.8vh;
+  left:0px;
+}

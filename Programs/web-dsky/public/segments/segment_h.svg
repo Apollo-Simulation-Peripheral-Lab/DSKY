@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="77.071429"
      inkscape:cx="5.1316033"
-     inkscape:cy="3.3151066"
+     inkscape:cy="3.3280815"
      inkscape:window-width="2560"
-     inkscape:window-height="1293"
+     inkscape:window-height="1279"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -48,5 +48,5 @@
   <path
      d="M 2.24366,0.0106 1.10066,0 0,4.10634 h 1.143 z"
      id="segment_h"
-     style="fill:#1f1305;fill-opacity:1" />
+     style="fill:#000000;fill-opacity:1" />
 </svg>

@@ -27,11 +27,12 @@
      inkscape:cx="-0.79796107"
      inkscape:cy="-0.79796107"
      inkscape:window-width="2560"
-     inkscape:window-height="1293"
+     inkscape:window-height="1279"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1" />
+     inkscape:current-layer="svg1"
+     showgrid="false" />
   <metadata
      id="metadata17">
     <rdf:RDF>
@@ -48,5 +49,5 @@
   <path
      d="M 4.064,0 0.41275,0.0106 c -0.0952,0 -0.14817,0 -0.23284,0.0212 C 0.10581,0.053 0.07408,0.0635 0,0.1059 L 0.78316,1.10074 H 3.7465 Z"
      id="segment_e"
-     style="fill:#1f1305;fill-opacity:1" />
+     style="fill:#000000;fill-opacity:1" />
 </svg>

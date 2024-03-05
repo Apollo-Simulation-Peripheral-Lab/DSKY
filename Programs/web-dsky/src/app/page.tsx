@@ -2,15 +2,28 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Digit } from "./digit";
+import { OFF_TEST, P21_TEST } from "./testStates";
+import { Sign } from "./sign";
 
 export default function Home() {
 
-  const [isCompActy,setCompActy] = useState(false)
-  setTimeout(()=> setCompActy(!isCompActy), 1000)
+  const [dskyState,setDskyState] = useState(OFF_TEST)
 
-  useEffect(()=>{
-    setTimeout(()=> setCompActy(!isCompActy), 1000)
-  },[isCompActy])
+  useEffect(() => {
+    const ws = new WebSocket('ws://192.168.4.130:8080');
+
+    // Event listener for incoming messages
+    ws.onmessage = (event) => {
+      const newData = JSON.parse(event.data);
+      setDskyState(newData);
+    };
+
+    // Cleanup function to close the WebSocket connection
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -22,7 +35,108 @@ export default function Home() {
           height={1000}
           className="mask"
         ></Image>
-        {isCompActy && <div className={'comp_acty'} />}
+        {!dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
+        <Digit
+          className={'ProgramD1'}
+          digit={dskyState.ProgramD1}
+        />
+        <Digit
+          className={'ProgramD2'}
+          digit={dskyState.ProgramD2}
+        />
+        <Digit
+          className={'VerbD1'}
+          digit={dskyState.VerbD1}
+        />
+        <Digit
+          className={'VerbD2'}
+          digit={dskyState.VerbD2}
+        />
+        <Digit
+          className={'NounD1'}
+          digit={dskyState.NounD1}
+        />
+        <Digit
+          className={'NounD2'}
+          digit={dskyState.NounD2}
+        />
+
+
+        <Sign
+          className={'Register1Sign'}
+          sign={dskyState.Register1Sign}
+        />
+        <Digit
+          className={'Register1D1'}
+          digit={dskyState.Register1D1}
+        />
+        <Digit
+          className={'Register1D2'}
+          digit={dskyState.Register1D2}
+        />
+        <Digit
+          className={'Register1D3'}
+          digit={dskyState.Register1D3}
+        />
+        <Digit
+          className={'Register1D4'}
+          digit={dskyState.Register1D4}
+        />
+        <Digit
+          className={'Register1D5'}
+          digit={dskyState.Register1D5}
+        />
+
+        <Sign
+          className={'Register2Sign'}
+          sign={dskyState.Register2Sign}
+        />
+        <Digit
+          className={'Register2D1'}
+          digit={dskyState.Register2D1}
+        />
+        <Digit
+          className={'Register2D2'}
+          digit={dskyState.Register2D2}
+        />
+        <Digit
+          className={'Register2D3'}
+          digit={dskyState.Register2D3}
+        />
+        <Digit
+          className={'Register2D4'}
+          digit={dskyState.Register2D4}
+        />
+        <Digit
+          className={'Register2D5'}
+          digit={dskyState.Register2D5}
+        />
+
+        
+        <Sign
+          className={'Register3Sign'}
+          sign={dskyState.Register3Sign}
+        />
+        <Digit
+          className={'Register3D1'}
+          digit={dskyState.Register3D1}
+        />
+        <Digit
+          className={'Register3D2'}
+          digit={dskyState.Register3D2}
+        />
+        <Digit
+          className={'Register3D3'}
+          digit={dskyState.Register3D3}
+        />
+        <Digit
+          className={'Register3D4'}
+          digit={dskyState.Register3D4}
+        />
+        <Digit
+          className={'Register3D5'}
+          digit={dskyState.Register3D5}
+        />
       </div>
     </main>
   );
