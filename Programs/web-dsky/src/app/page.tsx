@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Digit } from "./digit";
-import { OFF_TEST, P21_TEST } from "./testStates";
+import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
 import { Sign } from "./sign";
-
+import { getChangedChunks, updateChunk } from "@/utils/chunks";
 export default function Home() {
 
-  const [dskyState,setDskyState] = useState(OFF_TEST)
+  const initialState = V35_TEST
+  const [dskyState,setDskyState] = useState(initialState)
 
   useEffect(() => {
     const protocol = window.location.protocol;
@@ -21,9 +22,18 @@ export default function Home() {
     const ws = new WebSocket(wsURL);
 
     // Event listener for incoming messages
-    ws.onmessage = (event) => {
-      const newData = JSON.parse(event.data);
-      setDskyState(newData);
+    let lastState = initialState
+    ws.onmessage = async (event) => {
+      const newState = JSON.parse(event.data);
+      const changedChunks: Number[] = getChangedChunks(lastState,newState)
+      let partialState = lastState
+      for(const chunk of changedChunks){
+        partialState = updateChunk(partialState,newState,chunk)
+        setDskyState(partialState)
+        await new Promise(r => setTimeout(r, 30))
+      }
+      setDskyState(newState);
+      lastState = newState
     };
 
     // Cleanup function to close the WebSocket connection
