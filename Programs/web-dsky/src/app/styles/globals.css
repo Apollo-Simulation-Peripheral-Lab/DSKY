@@ -10,14 +10,14 @@
 
 body {
   color: white;
-  background: url('/noise.jpg');
-  background-color: black;
+  /* background: url('/noise.jpg'); */
+  background-color: #000000;
   background-size: auto 15%;
   background-position: center top;
 }
 
 .mask {
-  z-index: 999;
+  z-index: -1;
   width: 52.8vh;
   height:104vh;
   position:absolute;
@@ -25,11 +25,11 @@ body {
   left:0px;
 }
 .comp_acty {
-  width:21vh;
+  width:20vh;
   height:21vh;
   background: url('/segments/comp_acty.svg') no-repeat;
   background-size: 100%;
   position:absolute;
-  top:5.5vh;
+  top:5.7vh;
   left:0px;
 }

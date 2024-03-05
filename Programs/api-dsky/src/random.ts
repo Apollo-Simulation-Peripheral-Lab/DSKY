@@ -9,7 +9,7 @@ const getRandomState = () =>{
     const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const signs = ['','+','-']
     return {
-        IlluminateCompLight: false,
+        IlluminateCompLight: getRandomCharFromArray([true,false]),
         ProgramD1: getRandomCharFromArray(digits),
         ProgramD2: getRandomCharFromArray(digits),
         VerbD1: getRandomCharFromArray(digits),
