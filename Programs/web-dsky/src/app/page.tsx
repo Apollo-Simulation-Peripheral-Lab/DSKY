@@ -27,6 +27,10 @@ export default function Home() {
       const newState = JSON.parse(event.data);
       const changedChunks: Number[] = getChangedChunks(lastState,newState)
       let partialState = lastState
+      if(changedChunks.length){
+        const audio = new Audio(`audio/clicks${changedChunks.length}_${Math.floor(Math.random() * 5)}.mp3`)
+        audio.play()
+      }
       for(const chunk of changedChunks){
         partialState = updateChunk(partialState,newState,chunk)
         setDskyState(partialState)
