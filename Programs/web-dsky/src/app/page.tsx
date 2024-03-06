@@ -11,7 +11,15 @@ export default function Home() {
   const initialState = V35_TEST
   const [dskyState,setDskyState] = useState(initialState)
 
+  const audioFiles : any = {}
+
   useEffect(() => {
+
+    for(let i=1; i<=11; i++){
+      for(let j=0; j<5; j++){
+        audioFiles[`${i}-${j}`] = new Audio(`audio/clicks${i}_${j}.mp3`)
+      }
+    }
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
 
@@ -28,8 +36,8 @@ export default function Home() {
       const changedChunks: Number[] = getChangedChunks(lastState,newState)
       let partialState = lastState
       if(changedChunks.length){
-        const audio = new Audio(`audio/clicks${changedChunks.length}_${Math.floor(Math.random() * 5)}.mp3`)
-        audio.play()
+        const audio = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
+        if(audio) audio.play()
       }
       for(const chunk of changedChunks){
         partialState = updateChunk(partialState,newState,chunk)
