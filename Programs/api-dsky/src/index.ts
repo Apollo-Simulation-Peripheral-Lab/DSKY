@@ -33,7 +33,7 @@ const main = async () =>{
         value: available, 
         name:(available as any).friendlyName
     }))
-    serialChoices.push({value: null, name:"No Serial output"})
+    serialChoices.unshift({value: null, name:"No Serial output"})
     const {outputSerial} = await new Promise(r => 
         inquirer.prompt({
             message: "Select what serial port your DSKY is connected to:",
