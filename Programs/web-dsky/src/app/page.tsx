@@ -11,18 +11,18 @@ export default function Home() {
   const initialState = V35_TEST
   const [dskyState,setDskyState] = useState(initialState)
 
-  const audioFiles : any = {}
-
   useEffect(() => {
-
+    // Cache audio files
+    const audioFiles : any = {}
     for(let i=1; i<=11; i++){
       for(let j=0; j<5; j++){
         audioFiles[`${i}-${j}`] = new Audio(`audio/clicks${i}_${j}.mp3`)
       }
     }
+
+    // Calculate WebSocket URL
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
-
     let wsURL = `ws://${hostname}:3001`
     if (protocol === 'https:') {
       wsURL = `wss://${hostname}/ws`;
@@ -33,12 +33,18 @@ export default function Home() {
     let lastState = initialState
     ws.onmessage = async (event) => {
       const newState = JSON.parse(event.data);
+
+      // Determine amount of changed chunks
       const changedChunks: Number[] = getChangedChunks(lastState,newState)
-      let partialState = lastState
+      
+      // Play clicking sound depending on amount of changed chunks
       if(changedChunks.length){
         const audio = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
         if(audio) audio.play()
       }
+
+      // Update dsky's chunks
+      let partialState = lastState
       for(const chunk of changedChunks){
         partialState = updateChunk(partialState,newState,chunk)
         setDskyState(partialState)
