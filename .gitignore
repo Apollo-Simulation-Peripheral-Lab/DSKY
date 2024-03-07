@@ -4,3 +4,5 @@ gerbers
 *.lck
 fp-info-cache
 *#auto_saved_files#
+*.f3d
+*.step
