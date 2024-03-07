@@ -1656,7 +1656,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 218.44 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0aed6699-a647-43c9-a4a8-329e453d8327)
-    (property "Reference" "Q7" (at 224.79 96.52 0)
+    (property "Reference" "Q14" (at 224.79 96.52 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 224.79 99.06 0)
@@ -1674,7 +1674,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q7") (unit 1)
+          (reference "Q14") (unit 1)
         )
       )
     )
@@ -1683,7 +1683,7 @@
   (symbol (lib_id "Connector:Conn_01x10_Socket") (at 92.71 172.72 0) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0d85b3bc-2f9a-479a-8a14-8786dfb80271)
-    (property "Reference" "J2" (at 93.98 172.72 0)
+    (property "Reference" "J4" (at 93.98 172.72 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "PinsRight" (at 93.98 170.18 0)
@@ -1708,7 +1708,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "J2") (unit 1)
+          (reference "J4") (unit 1)
         )
       )
     )
@@ -1717,7 +1717,7 @@
   (symbol (lib_id "Device:R_Small") (at 86.36 58.42 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 15293888-5282-4602-9dcc-efa6ffc1f338)
-    (property "Reference" "R25" (at 86.36 53.34 90)
+    (property "Reference" "R6" (at 86.36 53.34 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 86.36 55.88 90)
@@ -1734,7 +1734,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R25") (unit 1)
+          (reference "R6") (unit 1)
         )
       )
     )
@@ -1821,7 +1821,7 @@
   (symbol (lib_id "Device:R_Small") (at 200.66 90.17 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 29fbc6bd-fa53-4076-a677-7991dd2a379f)
-    (property "Reference" "R18" (at 200.66 85.09 90)
+    (property "Reference" "R14" (at 200.66 85.09 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 200.66 87.63 90)
@@ -1838,7 +1838,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R18") (unit 1)
+          (reference "R14") (unit 1)
         )
       )
     )
@@ -1847,7 +1847,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 104.14 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2b7dfdff-58fe-4db6-9b58-1d6f6d265ac3)
-    (property "Reference" "Q14" (at 110.49 96.52 0)
+    (property "Reference" "Q7" (at 110.49 96.52 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 110.49 99.06 0)
@@ -1865,7 +1865,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q14") (unit 1)
+          (reference "Q7") (unit 1)
         )
       )
     )
@@ -1874,7 +1874,7 @@
   (symbol (lib_id "Device:R_Small") (at 252.73 38.1 0) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2d5c757e-3b44-45b3-b062-9d76081ff78d)
-    (property "Reference" "R29" (at 250.19 36.83 0)
+    (property "Reference" "R15" (at 250.19 36.83 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "10k" (at 250.19 39.37 0)
@@ -1891,7 +1891,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R29") (unit 1)
+          (reference "R15") (unit 1)
         )
       )
     )
@@ -1976,7 +1976,7 @@
   (symbol (lib_id "Device:R_Small") (at 34.29 90.17 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3b260b7a-3a4d-4e01-be8a-a8fd67590278)
-    (property "Reference" "R5" (at 34.29 85.09 90)
+    (property "Reference" "R3" (at 34.29 85.09 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 34.29 87.63 90)
@@ -1993,7 +1993,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R5") (unit 1)
+          (reference "R3") (unit 1)
         )
       )
     )
@@ -2002,7 +2002,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 166.37 128.27 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3b878ae4-22f0-4e79-a6ac-7538fb2d716c)
-    (property "Reference" "Q4" (at 172.72 127 0)
+    (property "Reference" "Q11" (at 172.72 127 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 172.72 129.54 0)
@@ -2020,7 +2020,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q4") (unit 1)
+          (reference "Q11") (unit 1)
         )
       )
     )
@@ -2029,7 +2029,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 166.37 35.56 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 41fcfc8a-8870-4858-957c-47eaa12e93d7)
-    (property "Reference" "Q1" (at 172.72 34.29 0)
+    (property "Reference" "Q8" (at 172.72 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 172.72 36.83 0)
@@ -2047,7 +2047,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q1") (unit 1)
+          (reference "Q8") (unit 1)
         )
       )
     )
@@ -2081,7 +2081,7 @@
   (symbol (lib_id "Device:LED_Small") (at 160.02 120.65 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 47b4fa9c-aded-4bc5-947f-07977d39296e)
-    (property "Reference" "D9" (at 159.9565 114.3 0)
+    (property "Reference" "D11" (at 159.9565 114.3 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 159.9565 116.84 0)
@@ -2098,7 +2098,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D9") (unit 1)
+          (reference "D11") (unit 1)
         )
       )
     )
@@ -2133,7 +2133,7 @@
   (symbol (lib_id "Connector:Conn_01x05_Socket") (at 60.96 182.88 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4eb09c46-2cab-4f31-86c2-2b2551a329e1)
-    (property "Reference" "J4" (at 60.96 185.42 90)
+    (property "Reference" "J2" (at 60.96 185.42 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PinsBottom" (at 60.96 187.96 90)
@@ -2153,7 +2153,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "J4") (unit 1)
+          (reference "J2") (unit 1)
         )
       )
     )
@@ -2187,7 +2187,7 @@
   (symbol (lib_id "Device:LED_Small") (at 97.79 58.42 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 543f62a0-5a4c-4133-8160-9682f665b64d)
-    (property "Reference" "D13" (at 97.7265 52.07 0)
+    (property "Reference" "D6" (at 97.7265 52.07 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 97.7265 54.61 0)
@@ -2204,7 +2204,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D13") (unit 1)
+          (reference "D6") (unit 1)
         )
       )
     )
@@ -2213,7 +2213,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 104.14 35.56 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 56bb6b51-76b6-4957-8d7e-e2a9ee5f38bf)
-    (property "Reference" "Q12" (at 110.49 34.29 0)
+    (property "Reference" "Q5" (at 110.49 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 110.49 36.83 0)
@@ -2231,7 +2231,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q12") (unit 1)
+          (reference "Q5") (unit 1)
         )
       )
     )
@@ -2265,7 +2265,7 @@
   (symbol (lib_id "Device:R_Small") (at 86.36 27.94 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5858691f-abce-40a4-900b-e4527c708534)
-    (property "Reference" "R23" (at 86.36 22.86 90)
+    (property "Reference" "R5" (at 86.36 22.86 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 86.36 25.4 90)
@@ -2282,7 +2282,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R23") (unit 1)
+          (reference "R5") (unit 1)
         )
       )
     )
@@ -2291,7 +2291,7 @@
   (symbol (lib_id "Device:R_Small") (at 148.59 120.65 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5929b21b-4a42-4a4b-a845-9202fdef3e5c)
-    (property "Reference" "R12" (at 148.59 115.57 90)
+    (property "Reference" "R11" (at 148.59 115.57 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 148.59 118.11 90)
@@ -2308,7 +2308,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R12") (unit 1)
+          (reference "R11") (unit 1)
         )
       )
     )
@@ -2367,7 +2367,7 @@
   (symbol (lib_id "Device:R_Small") (at 257.81 33.02 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5c6e2033-e036-4d5f-a254-571d405a135a)
-    (property "Reference" "R30" (at 257.81 27.94 90)
+    (property "Reference" "R16" (at 257.81 27.94 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "470" (at 257.81 30.48 90)
@@ -2384,7 +2384,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R30") (unit 1)
+          (reference "R16") (unit 1)
         )
       )
     )
@@ -2393,7 +2393,7 @@
   (symbol (lib_id "Device:LED_Small") (at 97.79 90.17 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 694bf6fc-cda5-4535-a936-ef4d902aa097)
-    (property "Reference" "D14" (at 97.7265 83.82 0)
+    (property "Reference" "D7" (at 97.7265 83.82 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 97.7265 86.36 0)
@@ -2410,7 +2410,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D14") (unit 1)
+          (reference "D7") (unit 1)
         )
       )
     )
@@ -2419,7 +2419,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 218.44 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 697b414a-779f-439a-83d2-0efbe52eb1dc)
-    (property "Reference" "Q6" (at 224.79 64.77 0)
+    (property "Reference" "Q13" (at 224.79 64.77 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 224.79 67.31 0)
@@ -2437,7 +2437,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q6") (unit 1)
+          (reference "Q13") (unit 1)
         )
       )
     )
@@ -2472,7 +2472,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 52.07 35.56 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6ba256d7-d84a-4518-94ca-11db23b578d5)
-    (property "Reference" "Q8" (at 58.42 34.29 0)
+    (property "Reference" "Q1" (at 58.42 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 58.42 36.83 0)
@@ -2490,7 +2490,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q8") (unit 1)
+          (reference "Q1") (unit 1)
         )
       )
     )
@@ -2499,7 +2499,7 @@
   (symbol (lib_id "Device:R_Small") (at 200.66 27.94 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6ce00c75-493f-4638-b9be-1faa407e1a0b)
-    (property "Reference" "R14" (at 200.66 22.86 90)
+    (property "Reference" "R12" (at 200.66 22.86 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 200.66 25.4 90)
@@ -2516,7 +2516,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R14") (unit 1)
+          (reference "R12") (unit 1)
         )
       )
     )
@@ -2551,7 +2551,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 166.37 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 76bdda88-13b7-45b7-bd80-baf826da765a)
-    (property "Reference" "Q2" (at 172.72 64.77 0)
+    (property "Reference" "Q9" (at 172.72 64.77 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 172.72 67.31 0)
@@ -2569,7 +2569,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q2") (unit 1)
+          (reference "Q9") (unit 1)
         )
       )
     )
@@ -2578,7 +2578,7 @@
   (symbol (lib_id "Device:R_Small") (at 200.66 58.42 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 77c7ca2b-430c-46ea-a613-2a2f6e3ca026)
-    (property "Reference" "R16" (at 200.66 53.34 90)
+    (property "Reference" "R13" (at 200.66 53.34 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 200.66 55.88 90)
@@ -2595,7 +2595,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R16") (unit 1)
+          (reference "R13") (unit 1)
         )
       )
     )
@@ -2604,7 +2604,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 104.14 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7bf55b40-8e28-42c1-bc89-b3b257c02b29)
-    (property "Reference" "Q13" (at 110.49 64.77 0)
+    (property "Reference" "Q6" (at 110.49 64.77 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 110.49 67.31 0)
@@ -2622,7 +2622,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q13") (unit 1)
+          (reference "Q6") (unit 1)
         )
       )
     )
@@ -2631,7 +2631,7 @@
   (symbol (lib_id "Device:LED_Small") (at 160.02 27.94 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 86b1ff12-aa94-4319-897d-cf3bd2613d87)
-    (property "Reference" "D6" (at 159.9565 21.59 0)
+    (property "Reference" "D8" (at 159.9565 21.59 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 159.9565 24.13 0)
@@ -2648,7 +2648,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D6") (unit 1)
+          (reference "D8") (unit 1)
         )
       )
     )
@@ -2682,7 +2682,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 166.37 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 874edd17-3942-4629-ba0c-1846df615459)
-    (property "Reference" "Q3" (at 172.72 96.52 0)
+    (property "Reference" "Q10" (at 172.72 96.52 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 172.72 99.06 0)
@@ -2700,7 +2700,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q3") (unit 1)
+          (reference "Q10") (unit 1)
         )
       )
     )
@@ -2743,7 +2743,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 52.07 97.79 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 91bf574a-d2fb-4225-95f9-9acb8607f6a1)
-    (property "Reference" "Q10" (at 58.42 96.52 0)
+    (property "Reference" "Q3" (at 58.42 96.52 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 58.42 99.06 0)
@@ -2761,7 +2761,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q10") (unit 1)
+          (reference "Q3") (unit 1)
         )
       )
     )
@@ -2770,7 +2770,7 @@
   (symbol (lib_id "Device:LED_Small") (at 212.09 90.17 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9453a588-1544-40c6-8d2f-f03e66235ead)
-    (property "Reference" "D12" (at 212.0265 83.82 0)
+    (property "Reference" "D14" (at 212.0265 83.82 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 212.0265 86.36 0)
@@ -2787,7 +2787,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D12") (unit 1)
+          (reference "D14") (unit 1)
         )
       )
     )
@@ -2796,7 +2796,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 218.44 35.56 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9803e605-f3cc-45a1-a704-f5a6452a77ee)
-    (property "Reference" "Q5" (at 224.79 34.29 0)
+    (property "Reference" "Q12" (at 224.79 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 224.79 36.83 0)
@@ -2814,7 +2814,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q5") (unit 1)
+          (reference "Q12") (unit 1)
         )
       )
     )
@@ -2823,7 +2823,7 @@
   (symbol (lib_id "Device:LED_Small") (at 160.02 90.17 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9bb49c56-6d10-4b49-887c-a2b43ccc52c4)
-    (property "Reference" "D8" (at 159.9565 83.82 0)
+    (property "Reference" "D10" (at 159.9565 83.82 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 159.9565 86.36 0)
@@ -2840,7 +2840,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D8") (unit 1)
+          (reference "D10") (unit 1)
         )
       )
     )
@@ -2874,7 +2874,7 @@
   (symbol (lib_id "Device:R_Small") (at 148.59 58.42 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a0d65a47-b160-4fa5-bad2-864428f3c5d2)
-    (property "Reference" "R8" (at 148.59 53.34 90)
+    (property "Reference" "R9" (at 148.59 53.34 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 148.59 55.88 90)
@@ -2891,7 +2891,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R8") (unit 1)
+          (reference "R9") (unit 1)
         )
       )
     )
@@ -2900,7 +2900,7 @@
   (symbol (lib_id "Device:R_Small") (at 148.59 27.94 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a1e6c144-2550-4801-83f5-62b0975bb817)
-    (property "Reference" "R6" (at 148.59 22.86 90)
+    (property "Reference" "R8" (at 148.59 22.86 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 148.59 25.4 90)
@@ -2917,7 +2917,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R6") (unit 1)
+          (reference "R8") (unit 1)
         )
       )
     )
@@ -2976,7 +2976,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 52.07 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid aa945cfe-7d9e-404f-9069-2ae77ce9d6c6)
-    (property "Reference" "Q9" (at 58.42 64.77 0)
+    (property "Reference" "Q2" (at 58.42 64.77 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 58.42 67.31 0)
@@ -2994,7 +2994,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q9") (unit 1)
+          (reference "Q2") (unit 1)
         )
       )
     )
@@ -3029,7 +3029,7 @@
   (symbol (lib_id "Device:R_Small") (at 34.29 120.65 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid adc5b8a0-0e5d-42dc-945f-7095586d0315)
-    (property "Reference" "R21" (at 34.29 115.57 90)
+    (property "Reference" "R4" (at 34.29 115.57 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 34.29 118.11 90)
@@ -3046,7 +3046,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R21") (unit 1)
+          (reference "R4") (unit 1)
         )
       )
     )
@@ -3156,7 +3156,7 @@
   (symbol (lib_id "Device:R_Small") (at 86.36 90.17 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b8cfa5ca-b4e1-4e39-a7cd-0f5067324257)
-    (property "Reference" "R27" (at 86.36 85.09 90)
+    (property "Reference" "R7" (at 86.36 85.09 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "220" (at 86.36 87.63 90)
@@ -3173,7 +3173,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R27") (unit 1)
+          (reference "R7") (unit 1)
         )
       )
     )
@@ -3312,7 +3312,7 @@
   (symbol (lib_id "Device:LED_Small") (at 212.09 58.42 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d1b8f2cf-ede5-4f8c-92b1-273333978da0)
-    (property "Reference" "D11" (at 212.0265 52.07 0)
+    (property "Reference" "D13" (at 212.0265 52.07 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 212.0265 54.61 0)
@@ -3329,7 +3329,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D11") (unit 1)
+          (reference "D13") (unit 1)
         )
       )
     )
@@ -3338,7 +3338,7 @@
   (symbol (lib_id "Device:LED_Small") (at 160.02 58.42 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d2096ff9-1c12-4b46-887d-bc3f90039120)
-    (property "Reference" "D7" (at 159.9565 52.07 0)
+    (property "Reference" "D9" (at 159.9565 52.07 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 159.9565 54.61 0)
@@ -3355,7 +3355,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D7") (unit 1)
+          (reference "D9") (unit 1)
         )
       )
     )
@@ -3364,7 +3364,7 @@
   (symbol (lib_id "Device:LED_Small") (at 212.09 27.94 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid dd9aba41-8d64-42fd-a2f8-d9ffaf38c1ea)
-    (property "Reference" "D10" (at 212.0265 21.59 0)
+    (property "Reference" "D12" (at 212.0265 21.59 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Orange LED" (at 212.0265 24.13 0)
@@ -3381,7 +3381,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "D10") (unit 1)
+          (reference "D12") (unit 1)
         )
       )
     )
@@ -3440,7 +3440,7 @@
   (symbol (lib_id "Device:R_Small") (at 34.29 58.42 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e2f4370c-d4df-4fb0-9422-eb6d25c26408)
-    (property "Reference" "R3" (at 34.29 53.34 90)
+    (property "Reference" "R2" (at 34.29 53.34 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1k" (at 34.29 55.88 90)
@@ -3457,7 +3457,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "R3") (unit 1)
+          (reference "R2") (unit 1)
         )
       )
     )
@@ -3466,7 +3466,7 @@
   (symbol (lib_id "Device:Q_NMOS_GSD") (at 52.07 128.27 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e97e1aa2-4987-4f73-ae52-45600f644f5d)
-    (property "Reference" "Q11" (at 58.42 127 0)
+    (property "Reference" "Q4" (at 58.42 127 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SI2306" (at 58.42 129.54 0)
@@ -3484,7 +3484,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "Q11") (unit 1)
+          (reference "Q4") (unit 1)
         )
       )
     )
