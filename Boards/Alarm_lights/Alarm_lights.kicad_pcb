@@ -3311,7 +3311,7 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp b9f4bdf0-6646-4098-ab07-857ba1016b9b))
   (gr_arc (start 84.36 23.749) (mid 85.774214 24.334786) (end 86.36 25.749)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp c893a9ca-803b-44a5-ad64-36e40cb70648))
-  (gr_text "DSKY Crew\nPrototyping board, Alarm Board\nRev. C (Preliminary, in work)" (at 65.024 34.417) (layer "B.SilkS") (tstamp 9d202418-a8e9-4bcf-9700-1d92b61a9ffd)
+  (gr_text "DSKY Crew\nPrototyping board, Alarm Board\nRev. 0.3" (at 65.024 34.417) (layer "B.SilkS") (tstamp 9d202418-a8e9-4bcf-9700-1d92b61a9ffd)
     (effects (font (size 1 1) (thickness 0.15) italic) (justify left bottom mirror))
   )
 
