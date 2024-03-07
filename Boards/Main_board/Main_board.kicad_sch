@@ -7,7 +7,7 @@
   (title_block
     (title "DSKY Main Board")
     (date "2024-03-02")
-    (rev "0.2.0")
+    (rev "0.3.0")
     (company "Pablo Ortiz López, Evan MacDonald")
   )
 
@@ -844,11 +844,6 @@
     (fill (type none))
     (effects (font (size 2 2)) (justify left top))
     (uuid b50627b0-bf4a-4fe1-951c-041add8d44af)
-  )
-
-  (text "(Y0 to A0 on chip)" (at 109.22 76.2 0)
-    (effects (font (size 1.27 1.27) italic) (justify left bottom))
-    (uuid 6923ce65-4e73-4779-aa6f-5be9c2e2e591)
   )
 
   (label "Y0" (at 104.14 54.61 180) (fields_autoplaced)
