@@ -1683,7 +1683,7 @@
   (symbol (lib_id "Connector:Conn_01x10_Socket") (at 92.71 172.72 0) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0d85b3bc-2f9a-479a-8a14-8786dfb80271)
-    (property "Reference" "J4" (at 93.98 172.72 0)
+    (property "Reference" "J3" (at 93.98 172.72 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "PinsRight" (at 93.98 170.18 0)
@@ -1708,7 +1708,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "J4") (unit 1)
+          (reference "J3") (unit 1)
         )
       )
     )
@@ -3258,7 +3258,7 @@
   (symbol (lib_id "Connector:Conn_01x05_Socket") (at 154.94 168.91 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid bff1628f-7f18-4818-9ffd-e559bc28664c)
-    (property "Reference" "J3" (at 156.21 167.64 0)
+    (property "Reference" "J4" (at 156.21 167.64 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "JST" (at 156.21 170.18 0)
@@ -3278,7 +3278,7 @@
     (instances
       (project "Alarm_lights"
         (path "/edda463a-ad09-46be-9126-bcff7f3b030f"
-          (reference "J3") (unit 1)
+          (reference "J4") (unit 1)
         )
       )
     )
