@@ -1,0 +1,90 @@
+
+.segment_e {
+  position:absolute;
+  height:1.5vh;
+  width:6vh;
+  background: url('/segments/segment_e.svg') no-repeat;
+  background-size: auto 100%;
+  top:-0.1vh;
+  left:0.4vh;
+}
+.segment_f {
+  position:absolute;
+  width:2.5vh;
+  height:20vh;
+  background: url('/segments/segment_f.svg') no-repeat;
+  background-size: 100%;
+  top:0.25vh;
+  left:-1.2vh;
+}
+.segment_h {
+  position:absolute;
+  width:3vh;
+  height:20vh;
+  background: url('/segments/segment_h.svg') no-repeat;
+  background-size: 100%;
+  top:-0.1vh;
+  left:4.7vh;
+}
+@-moz-document url-prefix() {
+  .segment_h {
+    left:5vh;
+    top:-0.3vh;
+  }
+}
+.segment_j {
+  position:absolute;
+  height:1.55vh;
+  width:6vh;
+  background: url('/segments/segment_j.svg') no-repeat;
+  background-size: auto 100%;
+  top:4.83vh;
+  left:0.25vh;
+}
+.segment_k {
+  position:absolute;
+  width:2.66vh;
+  height:20vh;
+  background: url('/segments/segment_k.svg') no-repeat;
+  background-size: 100%;
+  top:5.55vh;
+  left:-2.4vh;
+}
+@-moz-document url-prefix() {
+  .segment_k {
+    top:5.4vh;
+    left:-2.45vh;
+  }
+}
+
+.segment_m {
+  position:absolute;
+  width:2.5vh;
+  height:20vh;
+  background: url('/segments/segment_m.svg') no-repeat;
+  background-size: 100%;
+  top:5.6vh;
+  left:3.65vh;
+}
+
+@-moz-document url-prefix() {
+  .segment_m {
+    top:5.8vh;
+    left:3.9vh;
+  }
+}
+.segment_n {
+  position:absolute;
+  height:1.5vh;
+  width:7vh;
+  background: url('/segments/segment_n.svg') no-repeat;
+  background-size: auto 100%;
+  top:9.6vh;
+  left:-2.05vh;
+}
+@-moz-document url-prefix() {
+  .segment_n {
+    top: 9.7vh;
+    left:-2.5vh;
+  }
+}

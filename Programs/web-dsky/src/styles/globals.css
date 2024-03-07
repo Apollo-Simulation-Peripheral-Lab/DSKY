@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('digit.css');
+@import url('sign.css');
+@import url('programverbnoun.css');
+@import url('register1.css');
+@import url('register2.css');
+@import url('register3.css');
+
+body {
+  color: white;
+  /* background: url('/noise.jpg'); */
+  background-color: #000000;
+  background-size: auto 15%;
+  background-position: center top;
+}
+
+.mask {
+  z-index: -1;
+  width: 52.8vh;
+  height:104vh;
+  position:absolute;
+  top:-3.5vh;
+  left:0px;
+}
+.comp_acty {
+  width:20vh;
+  height:21vh;
+  background: url('/segments/comp_acty.svg') no-repeat;
+  background-size: 100%;
+  position:absolute;
+  top:5.7vh;
+  left:0px;
+}
