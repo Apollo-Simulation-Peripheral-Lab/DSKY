@@ -1,4 +1,5 @@
 import { watchStateReentry } from '@/reentry'
+import { watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
 import { updateWebSocketState } from '@/socket'
@@ -9,6 +10,8 @@ const watchState = (inputSource, callback) =>{
     switch(inputSource){
         case "reentry":
             return watchStateReentry(callback)
+        case "ksp":
+            return watchStateKSP(callback)
         case "random":
         default:
             return watchStateRandom(callback)
@@ -23,6 +26,7 @@ const main = async () =>{
             type: 'list',
             choices: [
                 {name:'Reentry', value: 'reentry'},
+                {name:'KSP', value: 'ksp'},
                 {name:'Random Values', value: 'random'}
             ]
         }).then(r)
