@@ -6,6 +6,7 @@ import { Digit } from "./digit";
 import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
 import { Sign } from "./sign";
 import { getChangedChunks, updateChunk } from "@/utils/chunks";
+
 export default function Home() {
 
   const initialState = V35_TEST
@@ -54,8 +55,14 @@ export default function Home() {
       lastState = newState
     };
 
-    // Cleanup function to close the WebSocket connection
+    const relayKeyPress = (event:any)=>{
+      ws.send(event.key)
+    }
+    window.addEventListener('keydown', relayKeyPress);
+
+    // Cleanup function
     return () => {
+      window.removeEventListener('keydown', relayKeyPress);
       ws.close();
     };
   }, []);
