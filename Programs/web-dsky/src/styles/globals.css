@@ -16,6 +16,12 @@ body {
   background-position: center top;
 }
 
+.ELDisplay{
+  position: absolute;
+  width: 52.8vh;
+  height:100vh;
+}
+
 .mask {
   z-index: -1;
   width: 52.8vh;

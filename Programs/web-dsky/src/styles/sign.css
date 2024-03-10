@@ -1,7 +1,7 @@
 
 .sign_top {
   position:absolute;
-  height:2.75vh;
+  height:2.7vh;
   width:1.5vh;
   background-color: #00AD81;
   top:0.25vh;
@@ -17,9 +17,9 @@
 }
 .sign_bot {
   position:absolute;
-  height:2.75vh;
+  height:2.7vh;
   width:1.5vh;
   background-color: #00AD81;
-  top:4.9vh;
+  top:4.95vh;
   left:0.25vh;
 }
