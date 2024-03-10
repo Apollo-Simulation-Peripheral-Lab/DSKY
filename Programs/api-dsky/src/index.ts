@@ -1,12 +1,13 @@
 import { watchStateReentry } from '@/reentry'
-import { watchStateKSP } from '@/ksp'
+import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
-import { updateWebSocketState } from '@/socket'
+import { setWebSocketListener, updateWebSocketState } from '@/socket'
 import { startFrontEnd } from '@/frontend'
 import { terminalSetup } from '@/terminalSetup'
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
+import waitPort = require('wait-port')
 
 const watchState = (inputSource, callback) =>{
     switch(inputSource){
@@ -20,18 +21,40 @@ const watchState = (inputSource, callback) =>{
     }
 }
 
+const getKeyboardHandler = async (inputSource) => {
+    switch(inputSource){
+        case "reentry":
+            // Issue #13
+            return (_data) => {}
+        case "ksp":
+            return await getKSPKeyboardHandler()
+        default:
+            return (_data) => {}
+    }
+}
+
 // Runs the integration API with the chosen settings
 const runWithSetup = async(setup) =>{
     const {inputSource,outputSerial} = setup
+    
+    const keyboardHandler = await getKeyboardHandler(inputSource)
+    
     let serial
     if(outputSerial){
         serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
-        // TODO: Process keyboard input and send to appropiate handler
-        serial.on('data', function (data) {
-            console.log('Received:', data.toString())
+        serial.on('data', (data) => {
+            // Serial data received
+            console.log(`[Serial] KeyPress: ${data}`)
+            keyboardHandler(data)
         })
-    } 
+    }
+    setWebSocketListener((data)=>{
+        // WebSocket data received
+        console.log(`[WS] KeyPress: ${data}`)
+        keyboardHandler(data)
+    })
+    
 
     let lastPacket = ''
     watchState(inputSource, (currentState) =>{
@@ -47,21 +70,30 @@ const runWithSetup = async(setup) =>{
 }
 
 const main = async () =>{
-    const {webInput} = await new Promise(r => 
-        inquirer.prompt({
-            message: "Do you want to use the web interface?",
-            name: 'webInput',
-            type: 'list',
-            choices: [
-                {name:'Yes', value: true},
-                {name:'No', value: false}
-            ]
-        }).then(r)
-    ) as any
-    if(webInput){
-        await startFrontEnd()
+    let webRunning = true
+    try{
+        const {open} = await waitPort({host:'localhost',port:3000, interval:50, timeout:100, output:'silent'})
+        webRunning = open
+    }catch{
+        webRunning = false
     }
-    // In the future, we can skip this when the webpage can do the setup via websocket by itself
+    if(!webRunning){
+        const {startWeb} = await new Promise(r => 
+            inquirer.prompt({
+                message: "Do you want to start the web interface?",
+                name: 'startWeb',
+                type: 'list',
+                choices: [
+                    {name:'Yes', value: true},
+                    {name:'No', value: false}
+                ]
+            }).then(r)
+        ) as any
+        if(startWeb){
+            await startFrontEnd()
+        }
+    }
+    // In the future, we might want to skip this and let the webpage do the setup via websocket
     await terminalSetup().then(runWithSetup)
 }
 
