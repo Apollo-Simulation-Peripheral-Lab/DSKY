@@ -7,6 +7,17 @@ import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
 import { Sign } from "./sign";
 import { getChangedChunks, updateChunk } from "@/utils/chunks";
 
+const fetchClicks = async (audioContext:any, audioFiles:any) =>{
+  for(let i=1; i<=11; i++){
+    for(let j=0; j<5; j++){
+      const res = await fetch(`audio/clicks${i}_${j}.mp3`)
+      const arrayBuffer = await res.arrayBuffer()
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
+      audioFiles[`${i}-${j}`] = audioBuffer
+    }
+  }
+}
+
 export default function Home() {
 
   const initialState = V35_TEST
@@ -14,12 +25,14 @@ export default function Home() {
 
   useEffect(() => {
     // Cache audio files
-    const audioFiles : any = {}
-    for(let i=1; i<=11; i++){
-      for(let j=0; j<5; j++){
-        audioFiles[`${i}-${j}`] = new Audio(`audio/clicks${i}_${j}.mp3`)
-      }
+    let sampleRate
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      // Webkit sucks for audio
+      sampleRate = 32000
     }
+    const audioContext = new (window.AudioContext)({sampleRate})
+    const audioFiles : any = {}
+    fetchClicks(audioContext, audioFiles)
 
     // Calculate WebSocket URL
     const protocol = window.location.protocol;
@@ -40,8 +53,13 @@ export default function Home() {
       
       // Play clicking sound depending on amount of changed chunks
       if(changedChunks.length){
-        const audio = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
-        if(audio) audio.play()
+        const audioBuffer = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
+        if(audioBuffer) {
+          const source = audioContext.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(audioContext.destination);
+          source.start();
+        }
       }
 
       // Update dsky's chunks
