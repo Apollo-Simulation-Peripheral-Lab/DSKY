@@ -70,11 +70,16 @@ const kOSJSONtoNormalJSON = (kOSJSON) =>{
 }
 
 export const watchStateKSP = async (callback) =>{
-    const steamPath = getGamePath(220200);
-    let jsonPath = `${steamPath.steam?.path}\\steamapps\\common\\Kerbal Space Program\\Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
-    if(steamPath.game){
-        jsonPath = `${steamPath.game.path}\\Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
+    let kspPath = process.env.KSP_PATH
+    if(!kspPath){
+        const steamPath = getGamePath(220200);
+        kspPath = `${steamPath.steam?.path}\\steamapps\\common\\Kerbal Space Program`
+        if(steamPath.game){
+            kspPath = `${steamPath.game.path}`
+        }
     }
+
+    const jsonPath = `${kspPath}\\Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
 
     await waitJSONAvailable(jsonPath)
     

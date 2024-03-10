@@ -7,7 +7,10 @@ import { startFrontEnd } from '@/frontend'
 import { terminalSetup } from '@/terminalSetup'
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
-import waitPort = require('wait-port')
+import * as dotenv from 'dotenv'
+import * as waitPort from 'wait-port'
+
+dotenv.config()
 
 const watchState = (inputSource, callback) =>{
     switch(inputSource){
