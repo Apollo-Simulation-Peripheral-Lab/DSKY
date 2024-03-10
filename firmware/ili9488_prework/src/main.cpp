@@ -1,5 +1,6 @@
+/* Derived from https://github.com/adafruit/Adafruit_ILI9341 */
 /***************************************************
-  This is our GFX example for the Adafruit ILI9488 Breakout and Shield
+  This is our GFX example for the Adafruit ILI9341 Breakout and Shield
   ----> http://www.adafruit.com/products/1651
 
   Check out the links above for our tutorials and wiring diagrams
@@ -17,30 +18,35 @@
 #include "SPI.h"
 #include "Adafruit_GFX.h"
 #include "Adafruit_ILI9488.h"
+#include "main.h"
 
+#define BITBANG 0
 
-// For the Adafruit shield, these are the default.
+// Configuration for the Arduino Uno
 #define TFT_RST 3
 #define TFT_DC 2
-
 #define TFT_CS 10
+
+#if BITBANG == 1
 #define TFT_MOSI 11
 #define TFT_MISO 12
 #define TFT_CLK 13
-
-
+#endif
 // Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
 // If using the breakout, change pins as desired
-//Adafruit_ILI9488 tft = Adafruit_ILI9488(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
+#if BITBANG == 1
+Adafruit_ILI9488 tft = Adafruit_ILI9488(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
+#else
 Adafruit_ILI9488 tft = Adafruit_ILI9488(TFT_CS, TFT_DC, TFT_RST);
+#endif
 
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("ILI9488 Test!"); 
   tft.begin();
-
+  SPI.setClockDivider(1);
   // read diagnostics (optional but can help debug problems)
   uint8_t x = tft.readcommand8(ILI9488_RDMODE);
   Serial.print("Display Power Mode: 0x"); Serial.println(x, HEX);
