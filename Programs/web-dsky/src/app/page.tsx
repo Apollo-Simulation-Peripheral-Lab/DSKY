@@ -74,7 +74,9 @@ export default function Home() {
     };
 
     const relayKeyPress = (event:any)=>{
-      ws.send(event.key)
+      if(event.key.length == 1){
+        ws.send(event.key)
+      }
     }
     window.addEventListener('keydown', relayKeyPress);
 
