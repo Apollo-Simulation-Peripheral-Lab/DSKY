@@ -16,12 +16,6 @@ export const updateWebSocketState = (newState) => {
 
 // WebSocket server event listeners
 wss.on('connection', (ws) => {
-    console.log('Client connected');
-
     // Send initial object state to client
     ws.send(JSON.stringify(state));
-
-    ws.on('close', () => {
-        console.log('Client disconnected');
-    });
 });

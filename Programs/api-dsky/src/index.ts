@@ -3,6 +3,8 @@ import { watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
 import { updateWebSocketState } from '@/socket'
+import { startFrontEnd } from '@/frontend'
+import { terminalSetup } from '@/terminalSetup'
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
 
@@ -18,39 +20,14 @@ const watchState = (inputSource, callback) =>{
     }
 }
 
-const main = async () =>{
-    const {inputSource} = await new Promise(r => 
-        inquirer.prompt({
-            message: "Select what AGC do you want to interact with:",
-            name: 'inputSource',
-            type: 'list',
-            choices: [
-                {name:'Reentry', value: 'reentry'},
-                {name:'KSP', value: 'ksp'},
-                {name:'Random Values', value: 'random'}
-            ]
-        }).then(r)
-    ) as any
-
-    const availableSerial = await SerialPort.list()
-    const serialChoices = availableSerial.map(available => ({
-        value: available, 
-        name:(available as any).friendlyName
-    }))
-    serialChoices.unshift({value: null, name:"No Serial output"})
-    const {outputSerial} = await new Promise(r => 
-        inquirer.prompt({
-            message: "Select what serial port your DSKY is connected to:",
-            name: 'outputSerial',
-            type: 'list',
-            choices: serialChoices,
-        }).then(r)
-    ) as any
+// Runs the integration API with the chosen settings
+const runWithSetup = async(setup) =>{
+    const {inputSource,outputSerial} = setup
     let serial
     if(outputSerial){
         serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
-        // Debugging
+        // TODO: Process keyboard input and send to appropiate handler
         serial.on('data', function (data) {
             console.log('Received:', data.toString())
         })
@@ -62,14 +39,30 @@ const main = async () =>{
         if(lastPacket != currentPacket){
             updateWebSocketState(currentState)
             lastPacket = currentPacket
-            //console.log(currentState)
-            //console.log(currentPacket)
             let serialPacket = binaryStringToBuffer(currentPacket)
             console.log(serialPacket)
             if(serial) serial.write(serialPacket)
         }
     })
+}
 
+const main = async () =>{
+    const {webInput} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Do you want to use the web interface?",
+            name: 'webInput',
+            type: 'list',
+            choices: [
+                {name:'Yes', value: true},
+                {name:'No', value: false}
+            ]
+        }).then(r)
+    ) as any
+    if(webInput){
+        await startFrontEnd()
+    }
+    // In the future, we can skip this when the webpage can do the setup via websocket by itself
+    await terminalSetup().then(runWithSetup)
 }
 
 main()
