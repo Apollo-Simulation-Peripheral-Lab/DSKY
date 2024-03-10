@@ -3,6 +3,32 @@
 
 This projects aims to create an affordable and easy to manufacture, yet as realistic as possible replica of the DSKY used in the Apollo program to interface with the Apollo Guidance Computer (AGC).
 
+## Quick start
+
+**Do you just want to have a DSKY display in your web browser?**
+  - Make sure you have NodeJS > 18
+  - Just run server.bat and answer the prompts
+
+**Do you want to build the whole DSKY replica?**
+  - Print the .3mf meshes found in the '3D Models' folder. 
+    - **You will need to choose whether you want to use an LCD board or a phone as the display**
+    - Currently supported phones are:
+      - iPhone 12 Mini
+    - Currently supported LCD boards are:
+      - ILI9488
+      - ILI9341 
+  - Build the PCB's:
+    - Order the PCB gerber files that you can find in the Boards folder
+    - Order the PCB components that you can find in the .csv files in the Boards folder
+    - Order the LCD Board if you chose to use one
+  - Assemble the parts and PCB's
+  - Flash the Firmware:
+    - Install PlatformIO into VSCode
+    - File -> Open Workspace from File -> DSKY.code-workspace
+    - Within PlatformIO's menu, flash the firmware into your Arduino Nano
+  - Make sure you have NodeJS > 18
+  - Run server.bat
+
 ## Repository contents:
 * **3D Models**:
   * **Common Models:** Meshes you need to print regardless of what display you want to use.
@@ -22,13 +48,20 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
       * Run ``npm start``
   * **web-dsky**: Web Application that uses 'api-dsky's websocket to render the EL display
     * Requirements: NodeJS >18
-    * Running: 
+    * **IMPORTANT: 'api-dsky' will offer you the chance to start this for you**
+    * Running (production mode): 
       * Open a terminal in this location 
       * Run ``npm install``
       * Run ``npm run build``
       * Run ``npm start``
       * Go to: ``http://{your computer's LAN IP}:3000``
+    * Running (development mode): 
+      * Open a terminal in this location 
+      * Run ``npm install``
+      * Run ``npm run dev``
+      * Go to: ``http://{your computer's LAN IP}:3000``
   * **python-dsky**: Experiment to read Reentry's data using python
+  * **click-generator**: Python program that procedurally generates relay clicking sequences to emulate the DSKY's relay boxes
 * **Boards**
   * Alarm Lights PCB
   * Main PCB
