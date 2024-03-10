@@ -5,6 +5,7 @@
         "appdata-path": "1.0.0",
         "dotenv":"16.4.5",
         "open": "8.4.2",
+        "keysender": "2.3.0",
         "ts-node": "10.9.2",
         "tsc" : "2.0.4",
         "tsconfig-paths": "4.2.0",
