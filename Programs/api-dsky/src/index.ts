@@ -1,4 +1,4 @@
-import { watchStateReentry } from '@/reentry'
+import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer } from '@/binary'
@@ -27,8 +27,7 @@ const watchState = (inputSource, callback) =>{
 const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
         case "reentry":
-            // Issue #13
-            return (_data) => {}
+            return getReentryKeyboardHandler()
         case "ksp":
             return await getKSPKeyboardHandler()
         default:
