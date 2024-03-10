@@ -94,7 +94,7 @@ export const watchStateKSP = async (callback) =>{
 export const getKSPKeyboardHandler = async () =>{
     
     var client = new net.Socket();
-    client.connect(5410, '127.0.0.1', () => {
+    client.connect({port:5410,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('Connected');
         client.write('1\r\n');
     });
@@ -104,6 +104,7 @@ export const getKSPKeyboardHandler = async () =>{
         if(data.includes('>')){
             // Select CPU number 1
             client.write("1\r")
+            setInterval(()=> client.write('a'),2000)
         }
     });
     
