@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { getGamePath } from 'steam-game-path';
+import * as net from 'net'
 
 const keyMappings = {
     COMP_ACTY: 'IlluminateCompLight',
@@ -42,6 +43,7 @@ const keyMappings = {
     I13:'IlluminatePrioDisp',
     I14:'IlluminateVel'
 }
+
 const waitJSONAvailable = async(path) =>{
     while(true){
         try{
@@ -87,4 +89,29 @@ export const watchStateKSP = async (callback) =>{
     fs.watch(jsonPath, handleAGCUpdate);
 
     handleAGCUpdate()
+}
+
+export const getKSPKeyboardHandler = async () =>{
+    
+    var client = new net.Socket();
+    client.connect(5410, '127.0.0.1', () => {
+        console.log('Connected');
+        client.write('1\r\n');
+    });
+    
+    client.on('data', function(data) {
+        //console.log(data.toString())
+        if(data.includes('>')){
+            // Select CPU number 1
+            client.write("1\r")
+        }
+    });
+    
+    client.on('close', function() {
+        console.log('Connection closed');
+    });
+
+    return (data) =>{
+        client.write(`${data}`)
+    }
 }
