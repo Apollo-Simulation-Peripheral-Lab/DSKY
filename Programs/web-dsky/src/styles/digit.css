@@ -84,7 +84,6 @@
 }
 @-moz-document url-prefix() {
   .segment_n {
-    top: 9.7vh;
     left:-2.5vh;
   }
 }
