@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Digit } from "./digit";
-import { AUDIO_LOAD, NO_CONN } from "../utils/dskyStates";
+import { AUDIO_LOAD, NO_CONN, NO_CONN_UHOH } from "../utils/dskyStates";
 import { Sign } from "./sign";
 import { chunkedUpdate } from "@/utils/chunks";
 
@@ -130,20 +130,36 @@ export default function Home() {
       setDskyState
     }
     
-    let noConnTimeout : any
+    let noConnTimeout1 : any
+    let noConnTimeout2 : any
+    let noConnInterval1 : any
+    let noConnInterval2 : any
     if(!webSocket || webSocket?.readyState != 1) {
       console.log("NOCONN in 1s")
-      noConnTimeout = setTimeout(()=> {
+      noConnTimeout1 = setTimeout(()=> {
         console.log("NOCONN")
-        chunkedUpdate(NO_CONN, stateVars)
+        noConnInterval1 = setInterval(()=> chunkedUpdate(NO_CONN, stateVars),1000)
       }, 1000)
+      noConnTimeout2 = setTimeout(()=> {
+        console.log("NOCONN")
+        noConnInterval2 = setInterval(()=> chunkedUpdate(NO_CONN_UHOH, stateVars),1000)
+      }, 2000)
     }
 
     // Cleanup function
     return () => {
-      if(noConnTimeout) {
+      if(noConnTimeout1) {
         console.log("NOCONN CANCELLED")
-        clearTimeout(noConnTimeout)
+        clearTimeout(noConnTimeout1)
+      }
+      if(noConnTimeout2) {
+        clearTimeout(noConnTimeout2)
+      }
+      if(noConnInterval1){
+        clearInterval(noConnInterval1)
+      }
+      if(noConnInterval2){
+        clearInterval(noConnInterval2)
       }
     };
   }, [webSocket?.readyState, audioFiles, audioContext]);
