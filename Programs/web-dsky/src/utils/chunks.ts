@@ -1,4 +1,4 @@
-export const getChangedChunks = (oldState:any, newState:any) => {
+const getChangedChunks = (oldState:any, newState:any) => {
     let changedChunks = []
     const start = Math.floor(Math.random() * 11) + 1; // Random starting point in the update-loop
 
@@ -13,7 +13,7 @@ export const getChangedChunks = (oldState:any, newState:any) => {
     return changedChunks
 }
 
-export const hasChanged = (stateOld:any, stateNew:any) =>{
+const hasChanged = (stateOld:any, stateNew:any) =>{
     return(JSON.stringify(stateOld) != JSON.stringify(stateNew))
 }
 
@@ -72,7 +72,7 @@ const getChunk11 = (state: any) =>{
     return { Register3D4, Register3D5 }
 }
 
-export const updateChunk = (oldState: any, newState: any, chunkToUpdate: Number) => {
+const updateChunk = (oldState: any, newState: any, chunkToUpdate: Number) => {
 
     let newChunk
     switch(chunkToUpdate){
@@ -116,3 +116,29 @@ export const updateChunk = (oldState: any, newState: any, chunkToUpdate: Number)
         ...newChunk
     }
 }
+
+export const chunkedUpdate = async (newState:any,stateVars:any) => {
+    // Determine amount of changed chunks
+    const changedChunks: Number[] = getChangedChunks(stateVars.lastState,newState)
+    
+    // Play clicking sound depending on amount of changed chunks
+    if(changedChunks.length){
+      const audioBuffer = stateVars.audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
+      if(audioBuffer) {
+        const source = stateVars.audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(stateVars.audioContext.destination);
+        source.start();
+      }
+    }
+  
+    // Update dsky's chunks
+    let partialState = stateVars.lastState
+    for(const chunk of changedChunks){
+      partialState = updateChunk(partialState,newState,chunk)
+      stateVars.setDskyState(partialState)
+      await new Promise(r => setTimeout(r, 30))
+    }
+    stateVars.setDskyState(newState);
+    stateVars.lastState = newState
+  }
