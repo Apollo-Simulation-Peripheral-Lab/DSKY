@@ -117,28 +117,28 @@ const updateChunk = (oldState: any, newState: any, chunkToUpdate: Number) => {
     }
 }
 
-export const chunkedUpdate = async (newState:any,stateVars:any) => {
+export const chunkedUpdate = async (newState:any,hookData:any) => {
     // Determine amount of changed chunks
-    const changedChunks: Number[] = getChangedChunks(stateVars.lastState,newState)
+    const changedChunks: Number[] = getChangedChunks(hookData.lastState,newState)
     
     // Play clicking sound depending on amount of changed chunks
     if(changedChunks.length){
-      const audioBuffer = stateVars.audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
+      const audioBuffer = hookData.audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
       if(audioBuffer) {
-        const source = stateVars.audioContext.createBufferSource();
+        const source = hookData.audioContext.createBufferSource();
         source.buffer = audioBuffer;
-        source.connect(stateVars.audioContext.destination);
+        source.connect(hookData.audioContext.destination);
         source.start();
       }
     }
   
     // Update dsky's chunks
-    let partialState = stateVars.lastState
+    let partialState = hookData.lastState
     for(const chunk of changedChunks){
       partialState = updateChunk(partialState,newState,chunk)
-      stateVars.setDskyState(partialState)
+      hookData.setDskyState(partialState)
       await new Promise(r => setTimeout(r, 30))
     }
-    stateVars.setDskyState(newState);
-    stateVars.lastState = newState
+    hookData.setDskyState(newState);
+    hookData.lastState = newState
   }

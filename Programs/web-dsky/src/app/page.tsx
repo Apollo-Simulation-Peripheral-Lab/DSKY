@@ -41,7 +41,6 @@ export default function Home() {
 
   useEffect(()=>{{
     if(!audioContext) return
-    console.log(`Opening websocket: ${webSocketID} ...`)
     // Calculate WebSocket URL
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
@@ -54,16 +53,11 @@ export default function Home() {
     const ws: any = new WebSocket(wsURL);
     setWebSocket(ws)
 
-    const handleOpen = () => {
-      console.log(`Socket opened: ${webSocketID}`)
-    }
     const handleClose = async ()=>{
-      console.log(`Socket closed: ${webSocketID}`)
       await new Promise(r => setTimeout(r,1000))
       setWebSocketID((webSocketID + 1)%5)
     }
     
-    ws.addEventListener('open',  handleOpen)
     ws.addEventListener('close', handleClose)
     ws.addEventListener('error', handleClose)
     const checkInterval = setInterval(() =>{
@@ -74,9 +68,7 @@ export default function Home() {
 
     // Clean websocket connection
     return () =>{
-      console.log(`Making sure socket ${webSocketID} is closed properly...`)
       clearInterval(checkInterval)
-      ws.removeEventListener('open',  handleOpen)
       ws.removeEventListener('close', handleClose)
       ws.removeEventListener('error', handleClose)
       ws.close();
@@ -87,10 +79,8 @@ export default function Home() {
   useEffect(() => {
     if(!audioContext || !audioFiles || !webSocket) return
 
-    const stateVars = {
+    const hookData = {
       lastState: dskyState,
-      lastGoodState: null,
-      firstMessage: true,
       audioContext, 
       audioFiles,
       setDskyState
@@ -98,11 +88,7 @@ export default function Home() {
     
     webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
-      // Leave time for NO CONN to draw
-      // if(stateVars.firstMessage) await new Promise(r => setTimeout(r,350))
-      stateVars.firstMessage = false
-      stateVars.lastGoodState = newState
-      chunkedUpdate(newState, stateVars)
+      chunkedUpdate(newState, hookData)
     };
 
     const relayKeyPress = (event:any)=>{
@@ -115,14 +101,13 @@ export default function Home() {
     // Cleanup function
     return () => {
       window.removeEventListener('keydown', relayKeyPress);
-      if(stateVars.lastGoodState) chunkedUpdate(stateVars.lastGoodState,stateVars)
     };
   }, [webSocket, audioFiles, audioContext]);
 
   useEffect(()=>{
     if(!audioContext || !audioFiles) return
 
-    const stateVars = {
+    const hookData = {
       lastState: dskyState,
       cancelUpdates: false,
       audioContext, 
@@ -135,21 +120,17 @@ export default function Home() {
     let noConnInterval1 : any
     let noConnInterval2 : any
     if(!webSocket || webSocket?.readyState != 1) {
-      console.log("NOCONN in 1s")
       noConnTimeout1 = setTimeout(()=> {
-        console.log("NOCONN")
-        noConnInterval1 = setInterval(()=> chunkedUpdate(NO_CONN, stateVars),1000)
+        noConnInterval1 = setInterval(()=> chunkedUpdate(NO_CONN, hookData),1000)
       }, 1000)
       noConnTimeout2 = setTimeout(()=> {
-        console.log("NOCONN")
-        noConnInterval2 = setInterval(()=> chunkedUpdate(NO_CONN_UHOH, stateVars),1000)
+        noConnInterval2 = setInterval(()=> chunkedUpdate(NO_CONN_UHOH, hookData),1000)
       }, 2000)
     }
 
     // Cleanup function
     return () => {
       if(noConnTimeout1) {
-        console.log("NOCONN CANCELLED")
         clearTimeout(noConnTimeout1)
       }
       if(noConnTimeout2) {
