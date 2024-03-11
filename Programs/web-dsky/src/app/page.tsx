@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Digit } from "./digit";
-import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
+import { AUDIO_LOAD, NO_CONN } from "../utils/dskyStates";
 import { Sign } from "./sign";
-import { getChangedChunks, updateChunk } from "@/utils/chunks";
+import { chunkedUpdate } from "@/utils/chunks";
 
 export default function Home() {
 
-  const initialState = V35_TEST
+  const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
   const [audioContext, setAudioContext] : any = useState(null)
   const [audioFiles, setAudioFiles] : any = useState(null)
@@ -40,6 +40,7 @@ export default function Home() {
   useEffect(()=>{ fetchAudioFiles() },[])
 
   useEffect(()=>{{
+    if(!audioContext) return
     console.log(`Opening websocket: ${webSocketID} ...`)
     // Calculate WebSocket URL
     const protocol = window.location.protocol;
@@ -81,39 +82,27 @@ export default function Home() {
       ws.close();
     }
   }
-  },[webSocketID])
+  },[webSocketID, audioContext])
 
   useEffect(() => {
     if(!audioContext || !audioFiles || !webSocket) return
 
-    // Event listener for incoming messages
-    let lastState = dskyState
+    const stateVars = {
+      lastState: dskyState,
+      lastGoodState: null,
+      firstMessage: true,
+      audioContext, 
+      audioFiles,
+      setDskyState
+    }
+    
     webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
-
-      // Determine amount of changed chunks
-      const changedChunks: Number[] = getChangedChunks(lastState,newState)
-      
-      // Play clicking sound depending on amount of changed chunks
-      if(changedChunks.length){
-        const audioBuffer = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
-        if(audioBuffer) {
-          const source = audioContext.createBufferSource();
-          source.buffer = audioBuffer;
-          source.connect(audioContext.destination);
-          source.start();
-        }
-      }
-
-      // Update dsky's chunks
-      let partialState = lastState
-      for(const chunk of changedChunks){
-        partialState = updateChunk(partialState,newState,chunk)
-        setDskyState(partialState)
-        await new Promise(r => setTimeout(r, 30))
-      }
-      setDskyState(newState);
-      lastState = newState
+      // Leave time for NO CONN to draw
+      // if(stateVars.firstMessage) await new Promise(r => setTimeout(r,350))
+      stateVars.firstMessage = false
+      stateVars.lastGoodState = newState
+      chunkedUpdate(newState, stateVars)
     };
 
     const relayKeyPress = (event:any)=>{
@@ -126,13 +115,42 @@ export default function Home() {
     // Cleanup function
     return () => {
       window.removeEventListener('keydown', relayKeyPress);
+      if(stateVars.lastGoodState) chunkedUpdate(stateVars.lastGoodState,stateVars)
     };
-  }, [webSocket,audioFiles, audioContext]);
+  }, [webSocket, audioFiles, audioContext]);
+
+  useEffect(()=>{
+    if(!audioContext || !audioFiles) return
+
+    const stateVars = {
+      lastState: dskyState,
+      cancelUpdates: false,
+      audioContext, 
+      audioFiles,
+      setDskyState
+    }
+    
+    let noConnTimeout : any
+    if(!webSocket || webSocket?.readyState != 1) {
+      console.log("NOCONN in 1s")
+      noConnTimeout = setTimeout(()=> {
+        console.log("NOCONN")
+        chunkedUpdate(NO_CONN, stateVars)
+      }, 1000)
+    }
+
+    // Cleanup function
+    return () => {
+      if(noConnTimeout) {
+        console.log("NOCONN CANCELLED")
+        clearTimeout(noConnTimeout)
+      }
+    };
+  }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="ELDisplay">
-        {webSocket?.readyState != 1 && <div className="noSocket" />}
         <Image
           alt={'mask'}
           src={'/mask.svg'}

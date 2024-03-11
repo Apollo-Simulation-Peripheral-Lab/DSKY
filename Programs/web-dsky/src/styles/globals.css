@@ -39,13 +39,3 @@ body {
   top:5.7vh;
   left:0px;
 }
-
-.noSocket{
-  background-color: red;
-  width:20.7vh;
-  height: 5.7vh;
-  position: absolute;
-  top:5.7vh;
-  left: 32.2vh;
-  opacity: 0.5;
-}
