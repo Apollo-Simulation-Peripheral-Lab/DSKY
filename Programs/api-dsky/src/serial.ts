@@ -146,7 +146,7 @@ export const binaryStringToBuffer = (bits) => {
     return Buffer.from(numberArray);
 }
 
-export const createSerial = (outputSerial, keyboardHandler, onNewConnection) =>{
+export const createSerial = (outputSerial, keyboardHandler, onNewConnection, setSilenceOutput) =>{
     const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
     serial.on('data', (data) => {
@@ -157,8 +157,10 @@ export const createSerial = (outputSerial, keyboardHandler, onNewConnection) =>{
 
     serial.on('close',async ()=>{
         console.log("[Serial] Connection lost!")
+        setSilenceOutput(true)
         const {outputSerial} = await terminalSetup(false, true)
-        createSerial(outputSerial, keyboardHandler, onNewConnection)
+        setSilenceOutput(false)
+        createSerial(outputSerial, keyboardHandler, onNewConnection, setSilenceOutput)
     })
 
     onNewConnection(serial)

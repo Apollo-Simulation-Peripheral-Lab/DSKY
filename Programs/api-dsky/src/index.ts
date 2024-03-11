@@ -38,10 +38,15 @@ const runWithSetup = async(setup) =>{
     const keyboardHandler = await getKeyboardHandler(inputSource)
     
     let serial
+    let silenceOutput = false
     if(outputSerial){
-        serial = createSerial(outputSerial, keyboardHandler, (newSerial)=>{
-            serial = newSerial
-        })
+        serial = createSerial(outputSerial, keyboardHandler, 
+            (newSerial)=>{
+                serial = newSerial
+            },
+            (setSilenceOutput) => {
+                silenceOutput=setSilenceOutput
+            })
     }
     setWebSocketListener((data)=>{
         // WebSocket data received
@@ -57,7 +62,7 @@ const runWithSetup = async(setup) =>{
             updateWebSocketState(currentState)
             lastPacket = currentPacket
             let serialPacket = binaryStringToBuffer(currentPacket)
-            console.log(serialPacket)
+            if(!silenceOutput) console.log(serialPacket)
             if(serial) serial.write(serialPacket)
         }
     })
