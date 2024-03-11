@@ -7,7 +7,8 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
 
 **Do you just want to have a DSKY display in your web browser?**
   - Make sure you have NodeJS > 18
-  - Just run server.bat and answer the prompts
+  - At the moment the software is only supported on Windows.
+  - Run start.bat and answer the prompts
 
 **Do you want to build the whole DSKY replica?**
   - Print the .3mf meshes found in the '3D Models' folder. 
@@ -27,7 +28,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
     - File -> Open Workspace from File -> DSKY.code-workspace
     - Within PlatformIO's menu, flash the firmware into your Arduino Nano
   - Make sure you have NodeJS > 18
-  - Run server.bat
+  - Run start.bat
 
 ## Repository contents:
 * **3D Models**:
@@ -39,7 +40,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
     * STEP file of the assembly
   * **Printable Key faces:** PDF File to be printed with an inkjet printer and then laid on top of the plastic keys.
 * **Firmware:** PlatformIO project containing the firmware to be flashed on the Arduino Nano board.
-* **Programs:** Software required to interface with AGC simulators
+* **Programs:** Software required to interface with AGC simulators.
   * **api-dsky**: Will relay data to the chosen serial port, and also make it available via websocket on port 3001
     * Requirements: NodeJS >18
     * Running: 
@@ -48,7 +49,6 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
       * Run ``npm start``
   * **web-dsky**: Web Application that uses 'api-dsky's websocket to render the EL display
     * Requirements: NodeJS >18
-    * **IMPORTANT: 'api-dsky' will offer you the chance to start this for you**
     * Running (production mode): 
       * Open a terminal in this location 
       * Run ``npm install``
