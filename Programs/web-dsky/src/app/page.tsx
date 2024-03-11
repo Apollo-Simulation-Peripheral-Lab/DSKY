@@ -7,33 +7,40 @@ import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
 import { Sign } from "./sign";
 import { getChangedChunks, updateChunk } from "@/utils/chunks";
 
-const fetchClicks = async (audioContext:any, audioFiles:any) =>{
-  for(let i=1; i<=11; i++){
-    for(let j=0; j<5; j++){
-      const res = await fetch(`audio/clicks${i}_${j}.mp3`)
-      const arrayBuffer = await res.arrayBuffer()
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
-      audioFiles[`${i}-${j}`] = audioBuffer
-    }
-  }
-}
-
 export default function Home() {
 
   const initialState = V35_TEST
   const [dskyState,setDskyState] = useState(initialState)
+  const [audioContext, setAudioContext] : any = useState(null)
+  const [audioFiles, setAudioFiles] : any = useState(null)
+  const [webSocket, setWebSocket] : any = useState(null)
+  const [webSocketID, setWebSocketID] : any = useState(0)
 
-  useEffect(() => {
+  const fetchAudioFiles = async () => {
     // Cache audio files
     let sampleRate
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       // Webkit sucks for audio
       sampleRate = 32000
     }
-    const audioContext = new (window.AudioContext)({sampleRate})
-    const audioFiles : any = {}
-    fetchClicks(audioContext, audioFiles)
+    const newAudioContext : any = new (window.AudioContext)({sampleRate})
+    const newAudioFiles : any = {}
+    for(let i=1; i<=11; i++){
+      for(let j=0; j<5; j++){
+        const res = await fetch(`audio/clicks${i}_${j}.mp3`)
+        const arrayBuffer = await res.arrayBuffer()
+        const audioBuffer = await newAudioContext.decodeAudioData(arrayBuffer)
+        newAudioFiles[`${i}-${j}`] = audioBuffer
+      }
+    }
+    setAudioContext(newAudioContext)
+    setAudioFiles(newAudioFiles)
+  }
 
+  useEffect(()=>{ fetchAudioFiles() },[])
+
+  useEffect(()=>{{
+    console.log(`Opening websocket: ${webSocketID} ...`)
     // Calculate WebSocket URL
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
@@ -41,11 +48,47 @@ export default function Home() {
     if (protocol === 'https:') {
       wsURL = `wss://${hostname}/ws`;
     }
-    const ws = new WebSocket(wsURL);
+
+    // Open websocket connection
+    const ws: any = new WebSocket(wsURL);
+    setWebSocket(ws)
+
+    const handleOpen = () => {
+      console.log(`Socket opened: ${webSocketID}`)
+    }
+    const handleClose = async ()=>{
+      console.log(`Socket closed: ${webSocketID}`)
+      await new Promise(r => setTimeout(r,1000))
+      setWebSocketID((webSocketID + 1)%5)
+    }
+    
+    ws.addEventListener('open',  handleOpen)
+    ws.addEventListener('close', handleClose)
+    ws.addEventListener('error', handleClose)
+    const checkInterval = setInterval(() =>{
+      if(ws.readyState !== 1){
+        handleClose()
+      }
+    },1000)
+
+    // Clean websocket connection
+    return () =>{
+      console.log(`Making sure socket ${webSocketID} is closed properly...`)
+      clearInterval(checkInterval)
+      ws.removeEventListener('open',  handleOpen)
+      ws.removeEventListener('close', handleClose)
+      ws.removeEventListener('error', handleClose)
+      ws.close();
+    }
+  }
+  },[webSocketID])
+
+  useEffect(() => {
+    if(!audioContext || !audioFiles || !webSocket) return
 
     // Event listener for incoming messages
-    let lastState = initialState
-    ws.onmessage = async (event) => {
+    let lastState = dskyState
+    webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
 
       // Determine amount of changed chunks
@@ -75,7 +118,7 @@ export default function Home() {
 
     const relayKeyPress = (event:any)=>{
       if(event.key.length == 1){
-        ws.send(event.key)
+        webSocket.send(event.key)
       }
     }
     window.addEventListener('keydown', relayKeyPress);
@@ -83,13 +126,13 @@ export default function Home() {
     // Cleanup function
     return () => {
       window.removeEventListener('keydown', relayKeyPress);
-      ws.close();
     };
-  }, []);
+  }, [webSocket,audioFiles, audioContext]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="ELDisplay">
+        {webSocket?.readyState != 1 && <div className="noSocket" />}
         <Image
           alt={'mask'}
           src={'/mask.svg'}
@@ -122,7 +165,6 @@ export default function Home() {
           className={'NounD2'}
           digit={dskyState.NounD2}
         />
-
 
         <Sign
           className={'Register1Sign'}
