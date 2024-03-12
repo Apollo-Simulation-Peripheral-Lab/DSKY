@@ -156,11 +156,12 @@ static const uint8_t PROGMEM initcmd[] = {
   0xCB, 5, 0x39, 0x2C, 0x00, 0x34, 0x02,
   0xF7, 1, 0x20,
   0xEA, 2, 0x00, 0x00,
+  0xB5, 4, 0x1F, 0x1F, 0x02, 0x02,
   ILI9488_PWCTR1  , 1, 0x23,             // Power control VRH[5:0]
   ILI9488_PWCTR2  , 1, 0x10,             // Power control SAP[2:0];BT[3:0]
   ILI9488_VMCTR1  , 2, 0x3e, 0x28,       // VCM control
   ILI9488_VMCTR2  , 1, 0x86,             // VCM control2
-  ILI9488_MADCTL  , 1, 0x48,             // Memory Access Control
+  ILI9488_MADCTL  , 1, 0x40,             // Memory Access Control
   ILI9488_VSCRSADD, 1, 0x00,             // Vertical scroll zero
   ILI9488_PIXFMT  , 1, 0x55,
   ILI9488_FRMCTR1 , 2, 0x00, 0x18,
@@ -172,6 +173,7 @@ static const uint8_t PROGMEM initcmd[] = {
   ILI9488_GMCTRN1 , 15, 0x00, 0x0E, 0x14, 0x03, 0x11, 0x07, // Set Gamma
     0x31, 0xC1, 0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F,
   ILI9488_SLPOUT  , 0x80,                // Exit Sleep
+  //0xB1, 2, 0b11010001, 0b00010000,
   ILI9488_DISPON  , 0x80,                // Display on
   0x00                                   // End of list
 };
