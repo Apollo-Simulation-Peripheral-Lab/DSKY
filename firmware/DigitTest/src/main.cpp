@@ -56,15 +56,20 @@ void setup() {
 }
 
 void loop(void) {
-  static int8_t prognum = 0;
-  writeProg(prognum);
-  prognum++;
-  if(prognum >= 100){
-    writeProg(-1);
-    prognum = 0;
+  static int8_t index = 0;
+
+  if(index >= 100){
+    index = 0;
     for(int i = 0; i < 6; i++){
         DSKY_unitTest_blink();
     }
   }
-  delay(50);
+  else{
+    for(int i = 0; i < 6; i++){
+      setChar(i, index++);
+      delay(100);
+    }
+
+    delay(100);
+  }
 }
