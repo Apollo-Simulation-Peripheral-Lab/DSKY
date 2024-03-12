@@ -92,9 +92,6 @@ void DSKY_unitTest_blink(void) {
 
     tft->setTextColor(0x2D60*(int)set);
 
-    tft->setCursor(10, 200);
-    tft->print("88  88");
-
     tft->setCursor(10, 98);
     tft->print("    88");
 
@@ -116,45 +113,163 @@ void DSKY_unitTest_blink(void) {
 void writeProg(int8_t progNumber) {
 
   #ifdef FULLBLANK
-
   tft->fillRect(180, 40, 88, 70, 0);
-  progNumber %= 100;
-
-  tft->setTextColor(0);
-  tft->setCursor(10, 98);
-  tft->print("    88");
-
-  if(progNumber < 0){
-    return;
-  }
-
-  tft->setTextColor(0x2D60);
-  tft->setCursor(10, 98);
-  tft->print("    ");
-
-  if(progNumber < 10)
-    tft->print("0");
-
-  tft->print(progNumber);
-
-  #else
-  progNumber %= 100;
-
-  tft->setTextColor(0);
-  tft->setCursor(10, 98);
-  tft->print("    88");
-
-  if(progNumber < 0){
-    return;
-  }
-
-  tft->setTextColor(0x2D60);
-  tft->setCursor(10, 98);
-  tft->print("    ");
-
-  if(progNumber < 10)
-    tft->print("0");
-
-  tft->print(progNumber);
   #endif
+  
+  progNumber %= 100;
+
+  tft->setTextColor(0);
+  tft->setCursor(10, 98);
+  tft->print("    88");
+
+  if(progNumber < 0){
+    return;
+  }
+
+  tft->setTextColor(0x2D60);
+  tft->setCursor(10, 98);
+  tft->print("    ");
+
+  if(progNumber < 10)
+    tft->print("0");
+
+  tft->print(progNumber);
+  
+}
+
+void writeVerb(int8_t verbNumber) {
+
+  #ifdef FULLBLANK
+  tft->fillRect(10, 140, 100, 70, 0);
+  #endif
+  verbNumber %= 100;
+
+  tft->setTextColor(0);
+  tft->setCursor(10, 200);
+  tft->print("88");
+
+  if(verbNumber < 0){
+    return;
+  }
+
+  tft->setTextColor(0x2D60);
+  tft->setCursor(10, 200);
+  tft->print("");
+
+  if(verbNumber < 10)
+    tft->print("0");
+
+  tft->print(verbNumber);
+
+}
+
+void writeNoun(int8_t nounNumber) {
+
+  #ifdef FULLBLANK
+  tft->fillRect(180, 140, 100, 70, 0);
+  #endif
+  nounNumber %= 100;
+
+  tft->setTextColor(0);
+  tft->setCursor(10, 200);
+  tft->print("    88");
+
+  if(nounNumber < 0){
+    return;
+  }
+
+  tft->setTextColor(0x2D60);
+  tft->setCursor(10, 200);
+  tft->print("    ");
+
+  if(nounNumber < 10)
+    tft->print("0");
+
+  tft->print(nounNumber);
+
+}
+
+void setChar(uint8_t index, uint8_t value){
+  value %= 10;
+  switch(index){
+    case 0:
+      writeProg(-1);
+      tft->setCursor(10, 98);
+      tft->setTextColor(0x2D60);
+      tft->print("    ");
+      tft->print(value);
+      break;
+    case 1:
+      tft->setCursor(10, 98);
+      tft->setTextColor(0x2D60);
+      tft->print("     ");
+      tft->print(value);
+      break;
+    case 2:
+      writeVerb(-1);
+      tft->setCursor(10, 200);
+      tft->setTextColor(0x2D60);
+      tft->print(value);
+      break;
+    case 3:
+      tft->setCursor(10, 200);
+      tft->setTextColor(0x2D60);
+      tft->print(" ");
+      tft->print(value);
+      break;
+    case 4:
+      writeNoun(-1);
+      tft->setCursor(10, 200);
+      tft->setTextColor(0x2D60);
+      tft->print("    ");
+      tft->print(value);
+      break;
+    case 5:
+      tft->setCursor(10, 200);
+      tft->setTextColor(0x2D60);
+      tft->print("     ");
+      tft->print(value);
+      break;
+
+    case 6:
+      writeSign(0, (RegisterSign) (value%3));
+      break;
+    case 7:
+      break;
+    case 8: case 9: case 10: case 11:
+      break;
+
+    case 12:
+      writeSign(1, (RegisterSign) (value%3));
+      break;
+    case 13:
+      break;
+    case 14: case 15: case 16: case 17:
+      break;
+      
+    case 18:
+      writeSign(2, (RegisterSign) (value%3));
+      break;
+    case 19: 
+      break;
+    case 20: case 21: case 22: case 23:
+      break;
+  }
+}
+
+void writeSign(uint8_t registerIndex, RegisterSign sign)
+{
+  registerIndex %= 3;
+  tft->fillRect(10, 280 + (80*registerIndex), 268, 70, 0);
+
+  tft->setCursor(10, 280 + (80*registerIndex));
+  tft->setTextColor(0x2D60);
+  switch(sign){
+    case UNSIGNED:
+      tft->print(" ");
+    case POS:
+      tft->print("+");
+    case NEG:
+      tft->print("-");
+  }
 }

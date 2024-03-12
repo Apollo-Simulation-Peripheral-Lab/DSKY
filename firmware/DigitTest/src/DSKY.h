@@ -19,6 +19,10 @@ void writeProg(int8_t progNumber);
 void writeVerb(int8_t verbNumber);
 void writeNoun(int8_t nounNumber);
 void writeRegister(uint8_t index, uint32_t value, RegisterSign sign);
+
+void setChar(uint8_t index, uint8_t value);
+void writeSign(uint8_t registerIndex, RegisterSign sign);
+
 void DSKY_unitTest_blink(void);
 
 #endif // __DSKY_H_
