@@ -3292,7 +3292,7 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f8103bee-af5d-46ac-b6a6-28e871f35498))
   (gr_line (start 275.59 116.459) (end 275.59 112.522)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f98ee9a1-75a0-47b0-9bd2-8d87191be155))
-  (gr_text "DSKY Crew\nPrototyping board, Keyboard Board\nRev. 0.3" (at 278.003 156.464) (layer "B.SilkS") (tstamp d9ad6b28-e881-48d3-ab23-ed7c3a6a5f57)
+  (gr_text "DSKY Crew\nPrototyping board, Keyboard Board\nRev. 0.3.1" (at 278.003 156.464) (layer "B.SilkS") (tstamp d9ad6b28-e881-48d3-ab23-ed7c3a6a5f57)
     (effects (font (size 1 1) (thickness 0.15) italic) (justify left bottom mirror))
   )
 
