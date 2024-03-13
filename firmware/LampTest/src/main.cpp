@@ -5,7 +5,7 @@
 #define DUTY_MIN 1
 #define DUTY_MAX 255
 
-#define DELAY 100
+#define DELAY 200
 
 #define PCF_PIN_QTY 18
 
@@ -13,26 +13,16 @@
 #define LAMP_QTY_ORANGE 9
 #define LAMP_QTY_WHITE 5
 
-// Index offset.
-const uint8_t offset = 22;
-
-uint16_t duty = 1;
-uint8_t index = 0;
-uint8_t cycle = 0;
-bool setting = true;
-
-#define REV_C
-
 PCF8575 PCF(0x20);
 
 /*           LHC   RHC
-UPLINK ACTY    7: :10       TEMP
-NO ATT         6: :11       GIMBAL LOCK
-STBY           5: :12       PROG
-KEY REL        4: :13       RESTART
-OPR ERR        3: :14       TRACKER
-NO DAP         2: :15       ALT
-PRIO DISP      1: :16       VEL
+UPLINK ACTY    7: :8       TEMP
+NO ATT         6: :9       GIMBAL LOCK
+STBY           5: :10      PROG
+KEY REL        4: :11      RESTART
+OPR ERR        3: :12      TRACKER
+NO DAP         2: :13      ALT
+PRIO DISP      1: :14      VEL
 */
 enum alarmLamp {
   PRIO_DISP = 1,
@@ -51,6 +41,7 @@ enum alarmLamp {
   VEL = 14,
 };
 
+/* Map these IO pins to something geographically sensible wrt. the board layout */
 const alarmLamp lampMapLeftColumnFirst[14] = {
   UPLINK_ACTY, NO_ATT, STBY, KEY_REL, // lhc
   OPR_ERR, NO_DAP, PRIO_DISP,
@@ -83,6 +74,7 @@ const alarmLamp lampMapWhite[5] = {
   KEY_REL, OPR_ERR
 };
 
+/* Function prototypes */
 void printHex(uint16_t x);
 void toggleAlarm(alarmLamp lamp, uint8_t state);
 void toggleAll(uint8_t state);
@@ -97,60 +89,65 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(PWM_PIN, OUTPUT);
 
+  bool connected = PCF.begin();
+  Serial.print("Connection: ");
+  Serial.println(connected);
 
   Serial.begin(115200);
-  Serial.println(__FILE__);
-  Serial.print("PCF8575_LIB_VERSION:\t");
-  Serial.println(PCF8575_LIB_VERSION);
+  Serial.println("Begin DSKY Alarm Light Test:");
 
   Wire.begin();
 
-  bool connected = PCF.begin();
 
-  Serial.print("Connection: ");
-  Serial.println(connected);
 
   uint16_t x = PCF.read16();
   Serial.print("Read ");
   printHex(x);
 
-  // initialize PCF pins to LOW state.
+  toggleAll(0);
+
+  // initialize even the unused PCF pins to LOW state.
   for(uint8_t i = 0; i < PCF_PIN_QTY; i++){
     PCF.write(i, LOW);
   }
 
-  // turn off all lamps (redundant, but oh well)
-  for(uint8_t i = 0; i < LAMP_QTY; i++){
-    toggleAlarm(lampMapLeftRightDown[i], false);
-  }
-
-  analogWrite(PWM_PIN, DUTY_MIN);
 }
 
 void loop() {
 
-  // put your main code here, to run repeatedly:
+  // cycle test cases dim, then bright -- over and over
   for(uint8_t i = 0; i < 2; i++)
   {
     switch(i){
       case 0:
-        duty = DUTY_MIN;
+        analogWrite(PWM_PIN, DUTY_MIN);
         break;
       case 1:
-        duty = DUTY_MAX;
+        analogWrite(PWM_PIN, DUTY_MAX);
         break;
     }
-    analogWrite(PWM_PIN, duty);
 
+    Serial.println("Left-right, down");
     testLeftRightDown();
+
+    Serial.println("Left column first");
     testLeftColumnFirst();
+
+    Serial.println("Right column first");
     testRightColumnFirst();
+
+    Serial.println("Orange lamps");
     testOrangeLamps();
+
+    Serial.println("White lamps");
     testWhiteLamps();
+    Serial.println();
+    toggleAll(0);
     delay(500);
   }
 }
 
+/* Toggle all lamps to a particular {state} */
 void toggleAll(uint8_t state)
 {
   for(uint8_t i = 0; i < LAMP_QTY; i++){
@@ -158,6 +155,7 @@ void toggleAll(uint8_t state)
   }
 }
 
+/* Turn on, turn off: Left column then right column.*/
 void testLeftColumnFirst(void){
   for(uint8_t i = 0; i < 2; i++)
   {
@@ -171,6 +169,7 @@ void testLeftColumnFirst(void){
   return;
 }
 
+/* Turn on, turn off: Right column then left column.*/
 void testRightColumnFirst(void){
   for(uint8_t i = 0; i < 2; i++)
   {
@@ -183,6 +182,7 @@ void testRightColumnFirst(void){
   toggleAll(0);
 }
 
+/* Turn on, turn off: left then right going down*/
 void testLeftRightDown(void)
 {
   for(uint8_t i = 0; i < 2; i++)
@@ -195,6 +195,8 @@ void testLeftRightDown(void)
   }
   toggleAll(0);
 }
+
+/* Test all orange lamps. */
 void testOrangeLamps(void)
 {
   for(uint8_t i = 0; i < 2; i++)
@@ -207,6 +209,8 @@ void testOrangeLamps(void)
   }
   toggleAll(0);
 }
+
+/* Test all white lamps. */
 void testWhiteLamps(void)
 {
   for(uint8_t i = 0; i < 2; i++)
@@ -220,6 +224,12 @@ void testWhiteLamps(void)
   toggleAll(0);
 }
 
+/* Toggle a single {lamp} to a particular {state} */
+void toggleAlarm(alarmLamp lamp, uint8_t state)
+{
+  PCF.write((uint8_t)lamp, state);
+}
+
 void printHex(uint16_t x)
 {
   if (x < 0x1000) Serial.print('0');
@@ -228,7 +238,3 @@ void printHex(uint16_t x)
   Serial.println(x, HEX);
 }
 
-void toggleAlarm(alarmLamp lamp, uint8_t state)
-{
-  PCF.write((uint8_t)lamp, state);
-}
