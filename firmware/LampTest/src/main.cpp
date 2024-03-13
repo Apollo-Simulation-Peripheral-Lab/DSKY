@@ -42,13 +42,13 @@ enum alarmLamp {
   STBY = 5,
   NO_ATT = 6,
   UPLINK_ACTY = 7,
-  TEMP = 10,
-  GIMBAL_LOCK = 11,
-  PROG = 12,
-  RESTART = 13,
-  TRACKER = 14,
-  ALT = 15,
-  VEL = 16,
+  TEMP = 8,
+  GIMBAL_LOCK = 9,
+  PROG = 10,
+  RESTART = 11,
+  TRACKER = 12,
+  ALT = 13,
+  VEL = 14,
 };
 
 const alarmLamp lampMapLeftColumnFirst[14] = {
@@ -85,6 +85,7 @@ const alarmLamp lampMapWhite[5] = {
 
 void printHex(uint16_t x);
 void toggleAlarm(alarmLamp lamp, uint8_t state);
+void toggleAll(uint8_t state);
 
 void testLeftColumnFirst(void);
 void testRightColumnFirst(void);
@@ -127,8 +128,9 @@ void setup() {
 }
 
 void loop() {
+
   // put your main code here, to run repeatedly:
-  for(uint8_t i = 0; i < 3; i++)
+  for(uint8_t i = 0; i < 2; i++)
   {
     switch(i){
       case 0:
@@ -137,11 +139,9 @@ void loop() {
       case 1:
         duty = DUTY_MAX;
         break;
-      case 2:
-        duty = DUTY_OFF;
-        break;
     }
     analogWrite(PWM_PIN, duty);
+
     testLeftRightDown();
     testLeftColumnFirst();
     testRightColumnFirst();
@@ -151,15 +151,23 @@ void loop() {
   }
 }
 
+void toggleAll(uint8_t state)
+{
+  for(uint8_t i = 0; i < LAMP_QTY; i++){
+    toggleAlarm(lampMapLeftRightDown[i], state);
+  }
+}
+
 void testLeftColumnFirst(void){
   for(uint8_t i = 0; i < 2; i++)
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapLeftColumnFirst[j], i);
+      toggleAlarm(lampMapLeftColumnFirst[j], 1 - i);
       delay(DELAY);
     }
   }
+  toggleAll(0);
   return;
 }
 
@@ -168,10 +176,11 @@ void testRightColumnFirst(void){
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapRightColumnFirst[j], i);
+      toggleAlarm(lampMapRightColumnFirst[j], 1 - i);
       delay(DELAY);
     }
   }
+  toggleAll(0);
 }
 
 void testLeftRightDown(void)
@@ -180,10 +189,11 @@ void testLeftRightDown(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapLeftRightDown[j], i);
+      toggleAlarm(lampMapLeftRightDown[j], 1 - i);
       delay(DELAY);
     }
   }
+  toggleAll(0);
 }
 void testOrangeLamps(void)
 {
@@ -191,10 +201,11 @@ void testOrangeLamps(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY_ORANGE; j++)
     {
-      toggleAlarm(lampMapOrange[j], i);
+      toggleAlarm(lampMapOrange[j], 1 - i);
       delay(DELAY);
     }
   }
+  toggleAll(0);
 }
 void testWhiteLamps(void)
 {
@@ -202,10 +213,11 @@ void testWhiteLamps(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY_WHITE; j++)
     {
-      toggleAlarm(lampMapWhite[j], i);
+      toggleAlarm(lampMapWhite[j], 1 - i);
       delay(DELAY);
     }
   }
+  toggleAll(0);
 }
 
 void printHex(uint16_t x)
