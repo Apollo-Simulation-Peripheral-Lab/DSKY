@@ -3,38 +3,38 @@ import getAppDataPath from "appdata-path";
 import { Hardware } from 'keysender';
 
 export const watchStateReentry = (callback) => {
-    const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
-    const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`
-    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`
+    const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
+    const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
+    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`;
 
     const createWatcher = async (watchPath, callback) => {
         let success = false;
         while (!success) {
-          try {
-            fs.watch(watchPath, (event, filename) => {
-                if (event === 'change') {
-                    callback();
-                }
-            });
-            // Create the watchers on start
-            callback();
-            console.log(`Watcher created successfully for ${watchPath}`)
-            success = true;
-          } catch (error) {
-                console.error(`Unable to create watcher for ${watchPath}: ${error}`); // might flood the console with errors
-                await new Promise((r) => setTimeout(r, 5000));
+            try {
+                fs.watch(watchPath, (event, filename) => {
+                    if (event === 'change') {
+                        callback();
+                    }
+                });
+                // Create the watchers on start
+                callback();
+                console.log(`Watcher created successfully for ${watchPath}`);
+                success = true;
+            } catch (error) {
+                console.error(`Unable to create watcher for ${watchPath}: ${error.message}`); // might flood the console with errors
+                await new Promise((resolve) => setTimeout(resolve, 5000));
             }
         }
     };
     
     const handleStateUpdate = (path, condition, callback) => {
         try {
-            const state = JSON.parse(fs.readFileSync(path).toString())
+            const state = JSON.parse(fs.readFileSync(path).toString());
             if (condition(state)) {
                 callback(state);
             }
         } catch (error) {
-            console.error(`Error while parsing ${path}: ${error}`); // reentry should never mess up, right?
+            console.error(`Error while parsing ${path}: ${error.message}`); // reentry should never mess up, right?
         }
     };
 
@@ -53,10 +53,10 @@ export const watchStateReentry = (callback) => {
     createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
-export const getReentryKeyboardHandler = (hardware) => {
+export const getReentryKeyboardHandler = () => {
     const obj = new Hardware();
 
-    // Set Up for NASSP Chords
+    // Set Up for using with keysender lib
     const keyMap = {
         '1': ['num1'],
         '2': ['num2'],
