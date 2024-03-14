@@ -11,6 +11,9 @@ export const watchStateReentry = (callback) => {
         while (!success) {
           try {
             fs.watch(path, callback);
+            // Call the handlers once when starting
+            callback();
+            console.log(`Watcher created successfully for ${path}`)
             success = true;
           } catch {
             await new Promise((r) => setTimeout(r, 5000));
@@ -44,10 +47,6 @@ export const watchStateReentry = (callback) => {
     // Call the Watchers to check AGC + LGC
     createWatcher(AGC_PATH, handleAGCUpdate);
     createWatcher(LGC_PATH, handleLGCUpdate);
-
-    // Call the handlers once when starting
-    handleAGCUpdate();
-    handleLGCUpdate();
 };
 
 export const getReentryKeyboardHandler = () => {
