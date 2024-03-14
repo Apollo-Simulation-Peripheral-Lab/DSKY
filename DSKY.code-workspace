@@ -4,7 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "Firmware"
+			"path": "Firmware/main"
+		},
+		{
+			"path": "Firmware/LampTest"
 		}
 	],
 	"settings": {}
