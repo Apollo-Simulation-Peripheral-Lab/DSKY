@@ -1,3 +1,6 @@
+import { SerialPort } from 'serialport'
+import { terminalSetup } from './terminalSetup';
+
 const decimalToByte = (decimal) =>{
     // Convert number to binary string
     let binaryString = decimal.toString(2);
@@ -141,4 +144,26 @@ export const binaryStringToBuffer = (bits) => {
     const chunks = (bits.match(/.{1,8}/g)).map(byte => byte.padEnd(8, '0') );
     const numberArray = chunks.map(chunk => parseInt(chunk, 2));
     return Buffer.from(numberArray);
+}
+
+export const createSerial = (outputSerial, keyboardHandler, onNewConnection, setSilenceOutput) =>{
+    const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
+    
+    serial.on('data', (data) => {
+        // Serial data received
+        console.log(`[Serial] KeyPress: ${data}`)
+        keyboardHandler(data)
+    })
+
+    serial.on('close',async ()=>{
+        console.log("[Serial] Connection lost!")
+        setSilenceOutput(true)
+        const {outputSerial} = await terminalSetup(false, true)
+        setSilenceOutput(false)
+        createSerial(outputSerial, keyboardHandler, onNewConnection, setSilenceOutput)
+    })
+
+    onNewConnection(serial)
+
+    return serial
 }
