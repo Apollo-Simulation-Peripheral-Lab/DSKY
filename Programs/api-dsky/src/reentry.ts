@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
 import { Hardware } from 'keysender';
-import path from 'path'; // Importing path module for cross-platform path construction, blah blah blah. Its no longer windows only
+import path from 'path'; // Importing path module for cross-platform path construction blah blah blah Its no longer windows only
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
@@ -12,7 +12,7 @@ export const watchStateReentry = (callback) => {
         while (!success) {
           try {
             fs.watch(path, callback);
-            // Create the watchers once when starting
+            // Create the watchers on start
             callback();
             console.log(`Watcher created successfully for ${path}`)
             success = true;
@@ -30,7 +30,7 @@ export const watchStateReentry = (callback) => {
                 callback(state);
             }
         } catch (error) {
-            console.error(`Error while parsing ${path}: ${error}`); // "reentry should never mess up, right?"
+            console.error(`Error while parsing ${path}: ${error}`); // reentry should never mess up, right?
         }
     };
 
