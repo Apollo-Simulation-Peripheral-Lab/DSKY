@@ -1,9 +1,9 @@
 #include "PCF8575.h"
 
-#define PWM_PIN 10
+#define PWM_PIN 5
 #define DUTY_OFF 0
 #define DUTY_MIN 1
-#define DUTY_MAX 255
+#define DUTY_MAX 127
 
 #define DELAY 200
 
@@ -116,14 +116,17 @@ void setup() {
 void loop() {
 
   // cycle test cases dim, then bright -- over and over
-  for(uint8_t i = 0; i < 2; i++)
+  for(uint8_t i = 0; i < 3; i++)
   {
     switch(i){
       case 0:
         analogWrite(PWM_PIN, DUTY_MIN);
         break;
-      case 1:
+      case 2:
         analogWrite(PWM_PIN, DUTY_MAX);
+        break;
+      case 1:
+        digitalWrite(PWM_PIN, HIGH);
         break;
     }
 
