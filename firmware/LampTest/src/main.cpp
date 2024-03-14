@@ -1,11 +1,11 @@
 #include "PCF8575.h"
 
 #define PWM_PIN 5
-#define DUTY_OFF 0
+
 #define DUTY_MIN 1
 #define DUTY_MAX 127
 
-#define DELAY 200
+#define DELAY 2000
 
 #define PCF_PIN_QTY 18
 
@@ -76,7 +76,7 @@ const alarmLamp lampMapWhite[5] = {
 
 /* Function prototypes */
 void printHex(uint16_t x);
-void toggleAlarm(alarmLamp lamp, uint8_t state);
+void toggleAlarm(alarmLamp lamp, uint8_t state, int delayTime);
 void toggleAll(uint8_t state);
 
 void testLeftColumnFirst(void);
@@ -122,10 +122,10 @@ void loop() {
       case 0:
         analogWrite(PWM_PIN, DUTY_MIN);
         break;
-      case 2:
+      case 1:
         analogWrite(PWM_PIN, DUTY_MAX);
         break;
-      case 1:
+      case 2:
         digitalWrite(PWM_PIN, HIGH);
         break;
     }
@@ -146,7 +146,7 @@ void loop() {
     testWhiteLamps();
     Serial.println();
     toggleAll(0);
-    delay(500);
+    delay(DELAY);
   }
 }
 
@@ -154,7 +154,7 @@ void loop() {
 void toggleAll(uint8_t state)
 {
   for(uint8_t i = 0; i < LAMP_QTY; i++){
-    toggleAlarm(lampMapLeftRightDown[i], state);
+    toggleAlarm(lampMapLeftRightDown[i], state, 0);
   }
 }
 
@@ -164,8 +164,7 @@ void testLeftColumnFirst(void){
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapLeftColumnFirst[j], 1 - i);
-      delay(DELAY);
+      toggleAlarm(lampMapLeftColumnFirst[j], 1 - i, DELAY);
     }
   }
   toggleAll(0);
@@ -178,8 +177,7 @@ void testRightColumnFirst(void){
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapRightColumnFirst[j], 1 - i);
-      delay(DELAY);
+      toggleAlarm(lampMapRightColumnFirst[j], 1 - i, DELAY);
     }
   }
   toggleAll(0);
@@ -192,8 +190,7 @@ void testLeftRightDown(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY; j++)
     {
-      toggleAlarm(lampMapLeftRightDown[j], 1 - i);
-      delay(DELAY);
+      toggleAlarm(lampMapLeftRightDown[j], 1 - i, DELAY);
     }
   }
   toggleAll(0);
@@ -206,8 +203,7 @@ void testOrangeLamps(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY_ORANGE; j++)
     {
-      toggleAlarm(lampMapOrange[j], 1 - i);
-      delay(DELAY);
+      toggleAlarm(lampMapOrange[j], 1 - i, DELAY);
     }
   }
   toggleAll(0);
@@ -220,17 +216,19 @@ void testWhiteLamps(void)
   {
     for(uint8_t j = 0; j < LAMP_QTY_WHITE; j++)
     {
-      toggleAlarm(lampMapWhite[j], 1 - i);
-      delay(DELAY);
+      toggleAlarm(lampMapWhite[j], 1 - i, DELAY);
     }
   }
   toggleAll(0);
 }
 
 /* Toggle a single {lamp} to a particular {state} */
-void toggleAlarm(alarmLamp lamp, uint8_t state)
+void toggleAlarm(alarmLamp lamp, uint8_t state, int delayTime)
 {
-  PCF.write((uint8_t)lamp, state);
+  for(uint8_t i = 0; i< delayTime / 20; i++){
+    PCF.write((uint8_t)lamp, state);
+    delay(20);
+  }
 }
 
 void printHex(uint16_t x)
