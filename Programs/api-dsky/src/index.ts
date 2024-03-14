@@ -1,4 +1,3 @@
-import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer, createSerial } from '@/serial'
@@ -10,8 +9,6 @@ dotenv.config()
 
 const watchState = (inputSource, callback) =>{
     switch(inputSource){
-        case "reentry":
-            return watchStateReentry(callback)
         case "ksp":
             return watchStateKSP(callback)
         case "random":
@@ -22,8 +19,6 @@ const watchState = (inputSource, callback) =>{
 
 const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
-        case "reentry":
-            return getReentryKeyboardHandler()
         case "ksp":
             return await getKSPKeyboardHandler()
         default:
