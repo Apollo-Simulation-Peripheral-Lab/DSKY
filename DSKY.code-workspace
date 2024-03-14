@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "Firmware/LampTest"
+		},
+		{
+			"path": "Firmware/DigitTest"
+		},
+		{
+			"path": "Firmware/ili9488_prework"
 		}
 	],
 	"settings": {}
