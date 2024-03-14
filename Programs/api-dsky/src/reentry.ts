@@ -1,23 +1,27 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
 import { Hardware } from 'keysender';
-import path from 'path'; // Importing path module for cross-platform path construction blah blah blah Its no longer windows only
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`
+    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`
 
-    const createWatcher = async (path, callback) => {
+    const createWatcher = async (watchPath, callback) => {
         let success = false;
         while (!success) {
           try {
-            fs.watch(path, callback);
+            fs.watch(watchPath, (event, filename) => {
+                if (event === 'change') {
+                    callback();
+                }
+            });
             // Create the watchers on start
             callback();
-            console.log(`Watcher created successfully for ${path}`)
+            console.log(`Watcher created successfully for ${watchPath}`)
             success = true;
           } catch (error) {
-                console.error(`Unable to create watcher for ${path}: ${error}`); // might flood the console with errors
+                console.error(`Unable to create watcher for ${watchPath}: ${error}`); // might flood the console with errors
                 await new Promise((r) => setTimeout(r, 5000));
             }
         }
@@ -39,8 +43,6 @@ export const watchStateReentry = (callback) => {
         handleStateUpdate(AGC_PATH, (state) => state.IsInCM, callback);
     };
 
-    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`
-    
     // Watch LGC state for changes
     const handleLGCUpdate = () => {
         handleStateUpdate(LGC_PATH, (state) => state.IsInLM, callback);
@@ -51,7 +53,7 @@ export const watchStateReentry = (callback) => {
     createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
-export const getReentryKeyboardHandler = () => {
+export const getReentryKeyboardHandler = (hardware) => {
     const obj = hardware || new Hardware(); // Dependency Injection
 
     // Set Up for NASSP Chords
