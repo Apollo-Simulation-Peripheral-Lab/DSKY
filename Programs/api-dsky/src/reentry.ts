@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
 import { Hardware } from 'keysender';
+import path from 'path'; // Importing path module for cross-platform path construction, blah blah blah. Its no longer windows only
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
@@ -15,11 +16,12 @@ export const watchStateReentry = (callback) => {
             callback();
             console.log(`Watcher created successfully for ${path}`)
             success = true;
-          } catch {
-            await new Promise((r) => setTimeout(r, 5000));
-          }
+          } catch (error) {
+                console.error(`Unable to create watcher for ${path}: ${error}`); // might flood the console with errors
+                await new Promise((r) => setTimeout(r, 5000));
+            }
         }
-      };
+    };
     
     const handleStateUpdate = (path, condition, callback) => {
         try {
@@ -28,7 +30,7 @@ export const watchStateReentry = (callback) => {
                 callback(state);
             }
         } catch (error) {
-            console.error(`Error while parsing ${path}: ${error}`);
+            console.error(`Error while parsing ${path}: ${error}`); // "reentry should never mess up, right?"
         }
     };
 
@@ -50,7 +52,7 @@ export const watchStateReentry = (callback) => {
 };
 
 export const getReentryKeyboardHandler = () => {
-    const obj = new Hardware();
+    const obj = hardware || new Hardware(); // Dependency Injection
 
     // Set Up for NASSP Chords
     const keyMap = {
