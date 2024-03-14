@@ -3,37 +3,44 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Digit } from "./digit";
-import { OFF_TEST, P21_TEST, V35_TEST } from "../utils/testStates";
+import { AUDIO_LOAD, NO_CONN, NO_CONN_UHOH } from "../utils/dskyStates";
 import { Sign } from "./sign";
-import { getChangedChunks, updateChunk } from "@/utils/chunks";
-
-const fetchClicks = async (audioContext:any, audioFiles:any) =>{
-  for(let i=1; i<=11; i++){
-    for(let j=0; j<5; j++){
-      const res = await fetch(`audio/clicks${i}_${j}.mp3`)
-      const arrayBuffer = await res.arrayBuffer()
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
-      audioFiles[`${i}-${j}`] = audioBuffer
-    }
-  }
-}
+import { chunkedUpdate } from "@/utils/chunks";
 
 export default function Home() {
 
-  const initialState = V35_TEST
+  const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
+  const [audioContext, setAudioContext] : any = useState(null)
+  const [audioFiles, setAudioFiles] : any = useState(null)
+  const [webSocket, setWebSocket] : any = useState(null)
+  const [webSocketID, setWebSocketID] : any = useState(0)
 
-  useEffect(() => {
+  const fetchAudioFiles = async () => {
     // Cache audio files
     let sampleRate
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       // Webkit sucks for audio
       sampleRate = 32000
     }
-    const audioContext = new (window.AudioContext)({sampleRate})
-    const audioFiles : any = {}
-    fetchClicks(audioContext, audioFiles)
+    const newAudioContext : any = new (window.AudioContext)({sampleRate})
+    const newAudioFiles : any = {}
+    for(let i=1; i<=11; i++){
+      for(let j=0; j<5; j++){
+        const res = await fetch(`audio/clicks${i}_${j}.mp3`)
+        const arrayBuffer = await res.arrayBuffer()
+        const audioBuffer = await newAudioContext.decodeAudioData(arrayBuffer)
+        newAudioFiles[`${i}-${j}`] = audioBuffer
+      }
+    }
+    setAudioContext(newAudioContext)
+    setAudioFiles(newAudioFiles)
+  }
 
+  useEffect(()=>{ fetchAudioFiles() },[])
+
+  useEffect(()=>{{
+    if(!audioContext) return
     // Calculate WebSocket URL
     const protocol = window.location.protocol;
     const hostname = window.location.hostname;
@@ -41,41 +48,52 @@ export default function Home() {
     if (protocol === 'https:') {
       wsURL = `wss://${hostname}/ws`;
     }
-    const ws = new WebSocket(wsURL);
 
-    // Event listener for incoming messages
-    let lastState = initialState
-    ws.onmessage = async (event) => {
+    // Open websocket connection
+    const ws: any = new WebSocket(wsURL);
+    setWebSocket(ws)
+
+    const handleClose = async ()=>{
+      await new Promise(r => setTimeout(r,1000))
+      setWebSocketID((webSocketID + 1)%5)
+    }
+    
+    ws.addEventListener('close', handleClose)
+    ws.addEventListener('error', handleClose)
+    const checkInterval = setInterval(() =>{
+      if(ws.readyState !== 1){
+        handleClose()
+      }
+    },1000)
+
+    // Clean websocket connection
+    return () =>{
+      clearInterval(checkInterval)
+      ws.removeEventListener('close', handleClose)
+      ws.removeEventListener('error', handleClose)
+      ws.close();
+    }
+  }
+  },[webSocketID, audioContext])
+
+  useEffect(() => {
+    if(!audioContext || !audioFiles || !webSocket) return
+
+    const hookData = {
+      lastState: dskyState,
+      audioContext, 
+      audioFiles,
+      setDskyState
+    }
+    
+    webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
-
-      // Determine amount of changed chunks
-      const changedChunks: Number[] = getChangedChunks(lastState,newState)
-      
-      // Play clicking sound depending on amount of changed chunks
-      if(changedChunks.length){
-        const audioBuffer = audioFiles[`${changedChunks.length}-${Math.floor(Math.random() * 5)}`]
-        if(audioBuffer) {
-          const source = audioContext.createBufferSource();
-          source.buffer = audioBuffer;
-          source.connect(audioContext.destination);
-          source.start();
-        }
-      }
-
-      // Update dsky's chunks
-      let partialState = lastState
-      for(const chunk of changedChunks){
-        partialState = updateChunk(partialState,newState,chunk)
-        setDskyState(partialState)
-        await new Promise(r => setTimeout(r, 30))
-      }
-      setDskyState(newState);
-      lastState = newState
+      chunkedUpdate(newState, hookData)
     };
 
     const relayKeyPress = (event:any)=>{
       if(event.key.length == 1){
-        ws.send(event.key)
+        webSocket.send(event.key)
       }
     }
     window.addEventListener('keydown', relayKeyPress);
@@ -83,9 +101,49 @@ export default function Home() {
     // Cleanup function
     return () => {
       window.removeEventListener('keydown', relayKeyPress);
-      ws.close();
     };
-  }, []);
+  }, [webSocket, audioFiles, audioContext]);
+
+  useEffect(()=>{
+    if(!audioContext || !audioFiles) return
+
+    const hookData = {
+      lastState: dskyState,
+      cancelUpdates: false,
+      audioContext, 
+      audioFiles,
+      setDskyState
+    }
+    
+    let noConnTimeout1 : any
+    let noConnTimeout2 : any
+    let noConnInterval1 : any
+    let noConnInterval2 : any
+    if(!webSocket || webSocket?.readyState != 1) {
+      noConnTimeout1 = setTimeout(()=> {
+        noConnInterval1 = setInterval(()=> chunkedUpdate(NO_CONN, hookData),1000)
+      }, 1000)
+      noConnTimeout2 = setTimeout(()=> {
+        noConnInterval2 = setInterval(()=> chunkedUpdate(NO_CONN_UHOH, hookData),1000)
+      }, 2000)
+    }
+
+    // Cleanup function
+    return () => {
+      if(noConnTimeout1) {
+        clearTimeout(noConnTimeout1)
+      }
+      if(noConnTimeout2) {
+        clearTimeout(noConnTimeout2)
+      }
+      if(noConnInterval1){
+        clearInterval(noConnInterval1)
+      }
+      if(noConnInterval2){
+        clearInterval(noConnInterval2)
+      }
+    };
+  }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -122,7 +180,6 @@ export default function Home() {
           className={'NounD2'}
           digit={dskyState.NounD2}
         />
-
 
         <Sign
           className={'Register1Sign'}

@@ -1,102 +1,84 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import {Hardware} from 'keysender'
+import { Hardware } from 'keysender';
 
-export const watchStateReentry = (callback) =>{
+export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`
 
+    const createWatcher = async (path, callback) => {
+        let success = false;
+        while (!success) {
+          try {
+            fs.watch(path, callback);
+            // Call the handlers once when starting
+            callback();
+            console.log(`Watcher created successfully for ${path}`)
+            success = true;
+          } catch {
+            await new Promise((r) => setTimeout(r, 5000));
+          }
+        }
+      };
+    
+    const handleStateUpdate = (path, condition, callback) => {
+        try {
+            const state = JSON.parse(fs.readFileSync(path).toString())
+            if (condition(state)) {
+                callback(state);
+            }
+        } catch (error) {
+            console.error(`Error while parsing ${path}: ${error}`);
+        }
+    };
+
     // Watch AGC state for changes
     const handleAGCUpdate = () => {
-        try{
-            const AGCState = JSON.parse(fs.readFileSync(AGC_PATH).toString())
-            if(AGCState.IsInCM){
-                callback(AGCState)
-            }
-        }catch{}
-    }
-    fs.watch(AGC_PATH, handleAGCUpdate);
-    
-    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`
+        handleStateUpdate(AGC_PATH, (state) => state.IsInCM, callback);
+    };
 
+    const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`
+    
     // Watch LGC state for changes
     const handleLGCUpdate = () => {
-        try{
-            const LGCState = JSON.parse(fs.readFileSync(LGC_PATH).toString())
-            if(LGCState.IsInLM){
-                callback(LGCState)
-            }
-        }catch{}
-    }
-    fs.watch(LGC_PATH, handleLGCUpdate);
+        handleStateUpdate(LGC_PATH, (state) => state.IsInLM, callback);
+    };
 
-    // Call the handlers once when starting
-    handleAGCUpdate()
-    handleLGCUpdate()
-}
+    // Call the Watchers to check AGC + LGC
+    createWatcher(AGC_PATH, handleAGCUpdate);
+    createWatcher(LGC_PATH, handleLGCUpdate);
+};
 
-export const getReentryKeyboardHandler = () =>{
-    const obj = new Hardware()
+export const getReentryKeyboardHandler = () => {
+    const obj = new Hardware();
+
+    // Set Up for NASSP Chords
+    const keyMap = {
+        '1': ['num1'],
+        '2': ['num2'],
+        '3': ['num3'],
+        '4': ['num4'],
+        '5': ['num5'],
+        '6': ['num6'],
+        '7': ['num7'],
+        '8': ['num8'],
+        '9': ['num9'],
+        '0': ['num0'],
+        'e': ['end'],
+        'p': ['shift', 'end'],
+        'v': ['home'],
+        'n': ['shift', 'num*'],
+        '+': ['shift', 'num+'],
+        '-': ['shift', 'num-'],
+        'c': ['num.'],
+        'r': ['shift', 'pageUp'],
+        'k': ['shift', 'home']
+    };
 
     return (data) => {
-        switch(`${data}`){
-            case '1':
-                obj.keyboard.sendKey(['num1'])
-                break
-            case '2':
-                obj.keyboard.sendKey(['num2'])
-                break
-            case '3':
-                obj.keyboard.sendKey(['num3'])
-                break
-            case '4':
-                obj.keyboard.sendKey(['num4'])
-                break
-            case '5':
-                obj.keyboard.sendKey(['num5'])
-                break
-            case '6':
-                obj.keyboard.sendKey(['num6'])
-                break
-            case '7':
-                obj.keyboard.sendKey(['num7'])
-                break
-            case '8':
-                obj.keyboard.sendKey(['num8'])
-                break
-            case '9':
-                obj.keyboard.sendKey(['num9'])
-                break
-            case '0':
-                obj.keyboard.sendKey(['num0'])
-                break
-            case 'e':
-                obj.keyboard.sendKey(['end'])
-                break
-            case 'p':
-                obj.keyboard.sendKey(['shift','end'])
-                break
-            case 'v':
-                obj.keyboard.sendKey(['home'])
-                break
-            case 'n':
-                obj.keyboard.sendKey(['shift','num*'])
-                break
-            case '+':
-                obj.keyboard.sendKey(['shift','num+'])
-                break
-            case '-':
-                obj.keyboard.sendKey(['shift','num-'])
-                break
-            case 'c':
-                obj.keyboard.sendKey(['num.'])
-                break
-            case 'r':
-                obj.keyboard.sendKey(['shift','pageUp'])
-                break
-            case 'k':
-                obj.keyboard.sendKey(['shift','home'])
-                break
+        const keysToSend = keyMap[data];
+        if (keysToSend) {
+            obj.keyboard.sendKey(keysToSend);
         }
-    }
-}
+    };
+};
