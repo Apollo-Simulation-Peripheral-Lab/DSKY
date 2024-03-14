@@ -54,7 +54,7 @@ export const watchStateReentry = (callback) => {
 };
 
 export const getReentryKeyboardHandler = (hardware) => {
-    const obj = hardware || new Hardware(); // Dependency Injection
+    const obj = new Hardware();
 
     // Set Up for NASSP Chords
     const keyMap = {
