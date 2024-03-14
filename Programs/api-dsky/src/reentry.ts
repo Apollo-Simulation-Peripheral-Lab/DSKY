@@ -12,7 +12,7 @@ export const watchStateReentry = (callback) => {
         while (!success) {
           try {
             fs.watch(path, callback);
-            // Call the handlers once when starting
+            // Create the watchers once when starting
             callback();
             console.log(`Watcher created successfully for ${path}`)
             success = true;
