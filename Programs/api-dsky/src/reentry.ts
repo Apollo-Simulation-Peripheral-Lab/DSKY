@@ -6,6 +6,21 @@ export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`
 
+    const createWatcher = async (path, callback) => {
+        let success = false;
+        while (!success) {
+          try {
+            fs.watch(path, callback);
+            // Call the handlers once when starting
+            callback();
+            console.log(`Watcher created successfully for ${path}`)
+            success = true;
+          } catch {
+            await new Promise((r) => setTimeout(r, 5000));
+          }
+        }
+      };
+    
     const handleStateUpdate = (path, condition, callback) => {
         try {
             const state = JSON.parse(fs.readFileSync(path).toString())
@@ -29,12 +44,9 @@ export const watchStateReentry = (callback) => {
         handleStateUpdate(LGC_PATH, (state) => state.IsInLM, callback);
     };
 
-    fs.watch(AGC_PATH, handleAGCUpdate);
-    fs.watch(LGC_PATH, handleLGCUpdate);
-
-    // Call the handlers once when starting
-    handleAGCUpdate();
-    handleLGCUpdate();
+    // Call the Watchers to check AGC + LGC
+    createWatcher(AGC_PATH, handleAGCUpdate);
+    createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
 export const getReentryKeyboardHandler = () => {
