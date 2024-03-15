@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "alarms.h"
+#include "keyboard.h"
 
 using namespace std;
 
@@ -25,4 +26,8 @@ void loop() {
     }
   }
   updateAlarms(dskyState);
+  char pressedKey = getKey();
+  if(pressedKey){
+    Serial.println(pressedKey);
+  }
 }
