@@ -156,8 +156,10 @@ export const createSerial = (outputSerial, keyboardHandler, onNewConnection, set
     
     serial.on('data', (data) => {
         // Serial data received
-        console.log(`[Serial] KeyPress: ${data}`)
-        keyboardHandler(data.toString().toLowerCase().substring(0, 1))
+        // console.log(`[Serial] Data: ${data}`)
+        const key = data.toString().toLowerCase().substring(0, 1)
+        console.log(`[Serial] KeyPress: ${key}`)
+        keyboardHandler(key)
     })
 
     serial.on('close',async ()=>{
