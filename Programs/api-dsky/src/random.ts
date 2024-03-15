@@ -34,6 +34,20 @@ const getRandomState = () =>{
         Register3D3: getRandomCharFromArray(digits),
         Register3D4: getRandomCharFromArray(digits),
         Register3D5: getRandomCharFromArray(digits),
+        IlluminateUplinkActy: Math.random() < 0.5, 
+        IlluminateNoAtt: Math.random() < 0.5,
+        IlluminateStby: Math.random() < 0.5,
+        IlluminateKeyRel: Math.random() < 0.5,
+        IlluminateOprErr: Math.random() < 0.5, 
+        IlluminateNoDap: Math.random() < 0.5,
+        IlluminatePrioDisp: Math.random() < 0.5,
+        IlluminateTemp: Math.random() < 0.5,
+        IlluminateGimbalLock: Math.random() < 0.5,
+        IlluminateProg: Math.random() < 0.5,
+        IlluminateRestart: Math.random() < 0.5, 
+        IlluminateTracker: Math.random() < 0.5,
+        IlluminateAlt: Math.random() < 0.5,
+        IlluminateVel: Math.random() < 0.5,
     }
 }
 export const watchStateRandom = (callback) =>{
