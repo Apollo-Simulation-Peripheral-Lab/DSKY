@@ -127,15 +127,20 @@ export const stateToBinaryString = (state) =>{
     ) // B11
     bits += decimalToByte(
         booleansToDecimal(
+            state.IlluminateNoDap,
+            state.IlluminatePrioDisp,
             state.IlluminateTemp,
             state.IlluminateGimbalLock,
             state.IlluminateProg,
             state.IlluminateRestart, 
             state.IlluminateTracker,
-            0,0,0)
+            0)
     ) // B12
     bits += decimalToByte(
-        booleansToDecimal(0,0,0,0,0,0,0,0)
+        booleansToDecimal(
+            state.IlluminateAlt,
+            state.IlluminateVel,
+            0,0,0,0,0,0)
     ) // B13
     return bits
 }
@@ -152,7 +157,7 @@ export const createSerial = (outputSerial, keyboardHandler, onNewConnection, set
     serial.on('data', (data) => {
         // Serial data received
         console.log(`[Serial] KeyPress: ${data}`)
-        keyboardHandler(data)
+        keyboardHandler(data.toString().toLowerCase().substring(0, 1))
     })
 
     serial.on('close',async ()=>{
