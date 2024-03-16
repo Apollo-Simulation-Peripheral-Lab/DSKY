@@ -2,6 +2,29 @@ import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
 import * as ks from 'node-key-sender'
 
+// Define key map, duh
+const keyMap = {
+    '1': ['numpad1'],
+    '2': ['numpad2'],
+    '3': ['numpad3'],
+    '4': ['numpad4'],
+    '5': ['numpad5'],
+    '6': ['numpad6'],
+    '7': ['numpad7'],
+    '8': ['numpad8'],
+    '9': ['numpad9'],
+    '0': ['numpad0'],
+    'e': ['end'],
+    'p': ['shift', 'end'],
+    'v': ['home'],
+    'n': ['shift', 'multiply'],
+    '+': ['shift', 'add'],
+    '-': ['shift', 'subtract'],
+    'c': ['decimal'],
+    'r': ['shift', 'page_up'],
+    'k': ['shift', 'home']
+};
+
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
@@ -54,30 +77,6 @@ export const watchStateReentry = (callback) => {
 };
 
 export const getReentryKeyboardHandler = () => {
-
-    // Set Up for using with keysender lib
-    const keyMap = {
-        '1': ['numpad1'],
-        '2': ['numpad2'],
-        '3': ['numpad3'],
-        '4': ['numpad4'],
-        '5': ['numpad5'],
-        '6': ['numpad6'],
-        '7': ['numpad7'],
-        '8': ['numpad8'],
-        '9': ['numpad9'],
-        '0': ['numpad0'],
-        'e': ['end'],
-        'p': ['shift', 'end'],
-        'v': ['home'],
-        'n': ['shift', 'multiply'],
-        '+': ['shift', 'add'],
-        '-': ['shift', 'subtract'],
-        'c': ['decimal'],
-        'r': ['shift', 'page_up'],
-        'k': ['shift', 'home']
-    };
-
     return (data) => {
         const keysToSend = keyMap[data];
         if (keysToSend) {
