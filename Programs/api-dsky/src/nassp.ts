@@ -30,9 +30,15 @@ export const getNASSPKeyboardHandler = () => {
     };
 
     return (data) => {
-        const keysToSend = keyMap[data];
-        if (keysToSend) {
-            ks.sendCombination(keysToSend);
+        try {
+            const keysToSend = keyMap[data];
+            if (keysToSend) {
+                ks.sendCombination(keysToSend);
+            } else {
+                console.error(`Key combination for '${data}' not found.`);
+            }
+        } catch (error) {
+            console.error('Error sending key combination:', error);
         }
     };
 };
