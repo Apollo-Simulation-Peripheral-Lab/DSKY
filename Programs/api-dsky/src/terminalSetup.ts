@@ -11,6 +11,7 @@ export const terminalSetup = async (askInput = true, askSerial = true) =>{
                 type: 'list',
                 choices: [
                     {name:'Reentry', value: 'reentry'},
+                    {name:'NASSP', value: 'nassp'},
                     {name:'KSP', value: 'ksp'},
                     {name:'Random Values', value: 'random'}
                 ]
