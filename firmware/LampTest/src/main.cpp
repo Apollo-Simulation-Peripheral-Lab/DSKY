@@ -1,14 +1,25 @@
 #include "PCF8575.h"
 
+/* Build defines, per platformio.ini */
+#if defined(BUILD_UNO)
+#define PWM_PIN 10
+#elif defined(BUILD_NANO)
 #define PWM_PIN 5
+#else
+#define PWM_PIN 5
+#endif
 
+/* Duty cycle range */
 #define DUTY_MIN 1
 #define DUTY_MAX 127
 
-#define DELAY 2000
+/* Delay between test sequence steps */
+#define DELAY 1000
 
+/* Total IO pins on the PCF8575 */
 #define PCF_PIN_QTY 18
 
+/* Alarm board characteristics */
 #define LAMP_QTY 14
 #define LAMP_QTY_ORANGE 9
 #define LAMP_QTY_WHITE 5
@@ -24,6 +35,8 @@ OPR ERR        3: :12      TRACKER
 NO DAP         2: :13      ALT
 PRIO DISP      1: :14      VEL
 */
+
+/* IO expander pins of the lamps. */
 enum alarmLamp {
   PRIO_DISP = 1,
   NO_DAP = 2,
@@ -79,6 +92,7 @@ void printHex(uint16_t x);
 void toggleAlarm(alarmLamp lamp, uint8_t state, int delayTime);
 void toggleAll(uint8_t state);
 
+void testFullScaleBrightness(void);
 void testLeftColumnFirst(void);
 void testRightColumnFirst(void);
 void testLeftRightDown(void);
@@ -86,27 +100,24 @@ void testOrangeLamps(void);
 void testWhiteLamps(void);
 
 void setup() {
-  // put your setup code here, to run once:
+  // configure PWM pin as an output, start I2C and serial buses
   pinMode(PWM_PIN, OUTPUT);
-
-  bool connected = PCF.begin();
-  Serial.print("Connection: ");
-  Serial.println(connected);
-
-  Serial.begin(115200);
-  Serial.println("Begin DSKY Alarm Light Test:");
-
+  Serial.begin(MONITOR_SPEED);
   Wire.begin();
 
-
+  // perform a quick check of the PCF chip, should return 1 and 0xFFFF
+  bool connected = PCF.begin();
+  Serial.print("PCF8575 Connection: ");
+  Serial.println(connected);
 
   uint16_t x = PCF.read16();
-  Serial.print("Read ");
+  Serial.print("Read from I2C: ");
   printHex(x);
+  
+  Serial.println("\nBegin DSKY Alarm Light Test:");
 
-  toggleAll(0);
 
-  // initialize even the unused PCF pins to LOW state.
+  // get out of hi-z. initialize even the unused PCF pins to LOW state.
   for(uint8_t i = 0; i < PCF_PIN_QTY; i++){
     PCF.write(i, LOW);
   }
@@ -114,7 +125,6 @@ void setup() {
 }
 
 void loop() {
-
   // cycle test cases dim, then bright -- over and over
   for(uint8_t i = 0; i < 3; i++)
   {
@@ -129,6 +139,7 @@ void loop() {
         digitalWrite(PWM_PIN, HIGH);
         break;
     }
+  
 
     Serial.println("Left-right, down");
     testLeftRightDown();
@@ -144,6 +155,10 @@ void loop() {
 
     Serial.println("White lamps");
     testWhiteLamps();
+    
+    Serial.println("Brightness test");  
+    testFullScaleBrightness();
+
     Serial.println();
     toggleAll(0);
     delay(DELAY);
@@ -154,8 +169,27 @@ void loop() {
 void toggleAll(uint8_t state)
 {
   for(uint8_t i = 0; i < LAMP_QTY; i++){
-    toggleAlarm(lampMapLeftRightDown[i], state, 0);
+    toggleAlarm(lampMapLeftRightDown[i], state, 20);
   }
+}
+
+/* Toggle a single {lamp} to a particular {state} */
+void toggleAlarm(alarmLamp lamp, uint8_t state, int delayTime)
+{
+  for(uint8_t i = 0; i< delayTime / 20; i++){
+    PCF.write((uint8_t)lamp, state);
+    delay(20);
+  }
+}
+
+/* Helper -- print something in hex. */
+void printHex(uint16_t x)
+{
+  Serial.print("0x");
+  if (x < 0x1000) Serial.print('0');
+  if (x < 0x100)  Serial.print('0');
+  if (x < 0x10)   Serial.print('0');
+  Serial.println(x, HEX);
 }
 
 /* Turn on, turn off: Left column then right column.*/
@@ -222,20 +256,15 @@ void testWhiteLamps(void)
   toggleAll(0);
 }
 
-/* Toggle a single {lamp} to a particular {state} */
-void toggleAlarm(alarmLamp lamp, uint8_t state, int delayTime)
+void testFullScaleBrightness(void)
 {
-  for(uint8_t i = 0; i< delayTime / 20; i++){
-    PCF.write((uint8_t)lamp, state);
-    delay(20);
+  toggleAll(1);
+  uint8_t duty;
+  for(uint16_t i = 0 ; i < 510; i++)
+  {
+    duty = i - 2*(i/256)*(i%255);
+    analogWrite(PWM_PIN, duty);
+    delay(10);
   }
+  analogWrite(PWM_PIN, 0);
 }
-
-void printHex(uint16_t x)
-{
-  if (x < 0x1000) Serial.print('0');
-  if (x < 0x100)  Serial.print('0');
-  if (x < 0x10)   Serial.print('0');
-  Serial.println(x, HEX);
-}
-
