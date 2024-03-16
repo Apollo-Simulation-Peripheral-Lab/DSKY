@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import { Hardware } from 'keysender';
+import * as ks from 'node-key-sender'
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
@@ -54,35 +54,34 @@ export const watchStateReentry = (callback) => {
 };
 
 export const getReentryKeyboardHandler = () => {
-    const obj = new Hardware();
 
     // Set Up for using with keysender lib
     const keyMap = {
-        '1': ['num1'],
-        '2': ['num2'],
-        '3': ['num3'],
-        '4': ['num4'],
-        '5': ['num5'],
-        '6': ['num6'],
-        '7': ['num7'],
-        '8': ['num8'],
-        '9': ['num9'],
-        '0': ['num0'],
+        '1': ['numpad1'],
+        '2': ['numpad2'],
+        '3': ['numpad3'],
+        '4': ['numpad4'],
+        '5': ['numpad5'],
+        '6': ['numpad6'],
+        '7': ['numpad7'],
+        '8': ['numpad8'],
+        '9': ['numpad9'],
+        '0': ['numpad0'],
         'e': ['end'],
         'p': ['shift', 'end'],
         'v': ['home'],
-        'n': ['shift', 'num*'],
-        '+': ['shift', 'num+'],
-        '-': ['shift', 'num-'],
-        'c': ['num.'],
-        'r': ['shift', 'pageUp'],
+        'n': ['shift', 'multiply'],
+        '+': ['shift', 'add'],
+        '-': ['shift', 'subtract'],
+        'c': ['decimal'],
+        'r': ['shift', 'page_up'],
         'k': ['shift', 'home']
     };
 
     return (data) => {
         const keysToSend = keyMap[data];
         if (keysToSend) {
-            obj.keyboard.sendKey(keysToSend);
+            ks.sendCombination(keysToSend);
         }
     };
 };
