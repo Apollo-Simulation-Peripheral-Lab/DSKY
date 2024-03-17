@@ -30,7 +30,7 @@ export const watchStateNASSP = (_callback) => {
 let isTyping = false
 
 export const getNASSPKeyboardHandler = () => {
-    keyboard.config.autoDelayMs = 1 // Define this setting here, we may want to use other values in other handlers
+    keyboard.config.autoDelayMs = 10// Define this setting here, we may want to use other values in other handlers
 
     return async (data) => {
         try {
