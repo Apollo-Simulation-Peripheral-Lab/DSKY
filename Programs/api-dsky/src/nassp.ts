@@ -25,22 +25,32 @@ const keyMap = {
 
 // Set global delay for key presses
 ks.setOption('globalDelayPressMillisec', 100);
+ks.setOption('globalDelayBetweenMillisec', 0);
+ks.setOption('startDelayMillisec', 0);
 
 export const watchStateNASSP = (_callback) => {
     // TODO: Wait for Max
 };
 
+let isTyping = false
+
 export const getNASSPKeyboardHandler = () => {
     return async (data) => {
-        try {
-            const keysToSend = keyMap[data];
-            if (keysToSend) {
-                await ks.sendCombination(keysToSend);
-            } else {
-                console.error(`Key combination for '${data}' not found.`);
-            }
-        } catch (error) {
-            console.error('Error sending key combination:', error);
+        const keysToSend = keyMap[data];
+        if (isTyping){
+            console.log(`Already typing, key ${data} skipped.`)
+        } else if (keysToSend) {
+            isTyping = true
+            ks.sendCombination(keysToSend).catch(()=>{})
+            await new Promise(r => setTimeout(r,50))
+            ks.startBatch()
+                .batchTypeKey(keysToSend[1],0,ks.BATCH_KEY_EVENT_UP)
+                .sendBatch()
+                .catch(()=>{})
+            await new Promise(r => setTimeout(r,180)) // Rate Limiting: NASSP fires jets if we emit two combinations too close to each other.
+            isTyping = false
+        } else {
+            console.error(`Key combination for '${data}' not found.`);
         }
     };
 };
