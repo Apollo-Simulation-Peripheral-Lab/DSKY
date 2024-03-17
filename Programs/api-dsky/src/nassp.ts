@@ -40,6 +40,8 @@ export const getNASSPKeyboardHandler = () => {
             }else if (keysToSend) {
                 isTyping = true
                 await keyboard.pressKey(...keysToSend);
+                await keyboard.releaseKey(keysToSend[1]);
+                await new Promise(r => setTimeout(r,10));
                 await keyboard.releaseKey(...keysToSend);
                 isTyping = false
             } else {
