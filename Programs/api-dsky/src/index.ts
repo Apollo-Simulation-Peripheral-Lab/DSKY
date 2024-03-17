@@ -1,4 +1,5 @@
 import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
+import { getNASSPKeyboardHandler, watchStateNASSP } from '@/nassp'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { watchStateRandom } from '@/random'
 import { stateToBinaryString, binaryStringToBuffer, createSerial } from '@/serial'
@@ -24,6 +25,8 @@ const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
         case "reentry":
             return getReentryKeyboardHandler()
+        case "nassp":
+            return getNASSPKeyboardHandler()
         case "ksp":
             return await getKSPKeyboardHandler()
         default:
@@ -48,10 +51,10 @@ const runWithSetup = async(setup) =>{
                 silenceOutput=setSilenceOutput
             })
     }
-    setWebSocketListener((data)=>{
+    setWebSocketListener(async (data)=>{
         // WebSocket data received
         console.log(`[WS] KeyPress: ${data}`)
-        keyboardHandler(data)
+        await keyboardHandler(data)
     })
     
 

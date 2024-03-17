@@ -154,12 +154,12 @@ export const binaryStringToBuffer = (bits) => {
 export const createSerial = (outputSerial, keyboardHandler, onNewConnection, setSilenceOutput) =>{
     const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
     
-    serial.on('data', (data) => {
+    serial.on('data', async (data) => {
         // Serial data received
         // console.log(`[Serial] Data: ${data}`)
         const key = data.toString().toLowerCase().substring(0, 1)
         console.log(`[Serial] KeyPress: ${key}`)
-        keyboardHandler(key)
+        await keyboardHandler(key)
     })
 
     serial.on('close',async ()=>{
