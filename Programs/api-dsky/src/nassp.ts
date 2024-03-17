@@ -41,12 +41,12 @@ export const getNASSPKeyboardHandler = () => {
             console.log(`Already typing, key ${data} skipped.`)
         } else if (keysToSend) {
             isTyping = true
-            ks.sendCombination(keysToSend).catch(()=>{})
+            ks.sendCombination(keysToSend).catch(()=>{}) // This will press both keys in the combination and release them after 100ms
             await new Promise(r => setTimeout(r,50))
             ks.startBatch()
                 .batchTypeKey(keysToSend[1],0,ks.BATCH_KEY_EVENT_UP)
                 .sendBatch()
-                .catch(()=>{})
+                .catch(()=>{}) // We forcibly release the second key in the combination after 50ms instead of 100ms so that NASSP doesnt fire jets.
             await new Promise(r => setTimeout(r,180)) // Rate Limiting: NASSP fires jets if we emit two combinations too close to each other.
             isTyping = false
         } else {
