@@ -1,28 +1,28 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import * as ks from 'node-key-sender'
+import {keyboard, Key} from "@nut-tree/nut-js"
 
 // Define key map, duh
 const keyMap = {
-    '1': ['numpad1'],
-    '2': ['numpad2'],
-    '3': ['numpad3'],
-    '4': ['numpad4'],
-    '5': ['numpad5'],
-    '6': ['numpad6'],
-    '7': ['numpad7'],
-    '8': ['numpad8'],
-    '9': ['numpad9'],
-    '0': ['numpad0'],
-    'e': ['end'],
-    'p': ['shift', 'end'],
-    'v': ['home'],
-    'n': ['shift', 'multiply'],
-    '+': ['shift', 'add'],
-    '-': ['shift', 'subtract'],
-    'c': ['decimal'],
-    'r': ['shift', 'page_up'],
-    'k': ['shift', 'home']
+    '0': [Key.NumPad0],
+    '1': [Key.NumPad1],
+    '2': [Key.NumPad2],
+    '3': [Key.NumPad3],
+    '4': [Key.NumPad4],
+    '5': [Key.NumPad5],
+    '6': [Key.NumPad6],
+    '7': [Key.NumPad7],
+    '8': [Key.NumPad8],
+    '9': [Key.NumPad9],
+    'e': [Key.End],
+    'p': [Key.RightShift, Key.End],
+    'v': [Key.Home],
+    'n': [Key.RightShift, Key.Multiply],
+    '+': [Key.RightShift, Key.Add],
+    '-': [Key.RightShift, Key.Subtract],
+    'c': [Key.Decimal],
+    'r': [Key.RightShift, Key.PageUp],
+    'k': [Key.RightShift, Key.Home]
 };
 
 export const watchStateReentry = (callback) => {
@@ -76,17 +76,26 @@ export const watchStateReentry = (callback) => {
     createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
+let isTyping = false
+
 export const getReentryKeyboardHandler = () => {
+    keyboard.config.autoDelayMs = 1 // Define this setting here, we may want to use other values in other handlers
+
     return async (data) => {
         try {
             const keysToSend = keyMap[data];
-            if (keysToSend) {
-                await ks.sendCombination(keysToSend);
+            if(isTyping){
+                console.log(`Key '${data}' skipped because a keypress is already in progress`)
+            }else if (keysToSend) {
+                isTyping = true
+                await keyboard.pressKey(...keysToSend);
+                await keyboard.releaseKey(...keysToSend);
+                isTyping = false
             } else {
                 console.error(`Key combination for '${data}' not found.`);
             }
         } catch (error) {
-            console.error('Error sending key combination:', error);
+            console.error('Error sending key combination: ', error);
         }
-    };
+    }
 };
