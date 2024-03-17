@@ -1,32 +1,27 @@
-import * as ks from 'node-key-sender';
+import {keyboard, Key} from "@nut-tree/nut-js"
 
 // Define key map, duh
 const keyMap = {
-    '1': ['shift', 'numpad1'],
-    '2': ['shift', 'numpad2'],
-    '3': ['shift', 'numpad3'],
-    '4': ['shift', 'numpad4'],
-    '5': ['shift', 'numpad5'],
-    '6': ['shift', 'numpad6'],
-    '7': ['shift', 'numpad7'],
-    '8': ['shift', 'numpad8'],
-    '9': ['shift', 'numpad9'],
-    '0': ['shift', 'numpad0'],
-    'e': ['shift', 'enter'],
-    'p': ['shift', 'end'],
-    'v': ['shift', 'divide'],
-    'n': ['shift', 'multiply'],
-    '+': ['shift', 'add'],
-    '-': ['shift', 'subtract'],
-    'c': ['shift', 'decimal'],
-    'r': ['shift', 'page_up'],
-    'k': ['shift', 'home']
+    '1': [Key.RightShift, Key.NumPad1],
+    '2': [Key.RightShift, Key.NumPad2],
+    '3': [Key.RightShift, Key.NumPad3],
+    '4': [Key.RightShift, Key.NumPad4],
+    '5': [Key.RightShift, Key.NumPad5],
+    '6': [Key.RightShift, Key.NumPad6],
+    '7': [Key.RightShift, Key.NumPad7],
+    '8': [Key.RightShift, Key.NumPad8],
+    '9': [Key.RightShift, Key.NumPad9],
+    '0': [Key.RightShift, Key.NumPad0],
+    'e': [Key.RightShift, Key.Enter],
+    'p': [Key.RightShift, Key.End],
+    'v': [Key.RightShift, Key.Divide],
+    'n': [Key.RightShift, Key.Multiply],
+    '+': [Key.RightShift, Key.Add],
+    '-': [Key.RightShift, Key.Subtract],
+    'c': [Key.RightShift, Key.Decimal],
+    'r': [Key.RightShift, Key.PageUp],
+    'k': [Key.RightShift, Key.Home]
 };
-
-// Set global delay for key presses
-ks.setOption('globalDelayPressMillisec', 100);
-ks.setOption('globalDelayBetweenMillisec', 0);
-ks.setOption('startDelayMillisec', 0);
 
 export const watchStateNASSP = (_callback) => {
     // TODO: Wait for Max
@@ -35,22 +30,23 @@ export const watchStateNASSP = (_callback) => {
 let isTyping = false
 
 export const getNASSPKeyboardHandler = () => {
+    keyboard.config.autoDelayMs = 1 // Define this setting here, we may want to use other values in other handlers
+
     return async (data) => {
-        const keysToSend = keyMap[data];
-        if (isTyping){
-            console.log(`Already typing, key ${data} skipped.`)
-        } else if (keysToSend) {
-            isTyping = true
-            ks.sendCombination(keysToSend).catch(()=>{}) // This will press both keys in the combination and release them after 100ms
-            await new Promise(r => setTimeout(r,50))
-            ks.startBatch()
-                .batchTypeKey(keysToSend[1],0,ks.BATCH_KEY_EVENT_UP)
-                .sendBatch()
-                .catch(()=>{}) // We forcibly release the second key in the combination after 50ms instead of 100ms so that NASSP doesnt fire jets.
-            await new Promise(r => setTimeout(r,180)) // Rate Limiting: NASSP fires jets if we emit two combinations too close to each other.
-            isTyping = false
-        } else {
-            console.error(`Key combination for '${data}' not found.`);
+        try {
+            const keysToSend = keyMap[data];
+            if(isTyping){
+                console.log(`Key '${data}' skipped because a keypress is already in progress`)
+            }else if (keysToSend) {
+                isTyping = true
+                await keyboard.pressKey(...keysToSend);
+                await keyboard.releaseKey(...keysToSend);
+                isTyping = false
+            } else {
+                console.error(`Key combination for '${data}' not found.`);
+            }
+        } catch (error) {
+            console.error('Error sending key combination: ', error);
         }
-    };
+    }
 };
