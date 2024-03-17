@@ -23,6 +23,9 @@ const keyMap = {
     'k': ['shift', 'home']
 };
 
+// Set global delay for key presses
+ks.setOption('globalDelayPressMillisec', 100);
+
 export const watchStateNASSP = (_callback) => {
     // TODO: Wait for Max
 };
