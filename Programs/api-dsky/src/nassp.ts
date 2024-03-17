@@ -12,15 +12,15 @@ const keyMap = {
     '8': [Key.RightShift, Key.NumPad8],
     '9': [Key.RightShift, Key.NumPad9],
     '0': [Key.RightShift, Key.NumPad0],
-    'e': [Key.RightShift, Key.Enter],
-    'p': [Key.RightShift, Key.End],
-    'v': [Key.RightShift, Key.Divide],
-    'n': [Key.RightShift, Key.Multiply],
+    'e': [Key.RightShift, Key.End],
+    'p': [Key.RightShift, Key.P],
+    'v': [Key.RightShift, Key.V],
+    'n': [Key.RightShift, Key.N],
     '+': [Key.RightShift, Key.Add],
     '-': [Key.RightShift, Key.Subtract],
-    'c': [Key.RightShift, Key.Decimal],
-    'r': [Key.RightShift, Key.PageUp],
-    'k': [Key.RightShift, Key.Home]
+    'c': [Key.RightShift, Key.C],
+    'r': [Key.RightShift, Key.R],
+    'k': [Key.RightShift, Key.Decimal]
 };
 
 export const watchStateNASSP = (_callback) => {
