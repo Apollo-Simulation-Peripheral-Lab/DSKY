@@ -51,10 +51,10 @@ const runWithSetup = async(setup) =>{
                 silenceOutput=setSilenceOutput
             })
     }
-    setWebSocketListener((data)=>{
+    setWebSocketListener(async (data)=>{
         // WebSocket data received
         console.log(`[WS] KeyPress: ${data}`)
-        keyboardHandler(data)
+        await keyboardHandler(data)
     })
     
 

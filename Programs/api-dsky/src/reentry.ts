@@ -77,10 +77,16 @@ export const watchStateReentry = (callback) => {
 };
 
 export const getReentryKeyboardHandler = () => {
-    return (data) => {
-        const keysToSend = keyMap[data];
-        if (keysToSend) {
-            ks.sendCombination(keysToSend);
+    return async (data) => {
+        try {
+            const keysToSend = keyMap[data];
+            if (keysToSend) {
+                await ks.sendCombination(keysToSend);
+            } else {
+                console.error(`Key combination for '${data}' not found.`);
+            }
+        } catch (error) {
+            console.error('Error sending key combination:', error);
         }
     };
 };

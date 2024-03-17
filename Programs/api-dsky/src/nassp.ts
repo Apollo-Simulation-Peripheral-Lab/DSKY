@@ -31,11 +31,11 @@ export const watchStateNASSP = (_callback) => {
 };
 
 export const getNASSPKeyboardHandler = () => {
-    return (data) => {
+    return async (data) => {
         try {
             const keysToSend = keyMap[data];
             if (keysToSend) {
-                ks.sendCombination(keysToSend);
+                await ks.sendCombination(keysToSend);
             } else {
                 console.error(`Key combination for '${data}' not found.`);
             }
