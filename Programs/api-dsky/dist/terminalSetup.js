@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSerialSource = exports.getInputSource = void 0;
+exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
 const serialport_1 = require("serialport");
 const inquirer = require("inquirer");
 const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -21,7 +21,8 @@ const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
             { name: 'Reentry', value: 'reentry' },
             { name: 'KSP', value: 'ksp' },
             { name: 'NASSP (experimental)', value: 'nassp' },
-            { name: 'Random Values', value: 'random' }
+            { name: 'Random Values', value: 'random' },
+            { name: 'Bridge to another DSKY API', value: 'bridge' }
         ]
     }).then(r));
     return inputSource;
@@ -48,3 +49,13 @@ const getSerialSource = () => __awaiter(void 0, void 0, void 0, function* () {
     return serialSourceResult;
 });
 exports.getSerialSource = getSerialSource;
+const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
+    const { bridgeHost } = yield new Promise(r => inquirer.prompt({
+        message: "Type in the IP of the host you want to bridge with:",
+        name: 'bridgeHost',
+        type: 'input',
+        //filter: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    }).then(r));
+    return bridgeHost;
+});
+exports.getBridgeHost = getBridgeHost;
