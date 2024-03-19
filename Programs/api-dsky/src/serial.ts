@@ -1,5 +1,6 @@
 import { SerialPort } from 'serialport'
-import { terminalSetup } from './terminalSetup';
+import { getSerialSource } from './terminalSetup';
+import { V35_TEST } from './dskyStates';
 
 const decimalToByte = (decimal) =>{
     // Convert number to binary string
@@ -42,7 +43,7 @@ const booleansToDecimal = (b7, b6, b5, b4, b3, b2, b1, b0) => {
     return decimalValue
 }
 
-export const stateToBinaryString = (state) =>{
+const stateToBinaryString = (state) =>{
     let bits = '11111111'
     bits += decimalToByte(
         digitsToDecimal(
@@ -145,32 +146,43 @@ export const stateToBinaryString = (state) =>{
     return bits
 }
 
-export const binaryStringToBuffer = (bits) => {
+const binaryStringToBuffer = (bits) => {
     const chunks = (bits.match(/.{1,8}/g)).map(byte => byte.padEnd(8, '0') );
     const numberArray = chunks.map(chunk => parseInt(chunk, 2));
     return Buffer.from(numberArray);
 }
 
-export const createSerial = (outputSerial, keyboardHandler, onNewConnection, setSilenceOutput) =>{
-    const serial = new SerialPort({ path: outputSerial.path, baudRate: 250000 })
+let serial
+let state = V35_TEST
+
+let listener = async (_data) =>{}
+export const setSerialListener = (newListener) => {listener = newListener}
+
+export const updateSerialState = (newState, force = false) =>{
+    const newPacket = stateToBinaryString(newState)
+    if(force || stateToBinaryString(state) != newPacket){
+        state = newState
+        let serialPacket = binaryStringToBuffer(newPacket)
+        if(serial) serial.write(serialPacket)
+    }
+}
+
+export const createSerial = async () =>{
+    const serialSource = await getSerialSource()
+    if(!serialSource) return
+
+    serial = new SerialPort({ path: serialSource.path, baudRate: 250000 })
     
+    updateSerialState(state, true)
+
     serial.on('data', async (data) => {
-        // Serial data received
-        // console.log(`[Serial] Data: ${data}`)
-        const key = data.toString().toLowerCase().substring(0, 1)
-        console.log(`[Serial] KeyPress: ${key}`)
-        await keyboardHandler(key)
+        await listener(data)
     })
 
     serial.on('close',async ()=>{
         console.log("[Serial] Connection lost!")
-        setSilenceOutput(true)
-        const {outputSerial} = await terminalSetup(false, true)
-        setSilenceOutput(false)
-        createSerial(outputSerial, keyboardHandler, onNewConnection, setSilenceOutput)
+        createSerial()
     })
-
-    onNewConnection(serial)
 
     return serial
 }
