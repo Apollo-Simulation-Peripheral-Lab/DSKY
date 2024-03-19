@@ -1,8 +1,9 @@
 import * as fs from 'fs';
-import { getGamePath } from 'steam-game-path';
 import * as net from 'net'
+import * as psList from 'ps-list-commonjs';
+import * as pidCwd from 'pid-cwd'
 
-const keyMappings = {
+const kOSDictionary = {
     COMP_ACTY: 'IlluminateCompLight',
     MD1: 'ProgramD1',
     MD2: 'ProgramD2',
@@ -61,7 +62,7 @@ const kOSJSONtoNormalJSON = (kOSJSON) =>{
     for(let i=0; i<(kOSJSON.entries.length / 2); i++){
         const keyIndex = i*2
         const valueIndex = (i*2) + 1
-        const keyValue = keyMappings[kOSJSON.entries[keyIndex].value] || kOSJSON.entries[keyIndex].value
+        const keyValue = kOSDictionary[kOSJSON.entries[keyIndex].value] || kOSJSON.entries[keyIndex].value
         let value = kOSJSON.entries[valueIndex].value
         if(value == 'b') value = ''
         normalJSON[keyValue] = value
@@ -69,17 +70,27 @@ const kOSJSONtoNormalJSON = (kOSJSON) =>{
     return normalJSON
 }
 
+const disclaimer = () => console.log(
+    "\n\n-------------\nDISCLAIMER:\n"+
+    "The kOS-AGC integration won't work unless you start the API after a save has been loaded.\n"+
+    "Loading the API when in the start menu will cause keyboard input to not work.\n"+
+    "-------------\n\n"
+)
+
 export const watchStateKSP = async (callback) =>{
-    let kspPath = process.env.KSP_PATH
-    if(!kspPath){
-        const steamPath = getGamePath(220200);
-        kspPath = `${steamPath.steam?.path}\\steamapps\\common\\Kerbal Space Program`
-        if(steamPath.game){
-            kspPath = `${steamPath.game.path}`
-        }
+    let kspPath
+    const list = await (psList as any)()
+    const kspProcess = list.find(p => p.name == 'KSP_x64.exe')
+    if(kspProcess){
+        kspPath = await pidCwd(kspProcess.pid)
+        console.log(`KSP detected on ${kspPath}`)
+    }else{
+        console.log("KSP is not running yet!")
+        disclaimer()
+        process.exit()
     }
 
-    const jsonPath = `${kspPath}\\Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
+    const jsonPath = `${kspPath}Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
 
     await waitJSONAvailable(jsonPath)
     
@@ -96,28 +107,64 @@ export const watchStateKSP = async (callback) =>{
     handleAGCUpdate()
 }
 
+let keyboardHandler = (_data) => {}
 export const getKSPKeyboardHandler = async () =>{
     
     var client = new net.Socket();
     client.connect({port:5410,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('Connected');
+        disclaimer()
         client.write('1\r\n');
     });
     
+    let noneCPU = false
     client.on('data', function(data) {
-        //console.log(data.toString())
-        if(data.includes('>')){
-            // Select CPU number 1
+        if(data.includes('<NONE>') && !noneCPU) {
+            noneCPU = true
+            console.log("[kOS] CPU [1] Disconnected")
+        }
+        if(data.includes('Apollo()')) {
+            noneCPU = false
+            //console.log(data.toString()) //TODO: Figure out from this string which CPU is Apollo()
+        }
+        if(!noneCPU && data.includes('>')){
+            console.log("[kOS] Selecting CPU [1]") // TODO: Find out which CPU is Apollo()
             client.write("1\r")
-            setInterval(()=> client.write('a'),2000)
+            setInterval(()=> client.write('a'),2000) // Keep connection alive
         }
     });
-    
-    client.on('close', function() {
-        console.log('Connection closed');
-    });
 
-    return (data) =>{
+    client.on('timeout', async () => {
+        console.log("Socket timed out!")
+        client.destroy()
+        disclaimer()
+        process.exit()
+    })
+
+    client.on('end', async () => {
+        console.log("Socket ended!")
+        client.destroy()
+        disclaimer()
+        process.exit()
+    })
+
+    client.on('close', async () => {
+        console.log("Socket closed!")
+        client.destroy()
+        disclaimer()
+        process.exit()
+    })
+
+    client.on('error', async () => {
+        console.log("Socket connection failed!")
+        client.destroy()
+        disclaimer()
+        process.exit()
+    })
+
+    keyboardHandler = (data) =>{
         client.write(`${data}`)
     }
+
+    return keyboardHandler
 }
