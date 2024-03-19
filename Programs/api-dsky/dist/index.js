@@ -9,9 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const reentry_1 = require("./reentry");
-const nassp_1 = require("./nassp");
-const ksp_1 = require("./ksp");
 const bridge_1 = require("./bridge");
 const random_1 = require("./random");
 const serial_1 = require("./serial");
@@ -21,10 +18,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const watchState = (inputSource, callback) => {
     switch (inputSource) {
-        case "reentry":
-            return (0, reentry_1.watchStateReentry)(callback);
-        case "ksp":
-            return (0, ksp_1.watchStateKSP)(callback);
         case "bridge":
             return (0, bridge_1.watchStateBridge)(callback);
         case "random":
@@ -34,12 +27,6 @@ const watchState = (inputSource, callback) => {
 };
 const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
-        case "reentry":
-            return (0, reentry_1.getReentryKeyboardHandler)();
-        case "nassp":
-            return (0, nassp_1.getNASSPKeyboardHandler)();
-        case "ksp":
-            return yield (0, ksp_1.getKSPKeyboardHandler)();
         case "bridge":
             return yield (0, bridge_1.getBridgeKeyboardHandler)();
         default:
