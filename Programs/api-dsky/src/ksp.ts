@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as net from 'net'
 import * as psList from 'ps-list-commonjs';
 import * as pidCwd from 'pid-cwd'
+import { createWatcher } from '@/filesystem';
 
 const kOSDictionary = {
     COMP_ACTY: 'IlluminateCompLight',
@@ -45,18 +46,6 @@ const kOSDictionary = {
     I14:'IlluminateVel'
 }
 
-const waitJSONAvailable = async(path) =>{
-    while(true){
-        try{
-            fs.readFileSync(path)
-            break;
-        }catch{
-            console.log("KSP JSON not found, checking again in 5 seconds...")
-            await new Promise(r=> setTimeout(r,5000))
-        }
-    }
-}
-
 const kOSJSONtoNormalJSON = (kOSJSON) =>{
     const normalJSON = {}
     for(let i=0; i<(kOSJSON.entries.length / 2); i++){
@@ -70,23 +59,26 @@ const kOSJSONtoNormalJSON = (kOSJSON) =>{
     return normalJSON
 }
 
+const getKSPPath = async () =>{
+    const list = await (psList as any)()
+    const kspProcess = list.find(p => p.name == 'KSP_x64.exe')
+    if(kspProcess){
+        return await pidCwd(kspProcess.pid)
+    }else{
+        console.log("[KSP] KSP is not running!")
+        await new Promise(r => setTimeout(r,2000))
+    }
+}
+
 export const watchStateKSP = async (callback) =>{
     let kspPath
     while(!kspPath){
-        const list = await (psList as any)()
-        const kspProcess = list.find(p => p.name == 'KSP_x64.exe')
-        if(kspProcess){
-            kspPath = await pidCwd(kspProcess.pid)
-            console.log(`[KSP] KSP detected on ${kspPath}`)
-        }else{
-            console.log("[KSP] KSP is not running yet!")
-            await new Promise(r => setTimeout(r,2000))
-        }
+        kspPath = await getKSPPath()
     }
+    
+    console.log(`[KSP] KSP detected on ${kspPath}`)
 
     const jsonPath = `${kspPath}Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
-
-    await waitJSONAvailable(jsonPath)
     
     const handleAGCUpdate = () => {
         try{
@@ -95,10 +87,20 @@ export const watchStateKSP = async (callback) =>{
             callback(AGCState)
         }catch{}
     }
-    handleAGCUpdate()
-    fs.watch(jsonPath, handleAGCUpdate);
+    const watcher = await createWatcher(jsonPath,handleAGCUpdate)
 
-    handleAGCUpdate()
+    let beginWatchingAgain = () => {}
+    const kspCheckInterval = setInterval(async ()=>{
+        const newKspPath = await getKSPPath()
+        if(newKspPath != kspPath){
+            beginWatchingAgain()
+        }
+    }, 5000)
+    beginWatchingAgain = () => {
+        watcher.close()
+        watchStateKSP(callback)
+        clearInterval(kspCheckInterval)
+    }
 }
 
 let keyboardHandler = (_data) => {}
@@ -112,8 +114,15 @@ export const getKSPKeyboardHandler = async () =>{
     
     let apolloCPU = 0
     let keepAliveInterval
+    const toggleKeepAlive = (enable) => {
+        if(enable  && !keepAliveInterval) keepAliveInterval = setInterval(()=> client.write('a'),2000) // Keep connection alive
+        if(!enable && keepAliveInterval ) {
+            clearInterval(keepAliveInterval)
+            keepAliveInterval = null
+        }
+    }
     client.on('connect', () =>{
-        if(!keepAliveInterval) keepAliveInterval = setInterval(()=> client.write('a'),2000) // Keep connection alive
+        toggleKeepAlive(true)
     })
     client.on('data', function(data) {
         if(data.includes('<NONE>') && !apolloCPU) {
@@ -121,20 +130,20 @@ export const getKSPKeyboardHandler = async () =>{
             console.log("[kOS] CPU Disconnected")
         }
         if(data.includes('Apollo()')) {
+            toggleKeepAlive(false) // Prevent keepalive from meddling in CPU selection
             apolloCPU = 1
-            if(keepAliveInterval) clearInterval(keepAliveInterval)
-            //console.log(data.toString()) //TODO: Figure out from this string which CPU is Apollo()
+            //console.log(data.toString()) //TODO: Extract from this string which CPU is Apollo()
         }
         if(apolloCPU && data.includes('>')){
             console.log(`[kOS] Selecting CPU [${apolloCPU}]`)
             client.write(`${apolloCPU}\r`)
-            if(!keepAliveInterval) keepAliveInterval = setInterval(()=> client.write('a'),2000)
+            toggleKeepAlive(true)
         }
     });
 
     const handleSocketError = async (error) => {
         console.log(`[Telnet] Socket ${error}! Reconnecting...`)
-        if(keepAliveInterval) clearInterval(keepAliveInterval)
+        toggleKeepAlive(false)
         client.destroy()
         await new Promise(r => setTimeout(r,2000))
         await getKSPKeyboardHandler()
@@ -150,5 +159,5 @@ export const getKSPKeyboardHandler = async () =>{
         client.write(`${data}`)
     }
 
-    return keyboardHandler
+    return (data) => keyboardHandler(data)
 }
