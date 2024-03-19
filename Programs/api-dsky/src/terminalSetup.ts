@@ -11,7 +11,8 @@ export const getInputSource = async() =>{
                 {name:'Reentry', value: 'reentry'},
                 {name:'KSP', value: 'ksp'},
                 {name:'NASSP (experimental)', value: 'nassp'},
-                {name:'Random Values', value: 'random'}
+                {name:'Random Values', value: 'random'},
+                {name:'Bridge to another DSKY API', value: 'bridge'}
             ]
         }).then(r)
     ) as any
@@ -38,4 +39,16 @@ export const getSerialSource = async() =>{
         serialSourceResult = serialSource
     }while(serialSourceResult == 'refresh')
     return serialSourceResult
+}
+
+export const getBridgeHost = async () => {
+    const {bridgeHost} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Type in the IP of the host you want to bridge with:",
+            name: 'bridgeHost',
+            type: 'input',
+            //filter: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        }).then(r)
+    ) as any
+    return bridgeHost
 }
