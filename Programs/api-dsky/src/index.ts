@@ -1,16 +1,23 @@
+import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
+import { getNASSPKeyboardHandler } from '@/nassp'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
+import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
 import { watchStateRandom } from '@/random'
-import { stateToBinaryString, binaryStringToBuffer, createSerial } from '@/serial'
+import { createSerial, setSerialListener, updateSerialState } from '@/serial'
 import { setWebSocketListener, updateWebSocketState } from '@/socket'
-import { terminalSetup } from '@/terminalSetup'
+import { getInputSource } from '@/terminalSetup'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
 
 const watchState = (inputSource, callback) =>{
     switch(inputSource){
+        case "reentry":
+            return watchStateReentry(callback)
         case "ksp":
             return watchStateKSP(callback)
+        case "bridge":
+            return watchStateBridge(callback)
         case "random":
         default:
             return watchStateRandom(callback)
@@ -19,53 +26,43 @@ const watchState = (inputSource, callback) =>{
 
 const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
+        case "reentry":
+            return getReentryKeyboardHandler()
+        case "nassp":
+            return getNASSPKeyboardHandler()
         case "ksp":
             return await getKSPKeyboardHandler()
+        case "bridge":
+            return await getBridgeKeyboardHandler()
         default:
             return (_data) => {}
     }
 }
 
 // Runs the integration API with the chosen settings
-const runWithSetup = async(setup) =>{
-    const {inputSource,outputSerial} = setup
-    
+const main = async() =>{
+    const inputSource = await getInputSource()
+    await createSerial()
+
     const keyboardHandler = await getKeyboardHandler(inputSource)
     
-    let serial
-    let silenceOutput = false
-    if(outputSerial){
-        serial = createSerial(outputSerial, keyboardHandler, 
-            (newSerial)=>{
-                serial = newSerial
-            },
-            (setSilenceOutput) => {
-                silenceOutput=setSilenceOutput
-            })
-    }
-    setWebSocketListener((data)=>{
-        // WebSocket data received
-        console.log(`[WS] KeyPress: ${data}`)
-        keyboardHandler(data)
+    setSerialListener(async (data) => {
+        // Serial data received
+        const key = data.toString().toLowerCase().substring(0, 1)
+        console.log(`[Serial] KeyPress: ${key}`)
+        await keyboardHandler(key)
     })
     
-
-    let lastPacket = ''
-    watchState(inputSource, (currentState) =>{
-        let currentPacket = stateToBinaryString(currentState)
-        if(lastPacket != currentPacket){
-            updateWebSocketState(currentState)
-            lastPacket = currentPacket
-            let serialPacket = binaryStringToBuffer(currentPacket)
-            if(!silenceOutput) console.log(serialPacket)
-            if(serial) serial.write(serialPacket)
-        }
+    setWebSocketListener(async (data)=>{
+        // WebSocket data received
+        console.log(`[WS] KeyPress: ${data}`)
+        await keyboardHandler(data)
     })
-}
-
-const main = async () =>{
-    // In the future, we might want to skip this and let the webpage do the setup via websocket
-    await terminalSetup().then(runWithSetup)
+    
+    watchState(inputSource, (newState) =>{
+        updateSerialState(newState)
+        updateWebSocketState(newState)
+    })
 }
 
 main()
