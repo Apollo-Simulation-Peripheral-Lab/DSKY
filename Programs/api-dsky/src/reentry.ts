@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import {keyboard, Key} from "@nut-tree/nut-js"
+import { keyboard, Key } from "@nut-tree/nut-js"
+import { createWatcher } from "@/filesystem"
 
 // Define key map, duh
 const keyMap = {
@@ -30,25 +31,6 @@ export const watchStateReentry = (callback) => {
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
     const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`;
 
-    const createWatcher = async (watchPath, callback) => {
-        let success = false;
-        while (!success) {
-            try {
-                fs.watch(watchPath, (event, filename) => {
-                    if (event === 'change') {
-                        callback();
-                    }
-                });
-                // Create the watchers on start
-                callback();
-                console.log(`Watcher created successfully for ${watchPath}`);
-                success = true;
-            } catch (error) {
-                console.error(`Unable to create watcher for ${watchPath}: ${error.message}`); // might flood the console with errors
-                await new Promise((resolve) => setTimeout(resolve, 5000));
-            }
-        }
-    };
     
     const handleStateUpdate = (path, condition, callback) => {
         try {
