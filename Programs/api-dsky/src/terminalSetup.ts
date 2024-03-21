@@ -42,13 +42,39 @@ export const getSerialSource = async() =>{
 }
 
 export const getBridgeHost = async () => {
-    const {bridgeHost} = await new Promise(r => 
+    const {protocol} = await new Promise(r => 
         inquirer.prompt({
-            message: "Type in the IP of the host you want to bridge with:",
-            name: 'bridgeHost',
-            type: 'input',
-            //filter: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+            message: "Select the protocol you're using in the main API:",
+            name: 'protocol',
+            type: 'list',
+            choices: [
+                {name:'Web Socket', value: 'ws'},
+                {name:'Secure Web Socket', value: 'wss'}
+            ]
         }).then(r)
     ) as any
-    return bridgeHost
+    const {address} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Type in the address where the API is listening: ",
+            name: 'address',
+            type: 'input'
+        }).then(r)
+    ) as any
+    const {port} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Select the port where the API is listening: ",
+            name: 'port',
+            type: 'input',
+            default: protocol == 'wss' ? '443' : '3001'
+        }).then(r)
+    ) as any
+    const {path} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Type in the path where the API is listening: ",
+            name: 'path',
+            type: 'input',
+            default: protocol == 'wss' ? '/ws' : '/'
+        }).then(r)
+    ) as any
+    return `${protocol}://${address}:${port}/${path}`
 }
