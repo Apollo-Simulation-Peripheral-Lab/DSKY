@@ -48,8 +48,8 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
 });
 // Runs the integration API with the chosen settings
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const inputSource = yield (0, terminalSetup_1.getInputSource)();
     yield (0, serial_1.createSerial)();
+    const inputSource = yield (0, terminalSetup_1.getInputSource)();
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
