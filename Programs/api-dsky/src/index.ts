@@ -28,8 +28,8 @@ const getKeyboardHandler = async (inputSource) => {
 
 // Runs the integration API with the chosen settings
 const main = async() =>{
-    const inputSource = await getInputSource()
     await createSerial()
+    const inputSource = await getInputSource()
 
     const keyboardHandler = await getKeyboardHandler(inputSource)
     

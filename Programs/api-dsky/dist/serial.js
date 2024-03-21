@@ -92,7 +92,7 @@ const createSerial = () => __awaiter(void 0, void 0, void 0, function* () {
     const serialSource = yield (0, terminalSetup_1.getSerialSource)();
     if (!serialSource)
         return;
-    serial = new serialport_1.SerialPort({ path: serialSource.path, baudRate: 250000 });
+    serial = new serialport_1.SerialPort({ path: serialSource, baudRate: 250000 });
     (0, exports.updateSerialState)(state, true);
     serial.on('data', (data) => __awaiter(void 0, void 0, void 0, function* () {
         yield listener(data);
