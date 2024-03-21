@@ -18,13 +18,18 @@ export const getInputSource = async() =>{
     ) as any
     return inputSource
 }
+
+interface PortInfo {
+    path: string
+    friendlyName ?: string
+}
 export const getSerialSource = async() =>{
     let serialSourceResult
     do {
         const availableSerial = await SerialPort.list()
-        const serialChoices : any = availableSerial.map(available => ({
-            value: available, 
-            name:(available as any).friendlyName
+        const serialChoices = availableSerial.map((available: PortInfo) => ({
+            value: available.path, 
+            name: available.friendlyName
         }))
         serialChoices.unshift({value: 'refresh', name:"Refresh List"})
         serialChoices.unshift({value: null, name:"No Serial output"})

@@ -32,8 +32,8 @@ const getSerialSource = () => __awaiter(void 0, void 0, void 0, function* () {
     let serialSourceResult;
     do {
         const availableSerial = yield serialport_1.SerialPort.list();
-        const serialChoices = availableSerial.map(available => ({
-            value: available,
+        const serialChoices = availableSerial.map((available) => ({
+            value: available.path,
             name: available.friendlyName
         }));
         serialChoices.unshift({ value: 'refresh', name: "Refresh List" });

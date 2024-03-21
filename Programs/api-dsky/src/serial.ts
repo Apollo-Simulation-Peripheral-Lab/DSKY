@@ -171,7 +171,7 @@ export const createSerial = async () =>{
     const serialSource = await getSerialSource()
     if(!serialSource) return
 
-    serial = new SerialPort({ path: serialSource.path, baudRate: 250000 })
+    serial = new SerialPort({ path: serialSource, baudRate: 250000 })
     
     updateSerialState(state, true)
 
