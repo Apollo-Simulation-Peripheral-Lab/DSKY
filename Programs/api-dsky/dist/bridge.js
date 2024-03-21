@@ -22,7 +22,7 @@ client.on('close', () => __awaiter(void 0, void 0, void 0, function* () {
     yield connectClient();
 }));
 const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
-    client.connect(`ws://${bridgeHost}:3001`, 'echo-protocol');
+    client.connect(bridgeHost, 'echo-protocol');
     client.on('connect', connection => {
         connection.on("message", message => {
             if (message.type === 'utf8') {
