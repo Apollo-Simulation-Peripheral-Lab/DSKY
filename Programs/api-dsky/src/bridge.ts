@@ -7,22 +7,29 @@ let bridgeHost
 let clientInput = (_data) => {}
 let clientOutput = (_data) =>{}
 
-client.on('close', async () => {
+const onDisconnect = async () => {
+    client.removeListener('connect', onConnect)
     console.log("Bridge connection failed, reconnecting...")
     await new Promise(r => setTimeout(r,1000))
     await connectClient()
-});
+}
+
+const onConnect = connection => {
+    console.log("Bridge connected!")
+    connection.on("message", message =>{
+        if (message.type === 'utf8') {
+            clientOutput(JSON.parse(message.utf8Data))
+        }
+    })
+    connection.on("close", onDisconnect)
+    clientInput = (data) => connection.sendUTF(data)
+}
+
+client.on('connectFailed', onDisconnect);
 
 const connectClient = async () =>{
     client.connect(bridgeHost,'echo-protocol')
-    client.on('connect', connection => {
-        connection.on("message", message =>{
-            if (message.type === 'utf8') {
-                clientOutput(JSON.parse(message.utf8Data))
-            }
-        })
-        clientInput = (data) => connection.sendUTF(data)
-    })
+    client.on('connect', onConnect)
 }
 
 export const watchStateBridge = async (callback) => {
