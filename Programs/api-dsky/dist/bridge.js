@@ -16,21 +16,26 @@ const client = new websocket_1.client();
 let bridgeHost;
 let clientInput = (_data) => { };
 let clientOutput = (_data) => { };
-client.on('close', () => __awaiter(void 0, void 0, void 0, function* () {
+const onDisconnect = () => __awaiter(void 0, void 0, void 0, function* () {
+    client.removeListener('connect', onConnect);
     console.log("Bridge connection failed, reconnecting...");
     yield new Promise(r => setTimeout(r, 1000));
     yield connectClient();
-}));
+});
+const onConnect = connection => {
+    console.log("Bridge connected!");
+    connection.on("message", message => {
+        if (message.type === 'utf8') {
+            clientOutput(JSON.parse(message.utf8Data));
+        }
+    });
+    connection.on("close", onDisconnect);
+    clientInput = (data) => connection.sendUTF(data);
+};
+client.on('connectFailed', onDisconnect);
 const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
     client.connect(bridgeHost, 'echo-protocol');
-    client.on('connect', connection => {
-        connection.on("message", message => {
-            if (message.type === 'utf8') {
-                clientOutput(JSON.parse(message.utf8Data));
-            }
-        });
-        clientInput = (data) => connection.sendUTF(data);
-    });
+    client.on('connect', onConnect);
 });
 const watchStateBridge = (callback) => __awaiter(void 0, void 0, void 0, function* () {
     bridgeHost = yield (0, terminalSetup_1.getBridgeHost)();
