@@ -65,9 +65,9 @@ const getKSPPath = async () =>{
     if(kspProcess){
         const cwd = await pidCwd(kspProcess.pid)
         if(!cwd) console.log(
-            "[KSP] Windows is not returning the KSP path to this shell. Try running:\n",
-            "   (Get-Process KSP_x64 | Select-Object -ExpandProperty Path)\n",
-            "in PowerShell to debug the issue.\n\n"
+            "[KSP] Windows is not returning the KSP path to this shell.\n",
+            "If you're running KSP as Administrator, you will need to run the API as administrator, too.\n",
+            "Thank Microsoft.\n"
         )
         else return cwd
     } else console.log("[KSP] KSP is not running!")
