@@ -67,7 +67,7 @@ const getKSPPath = async () =>{
         if(!cwd) console.log(
             "[KSP] Windows is not returning the KSP path to this shell.\n",
             "If you're running KSP as Administrator, you will need to run the API as administrator, too.\n",
-            "Thank Microsoft.\n"
+            "Thanks, Microsoft!\n\n"
         )
         else return cwd
     } else console.log("[KSP] KSP is not running!")
