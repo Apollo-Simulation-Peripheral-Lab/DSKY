@@ -63,11 +63,16 @@ const getKSPPath = async () =>{
     const list = await (psList as any)()
     const kspProcess = list.find(p => p.name == 'KSP_x64.exe')
     if(kspProcess){
-        return await pidCwd(kspProcess.pid)
-    }else{
-        console.log("[KSP] KSP is not running!")
-        await new Promise(r => setTimeout(r,2000))
-    }
+        const cwd = await pidCwd(kspProcess.pid)
+        if(!cwd) console.log(
+            "[KSP] Windows is not returning the KSP path to this shell. Try running:\n",
+            "   (Get-Process KSP_x64 | Select-Object -ExpandProperty Path)\n",
+            "in PowerShell to debug the issue.\n\n"
+        )
+        else return cwd
+    } else console.log("[KSP] KSP is not running!")
+
+    await new Promise(r => setTimeout(r,2000))
 }
 
 export const watchStateKSP = async (callback) =>{
