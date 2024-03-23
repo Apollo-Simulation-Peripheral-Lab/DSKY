@@ -6,8 +6,8 @@
 
   (title_block
     (title "DSKY Main Board")
-    (date "2024-03-13")
-    (rev "0.3.1")
+    (date "2024-03-23")
+    (rev "0.3.x")
     (company "Pablo Ortiz López, Evan MacDonald")
   )
 
