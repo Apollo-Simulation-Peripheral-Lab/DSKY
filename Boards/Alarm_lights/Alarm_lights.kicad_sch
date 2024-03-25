@@ -2,12 +2,12 @@
 
   (uuid edda463a-ad09-46be-9126-bcff7f3b030f)
 
-  (paper "A3")
+  (paper "A2")
 
   (title_block
     (title "DSKY Alarm Lights")
-    (date "2024-03-13")
-    (rev "0.3.1")
+    (date "2024-03-24")
+    (rev "0.3.x")
     (company "Pablo Ortiz López, Evan MacDonald")
   )
 
@@ -1503,6 +1503,13 @@
     (uuid b8767b29-4ece-4a08-af0d-32c457c73810)
   )
 
+  (text_box "PCF8575 Fanout"
+    (at 90.17 226.06 0) (size 30.48 6.35)
+    (stroke (width 0) (type default))
+    (fill (type none))
+    (effects (font (size 2 2)) (justify left top))
+    (uuid 0d5a480b-c211-4be5-9bfa-3ee815972a67)
+  )
   (text_box "Right Alarm Bank"
     (at 204.47 138.43 0) (size 30.48 6.35)
     (stroke (width 0) (type default))
@@ -1539,6 +1546,14 @@
     (uuid ac543f25-7604-4879-b99b-a741a760abcf)
   )
 
+  (text "Damping Network\n" (at 257.81 31.75 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 0e48c330-7662-447b-a937-5db6b8ed55d8)
+  )
+  (text "LS PWM Switch w/ 1k dummy resistive load" (at 248.92 74.93 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 44b704a6-f3c9-4288-a045-4a3d2c33efa4)
+  )
   (text "5V to VDD, VCC bypasses the 3.3v linear regulator" (at 38.1 242.57 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 866dbc3d-f9a4-431a-823a-fcd9c2d99c67)
