@@ -1,5 +1,7 @@
 @echo off 
 
+@REM Start Frontend
+
 echo Checking if port 3000 is open...
 timeout /t 2 >nul
 netstat -ano | find "LISTENING" | find ":3000" >nul
@@ -15,9 +17,17 @@ if errorlevel 1 (
 )
 
 @REM Start API
-echo Starting API...
-cd Programs\api-dsky
-call npm install
-call npm start
-echo API process ended.
+
+echo Checking if port 3001 is open...
+timeout /t 2 >nul
+netstat -ano | find "LISTENING" | find ":3001" >nul
+if errorlevel 1 (
+    echo Starting API...
+    cd Programs\api-dsky
+    call npm install
+    call npm start
+    echo API process ended.
+) else (
+    echo API is already running.
+)
 exit
