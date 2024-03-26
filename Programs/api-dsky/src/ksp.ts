@@ -1,8 +1,10 @@
 import * as fs from 'fs';
-import { getGamePath } from 'steam-game-path';
 import * as net from 'net'
+import * as psList from 'ps-list-commonjs';
+import * as pidCwd from 'pid-cwd'
+import { createWatcher } from '@/filesystem';
 
-const keyMappings = {
+const kOSDictionary = {
     COMP_ACTY: 'IlluminateCompLight',
     MD1: 'ProgramD1',
     MD2: 'ProgramD2',
@@ -44,24 +46,12 @@ const keyMappings = {
     I14:'IlluminateVel'
 }
 
-const waitJSONAvailable = async(path) =>{
-    while(true){
-        try{
-            fs.readFileSync(path)
-            break;
-        }catch{
-            console.log("KSP JSON not found, checking again in 5 seconds...")
-            await new Promise(r=> setTimeout(r,5000))
-        }
-    }
-}
-
 const kOSJSONtoNormalJSON = (kOSJSON) =>{
     const normalJSON = {}
     for(let i=0; i<(kOSJSON.entries.length / 2); i++){
         const keyIndex = i*2
         const valueIndex = (i*2) + 1
-        const keyValue = keyMappings[kOSJSON.entries[keyIndex].value] || kOSJSON.entries[keyIndex].value
+        const keyValue = kOSDictionary[kOSJSON.entries[keyIndex].value] || kOSJSON.entries[keyIndex].value
         let value = kOSJSON.entries[valueIndex].value
         if(value == 'b') value = ''
         normalJSON[keyValue] = value
@@ -69,19 +59,31 @@ const kOSJSONtoNormalJSON = (kOSJSON) =>{
     return normalJSON
 }
 
+const getKSPPath = async () =>{
+    const list = await (psList as any)()
+    const kspProcess = list.find(p => p.name == 'KSP_x64.exe')
+    if(kspProcess){
+        const cwd = await pidCwd(kspProcess.pid)
+        if(!cwd) console.log(
+            "[KSP] Windows is not returning the KSP path to this shell.\n",
+            "If you're running KSP as Administrator, you will need to run the API as administrator, too.\n",
+            "Thanks, Microsoft!\n\n"
+        )
+        else return cwd
+    } else console.log("[KSP] KSP is not running!")
+
+    await new Promise(r => setTimeout(r,2000))
+}
+
 export const watchStateKSP = async (callback) =>{
-    let kspPath = process.env.KSP_PATH
-    if(!kspPath){
-        const steamPath = getGamePath(220200);
-        kspPath = `${steamPath.steam?.path}\\steamapps\\common\\Kerbal Space Program`
-        if(steamPath.game){
-            kspPath = `${steamPath.game.path}`
-        }
+    let kspPath
+    while(!kspPath){
+        kspPath = await getKSPPath()
     }
+    
+    console.log(`[KSP] KSP detected on ${kspPath}`)
 
-    const jsonPath = `${kspPath}\\Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
-
-    await waitJSONAvailable(jsonPath)
+    const jsonPath = `${kspPath}Ships\\Script\\kOS AGC\\DSKY\\AGCoutput.json`
     
     const handleAGCUpdate = () => {
         try{
@@ -90,34 +92,77 @@ export const watchStateKSP = async (callback) =>{
             callback(AGCState)
         }catch{}
     }
-    handleAGCUpdate()
-    fs.watch(jsonPath, handleAGCUpdate);
+    const watcher = await createWatcher(jsonPath,handleAGCUpdate)
 
-    handleAGCUpdate()
+    let beginWatchingAgain = () => {}
+    const kspCheckInterval = setInterval(async ()=>{
+        const newKspPath = await getKSPPath()
+        if(newKspPath != kspPath){
+            beginWatchingAgain()
+        }
+    }, 5000)
+    beginWatchingAgain = () => {
+        watcher.close()
+        watchStateKSP(callback)
+        clearInterval(kspCheckInterval)
+    }
 }
 
+let keyboardHandler = (_data) => {}
 export const getKSPKeyboardHandler = async () =>{
     
     var client = new net.Socket();
     client.connect({port:5410,host:'127.0.0.1',keepAlive:true}, () => {
-        console.log('Connected');
+        console.log('[Telnet] Socket connected!');
         client.write('1\r\n');
     });
     
+    let apolloCPU = 0
+    let keepAliveInterval
+    const toggleKeepAlive = (enable) => {
+        if(enable  && !keepAliveInterval) keepAliveInterval = setInterval(()=> client.write('a'),2000) // Keep connection alive
+        if(!enable && keepAliveInterval ) {
+            clearInterval(keepAliveInterval)
+            keepAliveInterval = null
+        }
+    }
+    client.on('connect', () =>{
+        toggleKeepAlive(true)
+    })
     client.on('data', function(data) {
-        //console.log(data.toString())
-        if(data.includes('>')){
-            // Select CPU number 1
-            client.write("1\r")
-            setInterval(()=> client.write('a'),2000)
+        if(data.includes('<NONE>') && !apolloCPU) {
+            apolloCPU = 0
+            console.log("[kOS] CPU Disconnected")
+        }
+        if(data.includes('Apollo()')) {
+            toggleKeepAlive(false) // Prevent keepalive from meddling in CPU selection
+            apolloCPU = 1
+            //console.log(data.toString()) //TODO: Extract from this string which CPU is Apollo()
+        }
+        if(apolloCPU && data.includes('>')){
+            console.log(`[kOS] Selecting CPU [${apolloCPU}]`)
+            client.write(`${apolloCPU}\r`)
+            toggleKeepAlive(true)
         }
     });
-    
-    client.on('close', function() {
-        console.log('Connection closed');
-    });
 
-    return (data) =>{
+    const handleSocketError = async (error) => {
+        console.log(`[Telnet] Socket ${error}! Reconnecting...`)
+        toggleKeepAlive(false)
+        client.destroy()
+        await new Promise(r => setTimeout(r,2000))
+        await getKSPKeyboardHandler()
+    }
+    
+    client.on('close', async (hadError) => {
+        if(!hadError) await handleSocketError('closed')
+    })
+
+    client.on('error', async () => await handleSocketError('connection failed'))
+
+    keyboardHandler = (data) =>{
         client.write(`${data}`)
     }
+
+    return (data) => keyboardHandler(data)
 }

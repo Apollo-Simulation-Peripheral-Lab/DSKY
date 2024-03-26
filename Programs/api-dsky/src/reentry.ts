@@ -1,31 +1,36 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import { Hardware } from 'keysender';
+import { keyboard, Key } from "@nut-tree/nut-js"
+import { createWatcher } from "@/filesystem"
+
+// Define key map, duh
+const keyMap = {
+    '0': [Key.NumPad0],
+    '1': [Key.NumPad1],
+    '2': [Key.NumPad2],
+    '3': [Key.NumPad3],
+    '4': [Key.NumPad4],
+    '5': [Key.NumPad5],
+    '6': [Key.NumPad6],
+    '7': [Key.NumPad7],
+    '8': [Key.NumPad8],
+    '9': [Key.NumPad9],
+    'e': [Key.End],
+    'p': [Key.RightShift, Key.End],
+    'v': [Key.Home],
+    'n': [Key.RightShift, Key.Multiply],
+    '+': [Key.RightShift, Key.Add],
+    '-': [Key.RightShift, Key.Subtract],
+    'c': [Key.Decimal],
+    'r': [Key.RightShift, Key.PageUp],
+    'k': [Key.RightShift, Key.Home]
+};
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
     const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`;
 
-    const createWatcher = async (watchPath, callback) => {
-        let success = false;
-        while (!success) {
-            try {
-                fs.watch(watchPath, (event, filename) => {
-                    if (event === 'change') {
-                        callback();
-                    }
-                });
-                // Create the watchers on start
-                callback();
-                console.log(`Watcher created successfully for ${watchPath}`);
-                success = true;
-            } catch (error) {
-                console.error(`Unable to create watcher for ${watchPath}: ${error.message}`); // might flood the console with errors
-                await new Promise((resolve) => setTimeout(resolve, 5000));
-            }
-        }
-    };
     
     const handleStateUpdate = (path, condition, callback) => {
         try {
@@ -53,36 +58,26 @@ export const watchStateReentry = (callback) => {
     createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
+let isTyping = false
+
 export const getReentryKeyboardHandler = () => {
-    const obj = new Hardware();
+    keyboard.config.autoDelayMs = 1 // Define this setting here, we may want to use other values in other handlers
 
-    // Set Up for using with keysender lib
-    const keyMap = {
-        '1': ['num1'],
-        '2': ['num2'],
-        '3': ['num3'],
-        '4': ['num4'],
-        '5': ['num5'],
-        '6': ['num6'],
-        '7': ['num7'],
-        '8': ['num8'],
-        '9': ['num9'],
-        '0': ['num0'],
-        'e': ['end'],
-        'p': ['shift', 'end'],
-        'v': ['home'],
-        'n': ['shift', 'num*'],
-        '+': ['shift', 'num+'],
-        '-': ['shift', 'num-'],
-        'c': ['num.'],
-        'r': ['shift', 'pageUp'],
-        'k': ['shift', 'home']
-    };
-
-    return (data) => {
-        const keysToSend = keyMap[data];
-        if (keysToSend) {
-            obj.keyboard.sendKey(keysToSend);
+    return async (data) => {
+        try {
+            const keysToSend = keyMap[data];
+            if(isTyping){
+                console.log(`Key '${data}' skipped because a keypress is already in progress`)
+            }else if (keysToSend) {
+                isTyping = true
+                await keyboard.pressKey(...keysToSend);
+                await keyboard.releaseKey(...keysToSend);
+                isTyping = false
+            } else {
+                console.error(`Key combination for '${data}' not found.`);
+            }
+        } catch (error) {
+            console.error('Error sending key combination: ', error);
         }
-    };
+    }
 };
