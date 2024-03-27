@@ -5,6 +5,7 @@
     <Version>5</Version>
     <Device name="GW1NR-9C" pn="GW1NR-LV9QN88PC6/I5">gw1nr9c-004</Device>
     <FileList>
+        <File path="src/Shape.v" type="file.verilog" enable="1"/>
         <File path="src/TOP.v" type="file.verilog" enable="1"/>
         <File path="src/VGAMod.v" type="file.verilog" enable="1"/>
         <File path="src/gowin_osc/gowin_osc.v" type="file.verilog" enable="1"/>

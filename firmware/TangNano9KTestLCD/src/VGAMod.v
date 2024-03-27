@@ -73,21 +73,13 @@ module VGAMod
                         ( LineCount <= LineForVS-V_FrontPorch-1 ))  ? 1'b1 : 1'b0;
 						//If not reduced by one here, it will jitter
 
-    // Define square
-    parameter squareTop = 100;
-    parameter squareBottom = 400;
-    parameter squareLeft = 100;
-    parameter squareRight = 400;
-
-    // Display green square
-    assign LCD_R = 5'b00000;
-    
-    assign LCD_G = ( PixelCount >= squareLeft &&
-        PixelCount <= squareRight &&
-        LineCount >= squareTop &&
-        LineCount <= squareBottom
-    ) ? 6'b111111 : 6'b000000; // Green
-
-    assign LCD_B = 5'b00000;
+    Shape S1 
+    (
+        .PixelCount( PixelCount ),
+        .LineCount(  LineCount  ),
+        .LCD_R(      LCD_R      ),
+        .LCD_G(      LCD_G      ),
+        .LCD_B(      LCD_B      )
+    );
     
 endmodule
