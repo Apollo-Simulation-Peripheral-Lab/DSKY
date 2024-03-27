@@ -26,8 +26,8 @@ module GetColor (
     // Display green square
     assign LCD_R = 5'b00000;
     
-    assign LCD_G = ( SQ1_PRESENT || SQ2_PRESENT ) ? 6'b111111 : 6'b000000; // Green
+    assign LCD_G = ( SQ1_PRESENT || SQ2_PRESENT ) ? 6'b101011 : 6'b000000; // Green
 
-    assign LCD_B = 5'b00000;
+    assign LCD_B = ( SQ1_PRESENT || SQ2_PRESENT ) ? 5'b01000 : 5'b00000;
 
 endmodule
