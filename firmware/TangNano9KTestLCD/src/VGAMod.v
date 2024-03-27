@@ -73,7 +73,7 @@ module VGAMod
                         ( LineCount <= LineForVS-V_FrontPorch-1 ))  ? 1'b1 : 1'b0;
 						//If not reduced by one here, it will jitter
 
-    Shape S1 
+    GetColor GET_COLOR 
     (
         .PixelCount( PixelCount ),
         .LineCount(  LineCount  ),
