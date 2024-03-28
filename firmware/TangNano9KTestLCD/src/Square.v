@@ -1,4 +1,4 @@
-module Square #(squareTop, squareBottom, squareLeft, squareRight)(
+module Square #(squareTop =100, squareBottom=400, squareLeft=100, squareRight=400)(
 
     input [15:0]  PixelCount,
     input [15:0]  LineCount,

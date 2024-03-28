@@ -1,7 +1,7 @@
 module TOP
 (
 	input			Reset_Button,
-    input           User_Button,
+    //input           User_Button,
     input           XTAL_IN,
 
 	output			LCD_CLK,
@@ -64,8 +64,9 @@ module TOP
 
 //LED drive
     reg     [31:0]  counter;
-    reg     [5:0]   LED;
+    reg     [5:0]   LED_reg;
 
+    assign LED = LED_reg;
 
     always @(posedge XTAL_IN or negedge Reset_Button) begin
     if (!Reset_Button)
@@ -78,11 +79,11 @@ module TOP
 
     always @(posedge XTAL_IN or negedge Reset_Button) begin
     if (!Reset_Button)
-        LED <= 6'b111110;       
+        LED_reg <= 6'b111110;       
     else if (counter == 24'd400_0000)       // 0.5s delay
-        LED[5:0] <= {LED[4:0],LED[5]};        
+        LED_reg[5:0] <= {LED_reg[4:0],LED_reg[5]};        
     else
-        LED <= LED;
+        LED_reg <= LED_reg;
     end
 
 endmodule
