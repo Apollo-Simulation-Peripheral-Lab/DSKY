@@ -31,6 +31,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
   - Run start.bat
 
 ## Repository contents:
+* **Documentation**: Useful information to better understand how the different pieces of the puzzle talk to each other
 * **3D Models**:
   * **Common Models:** Meshes you need to print regardless of what display you want to use.
   * **iPhone 12 Mini version:** Meshes to print if you want to use an iPhone 12 Mini as the substitute for the EL display.
