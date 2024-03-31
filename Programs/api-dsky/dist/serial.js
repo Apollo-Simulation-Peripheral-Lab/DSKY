@@ -88,8 +88,8 @@ const updateSerialState = (newState, force = false) => {
     }
 };
 exports.updateSerialState = updateSerialState;
-const createSerial = () => __awaiter(void 0, void 0, void 0, function* () {
-    const serialSource = yield (0, terminalSetup_1.getSerialSource)();
+const createSerial = (desiredSerialSource = undefined) => __awaiter(void 0, void 0, void 0, function* () {
+    const serialSource = desiredSerialSource || (yield (0, terminalSetup_1.getSerialSource)());
     if (!serialSource)
         return;
     serial = new serialport_1.SerialPort({ path: serialSource, baudRate: 250000 });

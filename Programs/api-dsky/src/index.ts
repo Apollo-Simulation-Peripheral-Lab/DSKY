@@ -5,22 +5,23 @@ import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
 import { watchStateRandom } from '@/random'
 import { createSerial, setSerialListener, updateSerialState } from '@/serial'
 import { setWebSocketListener, updateWebSocketState } from '@/socket'
-import { getInputSource } from '@/terminalSetup'
+import { getInputSource, getSetupKeyboardHandler } from '@/terminalSetup'
+import { program } from 'commander'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-const watchState = (inputSource, callback) =>{
+const watchState = async (inputSource, callback) =>{
     switch(inputSource){
         case "reentry":
             return watchStateReentry(callback)
         case "ksp":
             return watchStateKSP(callback)
         case "bridge":
-            return watchStateBridge(callback)
+            return await watchStateBridge(callback)
         case "random":
         default:
-            return watchStateRandom(callback)
+            return await watchStateRandom(callback)
     }
 }
 
@@ -34,6 +35,8 @@ const getKeyboardHandler = async (inputSource) => {
             return await getKSPKeyboardHandler()
         case "bridge":
             return await getBridgeKeyboardHandler()
+        case "setup":
+            return await getSetupKeyboardHandler()
         default:
             return (_data) => {}
     }
@@ -41,11 +44,27 @@ const getKeyboardHandler = async (inputSource) => {
 
 // Runs the integration API with the chosen settings
 const main = async() =>{
-    await createSerial()
+    program.option('-s, --serial <string>');
+    program.parse();
+    const options = program.opts()
+    const serialSource = options.serial
+    await createSerial(serialSource)
+    const setupKeyboardHandler = await getKeyboardHandler('setup')
+    setSerialListener(async (data) => {
+        // Serial data received
+        const key = data.toString().toLowerCase().substring(0, 1)
+        //console.log(`[Serial] KeyPress (Setup mode): ${key}`)
+        await setupKeyboardHandler(key)
+    })
     const inputSource = await getInputSource()
+    
+    await watchState(inputSource, (newState) =>{
+        updateSerialState(newState)
+        updateWebSocketState(newState)
+    })
 
     const keyboardHandler = await getKeyboardHandler(inputSource)
-    
+
     setSerialListener(async (data) => {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1)
@@ -57,11 +76,6 @@ const main = async() =>{
         // WebSocket data received
         console.log(`[WS] KeyPress: ${data}`)
         await keyboardHandler(data)
-    })
-    
-    watchState(inputSource, (newState) =>{
-        updateSerialState(newState)
-        updateWebSocketState(newState)
     })
 }
 

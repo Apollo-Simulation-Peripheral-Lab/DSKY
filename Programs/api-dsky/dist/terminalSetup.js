@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
+exports.getSetupKeyboardHandler = exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
 const serialport_1 = require("serialport");
 const inquirer = require("inquirer");
+const robot = require("robotjs");
 const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
     const { inputSource } = yield new Promise(r => inquirer.prompt({
         message: "Select what AGC do you want to interact with:",
@@ -79,3 +80,28 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
     return `${protocol}://${address}:${port}/${path}`;
 });
 exports.getBridgeHost = getBridgeHost;
+const keyMap = {
+    'e': ['enter'],
+    'p': ['enter'],
+    'v': ['/'],
+    'n': ['.'],
+    '+': ['up'],
+    '-': ['down'],
+    'c': ['backspace'],
+    'r': ['backspace'],
+    'k': "dsky.ortizma.com"
+};
+const getSetupKeyboardHandler = () => {
+    return (data) => __awaiter(void 0, void 0, void 0, function* () {
+        const keys = keyMap[data] || [data];
+        if (Array.isArray(keys)) {
+            if (keys.length == 1) {
+                robot.keyTap(keys[0]);
+            } //TODO: else implement key combination
+        }
+        else {
+            robot.typeString(keys);
+        }
+    });
+};
+exports.getSetupKeyboardHandler = getSetupKeyboardHandler;

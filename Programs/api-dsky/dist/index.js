@@ -17,21 +17,22 @@ const random_1 = require("./random");
 const serial_1 = require("./serial");
 const socket_1 = require("./socket");
 const terminalSetup_1 = require("./terminalSetup");
+const commander_1 = require("commander");
 const dotenv = require("dotenv");
 dotenv.config();
-const watchState = (inputSource, callback) => {
+const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
         case "reentry":
             return (0, reentry_1.watchStateReentry)(callback);
         case "ksp":
             return (0, ksp_1.watchStateKSP)(callback);
         case "bridge":
-            return (0, bridge_1.watchStateBridge)(callback);
+            return yield (0, bridge_1.watchStateBridge)(callback);
         case "random":
         default:
-            return (0, random_1.watchStateRandom)(callback);
+            return yield (0, random_1.watchStateRandom)(callback);
     }
-};
+});
 const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
         case "reentry":
@@ -42,14 +43,31 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
             return yield (0, ksp_1.getKSPKeyboardHandler)();
         case "bridge":
             return yield (0, bridge_1.getBridgeKeyboardHandler)();
+        case "setup":
+            return yield (0, terminalSetup_1.getSetupKeyboardHandler)();
         default:
             return (_data) => { };
     }
 });
 // Runs the integration API with the chosen settings
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, serial_1.createSerial)();
+    commander_1.program.option('-s, --serial <string>');
+    commander_1.program.parse();
+    const options = commander_1.program.opts();
+    const serialSource = options.serial;
+    yield (0, serial_1.createSerial)(serialSource);
+    const setupKeyboardHandler = yield getKeyboardHandler('setup');
+    (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
+        // Serial data received
+        const key = data.toString().toLowerCase().substring(0, 1);
+        //console.log(`[Serial] KeyPress (Setup mode): ${key}`)
+        yield setupKeyboardHandler(key);
+    }));
     const inputSource = yield (0, terminalSetup_1.getInputSource)();
+    yield watchState(inputSource, (newState) => {
+        (0, serial_1.updateSerialState)(newState);
+        (0, socket_1.updateWebSocketState)(newState);
+    });
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
@@ -62,9 +80,5 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(`[WS] KeyPress: ${data}`);
         yield keyboardHandler(data);
     }));
-    watchState(inputSource, (newState) => {
-        (0, serial_1.updateSerialState)(newState);
-        (0, socket_1.updateWebSocketState)(newState);
-    });
 });
 main();

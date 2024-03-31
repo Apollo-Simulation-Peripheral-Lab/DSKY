@@ -1,5 +1,6 @@
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
+import * as robot from 'robotjs'
 
 export const getInputSource = async() =>{
     const {inputSource} = await new Promise(r => 
@@ -82,4 +83,29 @@ export const getBridgeHost = async () => {
         }).then(r)
     ) as any
     return `${protocol}://${address}:${port}/${path}`
+}
+
+const keyMap = {
+    'e': ['enter'],
+    'p': ['enter'],
+    'v': ['/'],
+    'n': ['.'],
+    '+': ['up'],
+    '-': ['down'],
+    'c': ['backspace'],
+    'r': ['backspace'],
+    'k': "dsky.ortizma.com"
+};
+
+export const getSetupKeyboardHandler = () =>{
+    return async (data) =>{
+        const keys = keyMap[data] || [data]
+        if(Array.isArray(keys)){
+            if(keys.length == 1){
+                robot.keyTap(keys[0])
+            }//TODO: else implement key combination
+        }else{
+            robot.typeString(keys)
+        }
+    }
 }
