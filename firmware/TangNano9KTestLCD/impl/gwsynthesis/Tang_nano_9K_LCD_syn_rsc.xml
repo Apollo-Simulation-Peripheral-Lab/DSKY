@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="TOP" Register="28" Lut="50">
+ <SubModule name="chip_pll"/>
+ <SubModule name="D1" Register="32" Lut="80">
+  <SubModule name="GET_COLOR">
+   <SubModule name="SQUARE_1" Lut="12"/>
+  </SubModule>
+ </SubModule>
+</Module>

@@ -1,0 +1,56 @@
+[
+ {
+  "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/TOP.v",
+  "InstLine" : 1,
+  "InstName" : "TOP",
+  "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/TOP.v",
+  "ModuleLine" : 1,
+  "ModuleName" : "TOP",
+  "SubInsts" : [
+   {
+    "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/TOP.v",
+    "InstLine" : 38,
+    "InstName" : "chip_pll",
+    "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/gowin_rpll/gowin_rpll.v",
+    "ModuleLine" : 8,
+    "ModuleName" : "Gowin_rPLL"
+   },
+   {
+    "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/TOP.v",
+    "InstLine" : 46,
+    "InstName" : "D1",
+    "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/VGAMod.v",
+    "ModuleLine" : 1,
+    "ModuleName" : "VGAMod",
+    "SubInsts" : [
+     {
+      "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/VGAMod.v",
+      "InstLine" : 76,
+      "InstName" : "GET_COLOR",
+      "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/GetColor.v",
+      "ModuleLine" : 1,
+      "ModuleName" : "GetColor",
+      "SubInsts" : [
+       {
+        "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/GetColor.v",
+        "InstLine" : 10,
+        "InstName" : "SQUARE_1",
+        "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/Square.v",
+        "ModuleLine" : 1,
+        "ModuleName" : "Square"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "InstFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/gowin_osc/gowin_osc.v",
+  "InstLine" : 8,
+  "InstName" : "Gowin_OSC",
+  "ModuleFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/gowin_osc/gowin_osc.v",
+  "ModuleLine" : 8,
+  "ModuleName" : "Gowin_OSC"
+ }
+]
