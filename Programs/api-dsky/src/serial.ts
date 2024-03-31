@@ -181,7 +181,13 @@ export const createSerial = async (desiredSerialSource = undefined) =>{
 
     serial.on('close',async ()=>{
         console.log("[Serial] Connection lost!")
-        createSerial()
+        if(desiredSerialSource){
+            // We strictly want to use a serial port, terminate application.
+            process.exit()
+        }else{
+            // There is flexibility when it comes to serial port so ask the user where to reconnect.
+            createSerial()
+        }
     })
 
     return serial

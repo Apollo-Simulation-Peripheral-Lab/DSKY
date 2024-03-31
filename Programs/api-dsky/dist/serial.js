@@ -99,7 +99,14 @@ const createSerial = (desiredSerialSource = undefined) => __awaiter(void 0, void
     }));
     serial.on('close', () => __awaiter(void 0, void 0, void 0, function* () {
         console.log("[Serial] Connection lost!");
-        (0, exports.createSerial)();
+        if (desiredSerialSource) {
+            // We strictly want to use a serial port, terminate application.
+            process.exit();
+        }
+        else {
+            // There is flexibility when it comes to serial port so ask the user where to reconnect.
+            (0, exports.createSerial)();
+        }
     }));
     return serial;
 });
