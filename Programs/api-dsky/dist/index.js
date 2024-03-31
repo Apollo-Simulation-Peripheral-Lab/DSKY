@@ -19,6 +19,7 @@ const socket_1 = require("./socket");
 const terminalSetup_1 = require("./terminalSetup");
 const commander_1 = require("commander");
 const dotenv = require("dotenv");
+const child_process_1 = require("child_process");
 dotenv.config();
 const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
@@ -51,28 +52,43 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
 });
 // Runs the integration API with the chosen settings
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    commander_1.program.option('-s, --serial <string>');
+    commander_1.program
+        .option('-s, --serial <string>')
+        .option('-cb, --callback <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
+    // Create serial connection
     const serialSource = options.serial;
     yield (0, serial_1.createSerial)(serialSource);
+    // Handle keypresses during setup phase
     const setupKeyboardHandler = yield getKeyboardHandler('setup');
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
-        // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1);
-        //console.log(`[Serial] KeyPress (Setup mode): ${key}`)
         yield setupKeyboardHandler(key);
     }));
+    // Create State watcher
     const inputSource = yield (0, terminalSetup_1.getInputSource)();
     yield watchState(inputSource, (newState) => {
         (0, serial_1.updateSerialState)(newState);
         (0, socket_1.updateWebSocketState)(newState);
     });
+    if (options.callback) {
+        // Invoke callback to signal that setup is complete
+        (0, child_process_1.exec)(options.callback);
+    }
+    // Create Keyboard handler
+    let plusCount = 0;
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1);
         console.log(`[Serial] KeyPress: ${key}`);
+        if (key == '+')
+            plusCount++;
+        else
+            plusCount = 0;
+        if (plusCount >= 3)
+            process.exit(); // Three '+' presses kills the API
         yield keyboardHandler(key);
     }));
     (0, socket_1.setWebSocketListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
