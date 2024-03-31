@@ -43,7 +43,9 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
 * **Firmware:** PlatformIO project containing the firmware to be flashed on the Arduino Nano board.
 * **Programs:** Software required to interface with AGC simulators.
   * **api-dsky**: Will relay data to the chosen serial port, and also make it available via websocket on port 3001
-    * Requirements: NodeJS >18
+    * Requirements: 
+      * NodeJS >18
+      * On linux: ``libx11-dev``, ``libxtst-dev`` and ``libpng++-dev``
     * Running: 
       * Open a terminal in this location 
       * Run ``npm install`` 
