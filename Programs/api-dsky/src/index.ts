@@ -27,6 +27,8 @@ const watchState = async (inputSource, callback) =>{
 
 const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
+        case "setup":
+            return await getSetupKeyboardHandler()
         case "reentry":
             return getReentryKeyboardHandler()
         case "nassp":
@@ -35,8 +37,6 @@ const getKeyboardHandler = async (inputSource) => {
             return await getKSPKeyboardHandler()
         case "bridge":
             return await getBridgeKeyboardHandler()
-        case "setup":
-            return await getSetupKeyboardHandler()
         default:
             return (_data) => {}
     }

@@ -35,6 +35,8 @@ const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, 
 });
 const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
+        case "setup":
+            return yield (0, terminalSetup_1.getSetupKeyboardHandler)();
         case "reentry":
             return (0, reentry_1.getReentryKeyboardHandler)();
         case "nassp":
@@ -43,8 +45,6 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
             return yield (0, ksp_1.getKSPKeyboardHandler)();
         case "bridge":
             return yield (0, bridge_1.getBridgeKeyboardHandler)();
-        case "setup":
-            return yield (0, terminalSetup_1.getSetupKeyboardHandler)();
         default:
             return (_data) => { };
     }
