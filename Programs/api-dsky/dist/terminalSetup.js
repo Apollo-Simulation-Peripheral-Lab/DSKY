@@ -19,9 +19,6 @@ const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
         name: 'inputSource',
         type: 'list',
         choices: [
-            { name: 'Reentry', value: 'reentry' },
-            { name: 'KSP', value: 'ksp' },
-            { name: 'NASSP (experimental)', value: 'nassp' },
             { name: 'Random Values', value: 'random' },
             { name: 'Bridge to another DSKY API', value: 'bridge' }
         ]

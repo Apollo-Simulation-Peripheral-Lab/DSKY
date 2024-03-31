@@ -1,6 +1,3 @@
-import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
-import { getNASSPKeyboardHandler } from '@/nassp'
-import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
 import { watchStateRandom } from '@/random'
 import { createSerial, setSerialListener, updateSerialState } from '@/serial'
@@ -13,10 +10,6 @@ dotenv.config()
 
 const watchState = async (inputSource, callback) =>{
     switch(inputSource){
-        case "reentry":
-            return watchStateReentry(callback)
-        case "ksp":
-            return watchStateKSP(callback)
         case "bridge":
             return await watchStateBridge(callback)
         case "random":
@@ -29,12 +22,6 @@ const getKeyboardHandler = async (inputSource) => {
     switch(inputSource){
         case "setup":
             return await getSetupKeyboardHandler()
-        case "reentry":
-            return getReentryKeyboardHandler()
-        case "nassp":
-            return getNASSPKeyboardHandler()
-        case "ksp":
-            return await getKSPKeyboardHandler()
         case "bridge":
             return await getBridgeKeyboardHandler()
         default:
