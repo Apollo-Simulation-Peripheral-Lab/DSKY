@@ -1,0 +1,37 @@
+{
+ "Device" : "GW1NR-9C",
+ "Files" : [
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/GetColor.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/Square.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/TOP.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/VGAMod.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/gowin_osc/gowin_osc.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/src/gowin_rpll/gowin_rpll.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "E:/OneDrive/Proyectos/DSKY/Firmware/TangNano9KTestLCD/impl/temp/rtl_parser.result",
+ "Top" : "TOP",
+ "VerilogStd" : "sysv",
+ "VhdlStd" : "vhdl_93"
+}
