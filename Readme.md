@@ -35,7 +35,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
 * **3D Models**:
   * **Common Models:** Meshes you need to print regardless of what display you want to use.
   * **iPhone 12 Mini version:** Meshes to print if you want to use an iPhone 12 Mini as the substitute for the EL display.
-  * **LCD version:** Meshes to print if you want to use an LCD Display (TODO: Choose model) as the substitute for the EL display.
+  * **HDMI version:** Meshes to print if you want to use a 5.0" 800x480, 40-pin LCD Display as the substitute for the EL display, with an adapter board with mini-hdmi input.
   * **Assembly.7z:** Compressed file, contains:
     * Assembly file in Autodesk Fusion format
     * STEP file of the assembly
