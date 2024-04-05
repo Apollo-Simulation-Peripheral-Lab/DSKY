@@ -315,6 +315,7 @@ const parsePacketAndCallOutput = (inputBuffer: number[]): void => {
     } else if (ok === 1 && inputBuffer.length >= 4) {
         const channel: number = ((inputBuffer[0] & 0x0F) << 3) | ((inputBuffer[1] & 0x38) >> 3);
         const value: number = ((inputBuffer[1] & 0x07) << 12) | ((inputBuffer[2] & 0x3F) << 6) | (inputBuffer[3] & 0x3F);
+        console.log({channel,value})
         outputFromAGC(channel, value);
         inputBuffer.splice(0, 4); // Remove the first 4 elements from the array
     }
@@ -393,7 +394,7 @@ const parseDskyKey = (ch: string): Uint8Array => {
             result[i * 3 + j] = returnValue[i][j];
         }
     }
-
+    console.log({result})
     return result;
 }
 
@@ -405,9 +406,7 @@ export const watchStateYaAGC = async (callback) =>{
     
     let inputBuffer = []
     client.on('data', function(data) {
-        console.log({data})
         const newbytes = data.toJSON().data
-        console.log({newbytes})
         if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
         inputBuffer = [...inputBuffer, ...newbytes]
         while(inputBuffer.length >=4){
