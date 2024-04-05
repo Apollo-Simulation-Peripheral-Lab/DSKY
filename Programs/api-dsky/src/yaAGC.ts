@@ -297,14 +297,6 @@ const outputFromAGC = (channel: number, value: number): void => {
     handleAGCUpdate(state)
 }
 
-const stringToValues = (str: string): number[] => {
-    let result = []
-    for (let i = 0; i < str.length; i++) {
-        result.push(str.charCodeAt(i));
-    }
-    return result
-};
-
 const parsePacketAndCallOutput = (inputBuffer: number[]): void => {
     let ok: number = 1;
     
@@ -414,7 +406,8 @@ export const watchStateYaAGC = async (callback) =>{
     let inputBuffer = []
     client.on('data', function(data) {
         console.log({data})
-        const newbytes = stringToValues(data)
+        const newbytes = data.toJSON().data
+        console.log({newbytes})
         if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
         inputBuffer = [...inputBuffer, ...newbytes]
         while(inputBuffer.length >=4){
