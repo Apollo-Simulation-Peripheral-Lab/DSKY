@@ -5,7 +5,7 @@ let last10: number, last11: number, last13: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
 let vnFlashing: boolean;
 let state= V35_TEST
-let handleAGCUpdate = (state) => {}
+let handleAGCUpdate = (_state) => {}
 
 const codeToString = (code: number): string => {
     if (code === 0) {

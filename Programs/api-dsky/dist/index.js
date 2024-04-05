@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const reentry_1 = require("./reentry");
 const nassp_1 = require("./nassp");
 const ksp_1 = require("./ksp");
+const yaAGC_1 = require("./yaAGC");
 const bridge_1 = require("./bridge");
 const random_1 = require("./random");
 const serial_1 = require("./serial");
@@ -29,6 +30,8 @@ const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, 
             return (0, ksp_1.watchStateKSP)(callback);
         case "bridge":
             return yield (0, bridge_1.watchStateBridge)(callback);
+        case "yaagc":
+            return (0, yaAGC_1.watchStateYaAGC)(callback);
         case "random":
         default:
             return yield (0, random_1.watchStateRandom)(callback);
@@ -46,6 +49,8 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
             return yield (0, ksp_1.getKSPKeyboardHandler)();
         case "bridge":
             return yield (0, bridge_1.getBridgeKeyboardHandler)();
+        case "yaagc":
+            return yield (0, yaAGC_1.getYaAGCKeyboardHandler)();
         default:
             return (_data) => { };
     }
