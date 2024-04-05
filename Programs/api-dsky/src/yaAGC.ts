@@ -402,6 +402,7 @@ export const watchStateYaAGC = async (callback) =>{
     client = new net.Socket();
     client.connect({port:19697,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('[yaAGC] Socket connected!');
+        state = OFF_TEST
     });
     
     let inputBuffer = []
