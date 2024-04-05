@@ -413,6 +413,7 @@ export const watchStateYaAGC = async (callback) =>{
     
     let inputBuffer = []
     client.on('data', function(data) {
+        console.log({data})
         const newbytes = stringToValues(data)
         if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
         inputBuffer = [...inputBuffer, ...newbytes]
