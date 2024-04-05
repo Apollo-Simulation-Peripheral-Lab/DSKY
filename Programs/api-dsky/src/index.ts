@@ -1,6 +1,7 @@
 import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
 import { getNASSPKeyboardHandler } from '@/nassp'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
+import { getYaAGCKeyboardHandler, watchStateYaAGC } from '@/yaAGC'
 import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
 import { watchStateRandom } from '@/random'
 import { createSerial, setSerialListener, updateSerialState } from '@/serial'
@@ -20,6 +21,8 @@ const watchState = async (inputSource, callback) =>{
             return watchStateKSP(callback)
         case "bridge":
             return await watchStateBridge(callback)
+        case "yaagc":
+            return watchStateYaAGC(callback)
         case "random":
         default:
             return await watchStateRandom(callback)
@@ -38,6 +41,8 @@ const getKeyboardHandler = async (inputSource) => {
             return await getKSPKeyboardHandler()
         case "bridge":
             return await getBridgeKeyboardHandler()
+        case "yaagc":
+            return await getYaAGCKeyboardHandler()
         default:
             return (_data) => {}
     }
