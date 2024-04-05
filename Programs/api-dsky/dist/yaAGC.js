@@ -16,7 +16,7 @@ let last10, last11, last13, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
 let state = dskyStates_1.V35_TEST;
-let handleAGCUpdate = (state) => { };
+let handleAGCUpdate = (_state) => { };
 const codeToString = (code) => {
     if (code === 0) {
         return " ";
