@@ -99,7 +99,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     (0, socket_1.setWebSocketListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // WebSocket data received
         console.log(`[WS] KeyPress: ${data}`);
-        yield keyboardHandler(data);
+        yield keyboardHandler(`${data}`);
     }));
 });
 main();

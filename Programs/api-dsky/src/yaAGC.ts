@@ -1,10 +1,10 @@
 import * as net from 'net'
-import { V35_TEST } from './dskyStates';
+import { OFF_TEST } from './dskyStates';
 
 let last10: number, last11: number, last13: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
 let vnFlashing: boolean;
-let state= V35_TEST
+let state= OFF_TEST
 let handleAGCUpdate = (_state) => {}
 
 const codeToString = (code: number): string => {

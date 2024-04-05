@@ -15,7 +15,7 @@ const dskyStates_1 = require("./dskyStates");
 let last10, last11, last13, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
-let state = dskyStates_1.V35_TEST;
+let state = dskyStates_1.OFF_TEST;
 let handleAGCUpdate = (_state) => { };
 const codeToString = (code) => {
     if (code === 0) {
@@ -341,13 +341,6 @@ const outputFromAGC = (channel, value) => {
     }
     handleAGCUpdate(state);
 };
-const stringToValues = (str) => {
-    let result = [];
-    for (let i = 0; i < str.length; i++) {
-        result.push(str.charCodeAt(i));
-    }
-    return result;
-};
 const parsePacketAndCallOutput = (inputBuffer) => {
     let ok = 1;
     if ((inputBuffer[0] & 0xF0) !== 0x00) {
@@ -452,7 +445,9 @@ const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function
     });
     let inputBuffer = [];
     client.on('data', function (data) {
-        const newbytes = stringToValues(data);
+        console.log({ data });
+        const newbytes = data.toJSON().data;
+        console.log({ newbytes });
         if (newbytes.every(byte => byte == 255))
             return; // This was a pinging packet. ignore.
         inputBuffer = [...inputBuffer, ...newbytes];
