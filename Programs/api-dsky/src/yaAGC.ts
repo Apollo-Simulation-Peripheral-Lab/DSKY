@@ -458,16 +458,32 @@ export const watchStateYaAGC = async (callback) =>{
     handleAGCUpdate = callback
 }
 
+const sendInputPacketToAGC = (tuple: Uint8Array) => {
+    const outputBuffer = Buffer.alloc(4);
+    // First, create and output the mask command.
+    outputBuffer[0] = 0x20 | ((tuple[0] >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[2] >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((tuple[2] >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (tuple[2] & 0x3F);
+    yaAGCClient.write(outputBuffer);
+    // Now, the actual data for the channel.
+    outputBuffer[0] = 0x00 | ((tuple[0] >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[1] >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((tuple[1] >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (tuple[1] & 0x3F);
+    yaAGCClient.write(outputBuffer);
+}
 let keyboardHandler = (_data) => {}
 export const getYaAGCKeyboardHandler = async () =>{
     keyboardHandler = (data) =>{
         const key = data?.toUpperCase()
         const inputData = parseDskyKey(key)
+        
         if(!yaAGCClient) return
-        yaAGCClient.write(inputData)
+        sendInputPacketToAGC(inputData)
         if(key == "P"){
             const releaseProKey = parseDskyKey("PR")
-            setTimeout(() => yaAGCClient.write(releaseProKey),500)
+            setTimeout(() => sendInputPacketToAGC(releaseProKey),500)
         }
     }
 
