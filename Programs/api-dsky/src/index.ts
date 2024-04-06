@@ -1,3 +1,4 @@
+import { getYaAGCKeyboardHandler, watchStateYaAGC } from '@/yaAGC'
 import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
 import { watchStateRandom } from '@/random'
 import { createSerial, setSerialListener, updateSerialState } from '@/serial'
@@ -13,6 +14,8 @@ const watchState = async (inputSource, callback) =>{
     switch(inputSource){
         case "bridge":
             return await watchStateBridge(callback)
+        case "yaagc":
+            return watchStateYaAGC(callback)
         case "random":
         default:
             return await watchStateRandom(callback)
@@ -25,6 +28,8 @@ const getKeyboardHandler = async (inputSource) => {
             return await getSetupKeyboardHandler()
         case "bridge":
             return await getBridgeKeyboardHandler()
+        case "yaagc":
+            return await getYaAGCKeyboardHandler()
         default:
             return (_data) => {}
     }
@@ -75,7 +80,7 @@ const main = async() =>{
     setWebSocketListener(async (data)=>{
         // WebSocket data received
         console.log(`[WS] KeyPress: ${data}`)
-        await keyboardHandler(data)
+        await keyboardHandler(`${data}`)
     })
 }
 

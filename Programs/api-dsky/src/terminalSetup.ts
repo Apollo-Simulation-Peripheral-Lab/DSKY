@@ -9,6 +9,7 @@ export const getInputSource = async() =>{
             name: 'inputSource',
             type: 'list',
             choices: [
+                {name:'yaAGC', value: 'yaagc'},
                 {name:'Random Values', value: 'random'},
                 {name:'Bridge to another DSKY API', value: 'bridge'}
             ]
