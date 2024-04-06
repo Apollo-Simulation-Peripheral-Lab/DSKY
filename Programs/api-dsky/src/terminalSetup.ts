@@ -12,7 +12,7 @@ export const getInputSource = async() =>{
                 {name:'Reentry', value: 'reentry'},
                 {name:'KSP', value: 'ksp'},
                 {name:'NASSP (experimental)', value: 'nassp'},
-                {name:'yaAGC (experimental)', value: 'yaagc'},
+                {name:'yaAGC', value: 'yaagc'},
                 {name:'Random Values', value: 'random'},
                 {name:'Bridge to another DSKY API', value: 'bridge'}
             ]
