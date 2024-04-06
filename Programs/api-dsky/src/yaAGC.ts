@@ -4,12 +4,13 @@ import { OFF_TEST } from './dskyStates';
 let last10: number, last11: number, last13: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
 let vnFlashing: boolean;
-let state= OFF_TEST
+let state= {...OFF_TEST}
 let handleAGCUpdate = (_state) => {}
+let yaAGCClient
 
 const codeToString = (code: number): string => {
     if (code === 0) {
-        return " ";
+        return "";
     } else if (code === 21) {
         return "0";
     } else if (code === 3) {
@@ -34,209 +35,213 @@ const codeToString = (code: number): string => {
     return "?";
 }
 
-const outputFromAGC = (channel: number, value: number): void => {
+const parseAGCOutput = (channel: number, value: number): boolean => {
     if (channel === 0o13) {
         value &= 0o3000;
     }
 
-    if ((channel === 0o10 && value !== last10) || 
-        (channel === 0o11 && value !== last11) || 
-        (channel === 0o13 && value !== last13) || 
-        (channel === 0o163 && value !== last163)) {
-        
-        if (channel === 0o10) {
+    if ((channel === 0o10 && value === last10) || 
+        (channel === 0o11 && value === last11) || 
+        (channel === 0o13 && value === last13) || 
+        (channel === 0o163 && value === last163)) return false // Data is irrelevant
+
+    if(![0o163, 0o13, 0o11, 0o10].includes(channel)) return false // Data is irrelevant
+
+    console.log({channel: `0o${channel.toString(8)}`,value: `0o${value.toString(8)}`})
+    state = {...state}
+    switch(channel){
+        case 0o10:
             last10 = value;
             const aaaa = (value >> 11) & 0x0F;
             const b = (value >> 10) & 0x01;
             const ccccc = (value >> 5) & 0x1F;
             const ddddd = value & 0x1F;
             let plusMinus: string;
+            if(aaaa === 12) break
+            const sc = codeToString(ccccc);
+            const sd = codeToString(ddddd);
+            switch (aaaa) {
+                case 11:
+                    console.log(`'${sc}' -> P1; '${sd}' -> P2`);
+                    state.ProgramD1 = sc
+                    state.ProgramD2 = sd
+                    break;
+                case 10:
+                    console.log(`'${sc}' -> V1; '${sd}' -> V2`);
+                    state.VerbD1 = sc
+                    state.VerbD2 = sd
+                    break;
+                case 9:
+                    console.log(`'${sc}' -> N1; '${sd}' -> N2`);
+                    state.NounD1 = sc
+                    state.NounD2 = sd
+                    break;
+                case 8:
+                    console.log(`               '${sd}' -> 11`);
+                    state.Register1D1 = sd
+                    break;
+                case 7:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "1+";
+                        plusMinusState1 |= 1;
+                    } else {
+                        plusMinusState1 &= ~1;
+                    }
 
-            if (aaaa !== 12) {
-                const sc = codeToString(ccccc);
-                const sd = codeToString(ddddd);
-                switch (aaaa) {
-                    case 11:
-                        console.log(sc + " -> M1   " + sd + " -> M2");
-                        state.ProgramD1 = sc
-                        state.ProgramD2 = sd
-                        break;
-                    case 10:
-                        console.log(sc + " -> V1   " + sd + " -> V2");
-                        state.VerbD1 = sc
-                        state.VerbD2 = sd
-                        break;
-                    case 9:
-                        console.log(sc + " -> N1   " + sd + " -> N2");
-                        state.NounD1 = sc
-                        state.NounD2 = sd
-                        break;
-                    case 8:
-                        console.log("          " + sd + " -> 11");
-                        state.Register1D1 = sd
-                        break;
-                    case 7:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "1+";
-                            plusMinusState1 |= 1;
-                        } else {
-                            plusMinusState1 &= ~1;
-                        }
+                    if (plusMinusState1 === 0 && plusMinus === "1+") {
+                        state.Register1Sign = " "
+                    } else if (plusMinusState1 === 0 && plusMinus === "  ") {
+                        state.Register1Sign = " "
+                    } else if (plusMinusState1 === 1 && plusMinus === "1+") {
+                        state.Register1Sign = "+"
+                    }
+                    console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
+                    state.Register1D2 = sc
+                    state.Register1D3 = sc
+                    break;
+                case 6:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "1-";
+                        plusMinusState1 |= 2;
+                    } else {
+                        plusMinusState1 &= ~2;
+                    }
 
-                        if (plusMinusState1 === 0 && plusMinus === "1+") {
-                            state.Register1Sign = " "
-                        } else if (plusMinusState1 === 0 && plusMinus === "  ") {
-                            state.Register1Sign = " "
-                        } else if (plusMinusState1 === 1 && plusMinus === "1+") {
-                            state.Register1Sign = "+"
-                        }
-                        console.log(sc + " -> 12   " + sd + " -> 13   " + plusMinus + plusMinusState1.toString());
-                        state.Register1D2 = sc
-                        state.Register1D3 = sc
-                        break;
-                    case 6:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "1-";
-                            plusMinusState1 |= 2;
-                        } else {
-                            plusMinusState1 &= ~2;
-                        }
+                    if (plusMinusState1 === 0 && plusMinus === "1-") {
+                        state.Register1Sign = ""
+                    } else if (plusMinusState1 === 0 && plusMinus === "  ") {
+                        state.Register1Sign = ""
+                    } else if (plusMinusState1 === 1 && plusMinus === "1-") {
+                        state.Register1Sign = "-"
+                    }
+                    console.log(`'${sc}' -> 14   '${sd} -> 15 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
+                    state.Register1D4 = sc
+                    state.Register1D5 = sd
+                    break;
+                case 5:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "2+";
+                        plusMinusState2 |= 1;
+                    } else {
+                        plusMinusState2 &= ~1;
+                    }
 
-                        if (plusMinusState1 === 0 && plusMinus === "1-") {
-                            state.Register1Sign = " "
-                        } else if (plusMinusState1 === 0 && plusMinus === "  ") {
-                            state.Register1Sign = " "
-                        } else if (plusMinusState1 === 1 && plusMinus === "1-") {
-                            state.Register1Sign = "-"
-                        }
-                        console.log(sc + " -> 14   " + sd + " -> 15   " + plusMinus + plusMinusState1.toString());
-                        state.Register1D4 = sc
-                        state.Register1D5 = sd
-                        break;
-                    case 5:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "2+";
-                            plusMinusState2 |= 1;
-                        } else {
-                            plusMinusState2 &= ~1;
-                        }
+                    if (plusMinusState2 === 0 && plusMinus === "2+") {
+                        state.Register2Sign = ""
+                    } else if (plusMinusState2 === 0 && plusMinus === "  ") {
+                        state.Register2Sign = ""
+                    } else if (plusMinusState2 === 1 && plusMinus === "2+") {
+                        state.Register2Sign = "+"
+                    }
+                    console.log(`'${sc}' -> 21   '${sd} -> 22 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
+                    state.Register2D1 = sc
+                    state.Register2D2 = sd
+                    break;
+                case 4:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "2-";
+                        plusMinusState2 |= 2;
+                    } else {
+                        plusMinusState2 &= ~2;
+                    }
 
-                        if (plusMinusState2 === 0 && plusMinus === "2+") {
-                            state.Register2Sign = " "
-                        } else if (plusMinusState2 === 0 && plusMinus === "  ") {
-                            state.Register2Sign = " "
-                        } else if (plusMinusState2 === 1 && plusMinus === "2+") {
-                            state.Register2Sign = "+"
-                        }
-                        console.log(sc + " -> 21   " + sd + " -> 22   " + plusMinus + plusMinusState2.toString());
-                        state.Register2D1 = sc
-                        state.Register2D2 = sd
-                        break;
-                    case 4:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "2-";
-                            plusMinusState2 |= 2;
-                        } else {
-                            plusMinusState2 &= ~2;
-                        }
+                    if (plusMinusState2 === 0 && plusMinus === "2-") {
+                        state.Register2Sign = ""
+                    } else if (plusMinusState2 === 0 && plusMinus === " ") {
+                        state.Register2Sign = ""
+                    } else if (plusMinusState2 === 1 && plusMinus === "2-") {
+                        state.Register2Sign = "-"
+                    }
+                    console.log(`'${sc}' -> 23   '${sd} -> 24 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
+                    state.Register2D3 = sc
+                    state.Register2D4 = sd
+                    break;
+                case 3:
+                    console.log(`'${sc}' -> 25; '${sd}' -> 31`);
+                    state.Register2D5 = sc
+                    state.Register3D1 = sd
+                    break;
+                case 2:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "3+";
+                        plusMinusState3 |= 1;
+                    } else {
+                        plusMinusState3 &= ~1;
+                    }
 
-                        if (plusMinusState2 === 0 && plusMinus === "2-") {
-                            state.Register2Sign = " "
-                        } else if (plusMinusState2 === 0 && plusMinus === " ") {
-                            state.Register2Sign = " "
-                        } else if (plusMinusState2 === 1 && plusMinus === "2-") {
-                            state.Register2Sign = "-"
-                        }
-                        console.log(sc + " -> 23   " + sd + " -> 24   " + plusMinus + plusMinusState2.toString());
-                        state.Register2D3 = sc
-                        state.Register2D4 = sd
-                        break;
-                    case 3:
-                        console.log(sc + " -> 25   " + sd + " -> 31");
-                        state.Register2D5 = sc
-                        state.Register3D1 = sd
-                        break;
-                    case 2:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "3+";
-                            plusMinusState3 |= 1;
-                        } else {
-                            plusMinusState3 &= ~1;
-                        }
+                    if (plusMinusState3 === 0 && plusMinus === "3+") {
+                        state.Register3Sign = ""
+                    } else if (plusMinusState3 === 0 && plusMinus === "  ") {
+                        state.Register3Sign = ""
+                    } else if (plusMinusState3 === 1 && plusMinus === "3+") {
+                        state.Register3Sign = "+"
+                    }
+                    console.log(`'${sc}' -> 32   '${sd} -> 33 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
+                    state.Register3D2 = sc
+                    state.Register3D3 = sd
+                    break;
+                case 1:
+                    plusMinus = "  ";
+                    if (b !== 0) {
+                        plusMinus = "3-";
+                        plusMinusState3 |= 2;
+                    } else {
+                        plusMinusState3 &= ~2;
+                    }
 
-                        if (plusMinusState3 === 0 && plusMinus === "3+") {
-                            state.Register3Sign = " "
-                        } else if (plusMinusState3 === 0 && plusMinus === "  ") {
-                            state.Register3Sign = " "
-                        } else if (plusMinusState3 === 1 && plusMinus === "3+") {
-                            state.Register3Sign = "+"
-                        }
-                        console.log(sc + " -> 32   " + sd + " -> 33   " + plusMinus + plusMinusState3.toString());
-                        state.Register3D2 = sc
-                        state.Register3D3 = sd
-                        break;
-                    case 1:
-                        plusMinus = "  ";
-                        if (b !== 0) {
-                            plusMinus = "3-";
-                            plusMinusState3 |= 2;
-                        } else {
-                            plusMinusState3 &= ~2;
-                        }
-
-                        if (plusMinusState3 === 0 && plusMinus === "3-") {
-                            state.Register3Sign = " "
-                        } else if (plusMinusState3 === 0 && plusMinus === "  ") {
-                            state.Register3Sign = " "
-                        } else if (plusMinusState3 === 1 && plusMinus === "3-") {
-                            state.Register3Sign = "-"
-                        }
-                        console.log(sc + " -> 34   " + sd + " -> 35   " + plusMinus + plusMinusState3.toString());
-                        state.Register3D4 = sc
-                        state.Register3D5 = sd
-                        break;
-                    case 12:
-                        if ((value & 0x04) !== 0) {
-                            state.IlluminateVel = 1
-                        } else {
-                            state.IlluminateVel = 0
-                        }
-                        if ((value & 0x08) !== 0) {
-                            state.IlluminateNoAtt = 1
-                        } else {
-                            state.IlluminateNoAtt = 0
-                        }
-                        if ((value & 0x10) !== 0) {
-                            state.IlluminateAlt = 1
-                        } else {
-                            state.IlluminateAlt = 0
-                        }
-                        if ((value & 0x20) !== 0) {
-                            state.IlluminateGimbalLock = 1
-                        } else {
-                            state.IlluminateGimbalLock = 0
-                        }
-                        if ((value & 0x80) !== 0) {
-                            state.IlluminateTracker = 1
-                        } else {
-                            state.IlluminateTracker = 0
-                        }
-                        if ((value & 0x100) !== 0) {
-                            state.IlluminateProg = 1
-                        } else {
-                            state.IlluminateProg = 0
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                    if (plusMinusState3 === 0 && plusMinus === "3-") {
+                        state.Register3Sign = ""
+                    } else if (plusMinusState3 === 0 && plusMinus === "  ") {
+                        state.Register3Sign = ""
+                    } else if (plusMinusState3 === 1 && plusMinus === "3-") {
+                        state.Register3Sign = "-"
+                    }
+                    console.log(`'${sc}' -> 34   '${sd}' -> 35 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
+                    state.Register3D4 = sc
+                    state.Register3D5 = sd
+                    break;
+                case 12:
+                    if ((value & 0x04) !== 0) {
+                        state.IlluminateVel = 1
+                    } else {
+                        state.IlluminateVel = 0
+                    }
+                    if ((value & 0x08) !== 0) {
+                        state.IlluminateNoAtt = 1
+                    } else {
+                        state.IlluminateNoAtt = 0
+                    }
+                    if ((value & 0x10) !== 0) {
+                        state.IlluminateAlt = 1
+                    } else {
+                        state.IlluminateAlt = 0
+                    }
+                    if ((value & 0x20) !== 0) {
+                        state.IlluminateGimbalLock = 1
+                    } else {
+                        state.IlluminateGimbalLock = 0
+                    }
+                    if ((value & 0x80) !== 0) {
+                        state.IlluminateTracker = 1
+                    } else {
+                        state.IlluminateTracker = 0
+                    }
+                    if ((value & 0x100) !== 0) {
+                        state.IlluminateProg = 1
+                    } else {
+                        state.IlluminateProg = 0
+                    }
+                    break;
+                default:
+                    break;
             }
-        } else if (channel === 0o11) {
+            break;
+        case 0o11:
             last11 = value;
             state.IlluminateCompLight = false
             if ((value & 0x02) !== 0) {
@@ -256,14 +261,16 @@ const outputFromAGC = (channel: number, value: number): void => {
                     vnFlashing = false;
                 }
             }
-        } else if (channel === 0o13) {
+            break;
+        case 0o13:
             last13 = value;
             let test = "DSKY TEST       ";
             if ((value & 0x200) === 0) {
                 test = "DSKY NO TEST    ";
             }
             console.log(test);
-        } else if (channel === 0o163) {
+            break;
+        case 0o163:
             last163 = value;
             if ((value & 0x08) !== 0) {
                 state.IlluminateTemp = 1
@@ -290,14 +297,12 @@ const outputFromAGC = (channel: number, value: number): void => {
             } else {
                 state.IlluminateRestart = 0
             }
-        } else {
-            console.log("Received from yaAGC: " + value.toString(8) + " -> channel " + (channel as number).toString(8));
-        }
+            break;
     }
-    handleAGCUpdate(state)
+    return true // Data was relevant
 }
 
-const parsePacketAndCallOutput = (inputBuffer: number[]): void => {
+const outputFromAGC = (inputBuffer: number[]): boolean => {
     let ok: number = 1;
     
     if ((inputBuffer[0] & 0xF0) !== 0x00) {
@@ -312,12 +317,13 @@ const parsePacketAndCallOutput = (inputBuffer: number[]): void => {
 
     if (ok === 0 && inputBuffer.length > 0) {
         inputBuffer.shift(); // Remove the first number of the array
+        return false
     } else if (ok === 1 && inputBuffer.length >= 4) {
         const channel: number = ((inputBuffer[0] & 0x0F) << 3) | ((inputBuffer[1] & 0x38) >> 3);
         const value: number = ((inputBuffer[1] & 0x07) << 12) | ((inputBuffer[2] & 0x3F) << 6) | (inputBuffer[3] & 0x3F);
-        console.log({channel,value})
-        outputFromAGC(channel, value);
+        const relevantData = parseAGCOutput(channel, value);
         inputBuffer.splice(0, 4); // Remove the first 4 elements from the array
+        return relevantData
     }
 };
 
@@ -398,49 +404,70 @@ const parseDskyKey = (ch: string): Uint8Array => {
     return result;
 }
 
+let lastUpdate = 0
+let queuedUpdate = null
+const rateLimitedUpdate = (state) => {
+    // Limit rate of updates out of yaAGC into the api
+    const currentTime = new Date().getTime()
+    if(currentTime - lastUpdate >= 300){
+        console.log("UNQUEUED UPDATE V1: ",state.VerbD1)
+        handleAGCUpdate(state)
+        lastUpdate = currentTime
+    }else{
+        if(queuedUpdate) clearTimeout(queuedUpdate)
+        console.log("QUEUING UPDATE V1: ",state.VerbD1)
+        queuedUpdate = setTimeout(() => {
+            console.log("QUEUED UPDATE V1: ",state.VerbD1)
+            handleAGCUpdate(state)
+            lastUpdate = new Date().getTime()
+        },300)
+    }
+}
+
 export const watchStateYaAGC = async (callback) =>{
-    client = new net.Socket();
-    client.connect({port:19697,host:'127.0.0.1',keepAlive:true}, () => {
+    yaAGCClient = new net.Socket();
+    yaAGCClient.connect({port:19797,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('[yaAGC] Socket connected!');
         state = OFF_TEST
     });
     
     let inputBuffer = []
-    client.on('data', function(data) {
+    yaAGCClient.on('data', function(data) {
         const newbytes = data.toJSON().data
         if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
         inputBuffer = [...inputBuffer, ...newbytes]
         while(inputBuffer.length >=4){
-            parsePacketAndCallOutput(inputBuffer)
+            let relevantData = outputFromAGC(inputBuffer)
+            if(!relevantData) continue
+            rateLimitedUpdate(state)
         }
     });
 
     const handleSocketError = async (error) => {
         console.log(`[Telnet] Socket ${error}! Reconnecting...`)
-        client.destroy()
-        await new Promise(r => setTimeout(r,2000))
-        await getYaAGCKeyboardHandler()
+        yaAGCClient.destroy()
+        setTimeout(() => watchStateYaAGC(callback),2000)
     }
     
-    client.on('close', async (hadError) => {
+    yaAGCClient.on('close', async (hadError) => {
         if(!hadError) await handleSocketError('closed')
     })
 
-    client.on('error', async () => await handleSocketError('connection failed'))
+    yaAGCClient.on('error', async () => await handleSocketError('connection failed'))
 
     handleAGCUpdate = callback
 }
 
-let client
 let keyboardHandler = (_data) => {}
 export const getYaAGCKeyboardHandler = async () =>{
     keyboardHandler = (data) =>{
         const key = data?.toUpperCase()
         const inputData = parseDskyKey(key)
-        client.write(inputData)
+        if(!yaAGCClient) return
+        yaAGCClient.write(inputData)
         if(key == "P"){
             const releaseProKey = parseDskyKey("PR")
-            setTimeout(() => client.write(releaseProKey),500)
+            setTimeout(() => yaAGCClient.write(releaseProKey),500)
         }
     }
 
