@@ -8,33 +8,6 @@ let state= {...OFF_TEST}
 let handleAGCUpdate = (_state) => {}
 let yaAGCClient
 
-const codeToString = (code: number): string => {
-    if (code === 0) {
-        return "";
-    } else if (code === 21) {
-        return "0";
-    } else if (code === 3) {
-        return "1";
-    } else if (code === 25) {
-        return "2";
-    } else if (code === 27) {
-        return "3";
-    } else if (code === 15) {
-        return "4";
-    } else if (code === 30) {
-        return "5";
-    } else if (code === 28) {
-        return "6";
-    } else if (code === 19) {
-        return "7";
-    } else if (code === 29) {
-        return "8";
-    } else if (code === 31) {
-        return "9";
-    }
-    return "?";
-}
-
 const parseAGCOutput = (channel: number, value: number): boolean => {
     if (channel === 0o13) {
         value &= 0o3000;
@@ -47,8 +20,9 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
 
     if(![0o163, 0o13, 0o11, 0o10].includes(channel)) return false // Data is irrelevant
 
-    console.log({channel: `0o${channel.toString(8)}`,value: `0o${value.toString(8)}`})
-    state = {...state}
+    //console.log({channel: `0o${channel.toString(8)}`,value: `0o${value.toString(8)}`})
+
+    state = {...state} // Create new state to avoid modifying the propagated state. This relies on garbage collection but at least it works.
     switch(channel){
         case 0o10:
             last10 = value;
@@ -62,22 +36,22 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
             const sd = codeToString(ddddd);
             switch (aaaa) {
                 case 11:
-                    console.log(`'${sc}' -> P1; '${sd}' -> P2`);
+                    //console.log(`'${sc}' -> P1; '${sd}' -> P2`);
                     state.ProgramD1 = sc
                     state.ProgramD2 = sd
                     break;
                 case 10:
-                    console.log(`'${sc}' -> V1; '${sd}' -> V2`);
+                    //console.log(`'${sc}' -> V1; '${sd}' -> V2`);
                     state.VerbD1 = sc
                     state.VerbD2 = sd
                     break;
                 case 9:
-                    console.log(`'${sc}' -> N1; '${sd}' -> N2`);
+                    //console.log(`'${sc}' -> N1; '${sd}' -> N2`);
                     state.NounD1 = sc
                     state.NounD2 = sd
                     break;
                 case 8:
-                    console.log(`               '${sd}' -> 11`);
+                    //console.log(`               '${sd}' -> 11`);
                     state.Register1D1 = sd
                     break;
                 case 7:
@@ -96,7 +70,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState1 === 1 && plusMinus === "1+") {
                         state.Register1Sign = "+"
                     }
-                    console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
+                    //console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
                     state.Register1D2 = sc
                     state.Register1D3 = sc
                     break;
@@ -116,7 +90,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState1 === 1 && plusMinus === "1-") {
                         state.Register1Sign = "-"
                     }
-                    console.log(`'${sc}' -> 14   '${sd} -> 15 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
+                    //console.log(`'${sc}' -> 14   '${sd} -> 15 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
                     state.Register1D4 = sc
                     state.Register1D5 = sd
                     break;
@@ -136,7 +110,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState2 === 1 && plusMinus === "2+") {
                         state.Register2Sign = "+"
                     }
-                    console.log(`'${sc}' -> 21   '${sd} -> 22 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
+                    //console.log(`'${sc}' -> 21   '${sd} -> 22 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
                     state.Register2D1 = sc
                     state.Register2D2 = sd
                     break;
@@ -156,12 +130,12 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState2 === 1 && plusMinus === "2-") {
                         state.Register2Sign = "-"
                     }
-                    console.log(`'${sc}' -> 23   '${sd} -> 24 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
+                    //console.log(`'${sc}' -> 23   '${sd} -> 24 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
                     state.Register2D3 = sc
                     state.Register2D4 = sd
                     break;
                 case 3:
-                    console.log(`'${sc}' -> 25; '${sd}' -> 31`);
+                    //console.log(`'${sc}' -> 25; '${sd}' -> 31`);
                     state.Register2D5 = sc
                     state.Register3D1 = sd
                     break;
@@ -181,7 +155,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState3 === 1 && plusMinus === "3+") {
                         state.Register3Sign = "+"
                     }
-                    console.log(`'${sc}' -> 32   '${sd} -> 33 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
+                    //console.log(`'${sc}' -> 32   '${sd} -> 33 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
                     state.Register3D2 = sc
                     state.Register3D3 = sd
                     break;
@@ -201,7 +175,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     } else if (plusMinusState3 === 1 && plusMinus === "3-") {
                         state.Register3Sign = "-"
                     }
-                    console.log(`'${sc}' -> 34   '${sd}' -> 35 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
+                    //console.log(`'${sc}' -> 34   '${sd}' -> 35 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
                     state.Register3D4 = sc
                     state.Register3D5 = sd
                     break;
@@ -264,11 +238,11 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
             break;
         case 0o13:
             last13 = value;
-            let test = "DSKY TEST       ";
+            let _test = "DSKY TEST       ";
             if ((value & 0x200) === 0) {
-                test = "DSKY NO TEST    ";
+                _test = "DSKY NO TEST    ";
             }
-            console.log(test);
+            //console.log(_test);
             break;
         case 0o163:
             last163 = value;
@@ -326,6 +300,107 @@ const outputFromAGC = (inputBuffer: number[]): boolean => {
         return relevantData
     }
 };
+
+// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
+// This issue should probably be addressed client-side as well.
+let lastUpdate = 0
+let queuedUpdate = null
+const rateLimitedUpdate = (state, priority = false) => {
+    const currentTime = new Date().getTime()
+    const timePassed = currentTime - lastUpdate
+    const timeRemaining = 300 - timePassed
+    if(timePassed >= 300 || priority){
+        if(queuedUpdate) clearTimeout(queuedUpdate)
+        //console.log("UNQUEUED UPDATE V1: ",state.VerbD1)
+        handleAGCUpdate(state)
+        lastUpdate = currentTime
+    }else{
+        if(queuedUpdate) clearTimeout(queuedUpdate)
+        queuedUpdate = setTimeout(() => {
+            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
+            handleAGCUpdate(state)
+            lastUpdate = new Date().getTime()
+        },timeRemaining)
+    }
+}
+
+// Flashing of Verb/Noun
+let vnFlashState= false
+setInterval(()=>{
+    vnFlashState = !vnFlashState
+    if(vnFlashing){  
+        // Flashing updates ignore the rate-limiting, this is because we assume 
+        // conflicting updates will probably not affect EL segments but alarms instead.
+        rateLimitedUpdate(vnFlashState?
+            {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''}:
+            state
+        , true)
+    }
+},600)
+
+export const watchStateYaAGC = async (callback) =>{
+    yaAGCClient = new net.Socket();
+    yaAGCClient.connect({port:19797,host:'127.0.0.1',keepAlive:true}, () => {
+        console.log('[yaAGC] Socket connected!');
+        state = OFF_TEST
+    });
+    
+    let inputBuffer = []
+    yaAGCClient.on('data', function(data) {
+        const newbytes = data.toJSON().data
+        if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
+        inputBuffer = [...inputBuffer, ...newbytes]
+        while(inputBuffer.length >=4){
+            let relevantData = outputFromAGC(inputBuffer)
+            if(!relevantData) continue
+            rateLimitedUpdate(vnFlashing && vnFlashState ?
+                {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''}:
+                state
+            )
+        }
+    });
+
+    const handleSocketError = async (error) => {
+        console.log(`[Telnet] Socket ${error}! Reconnecting...`)
+        yaAGCClient.destroy()
+        setTimeout(() => watchStateYaAGC(callback),2000)
+    }
+    
+    yaAGCClient.on('close', async (hadError) => {
+        if(!hadError) await handleSocketError('closed')
+    })
+
+    yaAGCClient.on('error', async () => await handleSocketError('connection failed'))
+
+    handleAGCUpdate = callback
+}
+
+const codeToString = (code: number): string => {
+    if (code === 0) {
+        return "";
+    } else if (code === 21) {
+        return "0";
+    } else if (code === 3) {
+        return "1";
+    } else if (code === 25) {
+        return "2";
+    } else if (code === 27) {
+        return "3";
+    } else if (code === 15) {
+        return "4";
+    } else if (code === 30) {
+        return "5";
+    } else if (code === 28) {
+        return "6";
+    } else if (code === 19) {
+        return "7";
+    } else if (code === 29) {
+        return "8";
+    } else if (code === 31) {
+        return "9";
+    }
+    return "?";
+}
 
 const parseDskyKey = (ch: string): Uint8Array => {
     let returnValue: [number, number, number][] = [];
@@ -400,62 +475,7 @@ const parseDskyKey = (ch: string): Uint8Array => {
             result[i * 3 + j] = returnValue[i][j];
         }
     }
-    console.log({result})
     return result;
-}
-
-let lastUpdate = 0
-let queuedUpdate = null
-const rateLimitedUpdate = (state) => {
-    // Limit rate of updates out of yaAGC into the api
-    const currentTime = new Date().getTime()
-    if(currentTime - lastUpdate >= 300){
-        console.log("UNQUEUED UPDATE V1: ",state.VerbD1)
-        handleAGCUpdate(state)
-        lastUpdate = currentTime
-    }else{
-        if(queuedUpdate) clearTimeout(queuedUpdate)
-        console.log("QUEUING UPDATE V1: ",state.VerbD1)
-        queuedUpdate = setTimeout(() => {
-            console.log("QUEUED UPDATE V1: ",state.VerbD1)
-            handleAGCUpdate(state)
-            lastUpdate = new Date().getTime()
-        },300)
-    }
-}
-
-export const watchStateYaAGC = async (callback) =>{
-    yaAGCClient = new net.Socket();
-    yaAGCClient.connect({port:19797,host:'127.0.0.1',keepAlive:true}, () => {
-        console.log('[yaAGC] Socket connected!');
-        state = OFF_TEST
-    });
-    
-    let inputBuffer = []
-    yaAGCClient.on('data', function(data) {
-        const newbytes = data.toJSON().data
-        if(newbytes.every(byte => byte == 255)) return // This was a pinging packet. ignore.
-        inputBuffer = [...inputBuffer, ...newbytes]
-        while(inputBuffer.length >=4){
-            let relevantData = outputFromAGC(inputBuffer)
-            if(!relevantData) continue
-            rateLimitedUpdate(state)
-        }
-    });
-
-    const handleSocketError = async (error) => {
-        console.log(`[Telnet] Socket ${error}! Reconnecting...`)
-        yaAGCClient.destroy()
-        setTimeout(() => watchStateYaAGC(callback),2000)
-    }
-    
-    yaAGCClient.on('close', async (hadError) => {
-        if(!hadError) await handleSocketError('closed')
-    })
-
-    yaAGCClient.on('error', async () => await handleSocketError('connection failed'))
-
-    handleAGCUpdate = callback
 }
 
 const sendInputPacketToAGC = (tuple: Uint8Array) => {
@@ -473,6 +493,7 @@ const sendInputPacketToAGC = (tuple: Uint8Array) => {
     outputBuffer[3] = 0xC0 | (tuple[1] & 0x3F);
     yaAGCClient.write(outputBuffer);
 }
+
 let keyboardHandler = (_data) => {}
 export const getYaAGCKeyboardHandler = async () =>{
     keyboardHandler = (data) =>{
