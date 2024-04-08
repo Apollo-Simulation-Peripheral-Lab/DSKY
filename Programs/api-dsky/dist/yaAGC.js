@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getYaAGCKeyboardHandler = exports.watchStateYaAGC = void 0;
 const net = require("net");
 const dskyStates_1 = require("./dskyStates");
+const terminalSetup_1 = require("./terminalSetup");
 let last10, last11, last13, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
@@ -370,8 +371,9 @@ setInterval(() => {
     }
 }, 600);
 const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function* () {
+    const port = yield (0, terminalSetup_1.getYaAGCPort)();
     yaAGCClient = new net.Socket();
-    yaAGCClient.connect({ port: 19797, host: '127.0.0.1', keepAlive: true }, () => {
+    yaAGCClient.connect({ port, host: '127.0.0.1', keepAlive: true }, () => {
         console.log('[yaAGC] Socket connected!');
         state = dskyStates_1.OFF_TEST;
     });
