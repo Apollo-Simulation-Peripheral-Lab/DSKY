@@ -86,7 +86,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                         state.Register1Sign = ""
                     } else if (plusMinusState1 === 0 && plusMinus === "  ") {
                         state.Register1Sign = ""
-                    } else if (plusMinusState1 === 1 && plusMinus === "1-") {
+                    } else if (plusMinusState1 === 2 && plusMinus === "1-") {
                         state.Register1Sign = "-"
                     }
                     //console.log(`'${sc}' -> 14   '${sd} -> 15 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
@@ -126,7 +126,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                         state.Register2Sign = ""
                     } else if (plusMinusState2 === 0 && plusMinus === " ") {
                         state.Register2Sign = ""
-                    } else if (plusMinusState2 === 1 && plusMinus === "2-") {
+                    } else if (plusMinusState2 === 2 && plusMinus === "2-") {
                         state.Register2Sign = "-"
                     }
                     //console.log(`'${sc}' -> 23   '${sd} -> 24 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
@@ -171,7 +171,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                         state.Register3Sign = ""
                     } else if (plusMinusState3 === 0 && plusMinus === "  ") {
                         state.Register3Sign = ""
-                    } else if (plusMinusState3 === 1 && plusMinus === "3-") {
+                    } else if (plusMinusState3 === 2 && plusMinus === "3-") {
                         state.Register3Sign = "-"
                     }
                     //console.log(`'${sc}' -> 34   '${sd}' -> 35 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
@@ -401,9 +401,9 @@ const codeToString = (code: number): string => {
     return "?";
 }
 
-const parseDskyKey = (ch: string): Uint8Array => {
-    let returnValue: [] | [number, number, number] = [];
-
+const parseDskyKey = (ch: string): [number, number, number] => {
+    let returnValue: [number, number, number] = [0o32, 0o20000, 0o20000];
+    // channel, value, mask
     switch (ch) {
         case '0':
             returnValue = [0o15, 0o20, 0o37]
@@ -454,7 +454,7 @@ const parseDskyKey = (ch: string): Uint8Array => {
             returnValue = [0o15, 0o36, 0o37]
             break;
         case 'P':
-            returnValue = [0o32, 0o00000, 0o20000]
+            returnValue = [0o32, 0o0, 0o20000]
             break;
         case 'PR':
             returnValue = [0o32, 0o20000, 0o20000]
@@ -466,28 +466,23 @@ const parseDskyKey = (ch: string): Uint8Array => {
             returnValue = [0o15, 0o34, 0o37]
             break;
     }
-    
-    // Convert returnValue to Uint8Array
-    const result = new Uint8Array(3);
-    for (let i = 0; i < 3; i++) {
-        result[i] = returnValue[i];
-    }
-    return result;
+    return returnValue
 }
 
-const sendInputPacketToAGC = (tuple: Uint8Array) => {
+const sendInputPacketToAGC = (tuple: [number, number, number]) => {
+    const [channel, value, mask] = tuple
     const outputBuffer = Buffer.alloc(4);
     // First, create and output the mask command.
-    outputBuffer[0] = 0x20 | ((tuple[0] >> 3) & 0x0F);
-    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[2] >> 12) & 0x07);
-    outputBuffer[2] = 0x80 | ((tuple[2] >> 6) & 0x3F);
-    outputBuffer[3] = 0xC0 | (tuple[2] & 0x3F);
+    outputBuffer[0] = 0x20 | ((channel >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((channel << 3) & 0x38) | ((mask >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((mask >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (mask & 0x3F);
     yaAGCClient.write(outputBuffer);
     // Now, the actual data for the channel.
-    outputBuffer[0] = 0x00 | ((tuple[0] >> 3) & 0x0F);
-    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[1] >> 12) & 0x07);
-    outputBuffer[2] = 0x80 | ((tuple[1] >> 6) & 0x3F);
-    outputBuffer[3] = 0xC0 | (tuple[1] & 0x3F);
+    outputBuffer[0] = 0x00 | ((channel >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((channel << 3) & 0x38) | ((value >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((value >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (value & 0x3F);
     yaAGCClient.write(outputBuffer);
 }
 
@@ -495,10 +490,11 @@ let keyboardHandler = (_data) => {}
 export const getYaAGCKeyboardHandler = async () =>{
     keyboardHandler = (data) =>{
         const key = data?.toUpperCase()
-        const inputData = parseDskyKey(key)
         
         if(!yaAGCClient) return
-        sendInputPacketToAGC(inputData)
+
+        const pressKey = parseDskyKey(key)
+        sendInputPacketToAGC(pressKey)
         if(key == "P"){
             const releaseProKey = parseDskyKey("PR")
             setTimeout(() => sendInputPacketToAGC(releaseProKey),750)
