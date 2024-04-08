@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSetupKeyboardHandler = exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
+exports.getSetupKeyboardHandler = exports.getYaAGCPort = exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
 const serialport_1 = require("serialport");
 const inquirer = require("inquirer");
 const robot = require("robotjs");
@@ -78,6 +78,16 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
     return `${protocol}://${address}:${port}/${path}`;
 });
 exports.getBridgeHost = getBridgeHost;
+const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
+    const { port } = yield new Promise(r => inquirer.prompt({
+        message: "Select the port where the yaAGC is listening: ",
+        name: 'port',
+        type: 'input',
+        default: 4000
+    }).then(r));
+    return port;
+});
+exports.getYaAGCPort = getYaAGCPort;
 const keyMap = {
     'e': ['enter'],
     'p': ['enter'],

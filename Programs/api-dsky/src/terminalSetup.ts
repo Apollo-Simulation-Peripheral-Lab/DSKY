@@ -83,6 +83,18 @@ export const getBridgeHost = async () => {
     return `${protocol}://${address}:${port}/${path}`
 }
 
+export const getYaAGCPort = async () => {
+    const {port} = await new Promise(r => 
+        inquirer.prompt({
+            message: "Select the port where the yaAGC is listening: ",
+            name: 'port',
+            type: 'input',
+            default: 4000
+        }).then(r)
+    ) as any
+    return port
+}
+
 const keyMap = {
     'e': ['enter'],
     'p': ['enter'],
