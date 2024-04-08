@@ -1,5 +1,6 @@
 import * as net from 'net'
 import { OFF_TEST } from './dskyStates';
+import { getYaAGCPort } from './terminalSetup';
 
 let last10: number, last11: number, last13: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
@@ -338,8 +339,9 @@ setInterval(()=>{
 },600)
 
 export const watchStateYaAGC = async (callback) =>{
+    const port = await getYaAGCPort()
     yaAGCClient = new net.Socket();
-    yaAGCClient.connect({port:19797,host:'127.0.0.1',keepAlive:true}, () => {
+    yaAGCClient.connect({port,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('[yaAGC] Socket connected!');
         state = OFF_TEST
     });
