@@ -31,7 +31,6 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
             const ccccc = (value >> 5) & 0x1F;
             const ddddd = value & 0x1F;
             let plusMinus: string;
-            if(aaaa === 12) break
             const sc = codeToString(ccccc);
             const sd = codeToString(ddddd);
             switch (aaaa) {
