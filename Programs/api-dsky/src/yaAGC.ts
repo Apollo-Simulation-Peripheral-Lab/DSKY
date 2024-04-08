@@ -72,7 +72,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     }
                     //console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
                     state.Register1D2 = sc
-                    state.Register1D3 = sc
+                    state.Register1D3 = sd
                     break;
                 case 6:
                     plusMinus = "  ";
