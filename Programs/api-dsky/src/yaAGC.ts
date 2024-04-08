@@ -31,7 +31,6 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
             const ccccc = (value >> 5) & 0x1F;
             const ddddd = value & 0x1F;
             let plusMinus: string;
-            if(aaaa === 12) break
             const sc = codeToString(ccccc);
             const sd = codeToString(ddddd);
             switch (aaaa) {
@@ -72,7 +71,7 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     }
                     //console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
                     state.Register1D2 = sc
-                    state.Register1D3 = sc
+                    state.Register1D3 = sd
                     break;
                 case 6:
                     plusMinus = "  ";
@@ -403,77 +402,75 @@ const codeToString = (code: number): string => {
 }
 
 const parseDskyKey = (ch: string): Uint8Array => {
-    let returnValue: [number, number, number][] = [];
+    let returnValue: [] | [number, number, number] = [];
 
     switch (ch) {
         case '0':
-            returnValue.push([0o15, 0o20, 0o37]);
+            returnValue = [0o15, 0o20, 0o37]
             break;
         case '1':
-            returnValue.push([0o15, 0o1, 0o37]);
+            returnValue = [0o15, 0o1, 0o37]
             break;
         case '2':
-            returnValue.push([0o15, 0o2, 0o37]);
+            returnValue = [0o15, 0o2, 0o37]
             break;
         case '3':
-            returnValue.push([0o15, 0o3, 0o37]);
+            returnValue = [0o15, 0o3, 0o37]
             break;
         case '4':
-            returnValue.push([0o15, 0o4, 0o37]);
+            returnValue = [0o15, 0o4, 0o37]
             break;
         case '5':
-            returnValue.push([0o15, 0o5, 0o37]);
+            returnValue = [0o15, 0o5, 0o37]
             break;
         case '6':
-            returnValue.push([0o15, 0o6, 0o37]);
+            returnValue = [0o15, 0o6, 0o37]
             break;
         case '7':
-            returnValue.push([0o15, 0o7, 0o37]);
+            returnValue = [0o15, 0o7, 0o37]
             break;
         case '8':
-            returnValue.push([0o15, 0o10, 0o37]);
+            returnValue = [0o15, 0o10, 0o37]
             break;
         case '9':
-            returnValue.push([0o15, 0o11, 0o37]);
+            returnValue = [0o15, 0o11, 0o37]
             break;
         case '+':
-            returnValue.push([0o15, 0o32, 0o37]);
+            returnValue = [0o15, 0o32, 0o37]
             break;
         case '-':
-            returnValue.push([0o15, 0o33, 0o37]);
+            returnValue = [0o15, 0o33, 0o37]
             break;
         case 'V':
-            returnValue.push([0o15, 0o21, 0o37]);
+            returnValue = [0o15, 0o21, 0o37]
             break;
         case 'N':
-            returnValue.push([0o15, 0o37, 0o37]);
+            returnValue = [0o15, 0o37, 0o37]
             break;
         case 'R':
-            returnValue.push([0o15, 0o22, 0o37]);
+            returnValue = [0o15, 0o22, 0o37]
             break;
         case 'C':
-            returnValue.push([0o15, 0o36, 0o37]);
+            returnValue = [0o15, 0o36, 0o37]
             break;
         case 'P':
-            returnValue.push([0o32, 0o0, 0o200]);
+            returnValue = [0o32, 0o00000, 0o20000]
             break;
         case 'PR':
-            returnValue.push([0o32, 0o200, 0o200]);
+            returnValue = [0o32, 0o20000, 0o20000]
             break;
         case 'K':
-            returnValue.push([0o15, 0o31, 0o37]);
+            returnValue = [0o15, 0o31, 0o37]
             break;
         case 'E':
-            returnValue.push([0o15, 0o34, 0o37]);
+            returnValue = [0o15, 0o34, 0o37]
             break;
     }
     
     // Convert returnValue to Uint8Array
-    const result = new Uint8Array(returnValue.length * 3);
-    for (let i = 0; i < returnValue.length; i++) {
-        for (let j = 0; j < 3; j++) {
-            result[i * 3 + j] = returnValue[i][j];
-        }
+    const result = new Uint8Array(3);
+    for (let i = 0; i < 3; i++) {
+        result[i] = returnValue[i];
     }
     return result;
 }
@@ -504,7 +501,7 @@ export const getYaAGCKeyboardHandler = async () =>{
         sendInputPacketToAGC(inputData)
         if(key == "P"){
             const releaseProKey = parseDskyKey("PR")
-            setTimeout(() => sendInputPacketToAGC(releaseProKey),500)
+            setTimeout(() => sendInputPacketToAGC(releaseProKey),750)
         }
     }
 
