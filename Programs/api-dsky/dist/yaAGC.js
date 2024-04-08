@@ -39,8 +39,6 @@ const parseAGCOutput = (channel, value) => {
             const ccccc = (value >> 5) & 0x1F;
             const ddddd = value & 0x1F;
             let plusMinus;
-            if (aaaa === 12)
-                break;
             const sc = codeToString(ccccc);
             const sd = codeToString(ddddd);
             switch (aaaa) {
@@ -83,7 +81,7 @@ const parseAGCOutput = (channel, value) => {
                     }
                     //console.log(`'${sc}' -> 12   '${sd} -> 13 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
                     state.Register1D2 = sc;
-                    state.Register1D3 = sc;
+                    state.Register1D3 = sd;
                     break;
                 case 6:
                     plusMinus = "  ";
@@ -100,7 +98,7 @@ const parseAGCOutput = (channel, value) => {
                     else if (plusMinusState1 === 0 && plusMinus === "  ") {
                         state.Register1Sign = "";
                     }
-                    else if (plusMinusState1 === 1 && plusMinus === "1-") {
+                    else if (plusMinusState1 === 2 && plusMinus === "1-") {
                         state.Register1Sign = "-";
                     }
                     //console.log(`'${sc}' -> 14   '${sd} -> 15 plusMinus='${plusMinus}' plusMinusState1='${plusMinusState1}'`);
@@ -144,7 +142,7 @@ const parseAGCOutput = (channel, value) => {
                     else if (plusMinusState2 === 0 && plusMinus === " ") {
                         state.Register2Sign = "";
                     }
-                    else if (plusMinusState2 === 1 && plusMinus === "2-") {
+                    else if (plusMinusState2 === 2 && plusMinus === "2-") {
                         state.Register2Sign = "-";
                     }
                     //console.log(`'${sc}' -> 23   '${sd} -> 24 plusMinus='${plusMinus}' plusMinusState2='${plusMinusState2}'`);
@@ -193,7 +191,7 @@ const parseAGCOutput = (channel, value) => {
                     else if (plusMinusState3 === 0 && plusMinus === "  ") {
                         state.Register3Sign = "";
                     }
-                    else if (plusMinusState3 === 1 && plusMinus === "3-") {
+                    else if (plusMinusState3 === 2 && plusMinus === "3-") {
                         state.Register3Sign = "-";
                     }
                     //console.log(`'${sc}' -> 34   '${sd}' -> 35 plusMinus='${plusMinus}' plusMinusState3='${plusMinusState3}'`);
@@ -441,104 +439,99 @@ const codeToString = (code) => {
     return "?";
 };
 const parseDskyKey = (ch) => {
-    let returnValue = [];
+    let returnValue = [0o32, 0o20000, 0o20000];
+    // channel, value, mask
     switch (ch) {
         case '0':
-            returnValue.push([0o15, 0o20, 0o37]);
+            returnValue = [0o15, 0o20, 0o37];
             break;
         case '1':
-            returnValue.push([0o15, 0o1, 0o37]);
+            returnValue = [0o15, 0o1, 0o37];
             break;
         case '2':
-            returnValue.push([0o15, 0o2, 0o37]);
+            returnValue = [0o15, 0o2, 0o37];
             break;
         case '3':
-            returnValue.push([0o15, 0o3, 0o37]);
+            returnValue = [0o15, 0o3, 0o37];
             break;
         case '4':
-            returnValue.push([0o15, 0o4, 0o37]);
+            returnValue = [0o15, 0o4, 0o37];
             break;
         case '5':
-            returnValue.push([0o15, 0o5, 0o37]);
+            returnValue = [0o15, 0o5, 0o37];
             break;
         case '6':
-            returnValue.push([0o15, 0o6, 0o37]);
+            returnValue = [0o15, 0o6, 0o37];
             break;
         case '7':
-            returnValue.push([0o15, 0o7, 0o37]);
+            returnValue = [0o15, 0o7, 0o37];
             break;
         case '8':
-            returnValue.push([0o15, 0o10, 0o37]);
+            returnValue = [0o15, 0o10, 0o37];
             break;
         case '9':
-            returnValue.push([0o15, 0o11, 0o37]);
+            returnValue = [0o15, 0o11, 0o37];
             break;
         case '+':
-            returnValue.push([0o15, 0o32, 0o37]);
+            returnValue = [0o15, 0o32, 0o37];
             break;
         case '-':
-            returnValue.push([0o15, 0o33, 0o37]);
+            returnValue = [0o15, 0o33, 0o37];
             break;
         case 'V':
-            returnValue.push([0o15, 0o21, 0o37]);
+            returnValue = [0o15, 0o21, 0o37];
             break;
         case 'N':
-            returnValue.push([0o15, 0o37, 0o37]);
+            returnValue = [0o15, 0o37, 0o37];
             break;
         case 'R':
-            returnValue.push([0o15, 0o22, 0o37]);
+            returnValue = [0o15, 0o22, 0o37];
             break;
         case 'C':
-            returnValue.push([0o15, 0o36, 0o37]);
+            returnValue = [0o15, 0o36, 0o37];
             break;
         case 'P':
-            returnValue.push([0o32, 0o0, 0o200]);
+            returnValue = [0o32, 0o0, 0o20000];
             break;
         case 'PR':
-            returnValue.push([0o32, 0o200, 0o200]);
+            returnValue = [0o32, 0o20000, 0o20000];
             break;
         case 'K':
-            returnValue.push([0o15, 0o31, 0o37]);
+            returnValue = [0o15, 0o31, 0o37];
             break;
         case 'E':
-            returnValue.push([0o15, 0o34, 0o37]);
+            returnValue = [0o15, 0o34, 0o37];
             break;
     }
-    // Convert returnValue to Uint8Array
-    const result = new Uint8Array(returnValue.length * 3);
-    for (let i = 0; i < returnValue.length; i++) {
-        for (let j = 0; j < 3; j++) {
-            result[i * 3 + j] = returnValue[i][j];
-        }
-    }
-    return result;
+    return returnValue;
 };
 const sendInputPacketToAGC = (tuple) => {
+    const [channel, value, mask] = tuple;
     const outputBuffer = Buffer.alloc(4);
     // First, create and output the mask command.
-    outputBuffer[0] = 0x20 | ((tuple[0] >> 3) & 0x0F);
-    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[2] >> 12) & 0x07);
-    outputBuffer[2] = 0x80 | ((tuple[2] >> 6) & 0x3F);
-    outputBuffer[3] = 0xC0 | (tuple[2] & 0x3F);
+    outputBuffer[0] = 0x20 | ((channel >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((channel << 3) & 0x38) | ((mask >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((mask >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (mask & 0x3F);
     yaAGCClient.write(outputBuffer);
     // Now, the actual data for the channel.
-    outputBuffer[0] = 0x00 | ((tuple[0] >> 3) & 0x0F);
-    outputBuffer[1] = 0x40 | ((tuple[0] << 3) & 0x38) | ((tuple[1] >> 12) & 0x07);
-    outputBuffer[2] = 0x80 | ((tuple[1] >> 6) & 0x3F);
-    outputBuffer[3] = 0xC0 | (tuple[1] & 0x3F);
+    outputBuffer[0] = 0x00 | ((channel >> 3) & 0x0F);
+    outputBuffer[1] = 0x40 | ((channel << 3) & 0x38) | ((value >> 12) & 0x07);
+    outputBuffer[2] = 0x80 | ((value >> 6) & 0x3F);
+    outputBuffer[3] = 0xC0 | (value & 0x3F);
     yaAGCClient.write(outputBuffer);
 };
 let keyboardHandler = (_data) => { };
 const getYaAGCKeyboardHandler = () => __awaiter(void 0, void 0, void 0, function* () {
     keyboardHandler = (data) => {
         const key = data === null || data === void 0 ? void 0 : data.toUpperCase();
-        const inputData = parseDskyKey(key);
         if (!yaAGCClient)
             return;
-        sendInputPacketToAGC(inputData);
+        const pressKey = parseDskyKey(key);
+        sendInputPacketToAGC(pressKey);
         if (key == "P") {
             const releaseProKey = parseDskyKey("PR");
-            setTimeout(() => sendInputPacketToAGC(releaseProKey), 500);
+            setTimeout(() => sendInputPacketToAGC(releaseProKey), 750);
         }
     };
     return (data) => keyboardHandler(data);
