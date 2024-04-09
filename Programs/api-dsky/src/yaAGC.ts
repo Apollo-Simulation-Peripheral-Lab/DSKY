@@ -2,7 +2,7 @@ import * as net from 'net'
 import { OFF_TEST } from './dskyStates';
 import { getYaAGCPort } from './terminalSetup';
 
-let last10: number, last11: number, last13: number, last163: number;
+let last10: number, last11: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
 let vnFlashing: boolean;
 let state= {...OFF_TEST}
@@ -16,7 +16,6 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
 
     if ((channel === 0o10 && value === last10) || 
         (channel === 0o11 && value === last11) || 
-        (channel === 0o13 && value === last13) || 
         (channel === 0o163 && value === last163)) return false // Data is irrelevant
 
     if(![0o163, 0o13, 0o11, 0o10].includes(channel)) return false // Data is irrelevant
@@ -180,6 +179,16 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     state.Register3D5 = sd
                     break;
                 case 12:
+                    if ((value & 0x01) !== 0) {
+                        state.IlluminatePrioDisp = 1
+                    } else {
+                        state.IlluminatePrioDisp = 0
+                    }
+                    if ((value & 0x02) !== 0) {
+                        state.IlluminateNoDap = 1
+                    } else {
+                        state.IlluminateNoDap = 0
+                    }
                     if ((value & 0x04) !== 0) {
                         state.IlluminateVel = 1
                     } else {
@@ -235,14 +244,6 @@ const parseAGCOutput = (channel: number, value: number): boolean => {
                     vnFlashing = false;
                 }
             }
-            break;
-        case 0o13:
-            last13 = value;
-            let _test = "DSKY TEST       ";
-            if ((value & 0x200) === 0) {
-                _test = "DSKY NO TEST    ";
-            }
-            //console.log(_test);
             break;
         case 0o163:
             last163 = value;
