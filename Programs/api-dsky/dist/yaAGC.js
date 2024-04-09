@@ -13,7 +13,7 @@ exports.getYaAGCKeyboardHandler = exports.watchStateYaAGC = void 0;
 const net = require("net");
 const dskyStates_1 = require("./dskyStates");
 const terminalSetup_1 = require("./terminalSetup");
-let last10, last11, last13, last163;
+let last10, last11, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
 let state = Object.assign({}, dskyStates_1.OFF_TEST);
@@ -25,7 +25,6 @@ const parseAGCOutput = (channel, value) => {
     }
     if ((channel === 0o10 && value === last10) ||
         (channel === 0o11 && value === last11) ||
-        (channel === 0o13 && value === last13) ||
         (channel === 0o163 && value === last163))
         return false; // Data is irrelevant
     if (![0o163, 0o13, 0o11, 0o10].includes(channel))
@@ -200,6 +199,18 @@ const parseAGCOutput = (channel, value) => {
                     state.Register3D5 = sd;
                     break;
                 case 12:
+                    if ((value & 0x01) !== 0) {
+                        state.IlluminatePrioDisp = 1;
+                    }
+                    else {
+                        state.IlluminatePrioDisp = 0;
+                    }
+                    if ((value & 0x02) !== 0) {
+                        state.IlluminateNoDap = 1;
+                    }
+                    else {
+                        state.IlluminateNoDap = 0;
+                    }
                     if ((value & 0x04) !== 0) {
                         state.IlluminateVel = 1;
                     }
@@ -263,14 +274,6 @@ const parseAGCOutput = (channel, value) => {
                     vnFlashing = false;
                 }
             }
-            break;
-        case 0o13:
-            last13 = value;
-            let _test = "DSKY TEST       ";
-            if ((value & 0x200) === 0) {
-                _test = "DSKY NO TEST    ";
-            }
-            //console.log(_test);
             break;
         case 0o163:
             last163 = value;
