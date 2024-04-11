@@ -13,7 +13,7 @@ exports.getWebSocket = exports.updateWebSocketState = exports.setWebSocketListen
 const WebSocket = require("ws");
 const dskyStates_1 = require("./dskyStates");
 // Create WebSocket server
-const wss = new WebSocket.Server({ port: 3001 });
+const wss = new WebSocket.Server({ port: process.env.port || 3001 });
 let listener = (_data) => __awaiter(void 0, void 0, void 0, function* () { });
 const setWebSocketListener = (newListener) => { listener = newListener; };
 exports.setWebSocketListener = setWebSocketListener;

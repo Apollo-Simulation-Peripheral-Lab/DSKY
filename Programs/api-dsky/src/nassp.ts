@@ -1,4 +1,7 @@
 import {keyboard, Key} from "@nut-tree/nut-js"
+import * as dgram from 'node:dgram'
+
+var server = dgram.createSocket('udp4');
 
 // Define key map, duh
 const keyMap = {
@@ -24,7 +27,16 @@ const keyMap = {
 };
 
 export const watchStateNASSP = (_callback) => {
-    // TODO: Wait for Max
+    server.on('listening', function() {
+        var address = server.address();
+        console.log('UDP Server listening on ' + address.address + ':' + address.port);
+    });
+    
+    server.on('message', function(message, remote) {
+        console.log(remote.address + ':' + remote.port +' - ' + message);
+    });
+  
+    server.bind(3002, '127.0.0.1');
 };
 
 let isTyping = false

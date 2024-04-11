@@ -26,6 +26,8 @@ const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, 
     switch (inputSource) {
         case "reentry":
             return (0, reentry_1.watchStateReentry)(callback);
+        case "nassp":
+            return (0, nassp_1.watchStateNASSP)(callback);
         case "ksp":
             return (0, ksp_1.watchStateKSP)(callback);
         case "bridge":

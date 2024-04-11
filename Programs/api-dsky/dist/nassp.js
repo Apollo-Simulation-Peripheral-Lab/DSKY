@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getNASSPKeyboardHandler = exports.watchStateNASSP = void 0;
 const nut_js_1 = require("@nut-tree/nut-js");
+const dgram = require("node:dgram");
+var server = dgram.createSocket('udp4');
 // Define key map, duh
 const keyMap = {
     '1': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad1],
@@ -34,7 +36,14 @@ const keyMap = {
     'k': [nut_js_1.Key.RightShift, nut_js_1.Key.Home]
 };
 const watchStateNASSP = (_callback) => {
-    // TODO: Wait for Max
+    server.on('listening', function () {
+        var address = server.address();
+        console.log('UDP Server listening on ' + address.address + ':' + address.port);
+    });
+    server.on('message', function (message, remote) {
+        console.log(remote.address + ':' + remote.port + ' - ' + message);
+    });
+    server.bind(3002, '127.0.0.1');
 };
 exports.watchStateNASSP = watchStateNASSP;
 let isTyping = false;

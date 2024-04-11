@@ -2,7 +2,7 @@ import * as WebSocket from 'ws'
 import { V35_TEST } from '@/dskyStates'
 
 // Create WebSocket server
-const wss = new WebSocket.Server({ port: 3001 });
+const wss = new WebSocket.Server({ port: process.env.port || 3001 });
 
 let listener = async (_data) =>{}
 export const setWebSocketListener = (newListener) => {listener = newListener}

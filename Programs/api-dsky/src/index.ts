@@ -1,5 +1,5 @@
 import { getReentryKeyboardHandler, watchStateReentry } from '@/reentry'
-import { getNASSPKeyboardHandler } from '@/nassp'
+import { getNASSPKeyboardHandler, watchStateNASSP } from '@/nassp'
 import { getKSPKeyboardHandler, watchStateKSP } from '@/ksp'
 import { getYaAGCKeyboardHandler, watchStateYaAGC } from '@/yaAGC'
 import { getBridgeKeyboardHandler, watchStateBridge } from '@/bridge'
@@ -17,6 +17,8 @@ const watchState = async (inputSource, callback) =>{
     switch(inputSource){
         case "reentry":
             return watchStateReentry(callback)
+        case "nassp":
+            return watchStateNASSP(callback)
         case "ksp":
             return watchStateKSP(callback)
         case "bridge":
