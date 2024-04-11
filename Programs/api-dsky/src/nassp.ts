@@ -27,13 +27,17 @@ const keyMap = {
 };
 
 export const watchStateNASSP = (_callback) => {
+    let lastMessage
     server.on('listening', function() {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
     });
     
     server.on('message', function(message, remote) {
-        console.log(remote.address + ':' + remote.port +' - ' + message);
+        if(message != lastMessage){
+            lastMessage = message
+            console.log(remote.address + ':' + remote.port +' - ' + message);
+        }
     });
   
     server.bind(3002, '127.0.0.1');
