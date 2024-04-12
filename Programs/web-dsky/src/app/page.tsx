@@ -11,6 +11,8 @@ export default function Home() {
 
   const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
+  const [flashing, setFlashing] = useState(false)
+  const [compLight, setCompLight] = useState(false)
   const [audioContext, setAudioContext] : any = useState(null)
   const [audioFiles, setAudioFiles] : any = useState(null)
   const [webSocket, setWebSocket] : any = useState(null)
@@ -88,7 +90,16 @@ export default function Home() {
     
     webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
-      chunkedUpdate(newState, hookData)
+      if(newState.lazyRefresh){
+        const newFlashing = newState.VerbD1 == ''
+        setFlashing(newFlashing)
+        setCompLight(newState.IlluminateCompLight)
+      }else{
+        const newFlashing = newState.VerbD1 == ''
+        setFlashing(newFlashing)
+        setCompLight(newState.IlluminateCompLight)
+        chunkedUpdate(newState, hookData)
+      }
     };
 
     const relayKeyPress = (event:any)=>{
@@ -155,7 +166,7 @@ export default function Home() {
           height={1000}
           className="mask"
         ></Image>
-        {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
+        {compLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
           digit={dskyState.ProgramD1}
@@ -166,19 +177,19 @@ export default function Home() {
         />
         <Digit
           className={'VerbD1'}
-          digit={dskyState.VerbD1}
+          digit={flashing ? '': dskyState.VerbD1}
         />
         <Digit
           className={'VerbD2'}
-          digit={dskyState.VerbD2}
+          digit={flashing ? '': dskyState.VerbD2}
         />
         <Digit
           className={'NounD1'}
-          digit={dskyState.NounD1}
+          digit={flashing ? '': dskyState.NounD1}
         />
         <Digit
           className={'NounD2'}
-          digit={dskyState.NounD2}
+          digit={flashing ? '': dskyState.NounD2}
         />
 
         <Sign
