@@ -90,14 +90,9 @@ export default function Home() {
     
     webSocket.onmessage = async (event: {data:any}) => {
       const newState = JSON.parse(event.data);
-      if(newState.lazyRefresh){
-        const newFlashing = newState.VerbD1 == ''
-        setFlashing(newFlashing)
-        setCompLight(newState.IlluminateCompLight)
-      }else{
-        const newFlashing = newState.VerbD1 == ''
-        setFlashing(newFlashing)
-        setCompLight(newState.IlluminateCompLight)
+      setFlashing(!!newState.flashing)
+      setCompLight(newState.IlluminateCompLight)
+      if(!newState.lazyRefresh){
         chunkedUpdate(newState, hookData)
       }
     };

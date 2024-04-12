@@ -53,7 +53,7 @@ const rateLimitedUpdate = (state, priority = false) => {
 
 export const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback
-    let lastMessage, lastChunks
+    let lastMessage, lastAnimatedValues
     server.on('listening', function() {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
@@ -66,9 +66,9 @@ export const watchStateNASSP = (callback) => {
         if(messageClean != lastMessage){
             lastMessage = messageClean
             const {compLight, prog, verb, noun, flashing, r1, r2, r3} = parsedJSON
-            const chunks = JSON.stringify({prog,verb,noun,r1,r2,r3})
-            const lazyRefresh = chunks == lastChunks
-            lastChunks = chunks
+            const animatedValues = JSON.stringify({prog,verb,noun,r1,r2,r3, compLight, flashing}) // TODO: Remove compLight
+            const lazyRefresh = animatedValues == lastAnimatedValues
+            lastAnimatedValues = animatedValues
 
             const state = {
                 ...OFF_TEST,
@@ -97,6 +97,7 @@ export const watchStateNASSP = (callback) => {
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
                 Register3D5: r3[5].replace(' ',''),
+                flashing: flashing == "1",
                 lazyRefresh
             }
             rateLimitedUpdate(state, lazyRefresh)
