@@ -1,5 +1,6 @@
 import {keyboard, Key} from "@nut-tree/nut-js"
 import * as dgram from 'node:dgram'
+import { OFF_TEST } from "./dskyStates";
 
 var server = dgram.createSocket('udp4');
 
@@ -26,17 +27,53 @@ const keyMap = {
     'k': [Key.RightShift, Key.Home]
 };
 
-export const watchStateNASSP = (_callback) => {
+const getDigit = (register, digit) =>{
+    const result = register.length == 5 ? register[digit - 1]: register[digit]
+    return result.replace(' ','')
+}
+
+export const watchStateNASSP = (callback) => {
     let lastMessage
     server.on('listening', function() {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
     });
     
-    server.on('message', function(message, remote) {
-        if(message != lastMessage){
-            lastMessage = message
-            console.log(remote.address + ':' + remote.port +' - ' + message);
+    server.on('message', function(message) {
+        const jsonString = message.toString().slice(0,-1)+'}'
+        const parsedJSON = JSON.parse(jsonString)
+        if(JSON.stringify(parsedJSON) != lastMessage){
+            lastMessage = JSON.stringify(parsedJSON)
+            const {compLight, prog, verb, noun, flashing, r1, r2, r3} = parsedJSON
+            const state = {
+                ...OFF_TEST,
+                IlluminateCompLight: compLight == '1',
+                ProgramD1: prog[0].replace(' ',''),
+                ProgramD2: prog[1].replace(' ',''),
+                VerbD1: flashing == 1 ? '' : verb[0].replace(' ',''),
+                VerbD2: flashing == 1 ? '' : verb[1].replace(' ',''),
+                NounD1: flashing == 1 ? '' : noun[0].replace(' ',''),
+                NounD2: flashing == 1 ? '' : noun[1].replace(' ',''),
+                Register1Sign: r1[0].replace(' ',''),
+                Register1D1: r1[1].replace(' ',''),
+                Register1D2: r1[1].replace(' ',''),
+                Register1D3: r1[1].replace(' ',''),
+                Register1D4: r1[1].replace(' ',''),
+                Register1D5: r1[1].replace(' ',''),
+                Register2Sign: r2[0].replace(' ',''),
+                Register2D1: r2[1].replace(' ',''),
+                Register2D2: r2[1].replace(' ',''),
+                Register2D3: r2[1].replace(' ',''),
+                Register2D4: r2[1].replace(' ',''),
+                Register2D5: r2[1].replace(' ',''),
+                Register3Sign: r3[0].replace(' ',''),
+                Register3D1: r3[1].replace(' ',''),
+                Register3D2: r3[1].replace(' ',''),
+                Register3D3: r3[1].replace(' ',''),
+                Register3D4: r3[1].replace(' ',''),
+                Register3D5: r3[1].replace(' ',''),
+            }
+            callback(state)
         }
     });
   
