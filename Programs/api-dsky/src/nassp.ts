@@ -3,6 +3,7 @@ import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
 
 var server = dgram.createSocket('udp4');
+let handleAGCUpdate = (_data) => {}
 
 // Define key map, duh
 const keyMap = {
@@ -27,13 +28,32 @@ const keyMap = {
     'k': [Key.RightShift, Key.Home]
 };
 
-const getDigit = (register, digit) =>{
-    const result = register.length == 5 ? register[digit - 1]: register[digit]
-    return result.replace(' ','')
+// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
+// This issue should probably be addressed client-side as well.
+let lastUpdate = 0
+let queuedUpdate = null
+const rateLimitedUpdate = (state, priority = false) => {
+    const currentTime = new Date().getTime()
+    const timePassed = currentTime - lastUpdate
+    const timeRemaining = 300 - timePassed
+    if(timePassed >= 300 || priority){
+        if(queuedUpdate) clearTimeout(queuedUpdate)
+        //console.log(`${priority ? 'PRIORITY':'UNQUEUED'} UPDATE V1: `,state.VerbD1)
+        handleAGCUpdate(state)
+        if(!priority) lastUpdate = currentTime
+    }else{
+        if(queuedUpdate) clearTimeout(queuedUpdate)
+        queuedUpdate = setTimeout(() => {
+            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
+            handleAGCUpdate(state)
+            lastUpdate = new Date().getTime()
+        },timeRemaining)
+    }
 }
 
 export const watchStateNASSP = (callback) => {
-    let lastMessage
+    handleAGCUpdate = callback
+    let lastMessage, lastChunks
     server.on('listening', function() {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
@@ -42,9 +62,14 @@ export const watchStateNASSP = (callback) => {
     server.on('message', function(message) {
         const jsonString = message.toString().slice(0,-1)+'}'
         const parsedJSON = JSON.parse(jsonString)
-        if(JSON.stringify(parsedJSON) != lastMessage){
-            lastMessage = JSON.stringify(parsedJSON)
+        const messageClean = JSON.stringify(parsedJSON)
+        if(messageClean != lastMessage){
+            lastMessage = messageClean
             const {compLight, prog, verb, noun, flashing, r1, r2, r3} = parsedJSON
+            const chunks = JSON.stringify({prog,verb,noun,r1,r2,r3})
+            const lazyRefresh = chunks == lastChunks
+            lastChunks = chunks
+
             const state = {
                 ...OFF_TEST,
                 IlluminateCompLight: compLight == '1',
@@ -72,8 +97,9 @@ export const watchStateNASSP = (callback) => {
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
                 Register3D5: r3[5].replace(' ',''),
+                lazyRefresh
             }
-            callback(state)
+            rateLimitedUpdate(state, lazyRefresh)
         }
     });
   

@@ -14,6 +14,7 @@ const nut_js_1 = require("@nut-tree/nut-js");
 const dgram = require("node:dgram");
 const dskyStates_1 = require("./dskyStates");
 var server = dgram.createSocket('udp4');
+let handleAGCUpdate = (_data) => { };
 // Define key map, duh
 const keyMap = {
     '1': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad1],
@@ -36,12 +37,35 @@ const keyMap = {
     'r': [nut_js_1.Key.RightShift, nut_js_1.Key.R],
     'k': [nut_js_1.Key.RightShift, nut_js_1.Key.Home]
 };
-const getDigit = (register, digit) => {
-    const result = register.length == 5 ? register[digit - 1] : register[digit];
-    return result.replace(' ', '');
+// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
+// This issue should probably be addressed client-side as well.
+let lastUpdate = 0;
+let queuedUpdate = null;
+const rateLimitedUpdate = (state, priority = false) => {
+    const currentTime = new Date().getTime();
+    const timePassed = currentTime - lastUpdate;
+    const timeRemaining = 300 - timePassed;
+    if (timePassed >= 300 || priority) {
+        if (queuedUpdate)
+            clearTimeout(queuedUpdate);
+        //console.log(`${priority ? 'PRIORITY':'UNQUEUED'} UPDATE V1: `,state.VerbD1)
+        handleAGCUpdate(state);
+        if (!priority)
+            lastUpdate = currentTime;
+    }
+    else {
+        if (queuedUpdate)
+            clearTimeout(queuedUpdate);
+        queuedUpdate = setTimeout(() => {
+            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
+            handleAGCUpdate(state);
+            lastUpdate = new Date().getTime();
+        }, timeRemaining);
+    }
 };
 const watchStateNASSP = (callback) => {
-    let lastMessage;
+    handleAGCUpdate = callback;
+    let lastMessage, lastChunks;
     server.on('listening', function () {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
@@ -49,11 +73,15 @@ const watchStateNASSP = (callback) => {
     server.on('message', function (message) {
         const jsonString = message.toString().slice(0, -1) + '}';
         const parsedJSON = JSON.parse(jsonString);
-        if (JSON.stringify(parsedJSON) != lastMessage) {
-            lastMessage = JSON.stringify(parsedJSON);
+        const messageClean = JSON.stringify(parsedJSON);
+        if (messageClean != lastMessage) {
+            lastMessage = messageClean;
             const { compLight, prog, verb, noun, flashing, r1, r2, r3 } = parsedJSON;
-            const state = Object.assign(Object.assign({}, dskyStates_1.OFF_TEST), { IlluminateCompLight: compLight == '1', ProgramD1: prog[0].replace(' ', ''), ProgramD2: prog[1].replace(' ', ''), VerbD1: flashing == 1 ? '' : verb[0].replace(' ', ''), VerbD2: flashing == 1 ? '' : verb[1].replace(' ', ''), NounD1: flashing == 1 ? '' : noun[0].replace(' ', ''), NounD2: flashing == 1 ? '' : noun[1].replace(' ', ''), Register1Sign: r1[0].replace(' ', ''), Register1D1: r1[1].replace(' ', ''), Register1D2: r1[2].replace(' ', ''), Register1D3: r1[3].replace(' ', ''), Register1D4: r1[4].replace(' ', ''), Register1D5: r1[5].replace(' ', ''), Register2Sign: r2[0].replace(' ', ''), Register2D1: r2[1].replace(' ', ''), Register2D2: r2[2].replace(' ', ''), Register2D3: r2[3].replace(' ', ''), Register2D4: r2[4].replace(' ', ''), Register2D5: r2[5].replace(' ', ''), Register3Sign: r3[0].replace(' ', ''), Register3D1: r3[1].replace(' ', ''), Register3D2: r3[2].replace(' ', ''), Register3D3: r3[3].replace(' ', ''), Register3D4: r3[4].replace(' ', ''), Register3D5: r3[5].replace(' ', '') });
-            callback(state);
+            const chunks = JSON.stringify({ prog, verb, noun, r1, r2, r3 });
+            const lazyRefresh = chunks == lastChunks;
+            lastChunks = chunks;
+            const state = Object.assign(Object.assign({}, dskyStates_1.OFF_TEST), { IlluminateCompLight: compLight == '1', ProgramD1: prog[0].replace(' ', ''), ProgramD2: prog[1].replace(' ', ''), VerbD1: flashing == 1 ? '' : verb[0].replace(' ', ''), VerbD2: flashing == 1 ? '' : verb[1].replace(' ', ''), NounD1: flashing == 1 ? '' : noun[0].replace(' ', ''), NounD2: flashing == 1 ? '' : noun[1].replace(' ', ''), Register1Sign: r1[0].replace(' ', ''), Register1D1: r1[1].replace(' ', ''), Register1D2: r1[2].replace(' ', ''), Register1D3: r1[3].replace(' ', ''), Register1D4: r1[4].replace(' ', ''), Register1D5: r1[5].replace(' ', ''), Register2Sign: r2[0].replace(' ', ''), Register2D1: r2[1].replace(' ', ''), Register2D2: r2[2].replace(' ', ''), Register2D3: r2[3].replace(' ', ''), Register2D4: r2[4].replace(' ', ''), Register2D5: r2[5].replace(' ', ''), Register3Sign: r3[0].replace(' ', ''), Register3D1: r3[1].replace(' ', ''), Register3D2: r3[2].replace(' ', ''), Register3D3: r3[3].replace(' ', ''), Register3D4: r3[4].replace(' ', ''), Register3D5: r3[5].replace(' ', ''), lazyRefresh });
+            rateLimitedUpdate(state, lazyRefresh);
         }
     });
     server.bind(3002, '127.0.0.1');
