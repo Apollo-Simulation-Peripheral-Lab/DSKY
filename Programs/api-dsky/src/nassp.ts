@@ -1,6 +1,7 @@
 import {keyboard, Key} from "@nut-tree/nut-js"
 import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
+import { rateLimitedUpdate } from "./utils";
 
 var server = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => {}
@@ -28,51 +29,39 @@ const keyMap = {
     'k': [Key.RightShift, Key.Home]
 };
 
-// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
-// This issue should probably be addressed client-side as well.
-let lastUpdate = 0
-let queuedUpdate = null
-const rateLimitedUpdate = (state, priority = false) => {
-    const currentTime = new Date().getTime()
-    const timePassed = currentTime - lastUpdate
-    const timeRemaining = 300 - timePassed
-    if(timePassed >= 300 || priority){
-        if(queuedUpdate) clearTimeout(queuedUpdate)
-        //console.log(`${priority ? 'PRIORITY':'UNQUEUED'} UPDATE V1: `,state.VerbD1)
-        handleAGCUpdate(state)
-        if(!priority) lastUpdate = currentTime
-    }else{
-        if(queuedUpdate) clearTimeout(queuedUpdate)
-        queuedUpdate = setTimeout(() => {
-            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
-            handleAGCUpdate(state)
-            lastUpdate = new Date().getTime()
-        },timeRemaining)
-    }
-}
-
 export const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback
-    let lastMessage, lastAnimatedValues
+    let lastMessage
     server.on('listening', function() {
         var address = server.address();
         console.log('UDP Server listening on ' + address.address + ':' + address.port);
     });
     
     server.on('message', function(message) {
-        const jsonString = message.toString().slice(0,-1)+'}'
-        const parsedJSON = JSON.parse(jsonString)
+        const parsedJSON = JSON.parse(message.toString())
         const messageClean = JSON.stringify(parsedJSON)
         if(messageClean != lastMessage){
             lastMessage = messageClean
-            const {compLight, prog, verb, noun, flashing, r1, r2, r3} = parsedJSON
-            const animatedValues = JSON.stringify({prog,verb,noun,r1,r2,r3, compLight, flashing}) // TODO: Remove compLight
-            const lazyRefresh = animatedValues == lastAnimatedValues
-            lastAnimatedValues = animatedValues
-
+            //console.log(parsedJSON)
+            const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms} = parsedJSON
+            const alarmValues = alarms.split(' ').map(val => val != '0')
             const state = {
                 ...OFF_TEST,
                 IlluminateCompLight: compLight == '1',
+                IlluminateUplinkActy: alarmValues[0], 
+                IlluminateNoAtt: alarmValues[1],
+                IlluminateStby: alarmValues[2],
+                IlluminateKeyRel: alarmValues[3],
+                IlluminateOprErr: alarmValues[4], 
+                IlluminateTemp: alarmValues[5],
+                IlluminateGimbalLock: alarmValues[6],
+                IlluminateProg: alarmValues[7],
+                IlluminateRestart: alarmValues[8], 
+                IlluminateTracker: alarmValues[9],
+                IlluminateAlt: alarmValues[10],
+                IlluminateVel: alarmValues[11],
+                IlluminateNoDap: alarmValues[12],
+                IlluminatePrioDisp: alarmValues[13],
                 ProgramD1: prog[0].replace(' ',''),
                 ProgramD2: prog[1].replace(' ',''),
                 VerbD1: flashing == 1 ? '' : verb[0].replace(' ',''),
@@ -97,10 +86,9 @@ export const watchStateNASSP = (callback) => {
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
                 Register3D5: r3[5].replace(' ',''),
-                flashing: flashing == "1",
-                lazyRefresh
+                flashing: flashing == "1"
             }
-            rateLimitedUpdate(state, lazyRefresh)
+            rateLimitedUpdate(handleAGCUpdate,state)
         }
     });
   

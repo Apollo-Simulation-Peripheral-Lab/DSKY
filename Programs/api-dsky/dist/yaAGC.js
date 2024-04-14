@@ -13,6 +13,7 @@ exports.getYaAGCKeyboardHandler = exports.watchStateYaAGC = void 0;
 const net = require("net");
 const dskyStates_1 = require("./dskyStates");
 const terminalSetup_1 = require("./terminalSetup");
+const utils_1 = require("./utils");
 let last10, last11, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
@@ -337,31 +338,6 @@ const outputFromAGC = (inputBuffer) => {
         return relevantData;
     }
 };
-// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
-// This issue should probably be addressed client-side as well.
-let lastUpdate = 0;
-let queuedUpdate = null;
-const rateLimitedUpdate = (state, priority = false) => {
-    const currentTime = new Date().getTime();
-    const timePassed = currentTime - lastUpdate;
-    const timeRemaining = 300 - timePassed;
-    if (timePassed >= 300 || priority) {
-        if (queuedUpdate)
-            clearTimeout(queuedUpdate);
-        //console.log("UNQUEUED UPDATE V1: ",state.VerbD1)
-        handleAGCUpdate(state);
-        lastUpdate = currentTime;
-    }
-    else {
-        if (queuedUpdate)
-            clearTimeout(queuedUpdate);
-        queuedUpdate = setTimeout(() => {
-            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
-            handleAGCUpdate(state);
-            lastUpdate = new Date().getTime();
-        }, timeRemaining);
-    }
-};
 // Flashing of Verb/Noun
 let vnFlashState = false;
 setInterval(() => {
@@ -369,8 +345,7 @@ setInterval(() => {
     if (vnFlashing) {
         // Flashing updates ignore the rate-limiting, this is because we assume 
         // conflicting updates will probably not affect EL segments but alarms instead.
-        rateLimitedUpdate(vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) :
-            state, true);
+        (0, utils_1.rateLimitedUpdate)(handleAGCUpdate, vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) : state, true);
     }
 }, 600);
 const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -390,8 +365,7 @@ const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function
             let relevantData = outputFromAGC(inputBuffer);
             if (!relevantData)
                 continue;
-            rateLimitedUpdate(vnFlashing && vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) :
-                state);
+            (0, utils_1.rateLimitedUpdate)(handleAGCUpdate, vnFlashing && vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) : state);
         }
     });
     const handleSocketError = (error) => __awaiter(void 0, void 0, void 0, function* () {

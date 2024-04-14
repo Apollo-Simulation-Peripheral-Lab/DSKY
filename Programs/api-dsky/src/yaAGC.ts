@@ -1,6 +1,7 @@
 import * as net from 'net'
 import { OFF_TEST } from './dskyStates';
 import { getYaAGCPort } from './terminalSetup';
+import { rateLimitedUpdate } from './utils';
 
 let last10: number, last11: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
@@ -302,29 +303,6 @@ const outputFromAGC = (inputBuffer: number[]): boolean => {
     }
 };
 
-// Limit rate of updates out of yaAGC into the api, as it causes issues with the display renderer. 
-// This issue should probably be addressed client-side as well.
-let lastUpdate = 0
-let queuedUpdate = null
-const rateLimitedUpdate = (state, priority = false) => {
-    const currentTime = new Date().getTime()
-    const timePassed = currentTime - lastUpdate
-    const timeRemaining = 300 - timePassed
-    if(timePassed >= 300 || priority){
-        if(queuedUpdate) clearTimeout(queuedUpdate)
-        //console.log("UNQUEUED UPDATE V1: ",state.VerbD1)
-        handleAGCUpdate(state)
-        lastUpdate = currentTime
-    }else{
-        if(queuedUpdate) clearTimeout(queuedUpdate)
-        queuedUpdate = setTimeout(() => {
-            //console.log("QUEUED UPDATE V1: ",state.VerbD1)
-            handleAGCUpdate(state)
-            lastUpdate = new Date().getTime()
-        },timeRemaining)
-    }
-}
-
 // Flashing of Verb/Noun
 let vnFlashState= false
 setInterval(()=>{
@@ -332,10 +310,11 @@ setInterval(()=>{
     if(vnFlashing){  
         // Flashing updates ignore the rate-limiting, this is because we assume 
         // conflicting updates will probably not affect EL segments but alarms instead.
-        rateLimitedUpdate(vnFlashState?
-            {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''}:
-            state
-        , true)
+        rateLimitedUpdate(
+            handleAGCUpdate, 
+            vnFlashState ? {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : state, 
+            true
+        )
     }
 },600)
 
@@ -355,9 +334,9 @@ export const watchStateYaAGC = async (callback) =>{
         while(inputBuffer.length >=4){
             let relevantData = outputFromAGC(inputBuffer)
             if(!relevantData) continue
-            rateLimitedUpdate(vnFlashing && vnFlashState ?
-                {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''}:
-                state
+            rateLimitedUpdate(
+                handleAGCUpdate, 
+                vnFlashing && vnFlashState ? {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : state 
             )
         }
     });
