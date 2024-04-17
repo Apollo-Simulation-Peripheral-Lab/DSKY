@@ -13,7 +13,6 @@ exports.getYaAGCKeyboardHandler = exports.watchStateYaAGC = void 0;
 const net = require("net");
 const dskyStates_1 = require("./dskyStates");
 const terminalSetup_1 = require("./terminalSetup");
-const utils_1 = require("./utils");
 let last10, last11, last163;
 let plusMinusState1, plusMinusState2, plusMinusState3;
 let vnFlashing;
@@ -343,9 +342,8 @@ let vnFlashState = false;
 setInterval(() => {
     vnFlashState = !vnFlashState;
     if (vnFlashing) {
-        // Flashing updates ignore the rate-limiting, this is because we assume 
-        // conflicting updates will probably not affect EL segments but alarms instead.
-        (0, utils_1.rateLimitedUpdate)(handleAGCUpdate, vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) : state, true);
+        handleAGCUpdate(vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) :
+            state);
     }
 }, 600);
 const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -365,7 +363,8 @@ const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function
             let relevantData = outputFromAGC(inputBuffer);
             if (!relevantData)
                 continue;
-            (0, utils_1.rateLimitedUpdate)(handleAGCUpdate, vnFlashing && vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) : state);
+            handleAGCUpdate(vnFlashing && vnFlashState ? Object.assign(Object.assign({}, state), { VerbD1: '', VerbD2: '', NounD1: '', NounD2: '' }) :
+                state);
         }
     });
     const handleSocketError = (error) => __awaiter(void 0, void 0, void 0, function* () {

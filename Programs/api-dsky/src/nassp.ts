@@ -1,7 +1,6 @@
 import {keyboard, Key} from "@nut-tree/nut-js"
 import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
-import { rateLimitedUpdate } from "./utils";
 
 var server = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => {}
@@ -85,10 +84,9 @@ export const watchStateNASSP = (callback) => {
                 Register3D2: r3[2].replace(' ',''),
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
-                Register3D5: r3[5].replace(' ',''),
-                flashing: flashing == "1"
+                Register3D5: r3[5].replace(' ','')
             }
-            rateLimitedUpdate(handleAGCUpdate,state)
+            handleAGCUpdate(state)
         }
     });
   

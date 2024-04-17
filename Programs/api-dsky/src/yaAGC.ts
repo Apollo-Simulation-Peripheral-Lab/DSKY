@@ -1,7 +1,6 @@
 import * as net from 'net'
 import { OFF_TEST } from './dskyStates';
 import { getYaAGCPort } from './terminalSetup';
-import { rateLimitedUpdate } from './utils';
 
 let last10: number, last11: number, last163: number;
 let plusMinusState1: number, plusMinusState2: number, plusMinusState3: number;
@@ -308,12 +307,9 @@ let vnFlashState= false
 setInterval(()=>{
     vnFlashState = !vnFlashState
     if(vnFlashing){  
-        // Flashing updates ignore the rate-limiting, this is because we assume 
-        // conflicting updates will probably not affect EL segments but alarms instead.
-        rateLimitedUpdate(
-            handleAGCUpdate, 
-            vnFlashState ? {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : state, 
-            true
+        handleAGCUpdate(vnFlashState ? 
+            {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : 
+            state
         )
     }
 },600)
@@ -334,9 +330,9 @@ export const watchStateYaAGC = async (callback) =>{
         while(inputBuffer.length >=4){
             let relevantData = outputFromAGC(inputBuffer)
             if(!relevantData) continue
-            rateLimitedUpdate(
-                handleAGCUpdate, 
-                vnFlashing && vnFlashState ? {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : state 
+            handleAGCUpdate(vnFlashing && vnFlashState ?
+                {...state, VerbD1:'',VerbD2:'',NounD1:'',NounD2:''} : 
+                state 
             )
         }
     });
