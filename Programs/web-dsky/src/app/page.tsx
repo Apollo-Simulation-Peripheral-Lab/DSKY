@@ -5,14 +5,12 @@ import { useEffect, useState } from "react";
 import { Digit } from "./digit";
 import { AUDIO_LOAD, NO_CONN, NO_CONN_UHOH } from "../utils/dskyStates";
 import { Sign } from "./sign";
-import { chunkedUpdate } from "@/utils/chunks";
+import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 
 export default function Home() {
 
   const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
-  const [flashing, setFlashing] = useState(false)
-  const [compLight, setCompLight] = useState(false)
   const [audioContext, setAudioContext] : any = useState(null)
   const [audioFiles, setAudioFiles] : any = useState(null)
   const [webSocket, setWebSocket] : any = useState(null)
@@ -88,12 +86,21 @@ export default function Home() {
       setDskyState
     }
     
+    let animationLock = 0
+    let queuedTimeout: NodeJS.Timeout | null
     webSocket.onmessage = async (event: {data:any}) => {
+      if(queuedTimeout) clearTimeout(queuedTimeout)
       const newState = JSON.parse(event.data);
-      setFlashing(!!newState.flashing)
-      setCompLight(newState.IlluminateCompLight)
-      if(!newState.lazyRefresh){
+      const changedChunks = getChangedChunks(hookData.lastState,newState)
+      const animatedStateUpdate = () =>{
+        animationLock = Date.now() + (30 * changedChunks.length) + 30
         chunkedUpdate(newState, hookData)
+      }
+      const remainingLockTime = animationLock - Date.now()
+      if(remainingLockTime <= 0){
+        animatedStateUpdate()
+      }else{
+        queuedTimeout = setTimeout(animatedStateUpdate, remainingLockTime)
       }
     };
 
@@ -161,7 +168,7 @@ export default function Home() {
           height={1000}
           className="mask"
         ></Image>
-        {compLight && <div className={'comp_acty'} />}
+        {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
           digit={dskyState.ProgramD1}
@@ -172,19 +179,19 @@ export default function Home() {
         />
         <Digit
           className={'VerbD1'}
-          digit={flashing ? '': dskyState.VerbD1}
+          digit={dskyState.VerbD1}
         />
         <Digit
           className={'VerbD2'}
-          digit={flashing ? '': dskyState.VerbD2}
+          digit={dskyState.VerbD2}
         />
         <Digit
           className={'NounD1'}
-          digit={flashing ? '': dskyState.NounD1}
+          digit={dskyState.NounD1}
         />
         <Digit
           className={'NounD2'}
-          digit={flashing ? '': dskyState.NounD2}
+          digit={dskyState.NounD2}
         />
 
         <Sign
