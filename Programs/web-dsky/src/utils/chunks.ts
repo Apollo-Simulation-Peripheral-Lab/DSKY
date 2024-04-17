@@ -1,4 +1,4 @@
-const getChangedChunks = (oldState:any, newState:any) => {
+export const getChangedChunks = (oldState:any, newState:any) => {
     let changedChunks = []
     const start = Math.floor(Math.random() * 11) + 1; // Random starting point in the update-loop
 
