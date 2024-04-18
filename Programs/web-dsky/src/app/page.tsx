@@ -105,11 +105,17 @@ export default function Home() {
     };
 
     const relayKeyPress = (event:any)=>{
-      if(event.key.length == 1){
+      if(event.key.length == 1 && !event.repeat){
         webSocket.send(event.key)
       }
     }
+    const relayKeyRelease = (event:any)=>{
+      if(event.key == 'p' || event.key == 'P'){
+        webSocket.send('O')
+      }
+    }
     window.addEventListener('keydown', relayKeyPress);
+    window.addEventListener('keyup', relayKeyRelease);
 
     // Cleanup function
     return () => {
