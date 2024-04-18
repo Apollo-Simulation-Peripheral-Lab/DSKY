@@ -12,6 +12,7 @@ B10: R32, R33
 B11: R34, R35
 B12: A6, A7, A8, A9, A10, A11, A12, 0b0
 B13: A13, A14, 0b000000
+B14: 0b0, BR
 
 Pn: Program digit. 4 bit
 Vn: Verb digit. 4 bit
@@ -21,5 +22,6 @@ SEn: Sign Enabled. 1 bit
 COMP: Computer Activity light. 1 bit
 Rxn: Register x, digit n. 4 bit
 An: Alarm light, 1 bit
+BR: Brightness value, 7 bits
 
 0xFF: New packet header

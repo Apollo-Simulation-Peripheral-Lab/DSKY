@@ -6,7 +6,7 @@ PCF8575 PCF(0x20);
 
 void initAlarms(){
   pinMode(PWM_PIN, OUTPUT);
-  digitalWrite(PWM_PIN, HIGH);
+  analogWrite(PWM_PIN, 255);
   
   PCF.begin();
   
@@ -64,4 +64,7 @@ void updateAlarms(uint8_t *dskyState){
     uint8_t Alt = (B13 >> 7) & 0x01; // Vel(A13) Value
     toggleAlarm(VEL,Vel);
     toggleAlarm(ALT,Alt);
+
+    uint8_t brightness = (dskyState[14] << 1) | 1;
+    analogWrite(PWM_PIN, brightness);
 }
