@@ -2,3 +2,4 @@
 #include "Keypad.h"
 
 char getKey();
+KeyState getState();

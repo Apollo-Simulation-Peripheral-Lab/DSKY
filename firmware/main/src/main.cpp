@@ -25,6 +25,7 @@ void setup() {
   initAlarms();
 }
 
+bool proPressed = false;
 void loop() {
   // Generate random dskyState if no serial byte has ever been received
   if (!serialByteReceived && millis() - lastRandomUpdate >= randomUpdateInterval) {
@@ -48,5 +49,10 @@ void loop() {
   char pressedKey = getKey();
   if(pressedKey){
     Serial.println(pressedKey);
+    if(pressedKey == 'P') proPressed = true;
+  }
+  if(getState() == RELEASED && proPressed){
+    proPressed = false;
+    Serial.println("O");
   }
 }
