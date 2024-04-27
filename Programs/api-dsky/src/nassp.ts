@@ -19,6 +19,7 @@ const keyMap = {
     '0': [Key.RightShift, Key.NumPad0],
     'e': [Key.RightShift, Key.T],
     'p': [Key.RightShift, Key.End],
+    'o': [Key.RightShift, Key.End], // PRO Release
     'v': [Key.RightShift, Key.V],
     'n': [Key.RightShift, Key.N],
     '+': [Key.RightShift, Key.Add],
@@ -105,14 +106,18 @@ export const getNASSPKeyboardHandler = () => {
                 console.log(`Key '${data}' skipped because a keypress is already in progress`)
             }else if (keysToSend) {
                 isTyping = true
-                await keyboard.pressKey(...keysToSend);
                 if(data == 'p'){
-                    // PRO key needs to be held longer in NASSP
-                    await new Promise(r => setTimeout(r,300));
+                    await keyboard.pressKey(...keysToSend);
+                }else if (data == 'o'){
+                    await keyboard.releaseKey(keysToSend[1]);
+                    await new Promise(r => setTimeout(r,10));
+                    await keyboard.releaseKey(...keysToSend);
+                }else{
+                    await keyboard.pressKey(...keysToSend);
+                    await keyboard.releaseKey(keysToSend[1]);
+                    await new Promise(r => setTimeout(r,10));
+                    await keyboard.releaseKey(...keysToSend);
                 }
-                await keyboard.releaseKey(keysToSend[1]);
-                await new Promise(r => setTimeout(r,10));
-                await keyboard.releaseKey(...keysToSend);
                 isTyping = false
             } else {
                 console.error(`Key combination for '${data}' not found.`);

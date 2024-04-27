@@ -29,6 +29,7 @@ const keyMap = {
     '0': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad0],
     'e': [nut_js_1.Key.RightShift, nut_js_1.Key.T],
     'p': [nut_js_1.Key.RightShift, nut_js_1.Key.End],
+    'o': [nut_js_1.Key.RightShift, nut_js_1.Key.End], // PRO Release
     'v': [nut_js_1.Key.RightShift, nut_js_1.Key.V],
     'n': [nut_js_1.Key.RightShift, nut_js_1.Key.N],
     '+': [nut_js_1.Key.RightShift, nut_js_1.Key.Add],
@@ -70,14 +71,20 @@ const getNASSPKeyboardHandler = () => {
             }
             else if (keysToSend) {
                 isTyping = true;
-                yield nut_js_1.keyboard.pressKey(...keysToSend);
                 if (data == 'p') {
-                    // PRO key needs to be held longer in NASSP
-                    yield new Promise(r => setTimeout(r, 300));
+                    yield nut_js_1.keyboard.pressKey(...keysToSend);
                 }
-                yield nut_js_1.keyboard.releaseKey(keysToSend[1]);
-                yield new Promise(r => setTimeout(r, 10));
-                yield nut_js_1.keyboard.releaseKey(...keysToSend);
+                else if (data == 'o') {
+                    yield nut_js_1.keyboard.releaseKey(keysToSend[1]);
+                    yield new Promise(r => setTimeout(r, 10));
+                    yield nut_js_1.keyboard.releaseKey(...keysToSend);
+                }
+                else {
+                    yield nut_js_1.keyboard.pressKey(...keysToSend);
+                    yield nut_js_1.keyboard.releaseKey(keysToSend[1]);
+                    yield new Promise(r => setTimeout(r, 10));
+                    yield nut_js_1.keyboard.releaseKey(...keysToSend);
+                }
                 isTyping = false;
             }
             else {
