@@ -165,7 +165,7 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between" style={{marginTop:120, marginLeft: 20, position:'absolute'}}> 
+    <main className="flex min-h-screen flex-col items-center justify-between" style={{marginTop:0, marginLeft: 0, position:'absolute'}}> 
       <div className="ELDisplay">
         <Image
           alt={'mask'}
