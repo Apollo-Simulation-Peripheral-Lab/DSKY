@@ -9,6 +9,21 @@ import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 
 export default function Home() {
 
+  const displayType = process.env.DISPLAY_TYPE
+  let marginTop, marginLeft, displayClass
+
+  switch (displayType){
+    case 'iphone13':
+      marginTop = 120
+      marginLeft = 20
+      displayClass = 'display-iphone13'
+      break;
+    default:
+      marginTop = 0;
+      marginLeft = 0;
+      displayClass = 'display-default'
+  }
+
   const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
   const [audioContext, setAudioContext] : any = useState(null)
@@ -165,7 +180,7 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between" style={{marginTop:0, marginLeft: 0, position:'absolute'}}> 
+    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{marginTop, marginLeft, position:'absolute'}}> 
       <div className="ELDisplay">
         <Image
           alt={'mask'}

@@ -1,6 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import url('digit.css');
 @import url('sign.css');
 @import url('programverbnoun.css');
@@ -10,6 +7,9 @@
 
 :root{
   --scale: 1;
+}
+.display-iphone13{
+  --scale: 0.83
 }
 
 body {
