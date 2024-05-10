@@ -14,7 +14,7 @@ export default function Home() {
 
   switch (displayType){
     case 'iphone13':
-      marginTop = 120
+      marginTop = 80
       marginLeft = 20
       displayClass = 'display-iphone13'
       break;
