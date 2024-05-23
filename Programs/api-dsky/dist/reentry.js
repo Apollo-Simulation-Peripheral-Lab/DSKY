@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getReentryKeyboardHandler = exports.watchStateReentry = void 0;
 const fs = require("fs");
 const appdata_path_1 = require("appdata-path");
-const nut_js_1 = require("@nut-tree/nut-js");
+const nut_js_1 = require("@nut-tree-fork/nut-js");
 const filesystem_1 = require("./filesystem");
 // Define key map, duh
 const keyMap = {

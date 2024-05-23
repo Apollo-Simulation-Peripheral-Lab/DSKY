@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getNASSPKeyboardHandler = exports.watchStateNASSP = void 0;
-const nut_js_1 = require("@nut-tree/nut-js");
+const nut_js_1 = require("@nut-tree-fork/nut-js");
 const dgram = require("node:dgram");
 const dskyStates_1 = require("./dskyStates");
 var server = dgram.createSocket('udp4');

@@ -1,4 +1,4 @@
-import {keyboard, Key} from "@nut-tree/nut-js"
+import {keyboard, Key} from "@nut-tree-fork/nut-js"
 import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
 

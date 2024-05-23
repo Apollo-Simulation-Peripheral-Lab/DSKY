@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import getAppDataPath from "appdata-path";
-import { keyboard, Key } from "@nut-tree/nut-js"
+import { keyboard, Key } from "@nut-tree-fork/nut-js"
 import { createWatcher } from "@/filesystem"
 
 // Define key map, duh
