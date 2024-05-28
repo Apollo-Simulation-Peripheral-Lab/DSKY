@@ -4,8 +4,7 @@
 
 using namespace std;
 
-const uint8_t ledPin = LED_BUILTIN;
-const uint8_t PACKET_SIZE = 14;
+const uint8_t PACKET_SIZE = 15;
 uint8_t dskyState[PACKET_SIZE];
 uint8_t memoryLocation = 0;
 
@@ -16,7 +15,8 @@ unsigned long randomUpdateInterval = 1000; // Update every 1 second
 
 void generateRandomDskyState() {
   for (int i = 0; i < PACKET_SIZE; i++) {
-    dskyState[i] = random(256); // Generate random byte values
+    if(i != 14) dskyState[i] = random(256); // Generate random byte values
+    else dskyState[i] = 127; // Full brightness in christmas mode
   }
 }
 
@@ -25,6 +25,7 @@ void setup() {
   initAlarms();
 }
 
+bool proPressed = false;
 void loop() {
   // Generate random dskyState if no serial byte has ever been received
   if (!serialByteReceived && millis() - lastRandomUpdate >= randomUpdateInterval) {
@@ -48,5 +49,10 @@ void loop() {
   char pressedKey = getKey();
   if(pressedKey){
     Serial.println(pressedKey);
+    if(pressedKey == 'P') proPressed = true;
+  }
+  if(getState() == RELEASED && proPressed){
+    proPressed = false;
+    Serial.println("O");
   }
 }

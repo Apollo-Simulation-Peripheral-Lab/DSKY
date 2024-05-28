@@ -3,47 +3,47 @@
   height:45px;
   width:45px;
   position: absolute;
-  top:12.76vh;
-  left:35.85vh;
+  top:calc(12.76vh * var(--scale));
+  left:calc(35.85vh * var(--scale));
   /* background-color: red; */
 }
 .ProgramD2 {
   height:45px;
   width:45px;
   position: absolute;
-  top:12.76vh;
-  left:44.77vh;
+  top:calc(12.76vh * var(--scale));
+  left:calc(44.77vh * var(--scale));
   /* background-color: red; */
 }
 .VerbD1 {
   height:45px;
   width:45px;
   position: absolute;
-  top:34.5vh;
-  left:3.23vh;
+  top:calc(34.5vh * var(--scale));
+  left:calc(3.23vh * var(--scale));
   /* background-color: red; */
 }
 .VerbD2 {
   height:45px;
   width:45px;
   position: absolute;
-  top:34.5vh;
-  left:12.61vh;
+  top:calc(34.5vh * var(--scale));
+  left:calc(12.61vh * var(--scale));
   /* background-color: red; */
 }
 .NounD1 {
   height:45px;
   width:45px;
   position: absolute;
-  top:34.5vh;
-  left:35.1vh;
+  top:calc(34.5vh * var(--scale));
+  left:calc(35.1vh * var(--scale));
   /* background-color: red; */
 }
 .NounD2 {
   height:45px;
   width:45px;
   position: absolute;
-  top:34.5vh;
-  left:44.68vh;
+  top:calc(34.5vh * var(--scale));
+  left:calc(44.68vh * var(--scale));
   /* background-color: red; */
 }

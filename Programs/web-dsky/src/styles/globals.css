@@ -1,12 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import url('digit.css');
 @import url('sign.css');
 @import url('programverbnoun.css');
 @import url('register1.css');
 @import url('register2.css');
 @import url('register3.css');
+
+:root{
+  --scale: 1;
+}
+.display-iphone13{
+  --scale: 0.83
+}
 
 body {
   color: white;
@@ -17,25 +21,27 @@ body {
 }
 
 .ELDisplay{
+  top:0;
+  left:0;
   position: absolute;
-  width: 52.8vh;
-  height:100vh;
+  width: calc(52.8vh * var(--scale));
+  height:calc(100vh *  var(--scale));
 }
 
 .mask {
   z-index: -1;
-  width: 52.8vh;
-  height:104vh;
+  width: calc(52.8vh * var(--scale));
+  height:calc(104vh * var(--scale));
   position:absolute;
-  top:-3.5vh;
+  top:calc(-3.5vh * var(--scale));
   left:0px;
 }
 .comp_acty {
-  width:20vh;
-  height:21vh;
+  width:calc(20vh * var(--scale));
+  height:calc(21vh * var(--scale));
   background: url('/segments/comp_acty.svg') no-repeat;
   background-size: 100%;
   position:absolute;
-  top:5.7vh;
+  top:calc(5.7vh * var(--scale));
   left:0px;
 }
