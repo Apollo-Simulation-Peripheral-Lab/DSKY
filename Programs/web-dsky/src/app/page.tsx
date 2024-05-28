@@ -9,6 +9,21 @@ import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 
 export default function Home() {
 
+  const displayType = process.env.DISPLAY_TYPE
+  let marginTop, marginLeft, displayClass
+
+  switch (displayType){
+    case 'iphone13':
+      marginTop = 80
+      marginLeft = 20
+      displayClass = 'display-iphone13'
+      break;
+    default:
+      marginTop = 0;
+      marginLeft = 0;
+      displayClass = 'display-default'
+  }
+
   const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
   const [audioContext, setAudioContext] : any = useState(null)
@@ -105,11 +120,17 @@ export default function Home() {
     };
 
     const relayKeyPress = (event:any)=>{
-      if(event.key.length == 1){
+      if(event.key.length == 1 && !event.repeat){
         webSocket.send(event.key)
       }
     }
+    const relayKeyRelease = (event:any)=>{
+      if(event.key == 'p' || event.key == 'P'){
+        webSocket.send('O')
+      }
+    }
     window.addEventListener('keydown', relayKeyPress);
+    window.addEventListener('keyup', relayKeyRelease);
 
     // Cleanup function
     return () => {
@@ -159,7 +180,7 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{marginTop, marginLeft, position:'absolute', opacity: (dskyState.Brightness || 127) / 127}}> 
       <div className="ELDisplay">
         <Image
           alt={'mask'}
