@@ -2,7 +2,8 @@ import {keyboard, Key} from "@nut-tree-fork/nut-js"
 import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
 
-var server = dgram.createSocket('udp4');
+let dskyServer = dgram.createSocket('udp4');
+let cockpitServer = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => {}
 
 // Define key map, duh
@@ -31,22 +32,29 @@ const keyMap = {
 
 export const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback
-    let lastMessage
-    server.on('listening', function() {
-        var address = server.address();
-        console.log('UDP Server listening on ' + address.address + ':' + address.port);
+    let lastDSKYMessage, lastCockpitMessage
+    let lastState = {...OFF_TEST}
+    
+    dskyServer.on('listening', function() {
+        var address = dskyServer.address();
+        console.log('DSKY Server listening on ' + address.address + ':' + address.port);
+    });
+
+    cockpitServer.on('listening', function() {
+        var address = cockpitServer.address();
+        console.log('Cockpit Server listening on ' + address.address + ':' + address.port);
     });
     
-    server.on('message', function(message) {
+    dskyServer.on('message', function(message) {
         const parsedJSON = JSON.parse(message.toString())
         const messageClean = JSON.stringify(parsedJSON)
-        if(messageClean != lastMessage){
-            lastMessage = messageClean
+        if(messageClean != lastDSKYMessage){
+            lastDSKYMessage = messageClean
             //console.log(parsedJSON)
             const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms} = parsedJSON
             const alarmValues = alarms.split(' ').map(val => val != '0')
             const state = {
-                ...OFF_TEST,
+                ...lastState,
                 IlluminateCompLight: compLight == '1',
                 IlluminateUplinkActy: alarmValues[0], 
                 IlluminateNoAtt: alarmValues[1],
@@ -87,11 +95,29 @@ export const watchStateNASSP = (callback) => {
                 Register3D4: r3[4].replace(' ',''),
                 Register3D5: r3[5].replace(' ','')
             }
+            lastState = state
+            handleAGCUpdate(state)
+        }
+    });
+
+    cockpitServer.on('message', function(message) {
+        const parsedJSON = JSON.parse(message.toString())
+        const messageClean = JSON.stringify(parsedJSON)
+        if(messageClean != lastCockpitMessage){
+            lastCockpitMessage = messageClean
+            //console.log(parsedJSON)
+            const {brightness} = parsedJSON
+            const state = {
+                ...lastState,
+                Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
+            }
+            lastState = state
             handleAGCUpdate(state)
         }
     });
   
-    server.bind(3002, '127.0.0.1');
+    dskyServer.bind(3002, '127.0.0.1');
+    cockpitServer.bind(3003, '127.0.0.1');
 };
 
 let isTyping = false
