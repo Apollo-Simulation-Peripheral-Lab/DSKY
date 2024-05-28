@@ -32,3 +32,7 @@ Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS
 char getKey(){
     return customKeypad.getKey();
 }
+
+KeyState getState(){
+    return customKeypad.getState();
+}

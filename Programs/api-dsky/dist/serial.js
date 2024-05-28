@@ -66,6 +66,9 @@ const stateToBinaryString = (state) => {
     bits += decimalToByte(digitsToDecimal(state.Register3D4, state.Register3D5)); // B11
     bits += decimalToByte(booleansToDecimal(state.IlluminateNoDap, state.IlluminatePrioDisp, state.IlluminateTemp, state.IlluminateGimbalLock, state.IlluminateProg, state.IlluminateRestart, state.IlluminateTracker, 0)); // B12
     bits += decimalToByte(booleansToDecimal(state.IlluminateAlt, state.IlluminateVel, 0, 0, 0, 0, 0, 0)); // B13
+    bits += decimalToByte(
+    // Only values from 1 to 127 will be sent
+    state.Brightness ? Math.min(state.Brightness, 127) : 127); // B13
     return bits;
 };
 const binaryStringToBuffer = (bits) => {
