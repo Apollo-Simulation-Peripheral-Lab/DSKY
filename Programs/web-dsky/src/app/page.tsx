@@ -14,8 +14,8 @@ export default function Home() {
 
   switch (displayType){
     case 'iphone13':
-      marginTop = 80
-      marginLeft = 20
+      marginTop = 90
+      marginLeft = -10
       displayClass = 'display-iphone13'
       break;
     default:
@@ -180,7 +180,7 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{marginTop, marginLeft, position:'absolute', opacity: (dskyState.Brightness || 127) / 127}}> 
+    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{marginTop, marginLeft, opacity: (dskyState.Brightness || 127) / 127}}> 
       <div className="ELDisplay">
         <Image
           alt={'mask'}
