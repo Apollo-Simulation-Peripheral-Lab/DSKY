@@ -41,7 +41,8 @@ exports.V35_TEST = {
     IlluminateTracker: 1,
     IlluminateAlt: 1,
     IlluminateVel: 1,
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 };
 exports.OFF_TEST = {
     IlluminateCompLight: false,
@@ -83,7 +84,8 @@ exports.OFF_TEST = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 };
 exports.NO_CONN = {
     IlluminateCompLight: false,
@@ -125,5 +127,6 @@ exports.NO_CONN = {
     IlluminateTracker: 1,
     IlluminateAlt: 1,
     IlluminateVel: 1,
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 };
