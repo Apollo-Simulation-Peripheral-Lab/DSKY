@@ -24,7 +24,8 @@ export const V35_TEST = {
     Register3D3: '8',
     Register3D4: '8',
     Register3D5: '8',
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 }
 
 export const OFF_TEST = {
@@ -53,7 +54,8 @@ export const OFF_TEST = {
     Register3D3: '',
     Register3D4: '',
     Register3D5: '',
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 }
 
 export const AUDIO_LOAD = {
@@ -82,7 +84,8 @@ export const AUDIO_LOAD = {
     Register3D3: 'A',
     Register3D4: 'd',
     Register3D5: '',
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 }
 
 export const NO_CONN = {
@@ -111,7 +114,8 @@ export const NO_CONN = {
     Register3D3: 'n',
     Register3D4: 'n',
     Register3D5: '',
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 }
 
 export const NO_CONN_UHOH = {
@@ -140,5 +144,6 @@ export const NO_CONN_UHOH = {
     Register3D3: 'n',
     Register3D4: 'n',
     Register3D5: '',
-    Brightness: 127
+    Brightness: 127,
+    Standby: false
 }
