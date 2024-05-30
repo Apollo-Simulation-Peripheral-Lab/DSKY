@@ -23,6 +23,7 @@
 }
 
 body {
+  overflow-y: hidden;
   color: white;
   /* background: url('/noise.jpg'); */
   background-color: #000000;
