@@ -9,7 +9,7 @@ import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 
 export default function Home() {
 
-  const displayType = process.env.DISPLAY_TYPE
+  const displayType = process.env.DISPLAY_TYPE || 'default'
   let paddingTop, marginLeft
 
   switch (displayType){
