@@ -13,10 +13,13 @@
 }
 .display-iphone13{
   --scale: 0.83;
-  /* background-color: #3f3b30ff; */
+  background-color: #000000;
 }
 .display-default{
   background-color: #3f3b30ff;
+}
+.display-oled{
+  background-color: #000000;
 }
 
 body {
