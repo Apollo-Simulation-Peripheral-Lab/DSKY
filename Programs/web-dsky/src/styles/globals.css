@@ -12,7 +12,11 @@
   --scale: 1;
 }
 .display-iphone13{
-  --scale: 0.83
+  --scale: 0.83;
+  /* background-color: #3f3b30ff; */
+}
+.display-default{
+  background-color: #3f3b30ff;
 }
 
 body {
@@ -29,8 +33,17 @@ body {
   height:calc(100vh *  var(--scale));
 }
 
-.mask {
-  z-index: -1;
+.mask{
+  z-index: 999;
+  width: 100%;
+  height:calc(104vh * var(--scale));
+  position:absolute;
+  top:calc(-3.5vh * var(--scale));
+  left:0px;
+}
+
+.basic_segments {
+  z-index: 0;
   width: calc(52.8vh * var(--scale));
   height:calc(104vh * var(--scale));
   position:absolute;
@@ -38,9 +51,9 @@ body {
   left:0px;
 }
 .comp_acty {
-  width:calc(20vh * var(--scale));
-  height:calc(21vh * var(--scale));
-  background: url('/segments/comp_acty.svg') no-repeat;
+  width:calc(19.5vh * var(--scale));
+  height:calc(18.5vh * var(--scale));
+  background-color: #00ad81ff;
   background-size: 100%;
   position:absolute;
   top:calc(5.7vh * var(--scale));

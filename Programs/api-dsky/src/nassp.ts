@@ -51,7 +51,7 @@ export const watchStateNASSP = (callback) => {
         if(messageClean != lastDSKYMessage){
             lastDSKYMessage = messageClean
             //console.log(parsedJSON)
-            const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms} = parsedJSON
+            const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms, powered} = parsedJSON
             const alarmValues = alarms.split(' ').map(val => val != '0')
             const state = {
                 ...lastState,
@@ -93,7 +93,8 @@ export const watchStateNASSP = (callback) => {
                 Register3D2: r3[2].replace(' ',''),
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
-                Register3D5: r3[5].replace(' ','')
+                Register3D5: r3[5].replace(' ',''),
+                Standby: powered == '0'
             }
             lastState = state
             handleAGCUpdate(state)

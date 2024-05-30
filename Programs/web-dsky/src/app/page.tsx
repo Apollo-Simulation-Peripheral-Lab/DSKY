@@ -10,16 +10,16 @@ import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 export default function Home() {
 
   const displayType = process.env.DISPLAY_TYPE
-  let marginTop, marginLeft, displayClass
+  let paddingTop, marginLeft, displayClass
 
   switch (displayType){
     case 'iphone13':
-      marginTop = 90
+      paddingTop = 90
       marginLeft = -10
       displayClass = 'display-iphone13'
       break;
     default:
-      marginTop = 0;
+      paddingTop = 0;
       marginLeft = 0;
       displayClass = 'display-default'
   }
@@ -180,15 +180,27 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{marginTop, marginLeft, opacity: (dskyState.Brightness || 127) / 127}}> 
+    <main className={`flex min-h-screen flex-col items-center justify-between ${displayClass}`} style={{paddingTop, marginLeft}}>
       <div className="ELDisplay">
         <Image
           alt={'mask'}
-          src={'/mask.svg'}
+          src={'./mask.svg'}
           width={1000}
           height={1000}
           className="mask"
-        ></Image>
+        />
+      </div>
+      <div className="ELDisplay" style={{opacity: (dskyState.Brightness || 127) / 127}}> 
+        {!dskyState.Standby ? 
+          <Image
+            alt={'basic_segments'}
+            src={'./basic_segments.svg'}
+            width={1000}
+            height={1000}
+            className="basic_segments"
+          ></Image> : 
+          <></>
+        }
         {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
