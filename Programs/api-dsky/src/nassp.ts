@@ -97,7 +97,7 @@ export const watchStateNASSP = (callback) => {
                 Standby: powered != '1 1'
             }
             lastState = state
-            handleAGCUpdate(state.Standby ? {...OFF_TEST, Standby: true} : state)
+            handleAGCUpdate(state.Standby ? {...state, Brightness: 1} : state)
         }
     });
 
@@ -113,7 +113,7 @@ export const watchStateNASSP = (callback) => {
                 Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
             }
             lastState = state
-            handleAGCUpdate(state.Standby ? {...OFF_TEST, Standby: true} : state)
+            handleAGCUpdate(state.Standby ? {...state, Brightness: 1} : state)
         }
     });
   
