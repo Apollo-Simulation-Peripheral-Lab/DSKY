@@ -94,10 +94,10 @@ export const watchStateNASSP = (callback) => {
                 Register3D3: r3[3].replace(' ',''),
                 Register3D4: r3[4].replace(' ',''),
                 Register3D5: r3[5].replace(' ',''),
-                Standby: powered == '0'
+                Standby: powered != '1 1'
             }
             lastState = state
-            handleAGCUpdate(state)
+            handleAGCUpdate(state.Standby ? {...state, Brightness: 1} : state)
         }
     });
 
@@ -113,7 +113,7 @@ export const watchStateNASSP = (callback) => {
                 Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
             }
             lastState = state
-            handleAGCUpdate(state)
+            handleAGCUpdate(state.Standby ? {...state, Brightness: 1} : state)
         }
     });
   
