@@ -145,7 +145,7 @@ const stateToBinaryString = (state) =>{
     ) // B13
     bits += decimalToByte(
         // Only values from 1 to 127 will be sent
-        state.Brightness ? Math.min(state.Brightness, 127) : 127
+        state.IntegralBrightness ? Math.min(state.IntegralBrightness, 127) : 127
     ) // B13
     return bits
 }
