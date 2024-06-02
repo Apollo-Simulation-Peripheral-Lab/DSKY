@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "DSKY Main Board")
-		(date "2024-03-24")
-		(rev "0.3.x")
+		(date "2024-06-02")
+		(rev "0.4.x")
 		(company "Pablo Ortiz López, Evan MacDonald")
 	)
 	(lib_symbols
