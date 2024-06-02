@@ -189,17 +189,14 @@ export default function Home() {
           className="mask"
         />
       </div>
-      <div className="ELDisplay" style={{opacity: (dskyState.Brightness || 127) / 127}}> 
-        {!dskyState.Standby ? 
-          <Image
-            alt={'basic_segments'}
-            src={'./basic_segments.svg'}
-            width={1000}
-            height={1000}
-            className="basic_segments"
-          ></Image> : 
-          <></>
-        }
+      <div className="ELDisplay" style={{opacity: dskyState.Standby ? 0 : (dskyState.Brightness || 127) / 127}}>  
+        <Image
+          alt={'basic_segments'}
+          src={'./basic_segments.svg'}
+          width={1000}
+          height={1000}
+          className="basic_segments"
+        ></Image>
         {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
