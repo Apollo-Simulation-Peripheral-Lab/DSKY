@@ -5,9 +5,10 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
 
 ## Quick start
 
+**Do you want a DSKY but can't build one? Buy one [here](https://shop.ortizma.com)**
+
 **Do you just want to have a DSKY display in your web browser?**
   - Make sure you have NodeJS > 18
-  - At the moment the software is only supported on Windows.
   - Run start.bat and answer the prompts
 
 **Do you want to build the whole DSKY replica?**
@@ -15,9 +16,9 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
     - **You will need to choose whether you want to use an LCD board or a phone as the display**
     - Currently supported phones are:
       - iPhone 12 Mini
-    - Currently supported LCD boards are:
-      - ILI9488
-      - ILI9341 
+      - iPhone 13
+    - Currently supported LCD displays are:
+      - 40-Pin 5" LCD display using HDMI driver board
   - Build the PCB's:
     - Order the PCB gerber files that you can find in the Boards folder
     - Order the PCB components that you can find in the .csv files in the Boards folder
@@ -28,7 +29,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
     - File -> Open Workspace from File -> DSKY.code-workspace
     - Within PlatformIO's menu, flash the firmware into your Arduino Nano
   - Make sure you have NodeJS > 18
-  - Run start.bat
+  - Run start.bat in your PC
 
 ## Repository contents:
 * **Documentation**: Useful information to better understand how the different pieces of the puzzle talk to each other
