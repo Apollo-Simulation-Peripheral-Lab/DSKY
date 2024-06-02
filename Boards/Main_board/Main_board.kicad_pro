@@ -467,7 +467,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "Main_board.net",
-      "plot": "",
+      "plot": "Gerber Files/",
       "pos_files": "",
       "specctra_dsn": "Main_board.dsn",
       "step": "Main_board.step",
