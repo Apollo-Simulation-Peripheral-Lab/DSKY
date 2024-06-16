@@ -44,8 +44,8 @@ void loop() {
       dskyState[memoryLocation] = receivedByte; // Store the byte in the array
       memoryLocation = (memoryLocation + 1) % PACKET_SIZE; // Increment array index and wrap around if necessary
     }
+    updateAlarms(dskyState);
   }
-  updateAlarms(dskyState);
   char pressedKey = getKey();
   if(pressedKey){
     Serial.println(pressedKey);
