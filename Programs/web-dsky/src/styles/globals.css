@@ -9,7 +9,7 @@
 @import url('register3.css');
 
 :root{
-  --scale: 1;
+  --scale: 1.05;
 }
 .display-iphone13{
   --scale: 0.83;
