@@ -7,6 +7,8 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
 
 **Do you want a DSKY but can't build one? Buy one [here](https://shop.ortizma.com)**
 
+**Need Help? Join our Discord [here](https://discord.gg/CHZaYj5UNu)**
+
 **Do you just want to have a DSKY display in your web browser?**
   - Make sure you have NodeJS > 18
   - Run start.bat and answer the prompts
