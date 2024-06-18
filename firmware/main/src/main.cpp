@@ -31,7 +31,7 @@ void loop() {
   if (!serialByteReceived && millis() - lastRandomUpdate >= randomUpdateInterval) {
     lastRandomUpdate = millis();
     generateRandomDskyState();
-    updateAlarms(dskyState); // Update alarms with the generated random state
+    updateAlarms(dskyState);
   }
 
   if(Serial.available() > 0){
@@ -44,7 +44,8 @@ void loop() {
       dskyState[memoryLocation] = receivedByte; // Store the byte in the array
       memoryLocation = (memoryLocation + 1) % PACKET_SIZE; // Increment array index and wrap around if necessary
     }
-  }
+  } 
+  // Update alarms in every cycle so that bad IO chips can still work
   updateAlarms(dskyState);
   char pressedKey = getKey();
   if(pressedKey){
