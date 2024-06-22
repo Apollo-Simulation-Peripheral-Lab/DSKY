@@ -1,6 +1,7 @@
 *-backups/*
 gerbers
 *.zip
+*.7z
 *.lck
 fp-info-cache
 *#auto_saved_files#
