@@ -468,7 +468,7 @@
       "idf": "",
       "netlist": "Main_board.net",
       "plot": "Gerber Files/",
-      "pos_files": "",
+      "pos_files": "CPL/",
       "specctra_dsn": "Main_board.dsn",
       "step": "Main_board.step",
       "svg": "",
