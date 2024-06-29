@@ -5,7 +5,7 @@ import { createWatcher } from "@/filesystem"
 import { OFF_TEST } from './dskyStates';
 
 let inputServer = dgram.createSocket('udp4');
-let state : any = OFF_TEST // I am too lazy to type everything, consider doing it yourself.
+let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
 
 const CMButtons = {
     'v' : 1,
