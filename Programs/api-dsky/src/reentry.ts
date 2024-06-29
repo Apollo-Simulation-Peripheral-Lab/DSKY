@@ -1,30 +1,55 @@
 import * as fs from 'fs';
+import * as dgram from 'node:dgram'
 import getAppDataPath from "appdata-path";
-import { keyboard, Key } from "@nut-tree-fork/nut-js"
 import { createWatcher } from "@/filesystem"
+import { OFF_TEST } from './dskyStates';
 
-// Define key map, duh
-const keyMap = {
-    '0': [Key.NumPad0],
-    '1': [Key.NumPad1],
-    '2': [Key.NumPad2],
-    '3': [Key.NumPad3],
-    '4': [Key.NumPad4],
-    '5': [Key.NumPad5],
-    '6': [Key.NumPad6],
-    '7': [Key.NumPad7],
-    '8': [Key.NumPad8],
-    '9': [Key.NumPad9],
-    'e': [Key.End],
-    'p': [Key.RightShift, Key.End],
-    'v': [Key.Home],
-    'n': [Key.RightShift, Key.Multiply],
-    '+': [Key.RightShift, Key.Add],
-    '-': [Key.RightShift, Key.Subtract],
-    'c': [Key.Decimal],
-    'r': [Key.RightShift, Key.PageUp],
-    'k': [Key.RightShift, Key.Home]
-};
+let inputServer = dgram.createSocket('udp4');
+let state : any = OFF_TEST // I am too lazy to type everything, consider doing it yourself.
+
+const CMButtons = {
+    'v' : 1,
+    'n' : 2,
+    '+' : 3,
+    '-' : 4,
+    '0' : 5,
+    '1' : 6,
+    '2' : 7,
+    '3' : 8,
+    '4' : 9,
+    '5' : 10,
+    '6' : 11,
+    '7' : 12,
+    '8' : 13,
+    '9' : 14,
+    'c' : 15,
+    'p' : 16,
+    'k' : 17,
+    'e' : 18,
+    'r' : 19,
+}
+
+const LMButtons = {
+    'v' : 7,
+    'n' : 8,
+    '+' : 9,
+    '-' : 10,
+    '0' : 11,
+    '1' : 12,
+    '2' : 13,
+    '3' : 14,
+    '4' : 15,
+    '5' : 16,
+    '6' : 17,
+    '7' : 18,
+    '8' : 19,
+    '9' : 20,
+    'c' : 21,
+    'p' : 22,
+    'k' : 23,
+    'e' : 24,
+    'r' : 25,
+}
 
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
@@ -34,9 +59,10 @@ export const watchStateReentry = (callback) => {
     
     const handleStateUpdate = (path, condition, callback) => {
         try {
-            const state = JSON.parse(fs.readFileSync(path).toString());
-            if (condition(state)) {
-                callback(state);
+            const newState = JSON.parse(fs.readFileSync(path).toString());
+            if (condition(newState)) {
+                state = newState
+                callback(newState);
             }
         } catch (error) {
             console.error(`Error while parsing ${path}: ${error.message}`); // reentry should never mess up, right?
@@ -58,26 +84,24 @@ export const watchStateReentry = (callback) => {
     createWatcher(LGC_PATH, handleLGCUpdate);
 };
 
-let isTyping = false
-
 export const getReentryKeyboardHandler = () => {
-    keyboard.config.autoDelayMs = 1 // Define this setting here, we may want to use other values in other handlers
 
     return async (data) => {
-        try {
-            const keysToSend = keyMap[data];
-            if(isTyping){
-                console.log(`Key '${data}' skipped because a keypress is already in progress`)
-            }else if (keysToSend) {
-                isTyping = true
-                await keyboard.pressKey(...keysToSend);
-                await keyboard.releaseKey(...keysToSend);
-                isTyping = false
-            } else {
-                console.error(`Key combination for '${data}' not found.`);
+        try{
+            const IsInCM = !!state.IsInCM
+            const buttonMap = IsInCM ? CMButtons : LMButtons
+            const buttonToPress = buttonMap[data]
+            if(!buttonToPress) return 
+            const dataPacket = {
+                TargetCraft: IsInCM ? 2 : 3,
+                MessageType: 1,
+                ID: buttonToPress,
+                toPos: 0
             }
+            inputServer.send(JSON.stringify(dataPacket), 8051,'127.0.0.1')
+            //console.log({dataPacket})
         } catch (error) {
-            console.error('Error sending key combination: ', error);
+            console.error('Error sending button press: ', error);
         }
     }
 };
