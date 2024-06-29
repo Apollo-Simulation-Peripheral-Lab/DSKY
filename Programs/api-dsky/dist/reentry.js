@@ -11,30 +11,53 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getReentryKeyboardHandler = exports.watchStateReentry = void 0;
 const fs = require("fs");
+const dgram = require("node:dgram");
 const appdata_path_1 = require("appdata-path");
-const nut_js_1 = require("@nut-tree-fork/nut-js");
 const filesystem_1 = require("./filesystem");
-// Define key map, duh
-const keyMap = {
-    '0': [nut_js_1.Key.NumPad0],
-    '1': [nut_js_1.Key.NumPad1],
-    '2': [nut_js_1.Key.NumPad2],
-    '3': [nut_js_1.Key.NumPad3],
-    '4': [nut_js_1.Key.NumPad4],
-    '5': [nut_js_1.Key.NumPad5],
-    '6': [nut_js_1.Key.NumPad6],
-    '7': [nut_js_1.Key.NumPad7],
-    '8': [nut_js_1.Key.NumPad8],
-    '9': [nut_js_1.Key.NumPad9],
-    'e': [nut_js_1.Key.End],
-    'p': [nut_js_1.Key.RightShift, nut_js_1.Key.End],
-    'v': [nut_js_1.Key.Home],
-    'n': [nut_js_1.Key.RightShift, nut_js_1.Key.Multiply],
-    '+': [nut_js_1.Key.RightShift, nut_js_1.Key.Add],
-    '-': [nut_js_1.Key.RightShift, nut_js_1.Key.Subtract],
-    'c': [nut_js_1.Key.Decimal],
-    'r': [nut_js_1.Key.RightShift, nut_js_1.Key.PageUp],
-    'k': [nut_js_1.Key.RightShift, nut_js_1.Key.Home]
+const dskyStates_1 = require("./dskyStates");
+let inputServer = dgram.createSocket('udp4');
+let state = dskyStates_1.OFF_TEST; // I am too lazy to type everything, consider doing it yourself.
+const CMButtons = {
+    'v': 1,
+    'n': 2,
+    '+': 3,
+    '-': 4,
+    '0': 5,
+    '1': 6,
+    '2': 7,
+    '3': 8,
+    '4': 9,
+    '5': 10,
+    '6': 11,
+    '7': 12,
+    '8': 13,
+    '9': 14,
+    'c': 15,
+    'p': 16,
+    'k': 17,
+    'e': 18,
+    'r': 19,
+};
+const LMButtons = {
+    'v': 7,
+    'n': 8,
+    '+': 9,
+    '-': 10,
+    '0': 11,
+    '1': 12,
+    '2': 13,
+    '3': 14,
+    '4': 15,
+    '5': 16,
+    '6': 17,
+    '7': 18,
+    '8': 19,
+    '9': 20,
+    'c': 21,
+    'p': 22,
+    'k': 23,
+    'e': 24,
+    'r': 25,
 };
 const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${(0, appdata_path_1.default)()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
@@ -42,9 +65,10 @@ const watchStateReentry = (callback) => {
     const LGC_PATH = `${APOLLO_PATH}\\outputLGC.json`;
     const handleStateUpdate = (path, condition, callback) => {
         try {
-            const state = JSON.parse(fs.readFileSync(path).toString());
-            if (condition(state)) {
-                callback(state);
+            const newState = JSON.parse(fs.readFileSync(path).toString());
+            if (condition(newState)) {
+                state = newState;
+                callback(newState);
             }
         }
         catch (error) {
@@ -64,27 +88,25 @@ const watchStateReentry = (callback) => {
     (0, filesystem_1.createWatcher)(LGC_PATH, handleLGCUpdate);
 };
 exports.watchStateReentry = watchStateReentry;
-let isTyping = false;
 const getReentryKeyboardHandler = () => {
-    nut_js_1.keyboard.config.autoDelayMs = 1; // Define this setting here, we may want to use other values in other handlers
     return (data) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const keysToSend = keyMap[data];
-            if (isTyping) {
-                console.log(`Key '${data}' skipped because a keypress is already in progress`);
-            }
-            else if (keysToSend) {
-                isTyping = true;
-                yield nut_js_1.keyboard.pressKey(...keysToSend);
-                yield nut_js_1.keyboard.releaseKey(...keysToSend);
-                isTyping = false;
-            }
-            else {
-                console.error(`Key combination for '${data}' not found.`);
-            }
+            const IsInCM = !!state.IsInCM;
+            const buttonMap = IsInCM ? CMButtons : LMButtons;
+            const buttonToPress = buttonMap[data];
+            if (!buttonToPress)
+                return;
+            const dataPacket = {
+                TargetCraft: IsInCM ? 2 : 3,
+                MessageType: 1,
+                ID: buttonToPress,
+                toPos: 0
+            };
+            inputServer.send(JSON.stringify(dataPacket), 8051, '127.0.0.1');
+            //console.log({dataPacket})
         }
         catch (error) {
-            console.error('Error sending key combination: ', error);
+            console.error('Error sending button press: ', error);
         }
     });
 };
