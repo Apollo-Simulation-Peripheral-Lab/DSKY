@@ -13,6 +13,7 @@ const reentry_1 = require("./reentry");
 const nassp_1 = require("./nassp");
 const ksp_1 = require("./ksp");
 const yaAGC_1 = require("./yaAGC");
+const homeassistant_1 = require("./homeassistant");
 const bridge_1 = require("./bridge");
 const random_1 = require("./random");
 const serial_1 = require("./serial");
@@ -34,6 +35,8 @@ const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, 
             return yield (0, bridge_1.watchStateBridge)(callback);
         case "yaagc":
             return (0, yaAGC_1.watchStateYaAGC)(callback);
+        case "homeassistant":
+            return (0, homeassistant_1.watchStateHA)(callback);
         case "random":
         default:
             return yield (0, random_1.watchStateRandom)(callback);
@@ -53,6 +56,8 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
             return yield (0, bridge_1.getBridgeKeyboardHandler)();
         case "yaagc":
             return yield (0, yaAGC_1.getYaAGCKeyboardHandler)();
+        case "homeassistant":
+            return yield (0, homeassistant_1.getHAKeyboardHandler)();
         default:
             return (_data) => { };
     }

@@ -16,7 +16,7 @@ const appdata_path_1 = require("appdata-path");
 const filesystem_1 = require("./filesystem");
 const dskyStates_1 = require("./dskyStates");
 let inputServer = dgram.createSocket('udp4');
-let state = dskyStates_1.OFF_TEST; // I am too lazy to type everything, consider doing it yourself.
+let state = Object.assign({}, dskyStates_1.OFF_TEST); // I am too lazy to type everything, consider doing it yourself.
 const CMButtons = {
     'v': 1,
     'n': 2,
