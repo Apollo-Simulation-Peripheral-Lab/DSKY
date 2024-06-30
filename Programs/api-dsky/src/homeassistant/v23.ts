@@ -1,25 +1,26 @@
 import { internalState, nouns, verbs } from "."
 
-export const v21 = () =>{
+export const v23 = () =>{
     try{
         if(!internalState.verbNounFlashing){
-            internalState.inputMode = 'register1'
+            internalState.inputMode = 'register3'
             internalState.verbNounFlashing = true;
-            internalState.register1 = '';
+            internalState.register3 = '';
         }else{
             internalState.inputMode = ''
             nouns[internalState.noun] = [
-                Number(internalState.register1),
+                nouns[internalState.noun][0],
                 nouns[internalState.noun][1],
-                nouns[internalState.noun][2],
+                Number(internalState.register3),
             ]
             internalState.verbNounFlashing = false
             if(internalState.verbStack[internalState.verbStack.length -1]){
+                internalState.verb = internalState.verbStack[internalState.verbStack.length -1]
                 verbs[internalState.verbStack[internalState.verbStack.length -1]]()
             }
         }
     }catch(e){
-        console.log("V21 fail")
+        console.log("V23 fail")
         console.error(e)
     }
 }
