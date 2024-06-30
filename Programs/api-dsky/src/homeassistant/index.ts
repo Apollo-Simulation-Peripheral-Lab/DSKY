@@ -6,6 +6,7 @@ import { v22 } from './v22'
 import { v23 } from './v23'
 import { v37 } from './v37'
 import { v40 } from './v40'
+import {runClock} from './clock'
 
 export let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
 export const programs = {
@@ -23,7 +24,8 @@ export const verbs = {
 
 export const nouns = {
     '01': [0,0,0],
-    '02': [1,2,3]
+    '02': [1,2,3],
+    '36': [0,0,0]
 }
 
 export const internalState = {
@@ -145,3 +147,5 @@ const keyboardHandler = (input: string) => {
 export const getHAKeyboardHandler = async () =>{
     return keyboardHandler
 }
+
+setInterval(runClock, 1000)
