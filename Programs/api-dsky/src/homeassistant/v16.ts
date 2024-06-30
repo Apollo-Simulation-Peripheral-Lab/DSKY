@@ -10,6 +10,7 @@ export const v16 = () =>{
     try{
         if(refreshInterval) clearInterval(refreshInterval)
         internalState.inputMode = ''
+        internalState.verb = '16'
         internalState.verbStack.push('16')
         const refresh = async () =>{
             if(internalState.verb != '16'){

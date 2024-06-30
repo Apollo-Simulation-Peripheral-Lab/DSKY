@@ -2,6 +2,8 @@ import { OFF_TEST } from '../dskyStates';
 import { p00 } from './p00'
 import { v16 } from './v16'
 import { v21 } from './v21'
+import { v22 } from './v22'
+import { v23 } from './v23'
 import { v37 } from './v37'
 import { v40 } from './v40'
 
@@ -13,6 +15,8 @@ export const programs = {
 export const verbs = {
     '16': v16,
     '21': v21,
+    '22': v22,
+    '23': v23,
     '37': v37,
     '40': v40
 }
@@ -107,7 +111,6 @@ const keyboardHandler = (input: string) => {
         internalState.operatorErrorActive = false;
         internalState.verbNounFlashing = false;
     }else if (input === 'c'){
-        console.log({inputMode})
         if(inputMode){
             internalState[inputMode] = ''
         }
