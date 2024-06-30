@@ -9,9 +9,9 @@ export const v22 = () =>{
         }else{
             internalState.inputMode = ''
             nouns[internalState.noun] = [
-                nouns[internalState.noun][0],
-                Number(internalState.register2),
-                nouns[internalState.noun][2],
+                nouns[internalState.noun][0] || 0,
+                Number(internalState.register2) || 0,
+                nouns[internalState.noun][2] || 0,
             ]
             internalState.verbNounFlashing = false
             if(internalState.verbStack[internalState.verbStack.length -1]){
