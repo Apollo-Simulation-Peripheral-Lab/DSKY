@@ -14,7 +14,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
   - Run start.bat and answer the prompts
 
 **Do you want to build the whole DSKY replica?**
-  - Print the .3mf meshes found in the '3D Models' folder. 
+  - Print the .3mf/.stl meshes found in the '3D Models' folder. 
     - **You will need to choose whether you want to use an LCD board or a phone as the display**
     - Currently supported phones are:
       - iPhone 12 Mini
