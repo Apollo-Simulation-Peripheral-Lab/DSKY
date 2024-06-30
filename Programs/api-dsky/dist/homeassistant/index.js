@@ -9,27 +9,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getHAKeyboardHandler = exports.watchStateHA = void 0;
+exports.getHAKeyboardHandler = exports.watchStateHA = exports.internalState = exports.verbs = exports.programs = exports.state = void 0;
 const dskyStates_1 = require("../dskyStates");
-let state = Object.assign({}, dskyStates_1.OFF_TEST); // I am too lazy to type everything, consider doing it yourself.
-let mode = '';
-let verbNounFlashing = false;
-let flashState = false;
-let operatorErrorActive = false;
-let verbValue = '';
-let nounValue = '';
-let programValue = '';
+const p00_1 = require("./p00");
+const v37_1 = require("./v37");
+exports.state = Object.assign({}, dskyStates_1.OFF_TEST); // I am too lazy to type everything, consider doing it yourself.
+exports.programs = {
+    '00': p00_1.p00,
+};
+exports.verbs = {
+    '37': v37_1.v37
+};
+exports.internalState = {
+    inputMode: '',
+    verbNounFlashing: false,
+    flashState: false,
+    operatorErrorActive: false,
+    verbValue: '',
+    nounValue: '',
+    programValue: ''
+};
 let setState = (_state) => { };
 let flashTicks = 0;
 const drawState = () => {
+    const { flashState, operatorErrorActive, verbNounFlashing, programValue, verbValue, nounValue } = exports.internalState;
     flashTicks++;
     if (flashTicks >= 20) {
-        flashState = !flashState;
+        exports.internalState.flashState = !flashState;
         flashTicks = 0;
     }
     // Maybe we shouldn't need to reassign the variable but we currently need to because of complex reasons.
-    state = Object.assign(Object.assign({}, state), { IlluminateOprErr: operatorErrorActive && flashState ? 1 : 0, VerbD1: (!verbNounFlashing || flashState) ? (verbValue[0] || '') : '', VerbD2: (!verbNounFlashing || flashState) ? (verbValue[1] || '') : '', NounD1: (!verbNounFlashing || flashState) ? (nounValue[0] || '') : '', NounD2: (!verbNounFlashing || flashState) ? (nounValue[1] || '') : '', ProgramD1: programValue[0] || '', ProgramD2: programValue[1] || '' });
-    setState(state);
+    exports.state = Object.assign(Object.assign({}, exports.state), { IlluminateOprErr: operatorErrorActive && flashState ? 1 : 0, VerbD1: (!verbNounFlashing || flashState) ? (verbValue[0] || '') : '', VerbD2: (!verbNounFlashing || flashState) ? (verbValue[1] || '') : '', NounD1: (!verbNounFlashing || flashState) ? (nounValue[0] || '') : '', NounD2: (!verbNounFlashing || flashState) ? (nounValue[1] || '') : '', ProgramD1: programValue[0] || '', ProgramD2: programValue[1] || '' });
+    setState(exports.state);
 };
 let drawInterval;
 const watchStateHA = (callback) => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,40 +51,30 @@ const watchStateHA = (callback) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.watchStateHA = watchStateHA;
 const keyboardHandler = (input) => {
+    const { inputMode, verbValue, nounValue } = exports.internalState;
     if (input === 'v') {
-        mode = 'verb';
-        verbValue = '';
-        state.VerbD1 = '';
-        state.VerbD2 = '';
+        exports.internalState.inputMode = 'verb';
+        exports.internalState.verbValue = '';
     }
-    else if (mode === 'verb' && /^[0-9]$/.test(input)) {
+    else if (inputMode === 'verb' && /^[0-9]$/.test(input)) {
         if (!verbValue[1])
-            verbValue += input;
+            exports.internalState.verbValue += input;
     }
     else if (input === 'e') {
-        if (verbValue === '37' && !verbNounFlashing) {
-            mode = 'noun';
-            nounValue = '';
-            verbNounFlashing = true;
-        }
-        else if (verbValue === '37' && verbNounFlashing && nounValue === '10') {
-            mode = '';
-            programValue = '10';
-            verbValue = '';
-            nounValue = '';
-            verbNounFlashing = false;
+        if (exports.verbs[verbValue]) {
+            exports.verbs[verbValue]();
         }
         else {
-            operatorErrorActive = true;
+            exports.internalState.operatorErrorActive = true;
         }
     }
-    else if (mode === 'noun' && /^[0-9]$/.test(input)) {
+    else if (inputMode === 'noun' && /^[0-9]$/.test(input)) {
         if (!nounValue[1])
-            nounValue += input;
+            exports.internalState.nounValue += input;
     }
     else if (input === 'r') {
-        operatorErrorActive = false;
-        verbNounFlashing = false;
+        exports.internalState.operatorErrorActive = false;
+        exports.internalState.verbNounFlashing = false;
     }
 };
 const getHAKeyboardHandler = () => __awaiter(void 0, void 0, void 0, function* () {
