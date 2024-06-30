@@ -1,5 +1,7 @@
 import { OFF_TEST } from '../dskyStates';
 import { p00 } from './p00'
+import { v16 } from './v16'
+import { v21 } from './v21'
 import { v37 } from './v37'
 import { v40 } from './v40'
 
@@ -9,13 +11,15 @@ export const programs = {
 }
 
 export const verbs = {
+    '16': v16,
+    '21': v21,
     '37': v37,
     '40': v40
 }
 
 export const nouns = {
     '01': [0,0,0],
-    '02': [0,0,0]
+    '02': [1,2,3]
 }
 
 export const internalState = {
@@ -26,10 +30,11 @@ export const internalState = {
     verb : '',
     noun : '',
     program : '',
-    extendedVerb: '',
+    verbStack : [],
     register1: '',
     register2: '',
-    register3: ''
+    register3: '',
+    compActy: false
 }
 
 let setState = (_state) => {}
@@ -39,6 +44,7 @@ const drawState = () => {
     const {
         flashState, 
         operatorErrorActive, 
+        compActy,
         verbNounFlashing, 
         program, 
         verb,
@@ -57,6 +63,7 @@ const drawState = () => {
     state = {
         ...state,
         IlluminateOprErr: operatorErrorActive && flashState ? 1 : 0,
+        IlluminateCompLight: compActy,
         VerbD1: (!verbNounFlashing || flashState) ? (verb[0] || '') : '',
         VerbD2: (!verbNounFlashing || flashState) ? (verb[1] || '') : '',
         NounD1: (!verbNounFlashing || flashState) ? (noun[0] || '') : '',
