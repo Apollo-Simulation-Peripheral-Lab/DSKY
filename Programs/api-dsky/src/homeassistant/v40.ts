@@ -2,8 +2,9 @@ import { internalState } from "."
 
 export const v40 = () =>{
     try{
-        internalState.verbValue = '37'
-        internalState.inputMode = 'noun'
+        internalState.verb = '21'
+        internalState.noun = '01'
+        internalState.inputMode = 'register1'
         internalState.verbNounFlashing = true;
     }catch{
         console.log("V40 fail")

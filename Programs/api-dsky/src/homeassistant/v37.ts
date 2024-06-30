@@ -1,14 +1,14 @@
 import { internalState, programs } from "."
 
 export const v37 = () =>{
-    const {verbNounFlashing, nounValue} = internalState
+    const {verbNounFlashing, noun: nounValue} = internalState
     try{
         if (!verbNounFlashing) {
             internalState.inputMode = 'noun';
-            internalState.nounValue = '';
+            internalState.noun = '';
             internalState.verbNounFlashing = true;
         }else if(verbNounFlashing && programs[nounValue]){
-            internalState.programValue = nounValue
+            internalState.program = nounValue
             internalState.inputMode = ''
             internalState.verbNounFlashing = false
             programs[nounValue]()
