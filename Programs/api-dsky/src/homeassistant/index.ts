@@ -1,6 +1,7 @@
 import { OFF_TEST } from '../dskyStates';
 import { p00 } from './p00'
 import { v37 } from './v37'
+import { v40 } from './v40'
 
 export let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
 export const programs = {
@@ -8,7 +9,8 @@ export const programs = {
 }
 
 export const verbs = {
-    '37': v37
+    '37': v37,
+    '40': v40
 }
 
 export const internalState = {
