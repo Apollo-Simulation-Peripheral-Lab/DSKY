@@ -1,21 +1,34 @@
 import { OFF_TEST } from '../dskyStates';
+import { p00 } from './p00'
+import { v37 } from './v37'
 
-let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
-let mode = '';
-let verbNounFlashing = false;
-let flashState = false;
-let operatorErrorActive = false;
-let verbValue = '';
-let nounValue = '';
-let programValue = '';
+export let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
+export const programs = {
+    '00': p00,
+}
+
+export const verbs = {
+    '37': v37
+}
+
+export const internalState = {
+    inputMode : '',
+    verbNounFlashing : false,
+    flashState : false,
+    operatorErrorActive : false,
+    verbValue : '',
+    nounValue : '',
+    programValue : ''
+}
 
 let setState = (_state) => {}
 
 let flashTicks = 0
 const drawState = () => {
+    const {flashState, operatorErrorActive, verbNounFlashing, programValue, verbValue,nounValue} = internalState
     flashTicks++
     if(flashTicks >= 20){
-        flashState = !flashState;
+        internalState.flashState = !flashState;
         flashTicks = 0
     }
 
@@ -43,34 +56,25 @@ export const watchStateHA = async (callback) =>{
 }
 
 const keyboardHandler = (input: string) => {
+    const { inputMode, verbValue, nounValue } = internalState
     if (input === 'v') {
-        mode = 'verb';
-        verbValue = '';
-        state.VerbD1 = '';
-        state.VerbD2 = '';
-    } else if (mode === 'verb' && /^[0-9]$/.test(input)) {
+        internalState.inputMode = 'verb';
+        internalState.verbValue = '';
+    } else if (inputMode === 'verb' && /^[0-9]$/.test(input)) {
         if(!verbValue[1])
-        verbValue += input;
+        internalState.verbValue += input;
     } else if (input === 'e') {
-        if (verbValue === '37' && !verbNounFlashing) {
-            mode = 'noun';
-            nounValue = '';
-            verbNounFlashing = true;
-        }else if(verbValue === '37' && verbNounFlashing && nounValue === '10'){
-            mode = ''
-            programValue = '10'
-            verbValue=''
-            nounValue=''
-            verbNounFlashing = false
+        if(verbs[verbValue]){
+            verbs[verbValue]()
         } else {
-            operatorErrorActive = true;
+            internalState.operatorErrorActive = true;
         }
-    } else if (mode === 'noun' && /^[0-9]$/.test(input)) {
+    } else if (inputMode === 'noun' && /^[0-9]$/.test(input)) {
         if(!nounValue[1])
-        nounValue += input;
+            internalState.nounValue += input;
     } else if (input === 'r') {
-        operatorErrorActive = false;
-        verbNounFlashing = false;
+        internalState.operatorErrorActive = false;
+        internalState.verbNounFlashing = false;
     }
 };
 
