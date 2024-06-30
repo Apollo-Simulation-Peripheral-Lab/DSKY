@@ -112,7 +112,8 @@ export const watchStateNASSP = (callback) => {
             const {brightness} = parsedJSON
             const state = {
                 ...lastState,
-                Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
+                Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1),
+                IntegralBrightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
             }
             lastState = state
             handleAGCUpdate(state)
