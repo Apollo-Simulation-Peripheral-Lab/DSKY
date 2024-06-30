@@ -66,6 +66,14 @@ const watchStateReentry = (callback) => {
     const handleStateUpdate = (path, condition, callback) => {
         try {
             const newState = JSON.parse(fs.readFileSync(path).toString());
+            if (newState.HideVerb) {
+                newState.VerbD1 = '';
+                newState.VerbD2 = '';
+            }
+            if (newState.HideNoun) {
+                newState.NounD1 = '';
+                newState.NounD2 = '';
+            }
             if (condition(newState)) {
                 state = newState;
                 callback(newState);
