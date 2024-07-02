@@ -137,6 +137,9 @@ export const getYaAGCPort = async () => {
             console.log(`stdout: ${stdout}`);
         });
 
+        // Wait for AGC to start
+        await new Promise(r => setTimeout(r,5000))
+
         return 4000
     }
 }
