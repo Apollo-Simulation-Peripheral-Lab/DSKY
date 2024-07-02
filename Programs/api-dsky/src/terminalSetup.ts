@@ -2,6 +2,8 @@ import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
 import * as robot from 'robotjs'
 import { execFile } from 'node:child_process'
+import * as path from 'path'
+import * as os from 'os'
 
 export const getInputSource = async() =>{
     const {inputSource} = await new Promise(r => 
@@ -114,19 +116,15 @@ export const getYaAGCPort = async () => {
         return port
     }else{
         const mode = version.includes('Luminary') ? 'LM' : 'CM';
-        
-        // Define the command and its arguments
-        const command = '~/VirtualAGC/bin/yaAGC';
+        const command = path.resolve(os.homedir(), 'VirtualAGC/bin/yaAGC');
         const args = [
             `--core=source/${version}/${version}.bin`,
             `--cfg=${mode}.ini`,
             '--port=4000'
         ];
+        const cwd = path.resolve(os.homedir(), 'VirtualAGC/Resources');
 
-        // Define the working directory
-        const cwd = '~/VirtualAGC/Resources';
-
-        // Start the process
+        // Start yaAGC
         execFile(command, args, { cwd }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error: ${error.message}`);
