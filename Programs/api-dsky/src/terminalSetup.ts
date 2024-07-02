@@ -1,6 +1,7 @@
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
 import * as robot from 'robotjs'
+import { execFile } from 'node:child_process'
 
 export const getInputSource = async() =>{
     const {inputSource} = await new Promise(r => 
@@ -85,15 +86,58 @@ export const getBridgeHost = async () => {
 }
 
 export const getYaAGCPort = async () => {
-    const {port} = await new Promise(r => 
+    const {version} = await new Promise(r => 
         inquirer.prompt({
-            message: "Select the port where the yaAGC is listening: ",
-            name: 'port',
-            type: 'input',
-            default: 4000
+            message: "Do you want the API to start any of these AGCs?",
+            name: 'version',
+            type: 'list',
+            choices: [
+                {name:'Comanche055', value: 'Comanche055'},
+                {name:'Luminary099', value: 'Luminary099'},
+                {name:'Luminary210', value: 'Luminary210'},
+                {name:'Start my own YaAGC', value: 'own'}
+            ]
         }).then(r)
     ) as any
-    return port
+    if(version == 'own'){
+        const {port} = await new Promise(r => 
+            inquirer.prompt({
+                message: "Select the port where the yaAGC is listening: ",
+                name: 'port',
+                type: 'input',
+                default: 4000
+            }).then(r)
+        ) as any
+        return port
+    }else{
+        const mode = version.includes('Luminary') ? 'LM' : 'CM';
+        
+        // Define the command and its arguments
+        const command = '../bin/yaAGC';
+        const args = [
+            `--core=source/${version}/${version}.bin`,
+            `--cfg=${mode}.ini`,
+            '--port=4000'
+        ];
+
+        // Define the working directory
+        const cwd = '~/VirtualAGC/Resources';
+
+        // Start the process
+        execFile(command, args, { cwd }, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.error(`stderr: ${stderr}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+        });
+
+        return 4000
+    }
 }
 
 const keyMap = {
