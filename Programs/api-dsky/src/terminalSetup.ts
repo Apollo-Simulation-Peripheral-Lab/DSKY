@@ -14,7 +14,7 @@ export const getInputSource = async() =>{
             choices: [
                 {name:'yaAGC', value: 'yaagc'},
                 {name:'Random Values', value: 'random'},
-                {name:'HomeAssistant (Early access)', value: 'homeassistant'},
+                {name:'HomeAssistant (WIP)', value: 'homeassistant'},
                 {name:'Bridge to another DSKY API', value: 'bridge'}
             ]
         }).then(r)
