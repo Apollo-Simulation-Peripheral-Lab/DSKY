@@ -11,9 +11,7 @@ if [ "$1" = "api" ];then
     done
 else
     xttitle web-dsky
+    x-terminal-emulator -e "~/DSKY/orangepi.sh api" &>/dev/null &
     cd ~/DSKY/Programs/web-dsky
     npm start
-    sleep 5
-    x-terminal-emulator -e "~/DSKY/orangepi.sh api" &>/dev/null &
-    sleep 5
 fi
