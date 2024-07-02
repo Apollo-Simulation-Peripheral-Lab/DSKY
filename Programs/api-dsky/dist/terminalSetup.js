@@ -124,6 +124,8 @@ const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             console.log(`stdout: ${stdout}`);
         });
+        // Wait for AGC to start
+        yield new Promise(r => setTimeout(r, 5000));
         return 4000;
     }
 });
