@@ -107,7 +107,11 @@ const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
         return port;
     }
     else {
-        const mode = version.includes('Luminary') ? 'LM' : 'CM';
+        const lmModes = {
+            Luminary099: 'LM',
+            Luminary210: 'LM1'
+        };
+        const mode = lmModes[version] || 'CM';
         const command = path.resolve(os.homedir(), 'VirtualAGC/bin/yaAGC');
         const args = [
             `--core=source/${version}/${version}.bin`,
