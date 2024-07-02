@@ -113,7 +113,7 @@ export const getYaAGCPort = async () => {
         const mode = version.includes('Luminary') ? 'LM' : 'CM';
         
         // Define the command and its arguments
-        const command = '../bin/yaAGC';
+        const command = '~/VirtualAGC/bin/yaAGC';
         const args = [
             `--core=source/${version}/${version}.bin`,
             `--cfg=${mode}.ini`,

@@ -18,6 +18,7 @@ const v22_1 = require("./v22");
 const v23_1 = require("./v23");
 const v37_1 = require("./v37");
 const v40_1 = require("./v40");
+const clock_1 = require("./clock");
 exports.state = Object.assign({}, dskyStates_1.OFF_TEST); // I am too lazy to type everything, consider doing it yourself.
 exports.programs = {
     '00': p00_1.p00,
@@ -32,7 +33,8 @@ exports.verbs = {
 };
 exports.nouns = {
     '01': [0, 0, 0],
-    '02': [1, 2, 3]
+    '02': [1, 2, 3],
+    '36': [0, 0, 0]
 };
 exports.internalState = {
     inputMode: '',
@@ -117,3 +119,4 @@ const getHAKeyboardHandler = () => __awaiter(void 0, void 0, void 0, function* (
     return keyboardHandler;
 });
 exports.getHAKeyboardHandler = getHAKeyboardHandler;
+setInterval(clock_1.runClock, 1000);
