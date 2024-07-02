@@ -13,6 +13,7 @@ exports.getSetupKeyboardHandler = exports.getYaAGCPort = exports.getBridgeHost =
 const serialport_1 = require("serialport");
 const inquirer = require("inquirer");
 const robot = require("robotjs");
+const node_child_process_1 = require("node:child_process");
 const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
     const { inputSource } = yield new Promise(r => inquirer.prompt({
         message: "Select what AGC do you want to interact with:",
@@ -83,13 +84,51 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getBridgeHost = getBridgeHost;
 const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
-    const { port } = yield new Promise(r => inquirer.prompt({
-        message: "Select the port where the yaAGC is listening: ",
-        name: 'port',
-        type: 'input',
-        default: 4000
+    const { version } = yield new Promise(r => inquirer.prompt({
+        message: "Do you want the API to start any of these AGCs?",
+        name: 'version',
+        type: 'list',
+        choices: [
+            { name: 'Comanche055', value: 'Comanche055' },
+            { name: 'Luminary099', value: 'Luminary099' },
+            { name: 'Luminary210', value: 'Luminary210' },
+            { name: 'Start my own YaAGC', value: 'own' }
+        ]
     }).then(r));
-    return port;
+    if (version == 'own') {
+        const { port } = yield new Promise(r => inquirer.prompt({
+            message: "Select the port where the yaAGC is listening: ",
+            name: 'port',
+            type: 'input',
+            default: 4000
+        }).then(r));
+        return port;
+    }
+    else {
+        const mode = version.includes('Luminary') ? 'LM' : 'CM';
+        // Define the command and its arguments
+        const command = '~/VirtualAGC/bin/yaAGC';
+        const args = [
+            `--core=source/${version}/${version}.bin`,
+            `--cfg=${mode}.ini`,
+            '--port=4000'
+        ];
+        // Define the working directory
+        const cwd = '~/VirtualAGC/Resources';
+        // Start the process
+        (0, node_child_process_1.execFile)(command, args, { cwd }, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error.message}`);
+                return;
+            }
+            if (stderr) {
+                console.error(`stderr: ${stderr}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+        });
+        return 4000;
+    }
 });
 exports.getYaAGCPort = getYaAGCPort;
 const keyMap = {
