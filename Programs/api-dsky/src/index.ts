@@ -59,7 +59,8 @@ const getKeyboardHandler = async (inputSource) => {
 const main = async() =>{
     program
         .option('-s, --serial <string>')
-        .option('-cb, --callback <string>');
+        .option('-cb, --callback <string>')
+        .option('--shutdown <string>');
     program.parse();
     const options = program.opts()
 
@@ -87,6 +88,7 @@ const main = async() =>{
     }
     // Create Keyboard handler
     let plusCount = 0
+    let minusCount = 0
     const keyboardHandler = await getKeyboardHandler(inputSource)
     setSerialListener(async (data) => {
         // Serial data received
@@ -94,7 +96,10 @@ const main = async() =>{
         console.log(`[Serial] KeyPress: ${key}`)
         if(key == '+') plusCount++
         else plusCount = 0
+        if(key == '-') minusCount++
+        else minusCount = 0
         if(plusCount >= 3) process.exit() // Three '+' presses kills the API
+        if(minusCount >= 3 && options.shutdown) exec(options.shutdown) // Three '-' presses runs the shutdown handler (if any)
         await keyboardHandler(key)
     })
     setWebSocketListener(async (data)=>{

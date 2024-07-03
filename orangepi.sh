@@ -7,7 +7,10 @@ if [ "$1" = "api" ];then
     	wmctrl -a api-dsky
 	    killall chromium-browser &>/dev/null
         cd ~/DSKY/Programs/api-dsky
-	    npm start -- -s /dev/ttyUSB0 --callback 'chromium-browser --start-fullscreen --incognito http://localhost:3000 && sleep 5 && wmctrl -a chromium'
+	    npm start -- \
+            -s /dev/ttyUSB0 \
+            --callback 'chromium-browser --start-fullscreen --incognito http://localhost:3000 && sleep 5 && wmctrl -a chromium' \
+            --shutdown 'shutdown -h now'
     done
 else
     xttitle web-dsky

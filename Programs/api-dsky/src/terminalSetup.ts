@@ -129,7 +129,7 @@ export const getYaAGCPort = async () => {
         const cwd = path.resolve(os.homedir(), 'VirtualAGC/Resources');
 
         // Start yaAGC
-        execFile(command, args, { cwd }, (error, stdout, stderr) => {
+        const child = execFile(command, args, { cwd }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error: ${error.message}`);
                 return;
@@ -140,6 +140,7 @@ export const getYaAGCPort = async () => {
             }
             console.log(`stdout: ${stdout}`);
         });
+        process.on('exit', () => child.kill());
 
         // Wait for AGC to start
         await new Promise(r => setTimeout(r,5000))
