@@ -51,7 +51,8 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     commander_1.program
         .option('-s, --serial <string>')
-        .option('-cb, --callback <string>');
+        .option('-cb, --callback <string>')
+        .option('--shutdown <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
     // Create serial connection
@@ -75,6 +76,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     // Create Keyboard handler
     let plusCount = 0;
+    let minusCount = 0;
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
@@ -84,8 +86,14 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             plusCount++;
         else
             plusCount = 0;
+        if (key == '-')
+            minusCount++;
+        else
+            minusCount = 0;
         if (plusCount >= 3)
             process.exit(); // Three '+' presses kills the API
+        if (minusCount >= 3 && options.shutdown)
+            (0, child_process_1.exec)(options.shutdown); // Three '-' presses runs the shutdown handler (if any)
         yield keyboardHandler(key);
     }));
     (0, socket_1.setWebSocketListener)((data) => __awaiter(void 0, void 0, void 0, function* () {

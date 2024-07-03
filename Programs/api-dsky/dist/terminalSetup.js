@@ -117,7 +117,7 @@ const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
         ];
         const cwd = path.resolve(os.homedir(), 'VirtualAGC/Resources');
         // Start yaAGC
-        (0, node_child_process_1.execFile)(command, args, { cwd }, (error, stdout, stderr) => {
+        const child = (0, node_child_process_1.execFile)(command, args, { cwd }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error: ${error.message}`);
                 return;
@@ -128,6 +128,7 @@ const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             console.log(`stdout: ${stdout}`);
         });
+        process.on('exit', () => child.kill());
         // Wait for AGC to start
         yield new Promise(r => setTimeout(r, 5000));
         return 4000;
