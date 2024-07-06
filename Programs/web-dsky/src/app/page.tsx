@@ -6,19 +6,24 @@ import { Digit } from "./digit";
 import { AUDIO_LOAD, NO_CONN, NO_CONN_UHOH } from "../utils/dskyStates";
 import { Sign } from "./sign";
 import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
+import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  let oledMode = 'no'
+  if(process.env.OLED_MODE == '1') oledMode ='yes'
+  if(searchParams.get('oled') == '1') oledMode = 'yes'
 
   const displayType = process.env.DISPLAY_TYPE || 'default'
   let paddingTop, marginLeft, marginTop
 
   switch (displayType){
     case 'iphone13':
+    case 'iphone12':
       paddingTop = 90
       marginLeft = -10
       marginTop = 0
       break;
-    case 'oled':
     default:
       paddingTop = 0;
       marginLeft = -20;
@@ -180,8 +185,34 @@ export default function Home() {
     };
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
+  const opacityEL = dskyState.Standby ? 0 : (dskyState.Brightness || 127) / 127
+  const opacityAlarms = dskyState.Standby ? 0 : (dskyState.IntegralBrightness || 127) / 127
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType}`} >
+    <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType} oled-${oledMode}`} >
+      <div className="Alarms" >
+        <Image
+          alt={'alarms_mask'}
+          src={'./alarms_mask.svg'}
+          width={1000}
+          height={1000}
+          className="alarms_mask"
+        />
+        <div className="alarms-bg" />
+        {!!dskyState.IlluminateUplinkActy && <div className="alarm-uplink" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateNoAtt && <div className="alarm-noatt" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateStby && <div className="alarm-stby" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateKeyRel && <div className="alarm-keyrel" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateOprErr && <div className="alarm-oprerr" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateNoDap && <div className="alarm-nodap" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminatePrioDisp && <div className="alarm-priodisp" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateTemp && <div className="alarm-temp" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateGimbalLock && <div className="alarm-gimballock" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateProg && <div className="alarm-prog" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateRestart && <div className="alarm-restart" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateTracker && <div className="alarm-tracker" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateAlt && <div className="alarm-alt" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateVel && <div className="alarm-vel" style={{opacity: opacityAlarms}}/>}
+      </div>
       <div className="ELDisplay" style={{paddingTop, marginLeft, marginTop}}>
         <Image
           alt={'mask'}
@@ -191,7 +222,7 @@ export default function Home() {
           className="mask"
         />
       </div>
-      <div className="ELDisplay" style={{opacity: dskyState.Standby ? 0 : (dskyState.Brightness || 127) / 127, paddingTop, marginLeft, marginTop}}>  
+      <div className="ELDisplay" style={{opacity: opacityEL, paddingTop, marginLeft, marginTop}}>  
         <Image
           alt={'basic_segments'}
           src={'./basic_segments.svg'}
@@ -199,7 +230,7 @@ export default function Home() {
           height={1000}
           className="basic_segments"
         ></Image>
-        {dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
+        {!!dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
         <Digit
           className={'ProgramD1'}
           digit={dskyState.ProgramD1}
