@@ -14,7 +14,9 @@ export default function Home() {
   if(process.env.OLED_MODE == '1') oledMode ='yes'
   if(searchParams.get('oled') == '1') oledMode = 'yes'
 
-  const displayType = process.env.DISPLAY_TYPE || 'default'
+  let displayType = 'default'
+  if(process.env.DISPLAY_TYPE) displayType = process.env.DISPLAY_TYPE
+  if(searchParams.get('display')) displayType = searchParams.get('display') as string
   let paddingTop, marginLeft, marginTop
 
   switch (displayType){
