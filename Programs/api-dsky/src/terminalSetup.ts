@@ -126,7 +126,7 @@ export const getYaAGCPort = async () => {
         const cwd = path.resolve(os.homedir(), 'VirtualAGC/Resources');
 
         // Start yaAGC
-        const child = execFile(command, args, { cwd }, (error, stdout, stderr) => {
+        const child = execFile(command, args, { cwd, maxBuffer: undefined }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error: ${error.message}`);
                 return;
