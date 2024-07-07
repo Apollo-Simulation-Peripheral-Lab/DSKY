@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.95,
-          "height": 1.95,
-          "width": 1.7
+          "drill": 0.0,
+          "height": 1.45,
+          "width": 1.0
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -579,7 +579,7 @@
   "sheets": [
     [
       "f30854c1-5bc2-470d-aabe-1768a5b01b46",
-      "Raíz"
+      "Root"
     ],
     [
       "30cf5210-4653-431a-8c35-fb1be44fb9ec",

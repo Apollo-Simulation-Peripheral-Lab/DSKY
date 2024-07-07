@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "edda463a-ad09-46be-9126-bcff7f3b030f")
-	(paper "A2")
+	(paper "A3")
 	(title_block
 		(title "DSKY Alarm Lights")
 		(date "2024-06-02")
@@ -1480,12 +1480,6 @@
 		(uuid "f9f8543b-3588-411e-ac20-7accbc7bf58c")
 	)
 	(junction
-		(at 60.96 220.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fa8c1e45-c8a3-4c05-9d29-8e804a51495e")
-	)
-	(junction
 		(at 33.02 171.45)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2165,7 +2159,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 220.98) (xy 60.96 222.25)
+			(xy 60.96 219.71) (xy 60.96 222.25)
 		)
 		(stroke
 			(width 0)
@@ -2575,16 +2569,6 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 219.71) (xy 60.96 220.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c38a65f8-05d0-4be1-9458-3634aa74468d")
-	)
-	(wire
-		(pts
 			(xy 203.2 58.42) (xy 209.55 58.42)
 		)
 		(stroke
@@ -2752,16 +2736,6 @@
 			(type default)
 		)
 		(uuid "e35e7fbf-e98d-48fc-9814-b380b8123869")
-	)
-	(wire
-		(pts
-			(xy 62.23 220.98) (xy 60.96 220.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e38e4012-4c0b-4bf3-9263-5d5be3cd9b4e")
 	)
 	(wire
 		(pts
@@ -3562,18 +3536,6 @@
 			)
 		)
 	)
-	(hierarchical_label "GND"
-		(shape output)
-		(at 62.23 220.98 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "015dabc4-492f-46df-bf0e-73dea94cba3f")
-	)
 	(hierarchical_label "PWMCom"
 		(shape output)
 		(at 109.22 106.68 0)
@@ -3645,18 +3607,6 @@
 			(justify right)
 		)
 		(uuid "4b2cff2a-2ba1-450b-801a-9374e34a5cfc")
-	)
-	(hierarchical_label "5V"
-		(shape input)
-		(at 30.48 157.48 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "51e66b74-c353-4c75-bcf4-6ff5478ec1f1")
 	)
 	(hierarchical_label "PWMCom"
 		(shape output)

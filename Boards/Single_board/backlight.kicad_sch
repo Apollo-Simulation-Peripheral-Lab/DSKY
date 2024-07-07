@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "Backlight for DSKY Keyboard")
-		(date "2024-07-03")
+		(date "2024-06-02")
 		(rev "0.5.x")
 		(company "Pablo Ortiz López, Evan MacDonald")
 	)
