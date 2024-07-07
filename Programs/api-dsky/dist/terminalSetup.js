@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSetupKeyboardHandler = exports.getYaAGCPort = exports.getBridgeHost = exports.getSerialSource = exports.getInputSource = void 0;
 const serialport_1 = require("serialport");
 const inquirer = require("inquirer");
-const robot = require("robotjs");
 const node_child_process_1 = require("node:child_process");
 const path = require("path");
 const os = require("os");
@@ -150,16 +149,6 @@ const keyMap = {
     'k': "dsky.ortizma.com"
 };
 const getSetupKeyboardHandler = () => {
-    return (data) => __awaiter(void 0, void 0, void 0, function* () {
-        const keys = keyMap[data] || [data];
-        if (Array.isArray(keys)) {
-            if (keys.length == 1) {
-                robot.keyTap(keys[0]);
-            } //TODO: else implement key combination
-        }
-        else {
-            robot.typeString(keys);
-        }
-    });
+    return (_data) => __awaiter(void 0, void 0, void 0, function* () { });
 };
 exports.getSetupKeyboardHandler = getSetupKeyboardHandler;

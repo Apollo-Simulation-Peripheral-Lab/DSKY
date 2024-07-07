@@ -1,6 +1,5 @@
 import { SerialPort } from 'serialport'
 import * as inquirer from 'inquirer'
-import * as robot from 'robotjs'
 import { execFile } from 'node:child_process'
 import * as path from 'path'
 import * as os from 'os'
@@ -162,14 +161,5 @@ const keyMap = {
 };
 
 export const getSetupKeyboardHandler = () =>{
-    return async (data) =>{
-        const keys = keyMap[data] || [data]
-        if(Array.isArray(keys)){
-            if(keys.length == 1){
-                robot.keyTap(keys[0])
-            }//TODO: else implement key combination
-        }else{
-            robot.typeString(keys)
-        }
-    }
+    return async (_data) =>{}
 }
