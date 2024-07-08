@@ -54,14 +54,10 @@ const main = async() =>{
     connectClient()
     clientOutput = (data) => {
         const {IlluminateNoAtt} = data
-        if(!IlluminateNoAtt){
+        const minute = (new Date()).getMinutes()
+        if(!IlluminateNoAtt && minute != 0 && minute != 30){
             if(restartOrbiterTimeout) clearTimeout(restartOrbiterTimeout)
-            const minute = (new Date()).getMinutes()
-            if(minute == 0 || minute == 30){
-                restartOrbiter()
-            }else{
-                restartOrbiterTimeout = setTimeout(restartOrbiter,5000)
-            }
+            restartOrbiterTimeout = setTimeout(restartOrbiter,5000)
         }
     }
 }
