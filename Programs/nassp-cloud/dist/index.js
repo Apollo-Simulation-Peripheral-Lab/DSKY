@@ -12,10 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 const dotenv = require("dotenv");
 const child_process_1 = require("child_process");
-const dgram = require("node:dgram");
 const websocket_1 = require("websocket");
 dotenv.config();
-let dskyServer = dgram.createSocket('udp4');
 commander_1.program
     .option('--restart-handler <string>');
 commander_1.program.parse();
@@ -51,16 +49,20 @@ const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
     client.connect('ws://127.0.0.1:3001/', 'echo-protocol');
     client.on('connect', onConnect);
 });
+let lastRestartTime;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     connectClient();
-    clientOutput = (data) => {
+    clientOutput = (data = {}) => {
         const { IlluminateNoAtt } = data;
         const minute = (new Date()).getMinutes();
-        if (!IlluminateNoAtt && minute != 0 && minute != 30) {
-            if (restartOrbiterTimeout)
-                clearTimeout(restartOrbiterTimeout);
-            restartOrbiterTimeout = setTimeout(restartOrbiter, 5000);
+        if (IlluminateNoAtt || minute == 0 || minute == 30) {
+            let newRestartTime = Date.now();
+            if (!lastRestartTime || newRestartTime - lastRestartTime > 10000) {
+                lastRestartTime = newRestartTime;
+                restartOrbiter();
+            }
         }
     };
+    setInterval(clientOutput, 1000);
 });
 main();

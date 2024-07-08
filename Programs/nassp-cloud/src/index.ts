@@ -1,11 +1,9 @@
 import { program } from 'commander'
 import * as dotenv from 'dotenv'
 import {exec} from 'child_process'
-import * as dgram from 'node:dgram'
 import {client as WebSocketClient} from 'websocket'
 
 dotenv.config()
-let dskyServer = dgram.createSocket('udp4');
 program
     .option('--restart-handler <string>')
 program.parse();
@@ -50,16 +48,23 @@ const connectClient = async () =>{
     client.on('connect', onConnect)
 }
 
+let lastRestartTime
+
 const main = async() =>{
     connectClient()
-    clientOutput = (data) => {
+    clientOutput = (data = {}) => {
         const {IlluminateNoAtt} = data
         const minute = (new Date()).getMinutes()
-        if(!IlluminateNoAtt && minute != 0 && minute != 30){
-            if(restartOrbiterTimeout) clearTimeout(restartOrbiterTimeout)
-            restartOrbiterTimeout = setTimeout(restartOrbiter,5000)
+        if(IlluminateNoAtt || minute == 0 || minute == 30){
+            let newRestartTime = Date.now()
+            if(!lastRestartTime || newRestartTime - lastRestartTime > 10000){
+                lastRestartTime = newRestartTime
+                restartOrbiter()
+            }
         }
     }
+
+    setInterval(clientOutput,1000)
 }
 
 main()
