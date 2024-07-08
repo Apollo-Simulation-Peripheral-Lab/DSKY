@@ -89,8 +89,9 @@ const main = async() =>{
     })
     setWebSocketListener(async (data)=>{
         // WebSocket data received
-        console.log(`[WS] KeyPress: ${data}`)
-        await keyboardHandler(`${data}`)
+        const key = data.toString().toLowerCase().substring(0, 1)
+        console.log(`[WS] KeyPress: ${key}`)
+        await keyboardHandler(`${key}`)
     })
 }
 
