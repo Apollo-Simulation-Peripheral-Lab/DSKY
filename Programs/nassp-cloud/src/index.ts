@@ -15,7 +15,7 @@ const shouldRestart = (data:any = {}) => {
     const minute = (new Date()).getMinutes()
     if(IlluminateNoAtt || minute == 0 || minute == 30){
         let newRestartTime = Date.now()
-        if(!lastRestartTime || newRestartTime - lastRestartTime > 10000){
+        if(!lastRestartTime || newRestartTime - lastRestartTime > 70000){
             lastRestartTime = newRestartTime
             restartOrbiter()
         }
