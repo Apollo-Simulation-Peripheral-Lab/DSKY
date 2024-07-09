@@ -13,21 +13,35 @@ const commander_1 = require("commander");
 const dotenv = require("dotenv");
 const child_process_1 = require("child_process");
 const websocket_1 = require("websocket");
+// Init
 dotenv.config();
-commander_1.program
-    .option('--restart-handler <string>');
+commander_1.program.option('--restart-handler <string>');
 commander_1.program.parse();
 const options = commander_1.program.opts();
+// Handlers
+const shouldRestart = (data = {}) => {
+    const { IlluminateNoAtt } = data;
+    const minute = (new Date()).getMinutes();
+    if (IlluminateNoAtt || minute == 0 || minute == 30) {
+        let newRestartTime = Date.now();
+        if (!lastRestartTime || newRestartTime - lastRestartTime > 10000) {
+            lastRestartTime = newRestartTime;
+            restartOrbiter();
+        }
+    }
+};
 const restartOrbiter = () => {
     if (options.restartHandler) {
         console.log("Restarting NASSP...");
-        (0, child_process_1.exec)(options.restartHandler);
+        let handler = (0, child_process_1.spawn)(options.restartHandler, { stdio: 'inherit', shell: true });
+        //handler.stdout.pipe(process.stdout);
     }
 };
-let restartOrbiterTimeout;
-const client = new websocket_1.client();
-let clientInput = (_data) => { };
-let clientOutput = (_data) => { };
+// Socket
+const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
+    client.connect('ws://127.0.0.1:3001/', 'echo-protocol');
+    client.on('connect', onConnect);
+});
 const onDisconnect = () => __awaiter(void 0, void 0, void 0, function* () {
     client.removeListener('connect', onConnect);
     console.log("Bridge connection failed, reconnecting...");
@@ -38,31 +52,15 @@ const onConnect = connection => {
     console.log("Bridge connected!");
     connection.on("message", message => {
         if (message.type === 'utf8') {
-            clientOutput(JSON.parse(message.utf8Data));
+            shouldRestart(JSON.parse(message.utf8Data));
         }
     });
     connection.on("close", onDisconnect);
-    clientInput = (data) => connection.sendUTF(data);
 };
+const client = new websocket_1.client();
 client.on('connectFailed', onDisconnect);
-const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
-    client.connect('ws://127.0.0.1:3001/', 'echo-protocol');
-    client.on('connect', onConnect);
-});
-let lastRestartTime;
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    connectClient();
-    clientOutput = (data = {}) => {
-        const { IlluminateNoAtt } = data;
-        const minute = (new Date()).getMinutes();
-        if (IlluminateNoAtt || minute == 0 || minute == 30) {
-            let newRestartTime = Date.now();
-            if (!lastRestartTime || newRestartTime - lastRestartTime > 10000) {
-                lastRestartTime = newRestartTime;
-                restartOrbiter();
-            }
-        }
-    };
-    setInterval(clientOutput, 1000);
-});
-main();
+// Main logic 
+let lastRestartTime = Date.now();
+restartOrbiter();
+connectClient();
+setInterval(shouldRestart, 1000);
