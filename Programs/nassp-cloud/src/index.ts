@@ -11,18 +11,18 @@ const options = program.opts()
 
 // Handlers
 const shouldRestart = (data:any = {}) => {
-    const {IlluminateNoAtt} = data
+    const {IlluminateNoAtt, IlluminateStby} = data
     const minute = (new Date()).getMinutes()
-    if(IlluminateNoAtt || minute == 0 || minute == 30){
-        let newRestartTime = Date.now()
-        if(!lastRestartTime || newRestartTime - lastRestartTime > 70000){
-            lastRestartTime = newRestartTime
-            restartOrbiter()
-        }
+    if(IlluminateNoAtt && !IlluminateStby){
+        restartOrbiter()
+    }else if(minute == 0 || minute == 30){
+        restartOrbiter()
     }
 }
 
 const restartOrbiter = () =>{
+    let newRestartTime = Date.now()
+    if(lastRestartTime && newRestartTime - lastRestartTime < 70000) return
     if(options.restartHandler){
         console.log("Restarting NASSP...")
         let handler = spawn(options.restartHandler, { stdio: 'inherit', shell: true });
