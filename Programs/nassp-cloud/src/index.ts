@@ -1,27 +1,40 @@
 import { program } from 'commander'
 import * as dotenv from 'dotenv'
-import {exec} from 'child_process'
+import {spawn} from 'child_process'
 import {client as WebSocketClient} from 'websocket'
 
+// Init
 dotenv.config()
-program
-    .option('--restart-handler <string>')
+program.option('--restart-handler <string>')
 program.parse();
 const options = program.opts()
+
+// Handlers
+const shouldRestart = (data:any = {}) => {
+    const {IlluminateNoAtt} = data
+    const minute = (new Date()).getMinutes()
+    if(IlluminateNoAtt || minute == 0 || minute == 30){
+        let newRestartTime = Date.now()
+        if(!lastRestartTime || newRestartTime - lastRestartTime > 10000){
+            lastRestartTime = newRestartTime
+            restartOrbiter()
+        }
+    }
+}
 
 const restartOrbiter = () =>{
     if(options.restartHandler){
         console.log("Restarting NASSP...")
-        exec(options.restartHandler)
+        let handler = spawn(options.restartHandler, { stdio: 'inherit', shell: true });
+        //handler.stdout.pipe(process.stdout);
     }
 }
 
-let restartOrbiterTimeout
-
-const client = new WebSocketClient()
-
-let clientInput = (_data) => {}
-let clientOutput = (_data) =>{}
+// Socket
+const connectClient = async () =>{
+    client.connect('ws://127.0.0.1:3001/','echo-protocol')
+    client.on('connect', onConnect)
+}
 
 const onDisconnect = async () => {
     client.removeListener('connect', onConnect)
@@ -34,37 +47,18 @@ const onConnect = connection => {
     console.log("Bridge connected!")
     connection.on("message", message =>{
         if (message.type === 'utf8') {
-            clientOutput(JSON.parse(message.utf8Data))
+            shouldRestart(JSON.parse(message.utf8Data))
         }
     })
     connection.on("close", onDisconnect)
-    clientInput = (data) => connection.sendUTF(data)
 }
 
+const client = new WebSocketClient()
 client.on('connectFailed', onDisconnect);
 
-const connectClient = async () =>{
-    client.connect('ws://127.0.0.1:3001/','echo-protocol')
-    client.on('connect', onConnect)
-}
+// Main logic 
+let lastRestartTime = Date.now()
+restartOrbiter()
+connectClient()
 
-let lastRestartTime
-
-const main = async() =>{
-    connectClient()
-    clientOutput = (data = {}) => {
-        const {IlluminateNoAtt} = data
-        const minute = (new Date()).getMinutes()
-        if(IlluminateNoAtt || minute == 0 || minute == 30){
-            let newRestartTime = Date.now()
-            if(!lastRestartTime || newRestartTime - lastRestartTime > 10000){
-                lastRestartTime = newRestartTime
-                restartOrbiter()
-            }
-        }
-    }
-
-    setInterval(clientOutput,1000)
-}
-
-main()
+setInterval(shouldRestart,1000)
