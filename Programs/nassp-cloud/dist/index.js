@@ -18,11 +18,12 @@ dotenv.config();
 commander_1.program.option('--restart-handler <string>');
 commander_1.program.parse();
 const options = commander_1.program.opts();
+let lastRestartTime;
 // Handlers
 const shouldRestart = (data = {}) => {
-    const { IlluminateNoAtt, IlluminateStby } = data;
+    const { IlluminateNoAtt, IlluminateStby, IlluminateTemp, VerbD1, VerbD2 } = data;
     const minute = (new Date()).getMinutes();
-    if (IlluminateNoAtt && !IlluminateStby) {
+    if (IlluminateNoAtt && !IlluminateStby && !IlluminateTemp && !(VerbD1 == '8' && VerbD2 == '8')) {
         restartOrbiter();
     }
     else if (minute == 0 || minute == 30) {
@@ -33,9 +34,10 @@ const restartOrbiter = () => {
     let newRestartTime = Date.now();
     if (lastRestartTime && newRestartTime - lastRestartTime < 70000)
         return;
+    lastRestartTime = Date.now();
     if (options.restartHandler) {
         console.log("Restarting NASSP...");
-        let handler = (0, child_process_1.spawn)(options.restartHandler, { stdio: 'inherit', shell: true });
+        (0, child_process_1.spawn)(options.restartHandler, { stdio: 'inherit', shell: true });
         //handler.stdout.pipe(process.stdout);
     }
 };
@@ -62,7 +64,6 @@ const onConnect = connection => {
 const client = new websocket_1.client();
 client.on('connectFailed', onDisconnect);
 // Main logic 
-let lastRestartTime = Date.now();
 restartOrbiter();
 connectClient();
 setInterval(shouldRestart, 1000);

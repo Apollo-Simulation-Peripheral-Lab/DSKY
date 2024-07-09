@@ -8,12 +8,13 @@ dotenv.config()
 program.option('--restart-handler <string>')
 program.parse();
 const options = program.opts()
+let lastRestartTime
 
 // Handlers
 const shouldRestart = (data:any = {}) => {
-    const {IlluminateNoAtt, IlluminateStby} = data
+    const {IlluminateNoAtt, IlluminateStby ,IlluminateTemp, VerbD1, VerbD2} = data
     const minute = (new Date()).getMinutes()
-    if(IlluminateNoAtt && !IlluminateStby){
+    if(IlluminateNoAtt && !IlluminateStby && !IlluminateTemp && !(VerbD1 == '8' && VerbD2 == '8')){
         restartOrbiter()
     }else if(minute == 0 || minute == 30){
         restartOrbiter()
@@ -23,9 +24,10 @@ const shouldRestart = (data:any = {}) => {
 const restartOrbiter = () =>{
     let newRestartTime = Date.now()
     if(lastRestartTime && newRestartTime - lastRestartTime < 70000) return
+    lastRestartTime = Date.now()
     if(options.restartHandler){
         console.log("Restarting NASSP...")
-        let handler = spawn(options.restartHandler, { stdio: 'inherit', shell: true });
+        spawn(options.restartHandler, { stdio: 'inherit', shell: true });
         //handler.stdout.pipe(process.stdout);
     }
 }
@@ -57,7 +59,6 @@ const client = new WebSocketClient()
 client.on('connectFailed', onDisconnect);
 
 // Main logic 
-let lastRestartTime = Date.now()
 restartOrbiter()
 connectClient()
 
