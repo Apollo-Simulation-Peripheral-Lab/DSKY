@@ -590,6 +590,14 @@
     [
       "ed4c4d64-e285-498d-a32a-60e63088bbdd",
       "Alarm_lights"
+    ],
+    [
+      "10d1b3d3-799b-4f50-9dbd-cebbf84933bb",
+      "Atmega 328P"
+    ],
+    [
+      "2c846281-f7ac-4d2e-99f9-816b435af6ae",
+      "USB-C"
     ]
   ],
   "text_variables": {}

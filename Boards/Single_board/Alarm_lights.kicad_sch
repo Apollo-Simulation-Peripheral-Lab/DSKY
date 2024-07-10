@@ -7,7 +7,7 @@
 	(title_block
 		(title "DSKY Alarm Lights")
 		(date "2024-06-02")
-		(rev "0.4.x")
+		(rev "0.5.x")
 		(company "Pablo Ortiz López, Evan MacDonald")
 	)
 	(lib_symbols
@@ -2954,9 +2954,9 @@
 			)
 		)
 	)
-	(global_label "No Att"
+	(global_label "STBY"
 		(shape input)
-		(at 73.66 186.69 0)
+		(at 73.66 179.07 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2964,9 +2964,53 @@
 			)
 			(justify left)
 		)
-		(uuid "0e3400df-5f45-41f1-b57f-f08ae347aca1")
+		(uuid "09785026-0406-4882-8c6f-7f71b830ecc3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 82.6323 186.69 0)
+			(at 81.1809 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Alt"
+		(shape input)
+		(at 73.66 209.55 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1868df8b-fe51-4558-8e71-0f2624ed2da4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 79.1247 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Gimbal Lock"
+		(shape input)
+		(at 73.66 199.39 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "18883a7a-fa95-40c0-a91f-f4494941989a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 88.4379 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2998,50 +3042,6 @@
 			)
 		)
 	)
-	(global_label "Prog"
-		(shape input)
-		(at 73.66 207.01 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1ec91137-c06b-438d-8525-f9efa0eb9a37")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 80.9994 207.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "Opr Err"
-		(shape input)
-		(at 73.66 179.07 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2173aa37-96b8-4f6f-bf05-55fc0259b09c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.5999 179.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 223.52 106.68 0)
@@ -3055,6 +3055,28 @@
 		(uuid "2d7e6cef-e017-4591-a9a9-95f8751b2941")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 234.6089 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Restart"
+		(shape input)
+		(at 73.66 204.47 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2dafbeef-6293-49b9-b0fe-129c702491c6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 83.4185 204.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3152,28 +3174,6 @@
 			)
 		)
 	)
-	(global_label "Uplink"
-		(shape input)
-		(at 73.66 189.23 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4c2d1bf0-6034-4ef3-ae8c-31b8cfadc53b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 82.5718 189.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 109.22 106.68 0)
@@ -3240,6 +3240,28 @@
 			)
 		)
 	)
+	(global_label "No Dap"
+		(shape input)
+		(at 73.66 186.69 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5c2d2841-1cfd-40a3-b61d-7cbed320074d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 83.6603 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 223.52 44.45 0)
@@ -3253,6 +3275,50 @@
 		(uuid "5e535240-2075-4905-be72-c1d473c0719b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 234.6089 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Key Rel"
+		(shape input)
+		(at 73.66 181.61 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "65aefd7d-0bf6-41f3-be0d-a8084a522f80")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 83.9628 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Vel"
+		(shape input)
+		(at 73.66 212.09 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6b0cf0c5-e5c3-4ffe-ac10-440d9a583f74")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 79.4876 212.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3284,28 +3350,6 @@
 			)
 		)
 	)
-	(global_label "No Dap"
-		(shape input)
-		(at 73.66 176.53 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7488623d-df0a-4ef6-b2f9-0a8bd691dbd8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.6603 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 171.45 106.68 0)
@@ -3319,28 +3363,6 @@
 		(uuid "75f23239-eba0-4485-b135-38dda310010a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 182.5389 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "Gimbal Lock"
-		(shape input)
-		(at 73.66 209.55 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "77b2f2e4-b90e-4f5e-b34a-ecede19ad534")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 88.4379 209.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3394,9 +3416,9 @@
 			)
 		)
 	)
-	(global_label "Tracker"
+	(global_label "Opr Err"
 		(shape input)
-		(at 73.66 201.93 0)
+		(at 73.66 184.15 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3404,9 +3426,9 @@
 			)
 			(justify left)
 		)
-		(uuid "8a477453-8f89-454f-bd5b-abdf5e426837")
+		(uuid "82459b4c-7dab-4f92-a640-8a04086b17b3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.5395 201.93 0)
+			(at 83.5999 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3416,9 +3438,9 @@
 			)
 		)
 	)
-	(global_label "Vel"
+	(global_label "No Att"
 		(shape input)
-		(at 73.66 196.85 0)
+		(at 73.66 176.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3426,9 +3448,31 @@
 			)
 			(justify left)
 		)
-		(uuid "8aabc1b6-3c72-4318-952c-e97ef28a5d57")
+		(uuid "83f53a49-69a1-4ec0-9d0a-b497d9ee7c26")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 79.4876 196.85 0)
+			(at 82.6323 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Prio Disp"
+		(shape input)
+		(at 73.66 189.23 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "856b8046-b7a7-4db1-8ebe-467c97e246e0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 85.4747 189.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3462,7 +3506,7 @@
 	)
 	(global_label "Temp"
 		(shape input)
-		(at 73.66 212.09 0)
+		(at 73.66 196.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3470,9 +3514,9 @@
 			)
 			(justify left)
 		)
-		(uuid "9793bc1e-6a79-4273-b193-a1aa4f499b28")
+		(uuid "945c9cc2-a8b5-45f5-92ea-a43c184e85e9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 81.5437 212.09 0)
+			(at 81.5437 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3500,28 +3544,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "Restart"
-		(shape input)
-		(at 73.66 204.47 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9ee725df-4d7b-4fd8-93af-06d2012e5b12")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.4185 204.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -3658,28 +3680,6 @@
 			)
 		)
 	)
-	(global_label "Alt"
-		(shape input)
-		(at 73.66 199.39 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "babcc030-3de6-4a05-9ae7-78b899f39c4b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 79.1247 199.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 171.45 137.16 0)
@@ -3724,28 +3724,6 @@
 			)
 		)
 	)
-	(global_label "Key Rel"
-		(shape input)
-		(at 73.66 181.61 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bf15747a-325b-4c63-b259-4eaf6c962dc7")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 83.9628 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMcom"
 		(shape output)
 		(at 57.15 74.93 0)
@@ -3759,6 +3737,28 @@
 		(uuid "c9d19f1e-d53c-4d4b-bb27-e212c488039c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 68.2389 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Uplink"
+		(shape input)
+		(at 73.66 173.99 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ca0ff88e-d65f-4471-802f-7c24a1ef8228")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.5718 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3812,9 +3812,9 @@
 			)
 		)
 	)
-	(global_label "STBY"
+	(global_label "Prog"
 		(shape input)
-		(at 73.66 184.15 0)
+		(at 73.66 201.93 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3822,9 +3822,9 @@
 			)
 			(justify left)
 		)
-		(uuid "e4607af7-ec70-4e2d-975d-a92e32cd95dc")
+		(uuid "dcc75105-a69a-4dad-8aeb-51e913d4581d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 81.1809 184.15 0)
+			(at 80.9994 201.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3856,9 +3856,9 @@
 			)
 		)
 	)
-	(global_label "Prio Disp"
+	(global_label "Tracker"
 		(shape input)
-		(at 73.66 173.99 0)
+		(at 73.66 207.01 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3866,9 +3866,9 @@
 			)
 			(justify left)
 		)
-		(uuid "faf2ee07-e140-4628-8bf3-a036b593ef31")
+		(uuid "ffe5b628-0202-4d9d-9cee-95e61897934a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 85.4747 173.99 0)
+			(at 83.5395 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3978,7 +3978,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 223.52 95.25 0)
 			(effects
 				(font
@@ -4165,7 +4165,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 45.72 58.42 90)
 			(effects
 				(font
@@ -4351,7 +4351,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 109.22 95.25 0)
 			(effects
 				(font
@@ -4446,7 +4446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 97.79 27.94 90)
 			(effects
 				(font
@@ -4632,7 +4632,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 171.45 125.73 0)
 			(effects
 				(font
@@ -4729,7 +4729,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 171.45 33.02 0)
 			(effects
 				(font
@@ -4824,7 +4824,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 160.02 120.65 90)
 			(effects
 				(font
@@ -4916,7 +4916,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 45.72 90.17 90)
 			(effects
 				(font
@@ -5080,7 +5080,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 97.79 58.42 90)
 			(effects
 				(font
@@ -5174,7 +5174,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 109.22 33.02 0)
 			(effects
 				(font
@@ -5740,7 +5740,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 97.79 90.17 90)
 			(effects
 				(font
@@ -5834,7 +5834,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 223.52 63.5 0)
 			(effects
 				(font
@@ -6023,7 +6023,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 57.15 33.02 0)
 			(effects
 				(font
@@ -6304,7 +6304,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 171.45 63.5 0)
 			(effects
 				(font
@@ -6493,7 +6493,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 109.22 63.5 0)
 			(effects
 				(font
@@ -6588,7 +6588,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 160.02 27.94 90)
 			(effects
 				(font
@@ -6682,7 +6682,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 171.45 95.25 0)
 			(effects
 				(font
@@ -6779,7 +6779,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 57.15 95.25 0)
 			(effects
 				(font
@@ -6874,7 +6874,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 212.09 90.17 90)
 			(effects
 				(font
@@ -6968,7 +6968,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 223.52 33.02 0)
 			(effects
 				(font
@@ -7063,7 +7063,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 160.02 90.17 90)
 			(effects
 				(font
@@ -7772,7 +7772,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 57.15 63.5 0)
 			(effects
 				(font
@@ -7867,7 +7867,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 45.72 120.65 90)
 			(effects
 				(font
@@ -8519,7 +8519,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 45.72 27.94 90)
 			(effects
 				(font
@@ -8685,7 +8685,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 77.47 162.56 0)
 			(effects
 				(font
@@ -8871,7 +8871,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 212.09 58.42 90)
 			(effects
 				(font
@@ -8963,7 +8963,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 160.02 58.42 90)
 			(effects
 				(font
@@ -9055,7 +9055,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
 			(at 212.09 27.94 90)
 			(effects
 				(font
@@ -9384,7 +9384,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 57.15 125.73 0)
 			(effects
 				(font
