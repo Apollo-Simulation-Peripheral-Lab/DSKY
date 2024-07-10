@@ -148,18 +148,6 @@ export const getYaAGCPort = async () => {
     }
 }
 
-const keyMap = {
-    'e': ['enter'],
-    'p': ['enter'],
-    'v': ['/'],
-    'n': ['.'],
-    '+': ['up'],
-    '-': ['down'],
-    'c': ['backspace'],
-    'r': ['backspace'],
-    'k': "dsky.ortizma.com"
-};
-
 export const getSetupKeyboardHandler = () =>{
     return async (_data) =>{}
 }

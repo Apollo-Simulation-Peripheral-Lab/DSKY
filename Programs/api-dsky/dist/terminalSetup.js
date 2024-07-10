@@ -137,17 +137,6 @@ const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getYaAGCPort = getYaAGCPort;
-const keyMap = {
-    'e': ['enter'],
-    'p': ['enter'],
-    'v': ['/'],
-    'n': ['.'],
-    '+': ['up'],
-    '-': ['down'],
-    'c': ['backspace'],
-    'r': ['backspace'],
-    'k': "dsky.ortizma.com"
-};
 const getSetupKeyboardHandler = () => {
     return (_data) => __awaiter(void 0, void 0, void 0, function* () { });
 };

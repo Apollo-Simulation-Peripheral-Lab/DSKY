@@ -113,7 +113,7 @@ export const watchStateNASSP = (callback) => {
             const state = {
                 ...lastState,
                 Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1),
-                IntegralBrightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
+                IntegralBrightness: lastState.Standby ? 127 : Math.max(Math.floor(parseFloat(brightness) * 127),1)
             }
             lastState = state
             handleAGCUpdate(state)
