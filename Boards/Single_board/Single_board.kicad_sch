@@ -5282,7 +5282,7 @@
 			)
 		)
 		(property "Sheetfile" "328p.kicad_sch"
-			(at 148.59 139.192 0)
+			(at 136.906 150.622 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5529,7 +5529,7 @@
 			)
 		)
 		(property "Sheetfile" "usb.kicad_sch"
-			(at 68.072 118.491 0)
+			(at 68.58 119.126 0)
 			(effects
 				(font
 					(size 1.27 1.27)
