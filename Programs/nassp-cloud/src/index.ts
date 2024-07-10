@@ -15,8 +15,10 @@ const shouldRestart = (data:any = {}) => {
     const {IlluminateNoAtt, IlluminateStby ,IlluminateTemp, VerbD1, VerbD2} = data
     const minute = (new Date()).getMinutes()
     if(IlluminateNoAtt && !IlluminateStby && !IlluminateTemp && !(VerbD1 == '8' && VerbD2 == '8')){
+        // NO ATT and we're not in V35
         restartOrbiter()
-    }else if(minute == 0 || minute == 30){
+    }else if(minute == 0){
+        // HH:00
         restartOrbiter()
     }
 }
