@@ -4291,7 +4291,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "af915eb8-0c76-4a30-be22-0c1c993fd6a2")
-		(property "Reference" "R48"
+		(property "Reference" "SB1"
 			(at 191.77 54.6099 0)
 			(effects
 				(font
@@ -4345,7 +4345,7 @@
 		(instances
 			(project "Single_board"
 				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
-					(reference "R48")
+					(reference "SB1")
 					(unit 1)
 				)
 			)
