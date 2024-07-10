@@ -72,7 +72,7 @@ const watchStateNASSP = (callback) => {
             lastCockpitMessage = messageClean;
             //console.log(parsedJSON)
             const { brightness } = parsedJSON;
-            const state = Object.assign(Object.assign({}, lastState), { Brightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1), IntegralBrightness: lastState.Standby ? 127 : Math.max(Math.floor(parseFloat(brightness) * 127), 1) });
+            const state = Object.assign(Object.assign({}, lastState), { Brightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1), IntegralBrightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1) });
             lastState = state;
             handleAGCUpdate(state);
         }
