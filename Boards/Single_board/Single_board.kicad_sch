@@ -1781,6 +1781,16 @@
 	)
 	(wire
 		(pts
+			(xy 261.62 130.81) (xy 265.43 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "568d1137-4a35-48c0-b99e-917f25e59542")
+	)
+	(wire
+		(pts
 			(xy 179.07 130.81) (xy 191.77 130.81)
 		)
 		(stroke
@@ -1879,6 +1889,16 @@
 		)
 		(uuid "75105fa6-7d1c-489d-a9a1-099c18417ef0")
 	)
+	(wire
+		(pts
+			(xy 236.22 130.81) (xy 240.03 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c89f735-fcec-4fbb-b530-f1b19dfc0088")
+	)
 	(bus
 		(pts
 			(xy 194.31 125.73) (xy 194.31 128.27)
@@ -1888,6 +1908,16 @@
 			(type default)
 		)
 		(uuid "7fa4bac9-cddf-4100-b0fb-94158273dc91")
+	)
+	(wire
+		(pts
+			(xy 236.22 133.35) (xy 240.03 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8eddcb71-3154-4afc-b233-77d2c72df85b")
 	)
 	(wire
 		(pts
@@ -2161,6 +2191,16 @@
 	)
 	(wire
 		(pts
+			(xy 261.62 133.35) (xy 265.43 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2f44205-ae92-40e7-9677-a6e172418d71")
+	)
+	(wire
+		(pts
 			(xy 180.34 58.42) (xy 180.34 60.96)
 		)
 		(stroke
@@ -2250,8 +2290,8 @@
 		(uuid "fb5e2694-bfef-4bae-b79c-9ece1496aa1d")
 	)
 	(rectangle
-		(start 201.93 13.97)
-		(end 282.575 96.52)
+		(start 222.25 98.425)
+		(end 282.575 164.465)
 		(stroke
 			(width 0)
 			(type default)
@@ -2368,7 +2408,7 @@
 	)
 	(text_box "Alarm Lights"
 		(exclude_from_sim no)
-		(at 255.905 88.265 0)
+		(at 256.54 156.845 0)
 		(size 24.13 5.715)
 		(stroke
 			(width 0)
@@ -2813,6 +2853,50 @@
 		(uuid "42964927-36a7-45b1-9d0f-0b7c2f7faa2d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 125.7686 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SDA"
+		(shape bidirectional)
+		(at 236.22 133.35 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "484ff33b-406c-47ea-a502-e04248bcdd9a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 228.5554 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SCL"
+		(shape output)
+		(at 236.22 130.81 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4d404982-1749-495e-8731-df5cc506c7ea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 229.7272 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3915,6 +3999,73 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 265.43 133.35 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "69ced1f2-4d41-4b25-a794-dcbf898cbc07")
+		(property "Reference" "#PWR048"
+			(at 271.78 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 269.24 133.3499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 265.43 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 265.43 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b8a0d333-1d74-4ef9-a461-807f441a3bc0")
+		)
+		(instances
+			(project "Single_board"
+				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 29.21 125.73 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4117,6 +4268,73 @@
 			(project "Single_board"
 				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 265.43 130.81 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "80d661e7-2093-4571-9c8f-7ae47c2da3e1")
+		(property "Reference" "#PWR047"
+			(at 261.62 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 269.24 130.8099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 265.43 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 265.43 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "effdfe86-e5c4-454f-8e44-f735e37a4002")
+		)
+		(instances
+			(project "Single_board"
+				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -5619,8 +5837,8 @@
 		)
 	)
 	(sheet
-		(at 230.505 36.195)
-		(size 21.59 31.115)
+		(at 240.03 121.92)
+		(size 21.59 19.685)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -5631,7 +5849,7 @@
 		)
 		(uuid "ed4c4d64-e285-498d-a32a-60e63088bbdd")
 		(property "Sheetname" "Alarm_lights"
-			(at 230.505 35.4834 0)
+			(at 240.03 121.2084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5640,13 +5858,53 @@
 			)
 		)
 		(property "Sheetfile" "Alarm_lights.kicad_sch"
-			(at 230.505 67.8946 0)
+			(at 240.03 142.1896 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
 			)
+		)
+		(pin "GND" output
+			(at 261.62 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "60dae1e6-4974-4be5-894a-7c1983a3391d")
+		)
+		(pin "SDA" bidirectional
+			(at 240.03 133.35 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "a09df6b7-0148-474e-8f1e-290dd34bc864")
+		)
+		(pin "5V" input
+			(at 261.62 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "c80a989e-43f1-4c1e-b61a-4c15e2d47dbe")
+		)
+		(pin "SCL" input
+			(at 240.03 130.81 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "6315471d-191c-4202-9b19-b9296108a1be")
 		)
 		(instances
 			(project "Single_board"
