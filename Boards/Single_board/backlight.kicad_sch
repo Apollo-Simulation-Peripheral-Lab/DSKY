@@ -1491,8 +1491,8 @@
 		)
 		(uuid "f7f117bc-e44d-4e40-88fb-c423d0aa6fb8")
 	)
-	(global_label "PWMcom"
-		(shape input)
+	(hierarchical_label "PWMCom"
+		(shape output)
 		(at 144.78 120.65 270)
 		(fields_autoplaced yes)
 		(effects
@@ -1501,17 +1501,7 @@
 			)
 			(justify right)
 		)
-		(uuid "72a7932c-91a5-4341-8a22-9b490ad0e6aa")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 144.78 131.7389 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
+		(uuid "52edb311-3941-41cf-9e7e-507d9b4d0e6b")
 	)
 	(hierarchical_label "PWR"
 		(shape input)

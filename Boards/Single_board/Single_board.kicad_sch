@@ -1671,6 +1671,16 @@
 	)
 	(wire
 		(pts
+			(xy 236.22 125.73) (xy 240.03 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f86aa25-d172-4cb2-b0e4-71497ba97ec6")
+	)
+	(wire
+		(pts
 			(xy 64.77 45.72) (xy 81.28 45.72)
 		)
 		(stroke
@@ -1681,7 +1691,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 67.31) (xy 71.12 67.31)
+			(xy 67.31 74.93) (xy 71.12 74.93)
 		)
 		(stroke
 			(width 0)
@@ -1859,6 +1869,16 @@
 		)
 		(uuid "691ea286-a572-49f8-b2ad-4e19d7b65126")
 	)
+	(wire
+		(pts
+			(xy 38.1 74.93) (xy 43.18 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ffa2a8b-834f-4cbb-808f-1fd5a15ef24d")
+	)
 	(bus
 		(pts
 			(xy 194.31 123.19) (xy 194.31 125.73)
@@ -1918,16 +1938,6 @@
 			(type default)
 		)
 		(uuid "8eddcb71-3154-4afc-b233-77d2c72df85b")
-	)
-	(wire
-		(pts
-			(xy 67.31 72.39) (xy 72.39 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8ee2acfa-5d81-45f3-a49b-344c9527bf85")
 	)
 	(bus
 		(pts
@@ -2278,16 +2288,6 @@
 			(type default)
 		)
 		(uuid "f975bc2c-5b78-421c-8974-86cbd37d1a8d")
-	)
-	(wire
-		(pts
-			(xy 39.37 74.93) (xy 43.18 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fb5e2694-bfef-4bae-b79c-9ece1496aa1d")
 	)
 	(rectangle
 		(start 222.25 98.425)
@@ -2664,6 +2664,28 @@
 		)
 		(uuid "fea7c010-724c-4178-9c43-46b67263b7d1")
 	)
+	(global_label "PWMCom"
+		(shape input)
+		(at 38.1 74.93 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "048267bb-9df4-4c3c-a40a-c775740c4d51")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 26.8297 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "RESET"
 		(shape input)
 		(at 29.21 137.16 180)
@@ -2906,7 +2928,7 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
+	(global_label "PWMCom"
 		(shape input)
 		(at 175.26 52.07 180)
 		(fields_autoplaced yes)
@@ -2918,7 +2940,7 @@
 		)
 		(uuid "4e415133-adc4-4ec6-bef2-1e06f411438f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 164.1711 52.07 0)
+			(at 163.9897 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3258,28 +3280,6 @@
 			)
 		)
 	)
-	(global_label "PWM"
-		(shape input)
-		(at 72.39 72.39 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c1110c36-ced7-4c48-ad3e-60ca05d78579")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 79.548 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "PWMfilt"
 		(shape output)
 		(at 177.8 27.94 0)
@@ -3298,6 +3298,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "PWMCom"
+		(shape input)
+		(at 236.22 125.73 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "de0bb890-d039-42b6-94c8-ad17eb05a5a8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 224.9497 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -3436,7 +3458,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 71.12 67.31 270)
+		(at 71.12 74.93 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3444,7 +3466,7 @@
 		(dnp no)
 		(uuid "193b4d41-da1b-482b-9cd1-04cd26a6a6c8")
 		(property "Reference" "#PWR06"
-			(at 67.31 67.31 0)
+			(at 67.31 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3453,7 +3475,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 74.93 67.31 90)
+			(at 74.93 74.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3462,7 +3484,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 71.12 67.31 0)
+			(at 71.12 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3471,7 +3493,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 71.12 67.31 0)
+			(at 71.12 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3480,7 +3502,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 71.12 67.31 0)
+			(at 71.12 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3495,73 +3517,6 @@
 			(project "Single_board"
 				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
 					(reference "#PWR06")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 39.37 74.93 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2c7343b9-9d1f-4853-ae19-3a5e82064910")
-		(property "Reference" "#PWR05"
-			(at 33.02 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 35.56 74.93 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 39.37 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 39.37 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 39.37 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f6d4f598-9171-47bc-8319-582d52bc26d2")
-		)
-		(instances
-			(project "Single_board"
-				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
-					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -5769,8 +5724,8 @@
 		)
 	)
 	(sheet
-		(at 43.18 64.77)
-		(size 24.13 13.97)
+		(at 43.18 68.58)
+		(size 24.13 12.7)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -5781,7 +5736,7 @@
 		)
 		(uuid "6de8313f-adfc-4236-b602-98157f8335d8")
 		(property "Sheetname" "Keyboard Backlight"
-			(at 43.18 64.0584 0)
+			(at 43.18 67.8684 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5790,7 +5745,7 @@
 			)
 		)
 		(property "Sheetfile" "backlight.kicad_sch"
-			(at 43.18 79.3246 0)
+			(at 43.18 81.8646 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5799,7 +5754,7 @@
 			)
 		)
 		(pin "PWR" input
-			(at 67.31 67.31 0)
+			(at 67.31 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5808,17 +5763,7 @@
 			)
 			(uuid "fcb4b251-f196-4260-88b9-364a80ce97c7")
 		)
-		(pin "PWM" input
-			(at 67.31 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "bec6e74d-1e72-43f5-bc10-bb1fa3a52a42")
-		)
-		(pin "GND" output
+		(pin "PWMCom" output
 			(at 43.18 74.93 180)
 			(effects
 				(font
@@ -5826,7 +5771,7 @@
 				)
 				(justify left)
 			)
-			(uuid "cfb5309d-3839-4b0a-8ff4-a47b84fd9de0")
+			(uuid "ab9aad3a-b6e4-4cd9-8d01-cc68f06e6a1d")
 		)
 		(instances
 			(project "Single_board"
@@ -5848,7 +5793,7 @@
 			(color 255 255 255 1.0000)
 		)
 		(uuid "ed4c4d64-e285-498d-a32a-60e63088bbdd")
-		(property "Sheetname" "Alarm_lights"
+		(property "Sheetname" "Alarm Lights"
 			(at 240.03 121.2084 0)
 			(effects
 				(font
@@ -5905,6 +5850,16 @@
 				(justify left)
 			)
 			(uuid "6315471d-191c-4202-9b19-b9296108a1be")
+		)
+		(pin "PWMCom" output
+			(at 240.03 125.73 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "6ebe1db3-e604-4b41-ba30-0ea4708e8155")
 		)
 		(instances
 			(project "Single_board"

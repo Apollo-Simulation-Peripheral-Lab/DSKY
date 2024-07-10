@@ -2946,50 +2946,6 @@
 		)
 		(uuid "9adc5fb9-f743-4135-9a63-1dd687071640")
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 57.15 106.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "02ff3f79-638f-46f2-9c90-c948ac139619")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.2389 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 171.45 74.93 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "03981434-58f4-4f67-a36c-fc91023f6714")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.5389 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "STBY"
 		(shape input)
 		(at 73.66 179.07 0)
@@ -3056,50 +3012,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 57.15 137.16 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1ebe615f-a9cb-46d7-a1ac-71ff58dc9ce0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.2389 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 223.52 106.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2d7e6cef-e017-4591-a9a9-95f8751b2941")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 234.6089 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "Restart"
 		(shape input)
 		(at 73.66 204.47 0)
@@ -3113,28 +3025,6 @@
 		(uuid "2dafbeef-6293-49b9-b0fe-129c702491c6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 83.4185 204.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 109.22 74.93 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "319f6a1b-8a3c-4a70-b8c2-9ad63e0e8a8b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.3089 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3166,50 +3056,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 57.15 44.45 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "410484fa-227e-4915-bb18-19c241aa09b7")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.2389 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 109.22 106.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4d371828-9cb0-4ee6-9845-e87b09af7e34")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.3089 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "Alt"
 		(shape input)
 		(at 198.12 66.04 180)
@@ -3232,28 +3078,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 171.45 44.45 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "56123bcf-264c-49d0-995e-b0042935ccc1")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.5389 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "No Dap"
 		(shape input)
 		(at 73.66 186.69 0)
@@ -3267,28 +3091,6 @@
 		(uuid "5c2d2841-1cfd-40a3-b61d-7cbed320074d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 83.6603 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 223.52 44.45 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5e535240-2075-4905-be72-c1d473c0719b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 234.6089 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3360,28 +3162,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 171.45 106.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "75f23239-eba0-4485-b135-38dda310010a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.5389 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -3628,28 +3408,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 109.22 44.45 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "b34b6b12-9c76-426b-9b2f-6e1c717cd253")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.3089 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "Gimbal Lock"
 		(shape input)
 		(at 146.05 66.04 180)
@@ -3694,28 +3452,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 171.45 137.16 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bdb6d1a6-b610-4b49-8c3a-9b264009059a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.5389 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "No Att"
 		(shape input)
 		(at 31.75 66.04 180)
@@ -3734,28 +3470,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 57.15 74.93 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c9d19f1e-d53c-4d4b-bb27-e212c488039c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.2389 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -3826,28 +3540,6 @@
 			)
 		)
 	)
-	(global_label "PWMcom"
-		(shape output)
-		(at 223.52 74.93 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "eacc66ef-9993-4b67-b553-36387f53b074")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 234.6089 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "Tracker"
 		(shape input)
 		(at 73.66 207.01 0)
@@ -3882,6 +3574,66 @@
 		)
 		(uuid "015dabc4-492f-46df-bf0e-73dea94cba3f")
 	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 109.22 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0b9f3602-3b15-452f-a9a8-e12699daa44b")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 223.52 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0c62e43e-3c93-4cde-9829-1173a651dc9e")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 57.15 137.16 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "172bf169-26cc-4f03-a2b3-c219ad9c8d2f")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 57.15 74.93 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2328bf1f-1ea5-4808-abce-7173649c0c2b")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 223.52 74.93 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "41852fc7-43d0-428f-8776-0f84ce6513d9")
+	)
 	(hierarchical_label "SCL"
 		(shape input)
 		(at 29.21 171.45 180)
@@ -3906,6 +3658,90 @@
 		)
 		(uuid "51e66b74-c353-4c75-bcf4-6ff5478ec1f1")
 	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 171.2276 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5930d9d8-5e7b-4509-bbac-c6b735012f66")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 57.15 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "72b7e762-ec95-463b-a598-66f0b85f23e7")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 109.22 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "79ed80e7-b996-45ba-a5d8-27500c8ec5bc")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 109.22 74.93 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "873a9db3-9512-46f3-b667-32510be2c8cc")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 171.45 137.16 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8e048e92-0c3b-4907-a350-d1e189e8c221")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 223.52 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ae065023-5467-4c6c-88cd-04590a91c3f0")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 57.15 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "af321a2b-d94e-4bdd-adb2-28a64fff7c9b")
+	)
 	(hierarchical_label "SDA"
 		(shape bidirectional)
 		(at 29.21 173.99 180)
@@ -3917,6 +3753,30 @@
 			(justify right)
 		)
 		(uuid "b64cd300-d545-4c05-bad1-1267d9c84bcd")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 171.45 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ecc93555-66b0-4c19-b63f-2156659939fb")
+	)
+	(hierarchical_label "PWMCom"
+		(shape output)
+		(at 171.45 74.93 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f3c733db-c486-4bdd-864d-075661b00b33")
 	)
 	(symbol
 		(lib_id "power:+5V")
