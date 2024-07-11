@@ -188,7 +188,7 @@ export default function Home() {
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
   const opacityEL = dskyState.Standby ? 0 : (dskyState.Brightness || 127) / 127
-  const opacityAlarms = dskyState.Standby ? 0 : (dskyState.IntegralBrightness || 127) / 127
+  const opacityAlarms = (dskyState.IntegralBrightness || 127) / 127
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType} oled-${oledMode}`} >
       <div className="Alarms" >

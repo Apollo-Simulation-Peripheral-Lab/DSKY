@@ -12,24 +12,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 const dotenv = require("dotenv");
 const child_process_1 = require("child_process");
-const dgram = require("node:dgram");
 const websocket_1 = require("websocket");
+// Init
 dotenv.config();
-let dskyServer = dgram.createSocket('udp4');
-commander_1.program
-    .option('--restart-handler <string>');
+commander_1.program.option('--restart-handler <string>');
 commander_1.program.parse();
 const options = commander_1.program.opts();
-const restartOrbiter = () => {
-    if (options.restartHandler) {
-        console.log("Restarting NASSP...");
-        (0, child_process_1.exec)(options.restartHandler);
+let lastRestartTime;
+// Handlers
+const shouldRestart = (data = {}) => {
+    const { IlluminateNoAtt, IlluminateStby, IlluminateTemp, VerbD1, VerbD2 } = data;
+    const minute = (new Date()).getMinutes();
+    if (IlluminateNoAtt && !IlluminateStby && !IlluminateTemp && !(VerbD1 == '8' && VerbD2 == '8')) {
+        // NO ATT and we're not in V35
+        restartOrbiter();
+    }
+    else if (minute == 0) {
+        // HH:00
+        restartOrbiter();
     }
 };
-let restartOrbiterTimeout;
-const client = new websocket_1.client();
-let clientInput = (_data) => { };
-let clientOutput = (_data) => { };
+const restartOrbiter = () => {
+    let newRestartTime = Date.now();
+    if (lastRestartTime && newRestartTime - lastRestartTime < 70000)
+        return;
+    lastRestartTime = Date.now();
+    if (options.restartHandler) {
+        console.log("Restarting NASSP...");
+        (0, child_process_1.spawn)(options.restartHandler, { stdio: 'inherit', shell: true });
+        //handler.stdout.pipe(process.stdout);
+    }
+};
+// Socket
+const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
+    client.connect('ws://127.0.0.1:3001/', 'echo-protocol');
+    client.on('connect', onConnect);
+});
 const onDisconnect = () => __awaiter(void 0, void 0, void 0, function* () {
     client.removeListener('connect', onConnect);
     console.log("Bridge connection failed, reconnecting...");
@@ -40,32 +58,14 @@ const onConnect = connection => {
     console.log("Bridge connected!");
     connection.on("message", message => {
         if (message.type === 'utf8') {
-            clientOutput(JSON.parse(message.utf8Data));
+            shouldRestart(JSON.parse(message.utf8Data));
         }
     });
     connection.on("close", onDisconnect);
-    clientInput = (data) => connection.sendUTF(data);
 };
+const client = new websocket_1.client();
 client.on('connectFailed', onDisconnect);
-const connectClient = () => __awaiter(void 0, void 0, void 0, function* () {
-    client.connect('ws://127.0.0.1:3001/', 'echo-protocol');
-    client.on('connect', onConnect);
-});
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    connectClient();
-    clientOutput = (data) => {
-        const { IlluminateNoAtt } = data;
-        if (!IlluminateNoAtt) {
-            if (restartOrbiterTimeout)
-                clearTimeout(restartOrbiterTimeout);
-            const minute = (new Date()).getMinutes();
-            if (minute == 0 || minute == 30) {
-                restartOrbiter();
-            }
-            else {
-                restartOrbiterTimeout = setTimeout(restartOrbiter, 5000);
-            }
-        }
-    };
-});
-main();
+// Main logic 
+restartOrbiter();
+connectClient();
+setInterval(shouldRestart, 1000);

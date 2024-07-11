@@ -1,29 +1,44 @@
 import { program } from 'commander'
 import * as dotenv from 'dotenv'
-import {exec} from 'child_process'
-import * as dgram from 'node:dgram'
+import {spawn} from 'child_process'
 import {client as WebSocketClient} from 'websocket'
 
+// Init
 dotenv.config()
-let dskyServer = dgram.createSocket('udp4');
-program
-    .option('--restart-handler <string>')
+program.option('--restart-handler <string>')
 program.parse();
 const options = program.opts()
+let lastRestartTime
 
-const restartOrbiter = () =>{
-    if(options.restartHandler){
-        console.log("Restarting NASSP...")
-        exec(options.restartHandler)
+// Handlers
+const shouldRestart = (data:any = {}) => {
+    const {IlluminateNoAtt, IlluminateStby ,IlluminateTemp, VerbD1, VerbD2} = data
+    const minute = (new Date()).getMinutes()
+    if(IlluminateNoAtt && !IlluminateStby && !IlluminateTemp && !(VerbD1 == '8' && VerbD2 == '8')){
+        // NO ATT and we're not in V35
+        restartOrbiter()
+    }else if(minute == 0){
+        // HH:00
+        restartOrbiter()
     }
 }
 
-let restartOrbiterTimeout
+const restartOrbiter = () =>{
+    let newRestartTime = Date.now()
+    if(lastRestartTime && newRestartTime - lastRestartTime < 70000) return
+    lastRestartTime = Date.now()
+    if(options.restartHandler){
+        console.log("Restarting NASSP...")
+        spawn(options.restartHandler, { stdio: 'inherit', shell: true });
+        //handler.stdout.pipe(process.stdout);
+    }
+}
 
-const client = new WebSocketClient()
-
-let clientInput = (_data) => {}
-let clientOutput = (_data) =>{}
+// Socket
+const connectClient = async () =>{
+    client.connect('ws://127.0.0.1:3001/','echo-protocol')
+    client.on('connect', onConnect)
+}
 
 const onDisconnect = async () => {
     client.removeListener('connect', onConnect)
@@ -36,34 +51,17 @@ const onConnect = connection => {
     console.log("Bridge connected!")
     connection.on("message", message =>{
         if (message.type === 'utf8') {
-            clientOutput(JSON.parse(message.utf8Data))
+            shouldRestart(JSON.parse(message.utf8Data))
         }
     })
     connection.on("close", onDisconnect)
-    clientInput = (data) => connection.sendUTF(data)
 }
 
+const client = new WebSocketClient()
 client.on('connectFailed', onDisconnect);
 
-const connectClient = async () =>{
-    client.connect('ws://127.0.0.1:3001/','echo-protocol')
-    client.on('connect', onConnect)
-}
+// Main logic 
+restartOrbiter()
+connectClient()
 
-const main = async() =>{
-    connectClient()
-    clientOutput = (data) => {
-        const {IlluminateNoAtt} = data
-        if(!IlluminateNoAtt){
-            if(restartOrbiterTimeout) clearTimeout(restartOrbiterTimeout)
-            const minute = (new Date()).getMinutes()
-            if(minute == 0 || minute == 30){
-                restartOrbiter()
-            }else{
-                restartOrbiterTimeout = setTimeout(restartOrbiter,5000)
-            }
-        }
-    }
-}
-
-main()
+setInterval(shouldRestart,1000)
