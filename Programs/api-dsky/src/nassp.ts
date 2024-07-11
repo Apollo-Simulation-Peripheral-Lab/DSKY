@@ -1,4 +1,3 @@
-import {keyboard, Key} from "@nut-tree-fork/nut-js"
 import * as dgram from 'node:dgram'
 import { OFF_TEST } from "./dskyStates";
 
@@ -6,29 +5,7 @@ let dskyServer = dgram.createSocket('udp4');
 let cockpitServer = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => {}
 
-// Define key map, duh
-const keyMap = {
-    '1': [Key.RightShift, Key.NumPad1],
-    '2': [Key.RightShift, Key.NumPad2],
-    '3': [Key.RightShift, Key.NumPad3],
-    '4': [Key.RightShift, Key.NumPad4],
-    '5': [Key.RightShift, Key.NumPad5],
-    '6': [Key.RightShift, Key.NumPad6],
-    '7': [Key.RightShift, Key.NumPad7],
-    '8': [Key.RightShift, Key.NumPad8],
-    '9': [Key.RightShift, Key.NumPad9],
-    '0': [Key.RightShift, Key.NumPad0],
-    'e': [Key.RightShift, Key.T],
-    'p': [Key.RightShift, Key.End],
-    'o': [Key.RightShift, Key.End], // PRO Release
-    'v': [Key.RightShift, Key.V],
-    'n': [Key.RightShift, Key.N],
-    '+': [Key.RightShift, Key.Add],
-    '-': [Key.RightShift, Key.Subtract],
-    'c': [Key.RightShift, Key.Decimal],
-    'r': [Key.RightShift, Key.R],
-    'k': [Key.RightShift, Key.Home]
-};
+let nasspAddress,nasspPort;
 
 export const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback
@@ -45,7 +22,9 @@ export const watchStateNASSP = (callback) => {
         console.log('Cockpit Server listening on ' + address.address + ':' + address.port);
     });
     
-    dskyServer.on('message', function(message) {
+    dskyServer.on('message', function(message, rinfo) {
+        nasspAddress = rinfo.address
+        nasspPort = rinfo.port
         const parsedJSON = JSON.parse(message.toString())
         const messageClean = JSON.stringify(parsedJSON)
         if(messageClean != lastDSKYMessage){
@@ -109,11 +88,11 @@ export const watchStateNASSP = (callback) => {
         if(messageClean != lastCockpitMessage){
             lastCockpitMessage = messageClean
             //console.log(parsedJSON)
-            const {brightness} = parsedJSON
+            const {brightness, integralBrightness} = parsedJSON
             const state = {
                 ...lastState,
                 Brightness: Math.max(Math.floor(parseFloat(brightness) * 127),1),
-                IntegralBrightness: Math.max(Math.floor(parseFloat(brightness) * 127),1)
+                IntegralBrightness: Math.max(Math.floor(parseFloat(integralBrightness) * 127),1)
             }
             lastState = state
             handleAGCUpdate(state)
@@ -124,33 +103,11 @@ export const watchStateNASSP = (callback) => {
     cockpitServer.bind(3003, '127.0.0.1');
 };
 
-let isTyping = false
-
 export const getNASSPKeyboardHandler = () => {
-    keyboard.config.autoDelayMs = 10// Define this setting here, we may want to use other values in other handlers
-
     return async (data) => {
         try {
-            const keysToSend = keyMap[data];
-            if(isTyping){
-                console.log(`Key '${data}' skipped because a keypress is already in progress`)
-            }else if (keysToSend) {
-                isTyping = true
-                if(data == 'p'){
-                    await keyboard.pressKey(...keysToSend);
-                }else if (data == 'o'){
-                    await keyboard.releaseKey(keysToSend[1]);
-                    await new Promise(r => setTimeout(r,10));
-                    await keyboard.releaseKey(...keysToSend);
-                }else{
-                    await keyboard.pressKey(...keysToSend);
-                    await keyboard.releaseKey(keysToSend[1]);
-                    await new Promise(r => setTimeout(r,10));
-                    await keyboard.releaseKey(...keysToSend);
-                }
-                isTyping = false
-            } else {
-                console.error(`Key combination for '${data}' not found.`);
+            if(nasspAddress && nasspPort){
+                dskyServer.send(data, nasspPort, nasspAddress)
             }
         } catch (error) {
             console.error('Error sending key combination: ', error);

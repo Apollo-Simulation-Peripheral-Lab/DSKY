@@ -10,35 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getNASSPKeyboardHandler = exports.watchStateNASSP = void 0;
-const nut_js_1 = require("@nut-tree-fork/nut-js");
 const dgram = require("node:dgram");
 const dskyStates_1 = require("./dskyStates");
 let dskyServer = dgram.createSocket('udp4');
 let cockpitServer = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => { };
-// Define key map, duh
-const keyMap = {
-    '1': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad1],
-    '2': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad2],
-    '3': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad3],
-    '4': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad4],
-    '5': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad5],
-    '6': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad6],
-    '7': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad7],
-    '8': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad8],
-    '9': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad9],
-    '0': [nut_js_1.Key.RightShift, nut_js_1.Key.NumPad0],
-    'e': [nut_js_1.Key.RightShift, nut_js_1.Key.T],
-    'p': [nut_js_1.Key.RightShift, nut_js_1.Key.End],
-    'o': [nut_js_1.Key.RightShift, nut_js_1.Key.End], // PRO Release
-    'v': [nut_js_1.Key.RightShift, nut_js_1.Key.V],
-    'n': [nut_js_1.Key.RightShift, nut_js_1.Key.N],
-    '+': [nut_js_1.Key.RightShift, nut_js_1.Key.Add],
-    '-': [nut_js_1.Key.RightShift, nut_js_1.Key.Subtract],
-    'c': [nut_js_1.Key.RightShift, nut_js_1.Key.Decimal],
-    'r': [nut_js_1.Key.RightShift, nut_js_1.Key.R],
-    'k': [nut_js_1.Key.RightShift, nut_js_1.Key.Home]
-};
+let nasspAddress, nasspPort;
 const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback;
     let lastDSKYMessage, lastCockpitMessage;
@@ -51,7 +28,9 @@ const watchStateNASSP = (callback) => {
         var address = cockpitServer.address();
         console.log('Cockpit Server listening on ' + address.address + ':' + address.port);
     });
-    dskyServer.on('message', function (message) {
+    dskyServer.on('message', function (message, rinfo) {
+        nasspAddress = rinfo.address;
+        nasspPort = rinfo.port;
         const parsedJSON = JSON.parse(message.toString());
         const messageClean = JSON.stringify(parsedJSON);
         if (messageClean != lastDSKYMessage) {
@@ -71,8 +50,8 @@ const watchStateNASSP = (callback) => {
         if (messageClean != lastCockpitMessage) {
             lastCockpitMessage = messageClean;
             //console.log(parsedJSON)
-            const { brightness } = parsedJSON;
-            const state = Object.assign(Object.assign({}, lastState), { Brightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1), IntegralBrightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1) });
+            const { brightness, integralBrightness } = parsedJSON;
+            const state = Object.assign(Object.assign({}, lastState), { Brightness: Math.max(Math.floor(parseFloat(brightness) * 127), 1), IntegralBrightness: Math.max(Math.floor(parseFloat(integralBrightness) * 127), 1) });
             lastState = state;
             handleAGCUpdate(state);
         }
@@ -81,35 +60,11 @@ const watchStateNASSP = (callback) => {
     cockpitServer.bind(3003, '127.0.0.1');
 };
 exports.watchStateNASSP = watchStateNASSP;
-let isTyping = false;
 const getNASSPKeyboardHandler = () => {
-    nut_js_1.keyboard.config.autoDelayMs = 10; // Define this setting here, we may want to use other values in other handlers
     return (data) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const keysToSend = keyMap[data];
-            if (isTyping) {
-                console.log(`Key '${data}' skipped because a keypress is already in progress`);
-            }
-            else if (keysToSend) {
-                isTyping = true;
-                if (data == 'p') {
-                    yield nut_js_1.keyboard.pressKey(...keysToSend);
-                }
-                else if (data == 'o') {
-                    yield nut_js_1.keyboard.releaseKey(keysToSend[1]);
-                    yield new Promise(r => setTimeout(r, 10));
-                    yield nut_js_1.keyboard.releaseKey(...keysToSend);
-                }
-                else {
-                    yield nut_js_1.keyboard.pressKey(...keysToSend);
-                    yield nut_js_1.keyboard.releaseKey(keysToSend[1]);
-                    yield new Promise(r => setTimeout(r, 10));
-                    yield nut_js_1.keyboard.releaseKey(...keysToSend);
-                }
-                isTyping = false;
-            }
-            else {
-                console.error(`Key combination for '${data}' not found.`);
+            if (nasspAddress && nasspPort) {
+                dskyServer.send(data, nasspPort, nasspAddress);
             }
         }
         catch (error) {
