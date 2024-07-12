@@ -68,7 +68,8 @@ const stateToBinaryString = (state) => {
     bits += decimalToByte(booleansToDecimal(state.IlluminateAlt, state.IlluminateVel, 0, 0, 0, 0, 0, 0)); // B13
     bits += decimalToByte(
     // Only values from 1 to 127 will be sent
-    state.IntegralBrightness ? Math.min(state.IntegralBrightness, 127) : 127); // B13
+    // Our DSKY currently only accepts 1 dimming level so status lights are dimmed with the keyboard's value
+    state.KeyboardBrightness ? Math.min(state.KeyboardBrightness, 127) : 127); // B13
     return bits;
 };
 const binaryStringToBuffer = (bits) => {

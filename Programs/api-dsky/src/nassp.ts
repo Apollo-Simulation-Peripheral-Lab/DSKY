@@ -1,5 +1,4 @@
 import * as dgram from 'node:dgram'
-import { OFF_TEST } from "./dskyStates";
 
 let dskyServer = dgram.createSocket('udp4');
 let handleAGCUpdate = (_data) => {}
@@ -9,7 +8,6 @@ let nasspAddress,nasspPort;
 export const watchStateNASSP = (callback) => {
     handleAGCUpdate = callback
     let lastDSKYMessage
-    let lastState = {...OFF_TEST}
     
     dskyServer.on('listening', function() {
         var address = dskyServer.address();
@@ -30,7 +28,6 @@ export const watchStateNASSP = (callback) => {
                 const alarmValues = alarms.split(' ').map(val => val != '0' && alarmsPowered)
     
                 const state = {
-                    ...lastState,
                     IlluminateCompLight: compLight == '1',
                     IlluminateUplinkActy: alarmValues[0], 
                     IlluminateNoAtt: alarmValues[1],
@@ -71,11 +68,10 @@ export const watchStateNASSP = (callback) => {
                     Register3D4: r3[4].replace(' ',''),
                     Register3D5: r3[5].replace(' ',''),
                     Standby: !ELPowered,
-                    AnunBrightness: Math.max(Math.floor(parseFloat(anun) * 127),1),
-                    Brightness: Math.max(Math.floor(parseFloat(numerics) * 127),1),
-                    IntegralBrightness: Math.max(Math.floor(parseFloat(integral) * 127),1)
+                    StatusBrightness: Math.max(Math.floor(parseFloat(anun) * 127),1),
+                    DisplayBrightness: Math.max(Math.floor(parseFloat(numerics) * 127),1),
+                    KeyboardBrightness: Math.max(Math.floor(parseFloat(integral) * 127),1)
                 }
-                lastState = state
                 handleAGCUpdate(state)
             }
         }catch{

@@ -38,8 +38,9 @@ export const V35_TEST = {
     IlluminateTracker: 1,
     IlluminateAlt: 1,
     IlluminateVel: 1,
-    Brightness: 127,
-    IntegralBrightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -83,8 +84,9 @@ export const OFF_TEST = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127,
-    IntegralBrightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -128,8 +130,9 @@ export const AUDIO_LOAD = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127,
-    IntegralBrightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -173,8 +176,9 @@ export const NO_CONN = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127,
-    IntegralBrightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -218,7 +222,8 @@ export const NO_CONN_UHOH = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127,
-    IntegralBrightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
