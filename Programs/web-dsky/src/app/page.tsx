@@ -22,7 +22,7 @@ export default function Home() {
   switch (displayType){
     case 'iphone13':
     case 'iphone12':
-      marginLeft = -10
+      marginLeft = -38
       marginTop = "10vh"
       break;
     default:

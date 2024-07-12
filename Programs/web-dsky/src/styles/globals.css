@@ -12,6 +12,17 @@
 :root{
   --scale: 1.05;
 }
+
+/* Display Alarms if aspect ratio bigger than 4:3 */
+@media (max-aspect-ratio: 9.45/16) {
+  :root{
+    --scale: 0.8;
+  }
+  .ELDisplay{
+    left:15vw;
+  }
+}
+
 .display-iphone12{
   --scale: 0.83;
 }
