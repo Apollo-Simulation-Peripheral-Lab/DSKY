@@ -41,7 +41,9 @@ exports.V35_TEST = {
     IlluminateTracker: 1,
     IlluminateAlt: 1,
     IlluminateVel: 1,
-    Brightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 };
 exports.OFF_TEST = {
@@ -84,7 +86,9 @@ exports.OFF_TEST = {
     IlluminateTracker: 0,
     IlluminateAlt: 0,
     IlluminateVel: 0,
-    Brightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 };
 exports.NO_CONN = {
@@ -127,6 +131,8 @@ exports.NO_CONN = {
     IlluminateTracker: 1,
     IlluminateAlt: 1,
     IlluminateVel: 1,
-    Brightness: 127,
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 };

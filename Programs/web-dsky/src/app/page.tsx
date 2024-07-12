@@ -185,8 +185,8 @@ export default function Home() {
     };
   }, [webSocket?.readyState, audioFiles, audioContext]);
 
-  const opacityEL = dskyState.Standby ? 0 : (dskyState.Brightness || 127) / 127
-  const opacityAlarms = (dskyState.IntegralBrightness || 127) / 127
+  const opacityEL = dskyState.Standby ? 0 : (dskyState.DisplayBrightness || 127) / 127
+  const opacityStatus = (dskyState.StatusBrightness || 127) / 127
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType} oled-${oledMode}`} >
       <div className="Alarms" >
@@ -198,20 +198,20 @@ export default function Home() {
           className="alarms_mask"
         />
         <div className="alarms-bg" />
-        {!!dskyState.IlluminateUplinkActy && <div className="alarm-uplink" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateNoAtt && <div className="alarm-noatt" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateStby && <div className="alarm-stby" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateKeyRel && <div className="alarm-keyrel" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateOprErr && <div className="alarm-oprerr" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateNoDap && <div className="alarm-nodap" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminatePrioDisp && <div className="alarm-priodisp" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateTemp && <div className="alarm-temp" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateGimbalLock && <div className="alarm-gimballock" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateProg && <div className="alarm-prog" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateRestart && <div className="alarm-restart" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateTracker && <div className="alarm-tracker" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateAlt && <div className="alarm-alt" style={{opacity: opacityAlarms}}/>}
-        {!!dskyState.IlluminateVel && <div className="alarm-vel" style={{opacity: opacityAlarms}}/>}
+        {!!dskyState.IlluminateUplinkActy && <div className="alarm-uplink" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateNoAtt && <div className="alarm-noatt" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateStby && <div className="alarm-stby" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateKeyRel && <div className="alarm-keyrel" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateOprErr && <div className="alarm-oprerr" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateNoDap && <div className="alarm-nodap" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminatePrioDisp && <div className="alarm-priodisp" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateTemp && <div className="alarm-temp" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateGimbalLock && <div className="alarm-gimballock" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateProg && <div className="alarm-prog" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateRestart && <div className="alarm-restart" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateTracker && <div className="alarm-tracker" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateAlt && <div className="alarm-alt" style={{opacity: opacityStatus}}/>}
+        {!!dskyState.IlluminateVel && <div className="alarm-vel" style={{opacity: opacityStatus}}/>}
       </div>
       <div className="ELDisplay" style={{marginLeft, marginTop}}>
         <Image

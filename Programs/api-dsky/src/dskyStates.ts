@@ -37,8 +37,10 @@ export const V35_TEST = {
     IlluminateRestart: 1, 
     IlluminateTracker: 1,
     IlluminateAlt: 1,
-    IlluminateVel: 1,
-    Brightness: 127,
+    IlluminateVel: 1,                
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -81,8 +83,10 @@ export const OFF_TEST = {
     IlluminateRestart: 0, 
     IlluminateTracker: 0,
     IlluminateAlt: 0,
-    IlluminateVel: 0,
-    Brightness: 127,
+    IlluminateVel: 0,                
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
 
@@ -125,7 +129,9 @@ export const NO_CONN = {
     IlluminateRestart: 1, 
     IlluminateTracker: 1,
     IlluminateAlt: 1,
-    IlluminateVel: 1,
-    Brightness: 127,
+    IlluminateVel: 1,                
+    StatusBrightness: 127,
+    DisplayBrightness: 127,
+    KeyboardBrightness: 127,
     Standby: false
 }
