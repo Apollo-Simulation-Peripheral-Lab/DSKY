@@ -25,7 +25,7 @@ export const watchStateNASSP = (callback) => {
             if(messageClean != lastDSKYMessage){
                 lastDSKYMessage = messageClean
                 //console.log(parsedJSON)
-                const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms, powered, numerics, integral} = parsedJSON
+                const {compLight, prog, verb, noun, flashing, r1, r2, r3, alarms, powered, anun, numerics, integral} = parsedJSON
                 const [alarmsPowered, ELPowered] = powered.split(' ').map(val => val != '0')
                 const alarmValues = alarms.split(' ').map(val => val != '0' && alarmsPowered)
     
@@ -71,6 +71,7 @@ export const watchStateNASSP = (callback) => {
                     Register3D4: r3[4].replace(' ',''),
                     Register3D5: r3[5].replace(' ',''),
                     Standby: !ELPowered,
+                    AnunBrightness: Math.max(Math.floor(parseFloat(anun) * 127),1),
                     Brightness: Math.max(Math.floor(parseFloat(numerics) * 127),1),
                     IntegralBrightness: Math.max(Math.floor(parseFloat(integral) * 127),1)
                 }
