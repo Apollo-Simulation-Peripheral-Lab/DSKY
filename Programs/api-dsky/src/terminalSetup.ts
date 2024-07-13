@@ -65,7 +65,8 @@ export const getBridgeHost = async () => {
         inquirer.prompt({
             message: "Type in the address where the API is listening: ",
             name: 'address',
-            type: 'input'
+            type: 'input',
+            default: protocol == 'wss' ? 'dsky.ortizma.com' : undefined
         }).then(r)
     ) as any
     const {port} = await new Promise(r => 

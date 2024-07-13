@@ -11,24 +11,21 @@
 
 :root{
   --scale: 1.05;
-}
-
-/* Display Alarms if aspect ratio bigger than 4:3 */
-@media (max-aspect-ratio: 9.45/16) {
-  :root{
-    --scale: 0.8;
-  }
-  .ELDisplay{
-    left:15vw;
-  }
+  --margin-left: -20px;
+  --margin-top: -4.5vh;
 }
 
 .display-iphone12{
   --scale: 0.83;
+  --margin-left: 0;
+  --margin-top: 10vh;
 }
 .display-iphone13{
   --scale: 0.83;
+  --margin-left: 0;
+  --margin-top: 10vh;
 }
+
 .oled-yes{
   background-color: #000000;
 }
@@ -49,6 +46,8 @@ body {
   position: absolute;
   width: calc(52.8vh * var(--scale));
   height:calc(100vh *  var(--scale));
+  margin-top: var(--margin-top);
+  margin-left: var(--margin-left);
 }
 
 .Alarms{
@@ -62,7 +61,9 @@ body {
 /* Display Alarms if aspect ratio bigger than 4:3 */
 @media (min-aspect-ratio: 4/3) {
   .ELDisplay {
-    margin-left:calc(60vh * var(--scale)) !important;
+    margin-left: calc(60vh * var(--scale)) !important;
+    --margin-left: -20px;
+    --margin-top: -3vh;
   }
   .Alarms{
     display:block;

@@ -65,7 +65,8 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
     const { address } = yield new Promise(r => inquirer.prompt({
         message: "Type in the address where the API is listening: ",
         name: 'address',
-        type: 'input'
+        type: 'input',
+        default: protocol == 'wss' ? 'dsky.ortizma.com' : undefined
     }).then(r));
     const { port } = yield new Promise(r => inquirer.prompt({
         message: "Select the port where the API is listening: ",
