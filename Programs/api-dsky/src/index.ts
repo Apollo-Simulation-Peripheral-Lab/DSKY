@@ -77,9 +77,21 @@ const main = async() =>{
 
     // Create State watcher
     const inputSource = await getInputSource()
-    await watchState(inputSource, (newState) =>{
-        updateSerialState(newState)
-        updateWebSocketState(newState)
+    let updateTimeout, updateBusy
+    const doUpdate = (state) => {
+        updateBusy = true
+        updateSerialState(state)
+        updateWebSocketState(state)
+        if(updateTimeout) clearTimeout(updateTimeout)
+        updateTimeout = setTimeout(() => updateBusy = false, 50)
+    }
+    await watchState(inputSource, (state) =>{
+        if(updateBusy){
+            if(updateTimeout) clearTimeout(updateTimeout)
+            updateTimeout = setTimeout(() => doUpdate(state), 50)
+        }else{
+            doUpdate(state)
+        }
     })
 
     if(options.callback){
