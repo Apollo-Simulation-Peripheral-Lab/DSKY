@@ -17,18 +17,6 @@ export default function Home() {
   let displayType = 'default'
   if(process.env.DISPLAY_TYPE) displayType = process.env.DISPLAY_TYPE
   if(searchParams.get('display')) displayType = searchParams.get('display') as string
-  let marginLeft, marginTop
-
-  switch (displayType){
-    case 'iphone13':
-    case 'iphone12':
-      marginLeft = -38
-      marginTop = "10vh"
-      break;
-    default:
-      marginLeft = -20;
-      marginTop = "-4.5vh";
-  }
 
   const initialState = AUDIO_LOAD
   const [dskyState,setDskyState] = useState(initialState)
@@ -213,7 +201,7 @@ export default function Home() {
         {!!dskyState.IlluminateAlt && <div className="alarm-alt" style={{opacity: opacityStatus}}/>}
         {!!dskyState.IlluminateVel && <div className="alarm-vel" style={{opacity: opacityStatus}}/>}
       </div>
-      <div className="ELDisplay" style={{marginLeft, marginTop}}>
+      <div className="ELDisplay">
         <Image
           alt={'mask'}
           src={'./mask.svg'}
@@ -222,7 +210,7 @@ export default function Home() {
           className="mask"
         />
       </div>
-      <div className="ELDisplay" style={{opacity: opacityEL, marginLeft, marginTop}}>  
+      <div className="ELDisplay" style={{opacity: opacityEL}}>  
         <Image
           alt={'basic_segments'}
           src={'./basic_segments.svg'}
