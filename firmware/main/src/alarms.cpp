@@ -65,6 +65,7 @@ void updateAlarms(uint8_t *dskyState){
     toggleAlarm(VEL,Vel);
     toggleAlarm(ALT,Alt);
 
-    uint8_t brightness = (dskyState[14] << 1) | 1;
+    // Dimming byte goes from 1 to 127. We want values from 0 to 127
+    uint8_t brightness = (uint8_t)(((dskyState[14] - 1) * 255) / 126);
     analogWrite(PWM_PIN, brightness);
 }
