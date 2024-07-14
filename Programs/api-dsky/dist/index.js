@@ -74,7 +74,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             pendingUpdate = null;
         }
     };
-    setInterval(doUpdate, 30);
+    setInterval(doUpdate, 70);
     yield watchState(inputSource, (state) => {
         pendingUpdate = state;
     });
