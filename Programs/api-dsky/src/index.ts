@@ -86,7 +86,7 @@ const main = async() =>{
             pendingUpdate = null
         }
     }
-    setInterval(doUpdate,30)
+    setInterval(doUpdate,70)
     await watchState(inputSource, (state) =>{
         pendingUpdate = state
     })
