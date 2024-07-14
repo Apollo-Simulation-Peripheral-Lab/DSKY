@@ -66,24 +66,17 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     // Create State watcher
     const inputSource = yield (0, terminalSetup_1.getInputSource)();
-    let updateTimeout, updateBusy;
-    const doUpdate = (state) => {
-        updateBusy = true;
-        (0, serial_1.updateSerialState)(state);
-        (0, socket_1.updateWebSocketState)(state);
-        if (updateTimeout)
-            clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(() => updateBusy = false, 50);
+    let pendingUpdate;
+    const doUpdate = () => {
+        if (pendingUpdate) {
+            (0, serial_1.updateSerialState)(pendingUpdate);
+            (0, socket_1.updateWebSocketState)(pendingUpdate);
+            pendingUpdate = null;
+        }
     };
+    setInterval(doUpdate, 30);
     yield watchState(inputSource, (state) => {
-        if (updateBusy) {
-            if (updateTimeout)
-                clearTimeout(updateTimeout);
-            updateTimeout = setTimeout(() => doUpdate(state), 50);
-        }
-        else {
-            doUpdate(state);
-        }
+        pendingUpdate = state;
     });
     if (options.callback) {
         // Invoke callback to signal that setup is complete
