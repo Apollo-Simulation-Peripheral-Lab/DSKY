@@ -66,9 +66,24 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     // Create State watcher
     const inputSource = yield (0, terminalSetup_1.getInputSource)();
-    yield watchState(inputSource, (newState) => {
-        (0, serial_1.updateSerialState)(newState);
-        (0, socket_1.updateWebSocketState)(newState);
+    let updateTimeout, updateBusy;
+    const doUpdate = (state) => {
+        updateBusy = true;
+        (0, serial_1.updateSerialState)(state);
+        (0, socket_1.updateWebSocketState)(state);
+        if (updateTimeout)
+            clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(() => updateBusy = false, 50);
+    };
+    yield watchState(inputSource, (state) => {
+        if (updateBusy) {
+            if (updateTimeout)
+                clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(() => doUpdate(state), 50);
+        }
+        else {
+            doUpdate(state);
+        }
     });
     if (options.callback) {
         // Invoke callback to signal that setup is complete
@@ -77,11 +92,26 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     // Create Keyboard handler
     let plusCount = 0;
     let minusCount = 0;
+    let shutdownTimeout, exitTimeout;
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1);
         console.log(`[Serial] KeyPress: ${key}`);
+        if (shutdownTimeout)
+            clearTimeout(shutdownTimeout);
+        if (exitTimeout)
+            clearTimeout(exitTimeout);
+        // Three '-' presses & holding PRO for 3 seconds runs the shutdown handler (if any)
+        if (key == 'p' && minusCount >= 3 && options.shutdown) {
+            shutdownTimeout = setTimeout(() => (0, child_process_1.exec)(options.shutdown), 3000);
+            return; // Don't process this PRO press
+        }
+        // Three '+' presses & holding PRO for 3 seconds exits the API
+        if (key == 'p' && plusCount >= 3) {
+            exitTimeout = setTimeout(process.exit, 3000);
+            return; // Don't process this PRO press
+        }
         if (key == '+')
             plusCount++;
         else
@@ -90,10 +120,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             minusCount++;
         else
             minusCount = 0;
-        if (plusCount >= 3)
-            process.exit(); // Three '+' presses kills the API
-        if (minusCount >= 3 && options.shutdown)
-            (0, child_process_1.exec)(options.shutdown); // Three '-' presses runs the shutdown handler (if any)
         yield keyboardHandler(key);
     }));
     (0, socket_1.setWebSocketListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
