@@ -101,17 +101,33 @@ const main = async() =>{
     // Create Keyboard handler
     let plusCount = 0
     let minusCount = 0
+    let shutdownTimeout, exitTimeout
     const keyboardHandler = await getKeyboardHandler(inputSource)
     setSerialListener(async (data) => {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1)
         console.log(`[Serial] KeyPress: ${key}`)
+        
+        if(shutdownTimeout) clearTimeout(shutdownTimeout)
+        if(exitTimeout) clearTimeout(exitTimeout)
+
+        // Three '-' presses & holding PRO for 3 seconds runs the shutdown handler (if any)
+        if(key == 'p' && minusCount >= 3 && options.shutdown){
+            shutdownTimeout = setTimeout(() => exec(options.shutdown), 3000)
+            return // Don't process this PRO press
+        }
+
+        // Three '+' presses & holding PRO for 3 seconds exits the API
+        if(key == 'p' && plusCount >= 3){
+            exitTimeout = setTimeout(process.exit, 3000)
+            return // Don't process this PRO press
+        }
+        
         if(key == '+') plusCount++
         else plusCount = 0
         if(key == '-') minusCount++
         else minusCount = 0
-        if(plusCount >= 3) process.exit() // Three '+' presses kills the API
-        if(minusCount >= 3 && options.shutdown) exec(options.shutdown) // Three '-' presses runs the shutdown handler (if any)
+
         await keyboardHandler(key)
     })
     setWebSocketListener(async (data)=>{
