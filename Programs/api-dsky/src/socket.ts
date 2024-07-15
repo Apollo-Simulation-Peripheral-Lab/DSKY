@@ -23,29 +23,32 @@ const getClientIp = (req) => {
         // In case there are multiple proxies, use the first IP address
         return forwardedFor.split(',')[0].trim();
     }
-    return req.socket.remoteAddress.replace(/^.*:/, ''); // Extract ipv4 address
+    return req.socket.remoteAddress.replace(/^.*:/, ''); // Extract IPv4 address
 };
 
 const getStateMessage = (connection, state) => {
-    // Create a copy of the clientsData map and modify the entry for the current client
-    const clientsDataCopy = new Map(clientsData);
-    const thisClient = clientsDataCopy.get(connection)
-    if(thisClient){
-        const clientData = { ...thisClient, you: true };
-        clientsDataCopy.set(connection, clientData);
-    }
+    // Get the IP address of the current connection
+    const currentIp = clientsData.get(connection)?.ip;
 
-    return JSON.stringify({ 
-        ...state, 
-        clients: Array.from(clientsDataCopy.values()) 
+    // Create the clients array with the "you" field set based on IP match
+    const clientsArray = Array.from(clientsData.values()).map(client => ({
+        ...client,
+        you: client.ip === currentIp,
+        ip: undefined
+    }));
+
+    return JSON.stringify({
+        ...state,
+        clients: clientsArray
     });
-}
+};
 
 // WebSocket server event listeners
 wss.on('connection', (ws, req) => {
     ws.on('message', (data) => {
-        if(data == 'agent'){
-            clientsData.delete(ws)
+        if (data === 'agent') {
+            clientsData.delete(ws);
+            return
         }
         listener(data);
     });
@@ -56,13 +59,13 @@ wss.on('connection', (ws, req) => {
     });
 
     // Get client's IP address
-    const ip = getClientIp(req)
+    const ip = getClientIp(req);
     const country = getCountryFromIp(ip);
 
-    // Add client to clients map
-    clientsData.set(ws, {country});
+    // Add client data to clients map
+    clientsData.set(ws, { country, ip });
 
-    ws.send(getStateMessage(ws,state))
+    ws.send(getStateMessage(ws, state));
 });
 
 // Function to notify all WebSocket clients
@@ -70,9 +73,9 @@ export const updateWebSocketState = (newState) => {
     if (JSON.stringify(state) !== JSON.stringify(newState)) {
         state = newState;
 
-        for(const connection of wss.clients){
+        for (const connection of wss.clients) {
             if (connection.readyState === WebSocket.OPEN) {
-                const newPacket = getStateMessage(connection,newState)
+                const newPacket = getStateMessage(connection, newState);
                 connection.send(newPacket);
             }
         }
