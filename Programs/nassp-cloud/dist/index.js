@@ -59,8 +59,12 @@ const onDisconnect = () => __awaiter(void 0, void 0, void 0, function* () {
     yield new Promise(r => setTimeout(r, 1000));
     yield connectClient();
 });
+let agentInterval;
 const onConnect = connection => {
     console.log("Bridge connected!");
+    if (agentInterval)
+        clearInterval(agentInterval);
+    agentInterval = setInterval(() => connection.send('agent'), 30000);
     connection.send('agent');
     connection.on("message", message => {
         if (message.type === 'utf8') {

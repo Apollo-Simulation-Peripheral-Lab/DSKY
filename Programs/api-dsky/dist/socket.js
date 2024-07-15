@@ -31,23 +31,22 @@ const getClientIp = (req) => {
         // In case there are multiple proxies, use the first IP address
         return forwardedFor.split(',')[0].trim();
     }
-    return req.socket.remoteAddress.replace(/^.*:/, ''); // Extract ipv4 address
+    return req.socket.remoteAddress.replace(/^.*:/, ''); // Extract IPv4 address
 };
 const getStateMessage = (connection, state) => {
-    // Create a copy of the clientsData map and modify the entry for the current client
-    const clientsDataCopy = new Map(clientsData);
-    const thisClient = clientsDataCopy.get(connection);
-    if (thisClient) {
-        const clientData = Object.assign(Object.assign({}, thisClient), { you: true });
-        clientsDataCopy.set(connection, clientData);
-    }
-    return JSON.stringify(Object.assign(Object.assign({}, state), { clients: Array.from(clientsDataCopy.values()) }));
+    var _a;
+    // Get the IP address of the current connection
+    const currentIp = (_a = clientsData.get(connection)) === null || _a === void 0 ? void 0 : _a.ip;
+    // Create the clients array with the "you" field set based on IP match
+    const clientsArray = Array.from(clientsData.values()).map(client => (Object.assign(Object.assign({}, client), { you: client.ip === currentIp, ip: undefined })));
+    return JSON.stringify(Object.assign(Object.assign({}, state), { clients: clientsArray }));
 };
 // WebSocket server event listeners
 wss.on('connection', (ws, req) => {
     ws.on('message', (data) => {
-        if (data == 'agent') {
+        if (data === 'agent') {
             clientsData.delete(ws);
+            return;
         }
         listener(data);
     });
@@ -58,8 +57,8 @@ wss.on('connection', (ws, req) => {
     // Get client's IP address
     const ip = getClientIp(req);
     const country = getCountryFromIp(ip);
-    // Add client to clients map
-    clientsData.set(ws, { country });
+    // Add client data to clients map
+    clientsData.set(ws, { country, ip });
     ws.send(getStateMessage(ws, state));
 });
 // Function to notify all WebSocket clients
