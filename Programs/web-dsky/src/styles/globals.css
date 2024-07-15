@@ -8,6 +8,7 @@
 @import url('register2.css');
 @import url('register3.css');
 @import url('alarms.css');
+@import url('clients.css');
 
 :root{
   --scale: 1.05;
