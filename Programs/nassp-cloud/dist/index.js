@@ -61,6 +61,7 @@ const onDisconnect = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const onConnect = connection => {
     console.log("Bridge connected!");
+    connection.send('agent');
     connection.on("message", message => {
         if (message.type === 'utf8') {
             shouldRestart(JSON.parse(message.utf8Data));
