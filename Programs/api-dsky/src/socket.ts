@@ -46,7 +46,7 @@ const getStateMessage = (connection, state) => {
 // WebSocket server event listeners
 wss.on('connection', (ws, req) => {
     ws.on('message', (data) => {
-        if (data === 'agent') {
+        if (data == "agent") {
             clientsData.delete(ws);
             return
         }
