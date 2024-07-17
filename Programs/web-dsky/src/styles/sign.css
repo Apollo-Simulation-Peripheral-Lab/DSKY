@@ -1,25 +1,25 @@
 
 .sign_top {
   position:absolute;
-  height:2.7vh;
-  width:1.5vh;
+  height: calc(2.7vh * var(--scale));;
+  width: calc(1.5vh * var(--scale));
   background-color: #00AD81;
-  top:0.25vh;
-  left:0.25vh;
+  top: calc(0.25vh * var(--scale));
+  left: calc(0.25vh * var(--scale));
 }
 .sign_mid{
   position:absolute;
-  height:1.5vh;
-  width:5vh;
+  height: calc(1.5vh * var(--scale));
+  width: calc(5vh * var(--scale));
   background-color: #00AD81;
-  top:3.2vh;
-  left:-1.5vh;
+  top: calc(3.2vh * var(--scale));
+  left: calc(-1.5vh * var(--scale));
 }
 .sign_bot {
   position:absolute;
-  height:2.7vh;
-  width:1.5vh;
+  height: calc(2.7vh * var(--scale));
+  width: calc(1.5vh * var(--scale));
   background-color: #00AD81;
-  top:4.95vh;
-  left:0.25vh;
+  top: calc(4.95vh * var(--scale));
+  left: calc(0.25vh * var(--scale))vh;
 }

@@ -9,6 +9,7 @@
 @import url('register3.css');
 @import url('alarms.css');
 @import url('clients.css');
+@import url('keyboard.css');
 
 :root{
   --scale: 1.05;
@@ -61,10 +62,13 @@ body {
 
 /* Display Alarms if aspect ratio bigger than 4:3 */
 @media (min-aspect-ratio: 4/3) {
-  .ELDisplay {
-    margin-left: calc(60vh * var(--scale)) !important;
+  :root{
     --margin-left: -20px;
     --margin-top: -3vh;
+  }
+
+  .ELDisplay {
+    margin-left: calc(60vh * var(--scale)) !important;
   }
   .Alarms{
     display:block;
