@@ -11,8 +11,8 @@
 @media (min-aspect-ratio: 4/3) {
     /* Change scale if keyboard shown */
     .keyboard-1{
-      --scale: 0.7;
-      --margin-top: 0vh;
+      --scale: 0.7 !important;
+      --margin-top: 0vh !important;
     }
 
     .keyboard-1 .keyboard{
