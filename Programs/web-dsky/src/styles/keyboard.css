@@ -43,7 +43,7 @@
 .keyboard-1 .keyboard{
     height: calc(40vh * var(--scale));;
     width: calc(100vh * var(--scale));
-    bottom: calc(1vh * var(--scale));
+    top: 35vh;
     left: 50%;
     transform: translateX(-50%);
     position:absolute;
