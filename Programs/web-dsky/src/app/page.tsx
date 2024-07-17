@@ -1,12 +1,13 @@
 "use client"
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Digit } from "./digit";
 import { AUDIO_LOAD, NO_CONN, NO_CONN_UHOH } from "../utils/dskyStates";
-import { Sign } from "./sign";
 import { chunkedUpdate, getChangedChunks } from "@/utils/chunks";
 import { useSearchParams } from 'next/navigation'
+import Keyboard from "./keyboard";
+import ClientList from "./clientList";
+import Alarms from "./alarms";
+import ELDisplay from "./elDisplay";
 
 export default function Home() {
   const searchParams = useSearchParams()
@@ -24,6 +25,7 @@ export default function Home() {
   const [audioFiles, setAudioFiles] : any = useState(null)
   const [webSocket, setWebSocket] : any = useState(null)
   const [webSocketID, setWebSocketID] : any = useState(0)
+  const [showKeyboard, setShowKeyboard] : any = useState(true)
 
   const fetchAudioFiles = async () => {
     // Cache audio files
@@ -70,6 +72,9 @@ export default function Home() {
     ws.addEventListener('close', handleClose)
     ws.addEventListener('error', handleClose)
     const checkInterval = setInterval(() =>{
+      if(ws.readyState === 1 && searchParams.get('agent') == "1"){
+        ws.send("agent")
+      }
       if(ws.readyState !== 1){
         handleClose()
       }
@@ -176,168 +181,11 @@ export default function Home() {
   const opacityEL = dskyState.Standby ? 0 : (dskyState.DisplayBrightness || 127) / 127
   const opacityStatus = (dskyState.StatusBrightness || 127) / 127
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType} oled-${oledMode}`} >
-      <div className="clientList">
-        { (dskyState?.clients || []).map((client:any, index) => (
-          <div
-            key={index}
-            className={`client-box ${client.you ? 'you' : ''}`}
-          >
-            {client?.country ?
-              <img
-                src={`https://cdn.jsdelivr.net/npm/flag-icons@6.3.0/flags/4x3/${client.country.toLowerCase()}.svg`}
-                alt={`${client.country} flag`}
-                className="client-flag"
-              /> : 
-              <p>❓</p>
-            }
-          </div>
-        ))}
-      </div>
-    
-      <div className="Alarms" >
-        <Image
-          alt={'alarms_mask'}
-          src={'./alarms_mask.svg'}
-          width={1000}
-          height={1000}
-          className="alarms_mask"
-        />
-        <div className="alarms-bg" />
-        {!!dskyState.IlluminateUplinkActy && <div className="alarm-uplink" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateNoAtt && <div className="alarm-noatt" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateStby && <div className="alarm-stby" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateKeyRel && <div className="alarm-keyrel" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateOprErr && <div className="alarm-oprerr" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateNoDap && <div className="alarm-nodap" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminatePrioDisp && <div className="alarm-priodisp" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateTemp && <div className="alarm-temp" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateGimbalLock && <div className="alarm-gimballock" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateProg && <div className="alarm-prog" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateRestart && <div className="alarm-restart" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateTracker && <div className="alarm-tracker" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateAlt && <div className="alarm-alt" style={{opacity: opacityStatus}}/>}
-        {!!dskyState.IlluminateVel && <div className="alarm-vel" style={{opacity: opacityStatus}}/>}
-      </div>
-      <div className="ELDisplay">
-        <Image
-          alt={'mask'}
-          src={'./mask.svg'}
-          width={1000}
-          height={1000}
-          className="mask"
-        />
-      </div>
-      <div className="ELDisplay" style={{opacity: opacityEL}}>  
-        <Image
-          alt={'basic_segments'}
-          src={'./basic_segments.svg'}
-          width={1000}
-          height={1000}
-          className="basic_segments"
-        ></Image>
-        {!!dskyState.IlluminateCompLight && <div className={'comp_acty'} />}
-        <Digit
-          className={'ProgramD1'}
-          digit={dskyState.ProgramD1}
-        />
-        <Digit
-          className={'ProgramD2'}
-          digit={dskyState.ProgramD2}
-        />
-        <Digit
-          className={'VerbD1'}
-          digit={dskyState.VerbD1}
-        />
-        <Digit
-          className={'VerbD2'}
-          digit={dskyState.VerbD2}
-        />
-        <Digit
-          className={'NounD1'}
-          digit={dskyState.NounD1}
-        />
-        <Digit
-          className={'NounD2'}
-          digit={dskyState.NounD2}
-        />
-
-        <Sign
-          className={'Register1Sign'}
-          sign={dskyState.Register1Sign}
-        />
-        <Digit
-          className={'Register1D1'}
-          digit={dskyState.Register1D1}
-        />
-        <Digit
-          className={'Register1D2'}
-          digit={dskyState.Register1D2}
-        />
-        <Digit
-          className={'Register1D3'}
-          digit={dskyState.Register1D3}
-        />
-        <Digit
-          className={'Register1D4'}
-          digit={dskyState.Register1D4}
-        />
-        <Digit
-          className={'Register1D5'}
-          digit={dskyState.Register1D5}
-        />
-
-        <Sign
-          className={'Register2Sign'}
-          sign={dskyState.Register2Sign}
-        />
-        <Digit
-          className={'Register2D1'}
-          digit={dskyState.Register2D1}
-        />
-        <Digit
-          className={'Register2D2'}
-          digit={dskyState.Register2D2}
-        />
-        <Digit
-          className={'Register2D3'}
-          digit={dskyState.Register2D3}
-        />
-        <Digit
-          className={'Register2D4'}
-          digit={dskyState.Register2D4}
-        />
-        <Digit
-          className={'Register2D5'}
-          digit={dskyState.Register2D5}
-        />
-
-        
-        <Sign
-          className={'Register3Sign'}
-          sign={dskyState.Register3Sign}
-        />
-        <Digit
-          className={'Register3D1'}
-          digit={dskyState.Register3D1}
-        />
-        <Digit
-          className={'Register3D2'}
-          digit={dskyState.Register3D2}
-        />
-        <Digit
-          className={'Register3D3'}
-          digit={dskyState.Register3D3}
-        />
-        <Digit
-          className={'Register3D4'}
-          digit={dskyState.Register3D4}
-        />
-        <Digit
-          className={'Register3D5'}
-          digit={dskyState.Register3D5}
-        />
-      </div>
+    <main className={`flex min-h-screen flex-col items-center justify-between display-${displayType} oled-${oledMode} keyboard-${showKeyboard?1:0}`} >
+      <Keyboard webSocket={webSocket} showKeyboard={showKeyboard} setShowKeyboard={setShowKeyboard} />
+      <ClientList clients={dskyState?.clients || []} />
+      <Alarms dskyState={dskyState} opacity={opacityStatus} />
+      <ELDisplay dskyState={dskyState} opacity={opacityEL} />
     </main>
   );
 }
