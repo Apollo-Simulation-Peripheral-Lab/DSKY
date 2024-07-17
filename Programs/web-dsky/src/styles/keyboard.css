@@ -43,11 +43,15 @@
 .keyboard-1 .keyboard{
     height: calc(40vh * var(--scale));;
     width: calc(100vh * var(--scale));
-    top: 35vh;
+    top: 70vh;
     left: 50%;
     transform: translateX(-50%);
     position:absolute;
-  }
+}
+
+/* .keyboard-1 .keyboard div{
+    background-color: red;
+} */
 
 .key-verb{
     position: absolute;

@@ -18,7 +18,7 @@ const Keyboard = ({ webSocket, showKeyboard, setShowKeyboard }: { webSocket: any
                     src={'./keyboard.svg'}
                     width={1000}
                     height={1000}
-                    className="keyboard"
+                    className="keyboard-mask"
                 />
                 <div className="key-verb" onClick={() => webSocket.send("v")}></div>
                 <div className="key-noun" onClick={() => webSocket.send("n")}></div>
