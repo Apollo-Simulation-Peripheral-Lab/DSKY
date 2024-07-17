@@ -25,7 +25,7 @@ export default function Home() {
   const [audioFiles, setAudioFiles] : any = useState(null)
   const [webSocket, setWebSocket] : any = useState(null)
   const [webSocketID, setWebSocketID] : any = useState(0)
-  const [showKeyboard, setShowKeyboard] : any = useState(true)
+  const [showKeyboard, setShowKeyboard] : any = useState(false)
 
   const fetchAudioFiles = async () => {
     // Cache audio files

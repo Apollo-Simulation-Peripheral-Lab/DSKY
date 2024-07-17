@@ -12,7 +12,7 @@
     /* Change scale if keyboard shown */
     .keyboard-1{
       --scale: 0.7 !important;
-      --margin-top: 0vh !important;
+      --margin-top: -3vh !important;
     }
 
     .keyboard-1 .keyboard{
@@ -22,8 +22,6 @@
     .toggleKeyboard{
         display: block;
     }
-    
-
 }
 
 .toggleKeyboard{
@@ -43,11 +41,15 @@
 .keyboard-1 .keyboard{
     height: calc(40vh * var(--scale));;
     width: calc(100vh * var(--scale));
-    top: 35vh;
+    top: 67vh;
     left: 50%;
     transform: translateX(-50%);
     position:absolute;
-  }
+}
+
+/* .keyboard-1 .keyboard div{
+    background-color: red;
+} */
 
 .key-verb{
     position: absolute;
