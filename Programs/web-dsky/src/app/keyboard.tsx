@@ -35,7 +35,10 @@ const Keyboard = ({ webSocket, showKeyboard, setShowKeyboard }: { webSocket: any
                 <div className="key-9" onClick={() => webSocket.send("9")}></div>
                 <div className="key-3" onClick={() => webSocket.send("3")}></div>
                 <div className="key-clr" onClick={() => webSocket.send("c")}></div>
-                <div className="key-pro" onClick={() => webSocket.send("p")}></div>
+                <div className="key-pro" onClick={() => {
+                    webSocket.send("p")
+                    setTimeout(() => webSocket.send("o"),200)
+                }}></div>
                 <div className="key-keyrel" onClick={() => webSocket.send("k")}></div>
                 <div className="key-entr" onClick={() => webSocket.send("e")}></div>
                 <div className="key-rset" onClick={() => webSocket.send("r")}></div>
