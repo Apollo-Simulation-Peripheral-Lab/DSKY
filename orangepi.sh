@@ -12,6 +12,14 @@ if [ "$1" = "api" ];then
             --callback 'chromium-browser --start-fullscreen --incognito http://localhost:3000 && sleep 5 && wmctrl -a chromium' \
             --shutdown 'shutdown -h now'
     done
+elif [ "$1" = "cron" ]; then
+    pgrep chromium | xargs kill -9
+    if [ $? -eq 0 ]; then
+        export DISPLAY=:0
+        chromium-browser --start-fullscreen --incognito http://localhost:3000 &
+        sleep 5
+        wmctrl -a chromium
+    fi
 else
     xttitle web-dsky
     x-terminal-emulator -e "~/DSKY/orangepi.sh api" &>/dev/null &
