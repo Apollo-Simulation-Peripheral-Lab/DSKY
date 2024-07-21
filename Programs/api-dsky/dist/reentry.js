@@ -78,9 +78,16 @@ const watchStateReentry = (callback) => {
                 newState.NounD2 = '';
             }
             // Reentry gives brighnesses in weird ranges, normalize them to 1-127 and save them in the standardized key names
-            newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646);
-            newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765);
-            newState.StatusBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765);
+            if (newState.IsInCM != undefined) {
+                newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646);
+                newState.StatusBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646);
+                newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765);
+            }
+            else {
+                newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.4, 1.4);
+                newState.StatusBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.4, 1.4);
+                newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.4, 1.4);
+            }
             if (condition(newState)) {
                 state = newState;
                 callback(newState);
