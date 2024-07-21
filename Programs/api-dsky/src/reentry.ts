@@ -51,6 +51,16 @@ const LMButtons = {
     'r' : 25,
 }
 
+function normalizeBrightness(
+    value: number,
+    originalMin: number,
+    originalMax: number,
+    targetMin: number = 1,
+    targetMax: number = 127
+): number {
+    return ((value - originalMin) / (originalMax - originalMin)) * (targetMax - targetMin) + targetMin;
+}
+
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
@@ -68,6 +78,12 @@ export const watchStateReentry = (callback) => {
                 newState.NounD1 = ''
                 newState.NounD2 = ''
             }
+
+            // Reentry gives brighnesses in weird ranges, normalize them to 1-127 and save them in the standardized key names
+            newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646)
+            newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765)
+            newState.StatusBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765)
+            
             if (condition(newState)) {
                 state = newState
                 callback(newState);
