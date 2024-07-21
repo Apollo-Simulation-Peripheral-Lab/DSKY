@@ -58,7 +58,8 @@ function normalizeBrightness(
     targetMin: number = 1,
     targetMax: number = 127
 ): number {
-    return ((value - originalMin) / (originalMax - originalMin)) * (targetMax - targetMin) + targetMin;
+    const normalized = ((value - originalMin) / (originalMax - originalMin)) * (targetMax - targetMin) + targetMin;
+    return Math.min(Math.max(targetMin,normalized), targetMax) // Ensure values stays within range
 }
 
 export const watchStateReentry = (callback) => {
