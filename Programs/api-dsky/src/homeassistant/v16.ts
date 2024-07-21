@@ -5,37 +5,26 @@ const numberToString = (num) => {
     return `${sign}${Math.abs(num).toString().padStart(5, '0')}`;
 }
 
-let refreshInterval
-export const v16 = () =>{
+export const v16 = async (refreshNoun ?:string) =>{
     try{
-        if(refreshInterval) clearInterval(refreshInterval)
-        internalState.inputMode = ''
-        internalState.verb = '16'
-        internalState.verbStack.push('16')
-        const refresh = async () =>{
-            if(internalState.verb != '16'){
-                clearInterval(refreshInterval)
-                refreshInterval = null
-                return
-            }
+        if(!refreshNoun){ // Initialize V16
+            internalState.inputMode = ''
+            internalState.verb = '16'
+            internalState.verbStack.push('16')
+            internalState.verbNounFlashing = false
+            internalState.keyRel = ['16',internalState.noun]
+            internalState.keyRelMode = true
+            v16(internalState.noun)
+        }else{ // Perform V16 Update
             internalState.compActy = true
-            await new Promise(r => setTimeout(r,40))
-            const noun = nouns[internalState.noun]
-            if(!noun){
-                clearInterval(refreshInterval)
-                refreshInterval = null
-                internalState.operatorErrorActive = true
-                internalState.compActy = false
-                return
-            }
+            await new Promise(r => setTimeout(r,100))
+            internalState.compActy = false
+            const noun = nouns[refreshNoun]
+            if(!noun) return
             internalState.register1 = numberToString(noun[0])
             internalState.register2 = numberToString(noun[1])
             internalState.register3 = numberToString(noun[2])
-            internalState.compActy = false
         }
-        refreshInterval = setInterval(refresh, 1000)
-        refresh()
-        internalState.verbNounFlashing = false
     }catch{
         console.log("V16 fail")
     }
