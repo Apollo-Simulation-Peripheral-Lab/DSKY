@@ -15,41 +15,31 @@ const numberToString = (num) => {
     const sign = num >= 0 ? '+' : '';
     return `${sign}${Math.abs(num).toString().padStart(5, '0')}`;
 };
-let refreshInterval;
-const v16 = () => {
+const v16 = (refreshNoun) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (refreshInterval)
-            clearInterval(refreshInterval);
-        _1.internalState.inputMode = '';
-        _1.internalState.verb = '16';
-        _1.internalState.verbStack.push('16');
-        const refresh = () => __awaiter(void 0, void 0, void 0, function* () {
-            if (_1.internalState.verb != '16') {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-                return;
-            }
+        if (!refreshNoun) { // Initialize V16
+            _1.internalState.inputMode = '';
+            _1.internalState.verb = '16';
+            _1.internalState.verbStack.push('16');
+            _1.internalState.verbNounFlashing = false;
+            _1.internalState.keyRel = ['16', _1.internalState.noun];
+            _1.internalState.keyRelMode = true;
+            (0, exports.v16)(_1.internalState.noun);
+        }
+        else { // Perform V16 Update
             _1.internalState.compActy = true;
-            yield new Promise(r => setTimeout(r, 40));
-            const noun = _1.nouns[_1.internalState.noun];
-            if (!noun) {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-                _1.internalState.operatorErrorActive = true;
-                _1.internalState.compActy = false;
+            yield new Promise(r => setTimeout(r, 100));
+            _1.internalState.compActy = false;
+            const noun = _1.nouns[refreshNoun];
+            if (!noun)
                 return;
-            }
             _1.internalState.register1 = numberToString(noun[0]);
             _1.internalState.register2 = numberToString(noun[1]);
             _1.internalState.register3 = numberToString(noun[2]);
-            _1.internalState.compActy = false;
-        });
-        refreshInterval = setInterval(refresh, 1000);
-        refresh();
-        _1.internalState.verbNounFlashing = false;
+        }
     }
     catch (_a) {
         console.log("V16 fail");
     }
-};
+});
 exports.v16 = v16;
