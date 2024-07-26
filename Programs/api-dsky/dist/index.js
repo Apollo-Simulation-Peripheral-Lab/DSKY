@@ -52,6 +52,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     commander_1.program
         .option('-s, --serial <string>')
         .option('-cb, --callback <string>')
+        .option('-m, --mode <string>')
         .option('--shutdown <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
@@ -65,7 +66,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         yield setupKeyboardHandler(key);
     }));
     // Create State watcher
-    const inputSource = yield (0, terminalSetup_1.getInputSource)();
+    const inputSource = options.mode || (yield (0, terminalSetup_1.getInputSource)());
     let pendingUpdate;
     const doUpdate = () => {
         if (pendingUpdate) {
