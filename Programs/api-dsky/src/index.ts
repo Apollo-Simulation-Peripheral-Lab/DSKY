@@ -60,6 +60,7 @@ const main = async() =>{
     program
         .option('-s, --serial <string>')
         .option('-cb, --callback <string>')
+        .option('-m, --mode <string>')
         .option('--shutdown <string>');
     program.parse();
     const options = program.opts()
@@ -76,7 +77,7 @@ const main = async() =>{
     })
 
     // Create State watcher
-    const inputSource = await getInputSource()
+    const inputSource = options.mode || await getInputSource()
     let pendingUpdate
     
     const doUpdate = () => {
