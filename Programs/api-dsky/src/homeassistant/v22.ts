@@ -8,7 +8,7 @@ export const v22 = (enter = false, pro = false) =>{
         if(!internalState.verbNounFlashing){
             internalState.inputMode = 'register2'
             internalState.verbNounFlashing = true;
-            internalState.register1 = numberToString(nouns[internalState.noun[0]]);
+            internalState.register1 = numberToString(nouns[internalState.noun][0]);
             internalState.register2 = '';
             internalState.register3 = numberToString(nouns[internalState.noun][2]);
         }else{

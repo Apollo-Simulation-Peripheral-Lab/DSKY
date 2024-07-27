@@ -11,7 +11,7 @@ const v22 = (enter = false, pro = false) => {
         if (!_1.internalState.verbNounFlashing) {
             _1.internalState.inputMode = 'register2';
             _1.internalState.verbNounFlashing = true;
-            _1.internalState.register1 = (0, utils_1.numberToString)(_1.nouns[_1.internalState.noun[0]]);
+            _1.internalState.register1 = (0, utils_1.numberToString)(_1.nouns[_1.internalState.noun][0]);
             _1.internalState.register2 = '';
             _1.internalState.register3 = (0, utils_1.numberToString)(_1.nouns[_1.internalState.noun][2]);
         }

@@ -19,6 +19,7 @@ const v22_1 = require("./v22");
 const v23_1 = require("./v23");
 const v24_1 = require("./v24");
 const v25_1 = require("./v25");
+const v35_1 = require("./v35");
 const v37_1 = require("./v37");
 const v40_1 = require("./v40");
 const settings_1 = require("./settings");
@@ -40,6 +41,7 @@ exports.verbs = {
     '23': v23_1.v23,
     '24': v24_1.v24,
     '25': v25_1.v25,
+    '35': v35_1.v35,
     '37': v37_1.v37,
     '40': v40_1.v40
 };
@@ -49,6 +51,7 @@ exports.nouns = {
     '36': [0, 0, 0]
 };
 exports.internalState = {
+    lightTest: 0,
     inputMode: '',
     verbNounFlashing: false,
     flashState: false,

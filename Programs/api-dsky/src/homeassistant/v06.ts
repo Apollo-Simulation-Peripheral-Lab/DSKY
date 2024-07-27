@@ -4,7 +4,7 @@ import {numberToString} from './utils'
 export const v06 = async (enter = false, pro = false) =>{
     try{
         console.log('v06',{enter, pro, stack: internalState.verbStack})
-        if((enter || pro) && internalState.verb == '16'){
+        if(enter || pro){
             let previousVerb = internalState.verbStack[internalState.verbStack.length -1]
             if(previousVerb){
                 return verbs[previousVerb](enter, pro)

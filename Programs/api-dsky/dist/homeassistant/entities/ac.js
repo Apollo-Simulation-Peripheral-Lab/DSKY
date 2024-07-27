@@ -9,8 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAC = void 0;
+exports.setAC = exports.getACPreferences = exports.getAC = void 0;
 const __1 = require("..");
+const HVAC_MODES = [
+    'off',
+    'cool',
+    'heat',
+    'heat_cool'
+];
+const FAN_MODES = [
+    'auto',
+    'quiet',
+    'low',
+    'middle',
+    'focus',
+    'high'
+];
+const SWING_MODES = [
+    'off',
+    'horizontal',
+    'both',
+    'vertical',
+];
+let availableHvac = HVAC_MODES;
+let availableFanModes = FAN_MODES;
+let availableSwingModes = SWING_MODES;
 const getHAState = (entity) => __awaiter(void 0, void 0, void 0, function* () {
     const { url, token } = __1.haSettings || {};
     const response = yield fetch(`${url}/api/states/${entity}`, {
@@ -39,3 +62,54 @@ const getAC = () => __awaiter(void 0, void 0, void 0, function* () {
     ];
 });
 exports.getAC = getAC;
+const getACPreferences = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const { air_conditioning } = __1.haSettings || {};
+    const selectedUnit = __1.nouns['01'][0];
+    const unit = air_conditioning[selectedUnit];
+    if (!(unit === null || unit === void 0 ? void 0 : unit.entity)) {
+        __1.nouns['03'] = [-1, -1, -1];
+        return;
+    }
+    const entityState = yield getHAState(unit.entity);
+    availableHvac = HVAC_MODES.filter(mode => { var _a; return (((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.hvac_modes) || []).includes(mode); });
+    availableFanModes = FAN_MODES.filter(mode => { var _a; return (((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.fan_modes) || []).includes(mode); });
+    availableSwingModes = SWING_MODES.filter(mode => { var _a; return (((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.swing_modes) || []).includes(mode); });
+    const hvacMode = availableHvac.findIndex(m => m == entityState.state) || 0;
+    const fanMode = availableFanModes.findIndex(m => { var _a; return m == ((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.fan_mode); }) || 0;
+    const swingMode = availableSwingModes.findIndex(m => { var _a; return m == ((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.swing_mode); }) || 0;
+    __1.nouns['03'] = [
+        (((_a = entityState.attributes) === null || _a === void 0 ? void 0 : _a.temperature) * 100),
+        hvacMode,
+        parseInt(`${swingMode}${fanMode}`)
+    ];
+});
+exports.getACPreferences = getACPreferences;
+const extractDigits = (number) => {
+    // Ensure the number is between 0 and 99
+    if (number < 0 || number > 99) {
+        throw new Error("Number must be between 0 and 99");
+    }
+    // Convert the number to a string and pad with leading zero if necessary
+    const numberStr = number.toString().padStart(2, '0');
+    // Split the string into individual digits
+    const digits = [numberStr[0], numberStr[1]];
+    return digits;
+};
+const setAC = () => __awaiter(void 0, void 0, void 0, function* () {
+    const { air_conditioning } = __1.haSettings || {};
+    const selectedUnit = __1.nouns['01'][0];
+    const unit = air_conditioning[selectedUnit];
+    if (!unit) {
+        __1.nouns['02'] = [-1, -1, -1];
+        return;
+    }
+    const preferences = __1.nouns['03'];
+    const desiredTemperature = preferences[0] / 100;
+    const desiredHvac = availableHvac[preferences[1]];
+    const [swingID, fanID] = extractDigits(preferences[2]);
+    const desiredSwing = availableSwingModes[swingID];
+    const desiredFan = availableFanModes[fanID];
+    console.log({ desiredFan, desiredSwing, desiredHvac, desiredTemperature });
+});
+exports.setAC = setAC;

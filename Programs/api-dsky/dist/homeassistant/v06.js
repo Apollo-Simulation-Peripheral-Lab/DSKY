@@ -15,7 +15,7 @@ const utils_1 = require("./utils");
 const v06 = (enter = false, pro = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log('v06', { enter, pro, stack: _1.internalState.verbStack });
-        if ((enter || pro) && _1.internalState.verb == '16') {
+        if (enter || pro) {
             let previousVerb = _1.internalState.verbStack[_1.internalState.verbStack.length - 1];
             if (previousVerb) {
                 return _1.verbs[previousVerb](enter, pro);

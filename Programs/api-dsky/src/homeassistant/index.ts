@@ -7,6 +7,7 @@ import { v22 } from './v22'
 import { v23 } from './v23'
 import { v24 } from './v24'
 import { v25 } from './v25'
+import { v35 } from './v35'
 import { v37 } from './v37'
 import { v40 } from './v40'
 import {getSettings} from './settings'
@@ -30,6 +31,7 @@ export const verbs = {
     '23': v23,
     '24': v24,
     '25': v25,
+    '35': v35,
     '37': v37,
     '40': v40
 }
@@ -41,6 +43,7 @@ export const nouns = {
 }
 
 export const internalState = {
+    lightTest: 0,
     inputMode : '',
     verbNounFlashing : false,
     flashState : false,
