@@ -21,13 +21,13 @@ export const getAC = async () => {
         return
     }
 
-    const temperatureState = await getHAState(unit.temperature)
-    const humidityState = await getHAState(unit.humidity)
-    const co2State = await getHAState(unit.co2)
+    const temperatureState = unit.temperature ? await getHAState(unit.temperature) : {state:-1}
+    const humidityState = unit.humidity ? await getHAState(unit.humidity) : {state:-1}
+    const co2State = unit.co2 ? await getHAState(unit.co2) : {state:-1}
     
     nouns['02'] = [
-        parseInt(temperatureState.state),
-        parseInt(humidityState.state),
+        parseFloat(temperatureState.state)*100,
+        parseFloat(humidityState.state)*100,
         parseInt(co2State.state)
     ]
 } 

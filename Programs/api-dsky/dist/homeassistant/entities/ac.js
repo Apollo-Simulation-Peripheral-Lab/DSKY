@@ -29,12 +29,12 @@ const getAC = () => __awaiter(void 0, void 0, void 0, function* () {
         __1.nouns['02'] = [-1, -1, -1];
         return;
     }
-    const temperatureState = yield getHAState(unit.temperature);
-    const humidityState = yield getHAState(unit.humidity);
-    const co2State = yield getHAState(unit.co2);
+    const temperatureState = unit.temperature ? yield getHAState(unit.temperature) : { state: -1 };
+    const humidityState = unit.humidity ? yield getHAState(unit.humidity) : { state: -1 };
+    const co2State = unit.co2 ? yield getHAState(unit.co2) : { state: -1 };
     __1.nouns['02'] = [
-        parseInt(temperatureState.state),
-        parseInt(humidityState.state),
+        parseFloat(temperatureState.state) * 100,
+        parseFloat(humidityState.state) * 100,
         parseInt(co2State.state)
     ];
 });
