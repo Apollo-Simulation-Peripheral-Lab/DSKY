@@ -1,9 +1,12 @@
 import { OFF_TEST } from '../dskyStates';
 import { p00 } from './p00'
+import { v06 } from './v06'
 import { v16 } from './v16'
 import { v21 } from './v21'
 import { v22 } from './v22'
 import { v23 } from './v23'
+import { v24 } from './v24'
+import { v25 } from './v25'
 import { v37 } from './v37'
 import { v40 } from './v40'
 import {runClock} from './clock'
@@ -18,10 +21,13 @@ export const programs = {
 }
 
 export const verbs = {
+    '06': v06,
     '16': v16,
     '21': v21,
     '22': v22,
     '23': v23,
+    '24': v24,
+    '25': v25,
     '37': v37,
     '40': v40
 }

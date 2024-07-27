@@ -15,7 +15,8 @@ export const updateState = () => {
     refreshTicks++
     if(refreshTicks >= 50){
         if(internalState.keyRel?.length && internalState.keyRelMode){
-            verbs[internalState.keyRel[0]](internalState.keyRel[1])
+            internalState.noun = internalState.keyRel[1]
+            verbs[internalState.keyRel[0]]()
         }
         refreshTicks = 0
     }

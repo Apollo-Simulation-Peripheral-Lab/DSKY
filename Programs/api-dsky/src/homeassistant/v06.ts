@@ -1,9 +1,9 @@
 import { verbs, internalState, nouns } from "."
 import {numberToString} from './utils'
 
-export const v16 = async (enter = false, pro = false) =>{
+export const v06 = async (enter = false, pro = false) =>{
     try{
-        console.log('v16',{enter, pro, stack: internalState.verbStack})
+        console.log('v06',{enter, pro, stack: internalState.verbStack})
         if((enter || pro) && internalState.verb == '16'){
             let previousVerb = internalState.verbStack[internalState.verbStack.length -1]
             if(previousVerb){
@@ -11,14 +11,11 @@ export const v16 = async (enter = false, pro = false) =>{
             }
         }
         if(pro) return
-        if(enter){ // Initialize V16
+        if(enter){ // Initialize V06
             internalState.inputMode = ''
-            internalState.verb = '16'
-            internalState.verbNounFlashing = false
-            internalState.keyRel = ['16',internalState.noun]
-            internalState.keyRelMode = true
-            v16(false, false)
-        }else{ // Perform V16 Update
+            internalState.verb = '06'
+            v06(false, false)
+        }else{ // Perform V06 Update
             internalState.compActy = true
             await new Promise(r => setTimeout(r,100))
             internalState.compActy = false
@@ -29,6 +26,6 @@ export const v16 = async (enter = false, pro = false) =>{
             internalState.register3 = numberToString(noun[2])
         }
     }catch{
-        console.log("V16 fail")
+        console.log("V06 fail")
     }
 }
