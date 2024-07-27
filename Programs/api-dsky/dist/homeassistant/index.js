@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHAKeyboardHandler = exports.watchStateHA = exports.internalState = exports.nouns = exports.verbs = exports.programs = exports.setState = exports.state = void 0;
 const dskyStates_1 = require("../dskyStates");
 const p00_1 = require("./p00");
+const v06_1 = require("./v06");
 const v16_1 = require("./v16");
 const v21_1 = require("./v21");
 const v22_1 = require("./v22");
 const v23_1 = require("./v23");
+const v24_1 = require("./v24");
+const v25_1 = require("./v25");
 const v37_1 = require("./v37");
 const v40_1 = require("./v40");
 const clock_1 = require("./clock");
@@ -28,10 +31,13 @@ exports.programs = {
     '00': p00_1.p00,
 };
 exports.verbs = {
+    '06': v06_1.v06,
     '16': v16_1.v16,
     '21': v21_1.v21,
     '22': v22_1.v22,
     '23': v23_1.v23,
+    '24': v24_1.v24,
+    '25': v25_1.v25,
     '37': v37_1.v37,
     '40': v40_1.v40
 };

@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.v37 = void 0;
 const _1 = require(".");
-const v37 = () => {
+const v37 = (enter = false, pro = false) => {
+    console.log('v37', { enter, pro, stack: _1.internalState.verbStack });
+    if (pro)
+        return;
     const { verbNounFlashing, noun: nounValue } = _1.internalState;
     try {
         if (!verbNounFlashing) {
@@ -14,6 +17,7 @@ const v37 = () => {
             _1.internalState.program = nounValue;
             _1.internalState.inputMode = '';
             _1.internalState.verbNounFlashing = false;
+            _1.internalState.verbStack = [];
             _1.programs[nounValue]();
         }
         else {

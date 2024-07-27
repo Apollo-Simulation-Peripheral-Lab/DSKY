@@ -16,7 +16,8 @@ const updateState = () => {
     refreshTicks++;
     if (refreshTicks >= 50) {
         if (((_a = _1.internalState.keyRel) === null || _a === void 0 ? void 0 : _a.length) && _1.internalState.keyRelMode) {
-            _1.verbs[_1.internalState.keyRel[0]](_1.internalState.keyRel[1]);
+            _1.internalState.noun = _1.internalState.keyRel[1];
+            _1.verbs[_1.internalState.keyRel[0]]();
         }
         refreshTicks = 0;
     }
