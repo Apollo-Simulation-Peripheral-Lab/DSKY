@@ -22,6 +22,8 @@ export const v23 = (enter= false, pro = false) =>{
             const previousVerb = internalState.verbStack[internalState.verbStack.length -1]
             if(previousVerb){
                 verbs[previousVerb](enter, pro)
+            }else{
+                verbs['06'](true)
             }
         }
     }catch(e){

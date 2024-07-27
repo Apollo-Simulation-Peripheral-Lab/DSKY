@@ -9,9 +9,11 @@ import { v24 } from './v24'
 import { v25 } from './v25'
 import { v37 } from './v37'
 import { v40 } from './v40'
-import {runClock} from './clock'
+import {getSettings} from './settings'
 import {keyboardHandler} from './keyboard'
 import {updateState} from './updateState'
+import {runClock} from './entities/clock'
+import {getAC} from './entities/ac'
 
 export let state : any = {...OFF_TEST} // I am too lazy to type everything, consider doing it yourself.
 export let setState = (_state) => {}
@@ -55,6 +57,8 @@ export const internalState = {
     compActy: false
 }
 
+export const haSettings : any = getSettings()
+
 let updateInterval
 export const watchStateHA = async (callback) =>{
     setState = callback
@@ -68,4 +72,7 @@ export const getHAKeyboardHandler = async () =>{
     return keyboardHandler
 }
 
-setInterval(runClock, 1000)
+setInterval(() => {
+    runClock()
+    getAC()
+}, 1000)

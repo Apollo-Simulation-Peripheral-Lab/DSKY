@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSettings = void 0;
+const fs = require("fs");
+const path = require("path");
+const getSettings = () => {
+    // Construct the file path
+    const filePath = path.resolve('ha_settings.json');
+    // Read the file synchronously
+    const value = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(value);
+};
+exports.getSettings = getSettings;

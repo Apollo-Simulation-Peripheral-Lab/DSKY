@@ -27,6 +27,9 @@ const v23 = (enter = false, pro = false) => {
             if (previousVerb) {
                 _1.verbs[previousVerb](enter, pro);
             }
+            else {
+                _1.verbs['06'](true);
+            }
         }
     }
     catch (e) {

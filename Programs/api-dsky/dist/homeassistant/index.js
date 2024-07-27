@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getHAKeyboardHandler = exports.watchStateHA = exports.internalState = exports.nouns = exports.verbs = exports.programs = exports.setState = exports.state = void 0;
+exports.getHAKeyboardHandler = exports.watchStateHA = exports.haSettings = exports.internalState = exports.nouns = exports.verbs = exports.programs = exports.setState = exports.state = void 0;
 const dskyStates_1 = require("../dskyStates");
 const p00_1 = require("./p00");
 const v06_1 = require("./v06");
@@ -21,9 +21,11 @@ const v24_1 = require("./v24");
 const v25_1 = require("./v25");
 const v37_1 = require("./v37");
 const v40_1 = require("./v40");
-const clock_1 = require("./clock");
+const settings_1 = require("./settings");
 const keyboard_1 = require("./keyboard");
 const updateState_1 = require("./updateState");
+const clock_1 = require("./entities/clock");
+const ac_1 = require("./entities/ac");
 exports.state = Object.assign({}, dskyStates_1.OFF_TEST); // I am too lazy to type everything, consider doing it yourself.
 let setState = (_state) => { };
 exports.setState = setState;
@@ -62,6 +64,7 @@ exports.internalState = {
     register3: '',
     compActy: false
 };
+exports.haSettings = (0, settings_1.getSettings)();
 let updateInterval;
 const watchStateHA = (callback) => __awaiter(void 0, void 0, void 0, function* () {
     exports.setState = callback;
@@ -74,4 +77,7 @@ const getHAKeyboardHandler = () => __awaiter(void 0, void 0, void 0, function* (
     return keyboard_1.keyboardHandler;
 });
 exports.getHAKeyboardHandler = getHAKeyboardHandler;
-setInterval(clock_1.runClock, 1000);
+setInterval(() => {
+    (0, clock_1.runClock)();
+    (0, ac_1.getAC)();
+}, 1000);
