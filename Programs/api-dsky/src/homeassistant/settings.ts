@@ -6,6 +6,10 @@ export const getSettings = () =>{
     const filePath = path.resolve('ha_settings.json');
 
     // Read the file synchronously
-    const value = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(value)
+    try{
+        const value = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(value)
+    }catch{
+        return {}
+    }
 }
