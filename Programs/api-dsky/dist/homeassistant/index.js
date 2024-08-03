@@ -74,13 +74,13 @@ const watchStateHA = (callback) => __awaiter(void 0, void 0, void 0, function* (
     if (updateInterval)
         clearInterval(updateInterval);
     updateInterval = setInterval(updateState_1.updateState, 20);
+    setInterval(() => {
+        (0, clock_1.runClock)();
+        (0, ac_1.getAC)();
+    }, 1000);
 });
 exports.watchStateHA = watchStateHA;
 const getHAKeyboardHandler = () => __awaiter(void 0, void 0, void 0, function* () {
     return keyboard_1.keyboardHandler;
 });
 exports.getHAKeyboardHandler = getHAKeyboardHandler;
-setInterval(() => {
-    (0, clock_1.runClock)();
-    (0, ac_1.getAC)();
-}, 1000);
