@@ -69,13 +69,13 @@ export const watchStateHA = async (callback) =>{
     if(updateInterval) clearInterval(updateInterval)
 
     updateInterval = setInterval(updateState, 20);
+    
+    setInterval(() => {
+        runClock()
+        getAC()
+    }, 1000)
 }
 
 export const getHAKeyboardHandler = async () =>{
     return keyboardHandler
 }
-
-setInterval(() => {
-    runClock()
-    getAC()
-}, 1000)
