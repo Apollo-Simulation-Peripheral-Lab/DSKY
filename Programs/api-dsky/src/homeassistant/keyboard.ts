@@ -1,6 +1,7 @@
 import {internalState, verbs} from '.'
 
 export const keyboardHandler = (input: string) => {
+    if(input == 'o') return
     const { inputMode, verb, noun} = internalState
     internalState.keyRelMode = false
     if (input === 'r') {
@@ -20,9 +21,9 @@ export const keyboardHandler = (input: string) => {
         internalState.verbNounFlashing = false;
     } else if (inputMode === 'verb' && /^[0-9]$/.test(input)) {
         if(!verb[1]) internalState.verb += input;
-    } else if (input === 'e') {
+    } else if (input === 'e' || input === 'p') {
         if(verbs[verb]){
-            verbs[verb]()
+            verbs[verb](input === 'e', input === 'p')
         } else {
             internalState.operatorErrorActive = true;
         }

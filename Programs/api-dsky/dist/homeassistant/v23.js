@@ -2,11 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.v23 = void 0;
 const _1 = require(".");
-const v23 = () => {
+const utils_1 = require("./utils");
+const v23 = (enter = false, pro = false) => {
+    console.log('v23', { enter, pro, stack: _1.internalState.verbStack });
+    if (pro)
+        return;
     try {
         if (!_1.internalState.verbNounFlashing) {
             _1.internalState.inputMode = 'register3';
             _1.internalState.verbNounFlashing = true;
+            _1.internalState.register1 = (0, utils_1.numberToString)(_1.nouns[_1.internalState.noun][0]);
+            _1.internalState.register2 = (0, utils_1.numberToString)(_1.nouns[_1.internalState.noun][1]);
             _1.internalState.register3 = '';
         }
         else {
@@ -17,9 +23,12 @@ const v23 = () => {
                 Number(_1.internalState.register3) || 0,
             ];
             _1.internalState.verbNounFlashing = false;
-            if (_1.internalState.verbStack[_1.internalState.verbStack.length - 1]) {
-                _1.internalState.verb = _1.internalState.verbStack[_1.internalState.verbStack.length - 1];
-                _1.verbs[_1.internalState.verbStack[_1.internalState.verbStack.length - 1]]();
+            const previousVerb = _1.internalState.verbStack[_1.internalState.verbStack.length - 1];
+            if (previousVerb) {
+                _1.verbs[previousVerb](enter, pro);
+            }
+            else {
+                _1.verbs['06'](true);
             }
         }
     }

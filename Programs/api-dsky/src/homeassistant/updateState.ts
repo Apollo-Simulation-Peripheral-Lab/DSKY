@@ -6,7 +6,7 @@ export const updateState = () => {
 
     // Toggle flashing every 600ms
     flashTicks++
-    if(flashTicks >= 30){
+    if(flashTicks >= 15){
         internalState.flashState = !internalState.flashState;
         flashTicks = 0
     }
@@ -15,7 +15,8 @@ export const updateState = () => {
     refreshTicks++
     if(refreshTicks >= 50){
         if(internalState.keyRel?.length && internalState.keyRelMode){
-            verbs[internalState.keyRel[0]](internalState.keyRel[1])
+            internalState.noun = internalState.keyRel[1]
+            verbs[internalState.keyRel[0]]()
         }
         refreshTicks = 0
     }
@@ -32,14 +33,27 @@ export const updateState = () => {
         noun,
         register1,
         register2,
-        register3
+        register3,
+        lightTest
     } = internalState
 
     // Maybe we shouldn't need to reassign the variable but we currently need to because of complex reasons.
     const newState = {
         ...state,
-        IlluminateOprErr: operatorErrorActive && flashState ? 1 : 0,
-        IlluminateKeyRel: keyRel?.length && !keyRelMode && flashState ? 1 : 0,
+        IlluminateUplinkActy: lightTest, 
+        IlluminateNoAtt: lightTest,
+        IlluminateStby: lightTest,
+        IlluminateKeyRel: (lightTest || (keyRel?.length && !keyRelMode)) && flashState ? 1 : 0,
+        IlluminateOprErr: (operatorErrorActive || lightTest) && flashState ? 1 : 0,
+        IlluminateNoDap: lightTest,
+        IlluminatePrioDisp: lightTest,
+        IlluminateTemp: lightTest,
+        IlluminateGimbalLock: lightTest,
+        IlluminateProg: lightTest,
+        IlluminateRestart: lightTest, 
+        IlluminateTracker: lightTest,
+        IlluminateAlt: lightTest,
+        IlluminateVel: lightTest,
         IlluminateCompLight: compActy,
         VerbD1: (!verbNounFlashing || flashState) ? (verb[0] || '') : '',
         VerbD2: (!verbNounFlashing || flashState) ? (verb[1] || '') : '',

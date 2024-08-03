@@ -4,6 +4,8 @@ exports.keyboardHandler = void 0;
 const _1 = require(".");
 const keyboardHandler = (input) => {
     var _a;
+    if (input == 'o')
+        return;
     const { inputMode, verb, noun } = _1.internalState;
     _1.internalState.keyRelMode = false;
     if (input === 'r') {
@@ -29,9 +31,9 @@ const keyboardHandler = (input) => {
         if (!verb[1])
             _1.internalState.verb += input;
     }
-    else if (input === 'e') {
+    else if (input === 'e' || input === 'p') {
         if (_1.verbs[verb]) {
-            _1.verbs[verb]();
+            _1.verbs[verb](input === 'e', input === 'p');
         }
         else {
             _1.internalState.operatorErrorActive = true;
