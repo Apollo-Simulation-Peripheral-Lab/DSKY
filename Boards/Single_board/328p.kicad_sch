@@ -1225,18 +1225,6 @@
 		)
 		(uuid "e1ecf7ff-cc1c-4a56-945c-46efb6d0adca")
 	)
-	(hierarchical_label "SCL"
-		(shape output)
-		(at 167.64 93.98 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "13585ae3-09e3-4e72-b16e-7f569f6f8a58")
-	)
 	(hierarchical_label "CS"
 		(shape output)
 		(at 167.64 58.42 0)
@@ -1260,6 +1248,18 @@
 			(justify left)
 		)
 		(uuid "2e6b4621-0116-4ad5-aa3b-2da3f6d619bb")
+	)
+	(hierarchical_label "RGB_DIN"
+		(shape output)
+		(at 167.64 114.3 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "35ff07c2-b53a-4dfa-a7e2-fb4bc5b4d8bd")
 	)
 	(hierarchical_label "Y2"
 		(shape input)
@@ -1309,18 +1309,6 @@
 		)
 		(uuid "4f838b5f-9b32-4508-8db7-c4cf372206c8")
 	)
-	(hierarchical_label "SDA"
-		(shape bidirectional)
-		(at 167.64 91.44 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "720d26cf-2b51-4b6c-889d-fd6ed001eec8")
-	)
 	(hierarchical_label "Y0"
 		(shape input)
 		(at 167.64 81.28 0)
@@ -1368,18 +1356,6 @@
 			(justify left)
 		)
 		(uuid "a9169385-8a19-4165-bd83-86badd53ec05")
-	)
-	(hierarchical_label "PWM"
-		(shape output)
-		(at 167.64 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "aaae39bb-07b6-423a-b051-57c7965dae9d")
 	)
 	(hierarchical_label "Y3"
 		(shape input)

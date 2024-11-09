@@ -1632,7 +1632,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 140.97 67.31 0)
 			(effects
 				(font
@@ -1700,7 +1700,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 187.96 113.03 0)
 			(effects
 				(font
@@ -1856,7 +1856,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 95.25 67.31 0)
 			(effects
 				(font
@@ -2078,7 +2078,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 118.11 44.45 0)
 			(effects
 				(font
@@ -2234,7 +2234,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 95.25 113.03 0)
 			(effects
 				(font
@@ -2302,7 +2302,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 187.96 67.31 0)
 			(effects
 				(font
@@ -2370,7 +2370,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 95.25 44.45 0)
 			(effects
 				(font
@@ -2438,7 +2438,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 163.83 67.31 0)
 			(effects
 				(font
@@ -2506,7 +2506,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 118.11 67.31 0)
 			(effects
 				(font
@@ -2706,7 +2706,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 140.97 44.45 0)
 			(effects
 				(font
@@ -2862,7 +2862,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 118.11 90.17 0)
 			(effects
 				(font
@@ -2996,7 +2996,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 140.97 113.03 0)
 			(effects
 				(font
@@ -3064,7 +3064,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 163.83 90.17 0)
 			(effects
 				(font
@@ -3132,7 +3132,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 95.25 90.17 0)
 			(effects
 				(font
@@ -3200,7 +3200,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 163.83 113.03 0)
 			(effects
 				(font
@@ -3268,7 +3268,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 163.83 44.45 0)
 			(effects
 				(font
@@ -3336,7 +3336,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 187.96 90.17 0)
 			(effects
 				(font
@@ -3404,7 +3404,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 187.96 44.45 0)
 			(effects
 				(font
@@ -3472,7 +3472,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Switch_Misc:SW_Cherry_MX_1.00u_PCB"
+		(property "Footprint" "Project Libraries:Kailh_socket_MX"
 			(at 118.11 113.03 0)
 			(effects
 				(font

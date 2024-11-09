@@ -480,6 +480,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
+    "bom_export_filename": "",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -587,11 +588,7 @@
     ],
     [
       "6de8313f-adfc-4236-b602-98157f8335d8",
-      "Keyboard Backlight"
-    ],
-    [
-      "ed4c4d64-e285-498d-a32a-60e63088bbdd",
-      "Alarm Lights"
+      "Backlight"
     ],
     [
       "10d1b3d3-799b-4f50-9dbd-cebbf84933bb",
