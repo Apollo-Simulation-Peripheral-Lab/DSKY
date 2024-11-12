@@ -530,15 +530,15 @@
 		(layers "B.Cu" "B.Paste" "B.Mask")
 		(uuid "2be3ff5e-a9a4-4ac5-8ccc-8da2eef693a7")
 	)
-	(model "${KIPRJMOD}/../Libraries/3D/Kailh Hotswap.step"
+	(model "${KIPRJMOD}/../Libraries/3D/TH_L10.9-W5.9-CPG151101S11.step"
 		(offset
-			(xyz 4.85 6.75 -3.5)
+			(xyz -0.65 3.8 -1.58)
 		)
 		(scale
 			(xyz 1 1 1)
 		)
 		(rotate
-			(xyz 0 0 180)
+			(xyz -180 0 0)
 		)
 	)
 )

@@ -182,15 +182,15 @@
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "46131c86-bf69-4746-bccc-ea079c36ecc6")
 	)
-	(model "${KIPRJMOD}/../Libraries/3D/LED_SK6812MINI-E.step"
+	(model "${KIPRJMOD}/../Libraries/3D/LED-SMD_4P-L3.2-W2.8_SK6812MINI-EA.step"
 		(offset
-			(xyz 0 -5.04 -1.8)
+			(xyz 0 0 0.6)
 		)
 		(scale
 			(xyz 1 1 1)
 		)
 		(rotate
-			(xyz 180 0 0)
+			(xyz 0 0 0)
 		)
 	)
 )
