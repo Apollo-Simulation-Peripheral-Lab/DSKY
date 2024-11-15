@@ -2391,7 +2391,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "479627a8-4283-423a-8a4b-bc59cb8c8bde")
-		(property "Reference" "D34"
+		(property "Reference" "D35"
 			(at 124.46 41.91 0)
 			(effects
 				(font
@@ -2461,7 +2461,7 @@
 		(instances
 			(project "Single_board"
 				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46/2c846281-f7ac-4d2e-99f9-816b435af6ae"
-					(reference "D34")
+					(reference "D35")
 					(unit 1)
 				)
 			)

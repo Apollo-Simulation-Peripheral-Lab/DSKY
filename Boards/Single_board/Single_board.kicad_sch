@@ -2208,6 +2208,16 @@
 		)
 		(uuid "9e96d3d5-17ab-4d94-8e7f-603133bf840d")
 	)
+	(wire
+		(pts
+			(xy 36.83 20.32) (xy 36.83 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3b40e6d-3668-4dfb-9a55-6398089b0611")
+	)
 	(bus
 		(pts
 			(xy 167.64 36.83) (xy 167.64 39.37)
@@ -3217,6 +3227,72 @@
 				)
 				(justify right)
 				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 36.83 20.32 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "03526f2b-3904-4ad6-9fc3-64586431a72f")
+		(property "Reference" "#PWR015"
+			(at 36.83 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "5V1A"
+			(at 39.116 16.002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 36.83 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 36.83 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "33857066-4bf0-49bb-9484-2abc02d6f550")
+		)
+		(instances
+			(project "Single_board"
+				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46"
+					(reference "#PWR015")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -5368,6 +5444,16 @@
 				(justify right)
 			)
 			(uuid "b45fbdcb-a1d9-4eb1-a842-4b1ec2d77f32")
+		)
+		(pin "VCC" input
+			(at 36.83 21.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "9ffff65e-c559-471a-a0a9-936f73a1d24a")
 		)
 		(instances
 			(project "Single_board"

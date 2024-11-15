@@ -530,7 +530,13 @@
 		(uuid "01ffbe47-2d9c-4646-beb8-a43bb601db25")
 	)
 	(junction
-		(at 54.61 154.94)
+		(at 166.37 154.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0cce65de-2040-4e62-9877-0d9deab768c8")
+	)
+	(junction
+		(at 44.45 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "12a6e96b-f7ce-408e-a2f7-4c482ff8ff5a")
@@ -542,13 +548,13 @@
 		(uuid "1c871fa4-a4ff-4d39-8217-561a8467a8f3")
 	)
 	(junction
-		(at 33.02 114.3)
+		(at 29.21 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "37ce665b-dbcc-4a05-8973-7b6d3396df54")
 	)
 	(junction
-		(at 170.18 114.3)
+		(at 166.37 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "46b0cc95-cfdc-40f8-b446-2d13e1d9fb3a")
@@ -560,31 +566,31 @@
 		(uuid "49b3ede0-8704-43ed-9bac-a454c94c9731")
 	)
 	(junction
-		(at 146.05 154.94)
+		(at 135.89 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "576520ec-3aae-4b73-bf37-9362dd2a6451")
 	)
 	(junction
-		(at 139.7 114.3)
+		(at 135.89 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "73809958-86a5-4ce9-9a49-efa21a399b87")
 	)
 	(junction
-		(at 115.57 154.94)
+		(at 105.41 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "748541c0-81db-4b7d-af91-970cc348f579")
 	)
 	(junction
-		(at 63.5 114.3)
+		(at 59.69 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "75e301a2-459b-435b-9858-264f1c7eacd5")
 	)
 	(junction
-		(at 39.37 154.94)
+		(at 29.21 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7db4758b-33b0-4378-88ef-42695ebb0605")
@@ -596,13 +602,13 @@
 		(uuid "83a20668-d02a-4780-b200-153a926fbad2")
 	)
 	(junction
-		(at 100.33 154.94)
+		(at 90.17 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8e60b780-eb99-44e4-91bd-d0963f824a58")
 	)
 	(junction
-		(at 130.81 154.94)
+		(at 120.65 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8ef902a7-aec0-4123-aeb1-e27716ea9033")
@@ -620,7 +626,7 @@
 		(uuid "9606ed8a-13d2-4ef2-8692-6dec1585d5b8")
 	)
 	(junction
-		(at 161.29 154.94)
+		(at 151.13 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a00f1543-d646-46dc-be6e-8c4a775225c9")
@@ -632,19 +638,19 @@
 		(uuid "a3901c07-56db-4e2f-815c-868260346376")
 	)
 	(junction
-		(at 48.26 114.3)
+		(at 44.45 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a70a19b7-cefc-484f-8e7e-e6f3fb09e31b")
 	)
 	(junction
-		(at 124.46 114.3)
+		(at 120.65 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a9a989f6-722b-4ae9-bd38-90172f8440cc")
 	)
 	(junction
-		(at 85.09 154.94)
+		(at 74.93 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "abc81509-a4f8-4c5c-a29e-da98b9b55076")
@@ -662,13 +668,13 @@
 		(uuid "b6309471-209d-408f-9722-bd1dcba22a61")
 	)
 	(junction
-		(at 154.94 114.3)
+		(at 151.13 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ccc3bd52-d0a9-494a-a6c1-04b69328b43c")
 	)
 	(junction
-		(at 93.98 114.3)
+		(at 90.17 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d0cc23be-7d45-49f4-99a6-0c7686995c95")
@@ -692,7 +698,7 @@
 		(uuid "db050993-032f-4cca-ba60-8b4bc27bfa0e")
 	)
 	(junction
-		(at 78.74 114.3)
+		(at 74.93 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e73efccb-04c7-4202-a9d4-45b995ada234")
@@ -704,13 +710,13 @@
 		(uuid "e8810294-8bdd-4cdf-b277-62d34f348372")
 	)
 	(junction
-		(at 109.22 114.3)
+		(at 105.41 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ecd8cf51-546a-4bf8-8101-6753720b9b1e")
 	)
 	(junction
-		(at 69.85 154.94)
+		(at 59.69 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "edc7810c-7e24-4697-b52e-d394fe7100b0")
@@ -763,7 +769,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 111.76) (xy 33.02 114.3)
+			(xy 29.21 114.3) (xy 29.21 116.84)
 		)
 		(stroke
 			(width 0)
@@ -773,7 +779,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 154.94) (xy 85.09 158.75)
+			(xy 74.93 154.94) (xy 74.93 158.75)
 		)
 		(stroke
 			(width 0)
@@ -783,7 +789,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 111.76) (xy 170.18 114.3)
+			(xy 166.37 114.3) (xy 166.37 116.84)
 		)
 		(stroke
 			(width 0)
@@ -793,7 +799,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 152.4) (xy 39.37 154.94)
+			(xy 29.21 152.4) (xy 29.21 154.94)
 		)
 		(stroke
 			(width 0)
@@ -803,7 +809,17 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 114.3) (xy 78.74 118.11)
+			(xy 166.37 152.4) (xy 166.37 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37915a03-5fae-4d6c-9863-136b46efef09")
+	)
+	(wire
+		(pts
+			(xy 74.93 116.84) (xy 74.93 120.65)
 		)
 		(stroke
 			(width 0)
@@ -813,7 +829,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 102.87) (xy 21.59 102.87)
+			(xy 151.13 106.68) (xy 17.78 106.68)
 		)
 		(stroke
 			(width 0)
@@ -823,7 +839,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 154.94) (xy 161.29 158.75)
+			(xy 151.13 154.94) (xy 151.13 158.75)
 		)
 		(stroke
 			(width 0)
@@ -833,7 +849,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 154.94) (xy 39.37 158.75)
+			(xy 29.21 154.94) (xy 29.21 158.75)
 		)
 		(stroke
 			(width 0)
@@ -843,7 +859,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 166.37) (xy 31.75 166.37)
+			(xy 17.78 166.37) (xy 21.59 166.37)
 		)
 		(stroke
 			(width 0)
@@ -853,7 +869,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 152.4) (xy 69.85 154.94)
+			(xy 59.69 152.4) (xy 59.69 154.94)
 		)
 		(stroke
 			(width 0)
@@ -893,7 +909,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 111.76) (xy 63.5 114.3)
+			(xy 59.69 114.3) (xy 59.69 116.84)
 		)
 		(stroke
 			(width 0)
@@ -913,7 +929,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 114.3) (xy 93.98 118.11)
+			(xy 90.17 116.84) (xy 90.17 120.65)
 		)
 		(stroke
 			(width 0)
@@ -923,7 +939,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 154.94) (xy 69.85 158.75)
+			(xy 59.69 154.94) (xy 59.69 158.75)
 		)
 		(stroke
 			(width 0)
@@ -933,7 +949,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.74 111.76) (xy 78.74 114.3)
+			(xy 74.93 114.3) (xy 74.93 116.84)
 		)
 		(stroke
 			(width 0)
@@ -943,7 +959,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 154.94) (xy 130.81 158.75)
+			(xy 120.65 154.94) (xy 120.65 158.75)
 		)
 		(stroke
 			(width 0)
@@ -953,7 +969,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 152.4) (xy 130.81 154.94)
+			(xy 120.65 152.4) (xy 120.65 154.94)
 		)
 		(stroke
 			(width 0)
@@ -973,7 +989,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 114.3) (xy 109.22 118.11)
+			(xy 105.41 116.84) (xy 105.41 120.65)
 		)
 		(stroke
 			(width 0)
@@ -983,7 +999,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 152.4) (xy 54.61 154.94)
+			(xy 44.45 152.4) (xy 44.45 154.94)
 		)
 		(stroke
 			(width 0)
@@ -993,7 +1009,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 154.94) (xy 100.33 158.75)
+			(xy 90.17 154.94) (xy 90.17 158.75)
 		)
 		(stroke
 			(width 0)
@@ -1003,7 +1019,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 152.4) (xy 85.09 154.94)
+			(xy 74.93 152.4) (xy 74.93 154.94)
 		)
 		(stroke
 			(width 0)
@@ -1013,7 +1029,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 152.4) (xy 115.57 154.94)
+			(xy 105.41 152.4) (xy 105.41 154.94)
 		)
 		(stroke
 			(width 0)
@@ -1033,7 +1049,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 152.4) (xy 100.33 154.94)
+			(xy 90.17 152.4) (xy 90.17 154.94)
 		)
 		(stroke
 			(width 0)
@@ -1043,7 +1059,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 102.87) (xy 21.59 125.73)
+			(xy 17.78 106.68) (xy 17.78 128.27)
 		)
 		(stroke
 			(width 0)
@@ -1053,7 +1069,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 144.78) (xy 25.4 144.78)
+			(xy 173.99 144.78) (xy 17.78 144.78)
 		)
 		(stroke
 			(width 0)
@@ -1083,7 +1099,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 111.76) (xy 109.22 114.3)
+			(xy 105.41 114.3) (xy 105.41 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1133,7 +1149,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 111.76) (xy 139.7 114.3)
+			(xy 135.89 114.3) (xy 135.89 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1143,7 +1159,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 154.94) (xy 146.05 158.75)
+			(xy 135.89 154.94) (xy 135.89 158.75)
 		)
 		(stroke
 			(width 0)
@@ -1153,7 +1169,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 144.78) (xy 25.4 166.37)
+			(xy 17.78 144.78) (xy 17.78 166.37)
 		)
 		(stroke
 			(width 0)
@@ -1173,7 +1189,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 152.4) (xy 161.29 154.94)
+			(xy 151.13 152.4) (xy 151.13 154.94)
 		)
 		(stroke
 			(width 0)
@@ -1203,7 +1219,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 114.3) (xy 170.18 118.11)
+			(xy 166.37 116.84) (xy 166.37 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1213,13 +1229,23 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 154.94) (xy 115.57 158.75)
+			(xy 105.41 154.94) (xy 105.41 158.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "97a2de1f-b009-4bfd-a308-3fa1c2863e8a")
+	)
+	(wire
+		(pts
+			(xy 166.37 154.94) (xy 166.37 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97e8ebe9-7d2b-4b8f-a5e2-bc227bc1215c")
 	)
 	(wire
 		(pts
@@ -1293,7 +1319,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 152.4) (xy 146.05 154.94)
+			(xy 135.89 152.4) (xy 135.89 154.94)
 		)
 		(stroke
 			(width 0)
@@ -1303,7 +1329,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 125.73) (xy 25.4 125.73)
+			(xy 17.78 128.27) (xy 21.59 128.27)
 		)
 		(stroke
 			(width 0)
@@ -1313,7 +1339,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 114.3) (xy 48.26 118.11)
+			(xy 44.45 116.84) (xy 44.45 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1333,7 +1359,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 144.78) (xy 177.8 125.73)
+			(xy 173.99 144.78) (xy 173.99 128.27)
 		)
 		(stroke
 			(width 0)
@@ -1343,7 +1369,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 114.3) (xy 139.7 118.11)
+			(xy 135.89 116.84) (xy 135.89 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1353,7 +1379,7 @@
 	)
 	(wire
 		(pts
-			(xy 93.98 111.76) (xy 93.98 114.3)
+			(xy 90.17 114.3) (xy 90.17 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1363,7 +1389,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 77.47) (xy 151.13 102.87)
+			(xy 151.13 77.47) (xy 151.13 106.68)
 		)
 		(stroke
 			(width 0)
@@ -1373,7 +1399,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 114.3) (xy 63.5 118.11)
+			(xy 59.69 116.84) (xy 59.69 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1413,7 +1439,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 114.3) (xy 33.02 118.11)
+			(xy 29.21 116.84) (xy 29.21 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1433,7 +1459,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 114.3) (xy 154.94 118.11)
+			(xy 151.13 116.84) (xy 151.13 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1453,7 +1479,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 154.94) (xy 54.61 158.75)
+			(xy 44.45 154.94) (xy 44.45 158.75)
 		)
 		(stroke
 			(width 0)
@@ -1463,7 +1489,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 111.76) (xy 124.46 114.3)
+			(xy 120.65 114.3) (xy 120.65 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1473,7 +1499,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 111.76) (xy 154.94 114.3)
+			(xy 151.13 114.3) (xy 151.13 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1493,7 +1519,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 114.3) (xy 124.46 118.11)
+			(xy 120.65 116.84) (xy 120.65 120.65)
 		)
 		(stroke
 			(width 0)
@@ -1513,7 +1539,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 111.76) (xy 48.26 114.3)
+			(xy 44.45 114.3) (xy 44.45 116.84)
 		)
 		(stroke
 			(width 0)
@@ -1573,7 +1599,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 100.33 152.4 90)
+		(at 90.17 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1585,7 +1611,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 146.05 152.4 90)
+		(at 135.89 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1597,7 +1623,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 78.74 133.35 270)
+		(at 74.93 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1609,7 +1635,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 109.22 111.76 90)
+		(at 105.41 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1633,7 +1659,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 63.5 111.76 90)
+		(at 59.69 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1657,7 +1683,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 170.18 111.76 90)
+		(at 166.37 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1669,7 +1695,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 125.73 154.94 180)
+		(at 115.57 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1681,7 +1707,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 139.7 133.35 270)
+		(at 135.89 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1717,7 +1743,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 109.22 133.35 270)
+		(at 105.41 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1729,7 +1755,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 48.26 133.35 270)
+		(at 44.45 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1753,7 +1779,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 100.33 173.99 270)
+		(at 90.17 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1765,7 +1791,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 165.1 114.3 180)
+		(at 161.29 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1777,7 +1803,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 146.05 173.99 270)
+		(at 135.89 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1825,7 +1851,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 49.53 154.94 180)
+		(at 39.37 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1837,7 +1863,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 78.74 111.76 90)
+		(at 74.93 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1849,7 +1875,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 93.98 111.76 90)
+		(at 90.17 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1873,7 +1899,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 161.29 173.99 270)
+		(at 151.13 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1885,7 +1911,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 43.18 114.3 180)
+		(at 39.37 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1897,7 +1923,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 104.14 114.3 180)
+		(at 100.33 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1909,7 +1935,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 115.57 152.4 90)
+		(at 105.41 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1945,7 +1971,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 115.57 173.99 270)
+		(at 105.41 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1969,7 +1995,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 170.18 133.35 270)
+		(at 166.37 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1981,7 +2007,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 39.37 173.99 270)
+		(at 29.21 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2029,6 +2055,18 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
+		(at 166.37 173.99 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "732e406e-333d-45d0-a21c-71eee96eddf3")
+	)
+	(hierarchical_label "GND"
+		(shape output)
 		(at 123.19 26.67 180)
 		(fields_autoplaced yes)
 		(effects
@@ -2041,7 +2079,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 73.66 114.3 180)
+		(at 69.85 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2053,7 +2091,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 149.86 114.3 180)
+		(at 146.05 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2062,6 +2100,18 @@
 			(justify right)
 		)
 		(uuid "763006e9-bfa4-46f9-b31b-4f0f4f457f0f")
+	)
+	(hierarchical_label "VCC"
+		(shape input)
+		(at 166.37 152.4 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "79c382ea-2d68-4691-84f1-307ef90e5bff")
 	)
 	(hierarchical_label "VCC"
 		(shape input)
@@ -2113,7 +2163,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 124.46 111.76 90)
+		(at 120.65 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2125,7 +2175,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 33.02 111.76 90)
+		(at 29.21 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2149,7 +2199,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 130.81 152.4 90)
+		(at 120.65 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2173,7 +2223,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 64.77 154.94 180)
+		(at 54.61 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2185,7 +2235,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 27.94 114.3 180)
+		(at 24.13 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2197,7 +2247,19 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 80.01 154.94 180)
+		(at 161.29 154.94 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8f4f8e18-e8e7-4c87-983b-7b4412bbba6e")
+	)
+	(hierarchical_label "GND"
+		(shape output)
+		(at 69.85 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2209,7 +2271,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 124.46 133.35 270)
+		(at 120.65 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2245,7 +2307,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 134.62 114.3 180)
+		(at 130.81 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2257,7 +2319,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 154.94 111.76 90)
+		(at 151.13 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2281,7 +2343,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 69.85 152.4 90)
+		(at 59.69 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2293,7 +2355,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 33.02 133.35 270)
+		(at 29.21 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2317,7 +2379,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 110.49 154.94 180)
+		(at 100.33 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2329,7 +2391,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 139.7 111.76 90)
+		(at 135.89 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2365,7 +2427,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 69.85 173.99 270)
+		(at 59.69 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2377,7 +2439,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 130.81 173.99 270)
+		(at 120.65 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2413,7 +2475,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 85.09 173.99 270)
+		(at 74.93 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2425,7 +2487,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 54.61 152.4 90)
+		(at 44.45 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2449,7 +2511,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 34.29 154.94 180)
+		(at 24.13 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2461,7 +2523,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 54.61 173.99 270)
+		(at 44.45 173.99 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2473,7 +2535,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 140.97 154.94 180)
+		(at 130.81 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2485,7 +2547,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 63.5 133.35 270)
+		(at 59.69 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2497,7 +2559,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 48.26 111.76 90)
+		(at 44.45 114.3 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2569,7 +2631,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 93.98 133.35 270)
+		(at 90.17 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2581,7 +2643,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 156.21 154.94 180)
+		(at 146.05 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2593,7 +2655,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 95.25 154.94 180)
+		(at 85.09 154.94 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2605,7 +2667,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 39.37 152.4 90)
+		(at 29.21 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2617,7 +2679,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 58.42 114.3 180)
+		(at 54.61 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2629,7 +2691,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 154.94 133.35 270)
+		(at 151.13 135.89 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2653,7 +2715,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 88.9 114.3 180)
+		(at 85.09 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2665,7 +2727,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 161.29 152.4 90)
+		(at 151.13 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2701,7 +2763,7 @@
 	)
 	(hierarchical_label "VCC"
 		(shape input)
-		(at 85.09 152.4 90)
+		(at 74.93 152.4 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2749,7 +2811,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape output)
-		(at 119.38 114.3 180)
+		(at 115.57 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2907,7 +2969,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 48.26 125.73 0)
+		(at 44.45 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2915,7 +2977,7 @@
 		(dnp no)
 		(uuid "068c4eda-be36-4a56-93c2-80349881c2c6")
 		(property "Reference" "D16"
-			(at 51.562 118.872 0)
+			(at 47.752 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2923,7 +2985,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at -13.462 157.226 0)
+			(at -17.272 159.766 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2932,7 +2994,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 49.53 133.35 0)
+			(at 45.72 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2942,7 +3004,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 50.8 135.255 0)
+			(at 46.99 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2952,7 +3014,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 48.26 125.73 0)
+			(at 44.45 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3059,7 +3121,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 52.07 154.94 90)
+		(at 41.91 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3067,7 +3129,7 @@
 		(dnp no)
 		(uuid "0942d445-bd22-49d4-8034-ef87a9dc6347")
 		(property "Reference" "C33"
-			(at 52.07 151.892 90)
+			(at 41.91 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3075,7 +3137,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 51.054 157.734 90)
+			(at 40.894 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3083,7 +3145,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 52.07 154.94 0)
+			(at 41.91 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3092,7 +3154,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 52.07 154.94 0)
+			(at 41.91 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3101,7 +3163,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 52.07 154.94 0)
+			(at 41.91 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3126,7 +3188,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 36.83 154.94 90)
+		(at 26.67 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3134,7 +3196,7 @@
 		(dnp no)
 		(uuid "0a289890-a887-4d49-a2b1-1a3b78fd6ad6")
 		(property "Reference" "C32"
-			(at 36.83 151.892 90)
+			(at 26.67 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3142,7 +3204,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 35.814 157.734 90)
+			(at 25.654 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3150,7 +3212,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 36.83 154.94 0)
+			(at 26.67 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3159,7 +3221,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 36.83 154.94 0)
+			(at 26.67 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3168,7 +3230,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 36.83 154.94 0)
+			(at 26.67 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3193,7 +3255,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 146.05 166.37 0)
+		(at 135.89 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3201,7 +3263,7 @@
 		(dnp no)
 		(uuid "113fb740-b01e-4528-b1ad-c0336119310d")
 		(property "Reference" "D32"
-			(at 149.352 159.512 0)
+			(at 139.192 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3209,7 +3271,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 197.866 0)
+			(at 74.168 197.866 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3218,7 +3280,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 147.32 173.99 0)
+			(at 137.16 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3228,7 +3290,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 148.59 175.895 0)
+			(at 138.43 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3238,7 +3300,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 146.05 166.37 0)
+			(at 135.89 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3412,7 +3474,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 109.22 125.73 0)
+		(at 105.41 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3420,7 +3482,7 @@
 		(dnp no)
 		(uuid "1a156863-bb86-431b-b11f-730e377b69ab")
 		(property "Reference" "D20"
-			(at 112.522 118.872 0)
+			(at 108.712 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3428,7 +3490,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 169.418 126.746 0)
+			(at 165.608 129.286 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3437,7 +3499,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 110.49 133.35 0)
+			(at 106.68 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3447,7 +3509,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 111.76 135.255 0)
+			(at 107.95 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3457,7 +3519,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 109.22 125.73 0)
+			(at 105.41 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3622,7 +3684,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 63.5 125.73 0)
+		(at 59.69 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3630,7 +3692,7 @@
 		(dnp no)
 		(uuid "215df8f3-1607-4fc9-87c1-41b3d5dc918c")
 		(property "Reference" "D17"
-			(at 66.802 118.872 0)
+			(at 62.992 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3638,7 +3700,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at -13.462 172.466 0)
+			(at -17.272 175.006 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3647,7 +3709,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 64.77 133.35 0)
+			(at 60.96 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3657,7 +3719,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 66.04 135.255 0)
+			(at 62.23 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3667,7 +3729,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 63.5 125.73 0)
+			(at 59.69 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3698,7 +3760,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 85.09 166.37 0)
+		(at 74.93 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3706,7 +3768,7 @@
 		(dnp no)
 		(uuid "233c5f5f-b30e-4076-bc3d-fdf86ade3bd9")
 		(property "Reference" "D28"
-			(at 88.392 159.512 0)
+			(at 78.232 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3714,7 +3776,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 136.906 0)
+			(at 74.168 136.906 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3723,7 +3785,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 86.36 173.99 0)
+			(at 76.2 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3733,7 +3795,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 87.63 175.895 0)
+			(at 77.47 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3743,7 +3805,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 85.09 166.37 0)
+			(at 74.93 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3774,7 +3836,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 82.55 154.94 90)
+		(at 72.39 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3782,7 +3844,7 @@
 		(dnp no)
 		(uuid "25652dca-3117-4d68-9bc3-11c5dedbab7e")
 		(property "Reference" "C35"
-			(at 82.55 151.892 90)
+			(at 72.39 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3790,7 +3852,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 81.534 157.734 90)
+			(at 71.374 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3798,7 +3860,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 82.55 154.94 0)
+			(at 72.39 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3807,7 +3869,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 82.55 154.94 0)
+			(at 72.39 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3816,7 +3878,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 82.55 154.94 0)
+			(at 72.39 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3917,7 +3979,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 115.57 166.37 0)
+		(at 105.41 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3925,7 +3987,7 @@
 		(dnp no)
 		(uuid "28a57d37-37ff-4d20-a766-5432fa904ec8")
 		(property "Reference" "D30"
-			(at 118.872 159.512 0)
+			(at 108.712 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3933,7 +3995,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 167.386 0)
+			(at 74.168 167.386 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3942,7 +4004,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 116.84 173.99 0)
+			(at 106.68 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3952,7 +4014,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 118.11 175.895 0)
+			(at 107.95 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3962,7 +4024,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 115.57 166.37 0)
+			(at 105.41 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4145,7 +4207,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 158.75 154.94 90)
+		(at 148.59 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4153,7 +4215,7 @@
 		(dnp no)
 		(uuid "42b1cb68-ddd0-4105-92a9-39a33774c4cd")
 		(property "Reference" "C40"
-			(at 158.75 151.892 90)
+			(at 148.59 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4161,7 +4223,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 157.734 157.734 90)
+			(at 147.574 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4169,7 +4231,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 158.75 154.94 0)
+			(at 148.59 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4178,7 +4240,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 158.75 154.94 0)
+			(at 148.59 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4187,7 +4249,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 158.75 154.94 0)
+			(at 148.59 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4288,7 +4350,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 67.31 154.94 90)
+		(at 57.15 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4296,7 +4358,7 @@
 		(dnp no)
 		(uuid "4cc24c41-32b6-456e-826f-4a149491eed9")
 		(property "Reference" "C34"
-			(at 67.31 151.892 90)
+			(at 57.15 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4304,7 +4366,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 66.294 157.734 90)
+			(at 56.134 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4312,7 +4374,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 67.31 154.94 0)
+			(at 57.15 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4321,7 +4383,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 67.31 154.94 0)
+			(at 57.15 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4330,7 +4392,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 67.31 154.94 0)
+			(at 57.15 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4431,7 +4493,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 170.18 125.73 0)
+		(at 166.37 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4439,7 +4501,7 @@
 		(dnp no)
 		(uuid "50e69287-ecf3-4ce8-88a6-dc2a444007bb")
 		(property "Reference" "D24"
-			(at 173.482 118.872 0)
+			(at 169.672 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4447,7 +4509,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 169.418 187.706 0)
+			(at 165.608 190.246 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4456,7 +4518,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 171.45 133.35 0)
+			(at 167.64 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4466,7 +4528,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 172.72 135.255 0)
+			(at 168.91 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4476,7 +4538,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 170.18 125.73 0)
+			(at 166.37 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4507,7 +4569,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 78.74 125.73 0)
+		(at 74.93 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4515,7 +4577,7 @@
 		(dnp no)
 		(uuid "53f93446-1d0e-477d-b7d6-eeb185ad76a4")
 		(property "Reference" "D18"
-			(at 82.042 118.872 0)
+			(at 78.232 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4523,7 +4585,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at -13.462 187.706 0)
+			(at -17.272 190.246 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4532,7 +4594,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 80.01 133.35 0)
+			(at 76.2 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4542,7 +4604,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 81.28 135.255 0)
+			(at 77.47 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4552,7 +4614,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 78.74 125.73 0)
+			(at 74.93 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4659,7 +4721,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 93.98 125.73 0)
+		(at 90.17 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4667,7 +4729,7 @@
 		(dnp no)
 		(uuid "5a18e800-632d-4104-91a8-78930be88951")
 		(property "Reference" "D19"
-			(at 97.282 118.872 0)
+			(at 93.472 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4675,7 +4737,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at -13.462 202.946 0)
+			(at -17.272 205.486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4684,7 +4746,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 95.25 133.35 0)
+			(at 91.44 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4694,7 +4756,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 96.52 135.255 0)
+			(at 92.71 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4704,7 +4766,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 93.98 125.73 0)
+			(at 90.17 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4735,7 +4797,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 137.16 114.3 90)
+		(at 133.35 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4743,7 +4805,7 @@
 		(dnp no)
 		(uuid "5dc64896-dcb8-4c8a-8539-04d358bc9fd0")
 		(property "Reference" "C29"
-			(at 137.16 111.252 90)
+			(at 133.35 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4751,7 +4813,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 136.144 117.094 90)
+			(at 132.334 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4759,7 +4821,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 137.16 114.3 0)
+			(at 133.35 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4768,7 +4830,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 137.16 114.3 0)
+			(at 133.35 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4777,7 +4839,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 137.16 114.3 0)
+			(at 133.35 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4802,7 +4864,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 91.44 114.3 90)
+		(at 87.63 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4810,7 +4872,7 @@
 		(dnp no)
 		(uuid "65ac267f-8b4f-4daf-a9ed-d2ab0c57c2ba")
 		(property "Reference" "C26"
-			(at 91.44 111.252 90)
+			(at 87.63 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4818,7 +4880,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 90.424 117.094 90)
+			(at 86.614 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4826,7 +4888,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 91.44 114.3 0)
+			(at 87.63 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4835,7 +4897,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 91.44 114.3 0)
+			(at 87.63 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4844,7 +4906,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 91.44 114.3 0)
+			(at 87.63 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4869,7 +4931,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 143.51 154.94 90)
+		(at 133.35 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4877,7 +4939,7 @@
 		(dnp no)
 		(uuid "6b379e05-57f5-41a5-adcf-a2cdee1fe530")
 		(property "Reference" "C39"
-			(at 143.51 151.892 90)
+			(at 133.35 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4885,7 +4947,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 142.494 157.734 90)
+			(at 132.334 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4893,7 +4955,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 143.51 154.94 0)
+			(at 133.35 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4902,7 +4964,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 143.51 154.94 0)
+			(at 133.35 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4911,7 +4973,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 143.51 154.94 0)
+			(at 133.35 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4936,7 +4998,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 121.92 114.3 90)
+		(at 118.11 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4944,7 +5006,7 @@
 		(dnp no)
 		(uuid "7620d5e0-451b-43b3-bfb6-88a69b0845ad")
 		(property "Reference" "C28"
-			(at 121.92 111.252 90)
+			(at 118.11 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4952,7 +5014,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 120.904 117.094 90)
+			(at 117.094 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4960,7 +5022,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 121.92 114.3 0)
+			(at 118.11 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4969,7 +5031,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 121.92 114.3 0)
+			(at 118.11 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4978,7 +5040,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 121.92 114.3 0)
+			(at 118.11 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5079,7 +5141,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 128.27 154.94 90)
+		(at 118.11 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5087,7 +5149,7 @@
 		(dnp no)
 		(uuid "78e49217-e055-4f8b-b684-4d1ac5ddde25")
 		(property "Reference" "C38"
-			(at 128.27 151.892 90)
+			(at 118.11 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5095,7 +5157,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 127.254 157.734 90)
+			(at 117.094 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5103,7 +5165,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 128.27 154.94 0)
+			(at 118.11 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5112,7 +5174,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 128.27 154.94 0)
+			(at 118.11 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5121,7 +5183,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 128.27 154.94 0)
+			(at 118.11 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5213,7 +5275,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 106.68 114.3 90)
+		(at 102.87 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5221,7 +5283,7 @@
 		(dnp no)
 		(uuid "7a7360fd-8663-477c-b985-f80aca850ddd")
 		(property "Reference" "C27"
-			(at 106.68 111.252 90)
+			(at 102.87 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5229,7 +5291,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 105.664 117.094 90)
+			(at 101.854 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5237,7 +5299,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 106.68 114.3 0)
+			(at 102.87 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5246,7 +5308,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 106.68 114.3 0)
+			(at 102.87 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5255,7 +5317,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 106.68 114.3 0)
+			(at 102.87 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5356,7 +5418,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 33.02 125.73 0)
+		(at 29.21 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5364,7 +5426,7 @@
 		(dnp no)
 		(uuid "84245499-930d-4791-ad39-efc76b511658")
 		(property "Reference" "D15"
-			(at 36.322 118.872 0)
+			(at 32.512 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5372,7 +5434,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at -13.462 141.986 0)
+			(at -17.272 144.526 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5381,7 +5443,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 34.29 133.35 0)
+			(at 30.48 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5391,7 +5453,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 35.56 135.255 0)
+			(at 31.75 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5401,7 +5463,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 33.02 125.73 0)
+			(at 29.21 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5432,7 +5494,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 39.37 166.37 0)
+		(at 29.21 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5440,7 +5502,7 @@
 		(dnp no)
 		(uuid "8dc904c4-5a7b-45bb-97d9-eace56110a3e")
 		(property "Reference" "D25"
-			(at 42.672 159.512 0)
+			(at 32.512 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5448,7 +5510,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 23.368 243.586 0)
+			(at 13.208 243.586 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5457,7 +5519,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 40.64 173.99 0)
+			(at 30.48 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5467,7 +5529,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 41.91 175.895 0)
+			(at 31.75 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5477,7 +5539,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 39.37 166.37 0)
+			(at 29.21 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5508,7 +5570,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 154.94 125.73 0)
+		(at 151.13 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5516,7 +5578,7 @@
 		(dnp no)
 		(uuid "91743287-ddba-4d06-a632-ea5b93261a47")
 		(property "Reference" "D23"
-			(at 158.242 118.872 0)
+			(at 154.432 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5524,7 +5586,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 169.418 172.466 0)
+			(at 165.608 175.006 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5533,7 +5595,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 156.21 133.35 0)
+			(at 152.4 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5543,7 +5605,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 157.48 135.255 0)
+			(at 153.67 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5553,7 +5615,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 154.94 125.73 0)
+			(at 151.13 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5584,7 +5646,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 152.4 114.3 90)
+		(at 148.59 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5592,7 +5654,7 @@
 		(dnp no)
 		(uuid "96644804-53bd-43c1-afbc-5eee853ef63e")
 		(property "Reference" "C30"
-			(at 152.4 111.252 90)
+			(at 148.59 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5600,7 +5662,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 151.384 117.094 90)
+			(at 147.574 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5608,7 +5670,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 152.4 114.3 0)
+			(at 148.59 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5617,7 +5679,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 152.4 114.3 0)
+			(at 148.59 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5626,7 +5688,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 152.4 114.3 0)
+			(at 148.59 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5717,8 +5779,84 @@
 		)
 	)
 	(symbol
+		(lib_id "LED:SK6812MINI")
+		(at 166.37 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "99934933-3b88-4313-99bf-1483b0b88e22")
+		(property "Reference" "D34"
+			(at 169.672 159.512 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6812MINI"
+			(at 89.408 213.106 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Project Libraries:SK6812-MINI-E"
+			(at 167.64 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
+			(at 168.91 175.895 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 166.37 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "2f78d522-ca0b-4566-8a8d-56145455400a")
+		)
+		(pin "4"
+			(uuid "d4fd57db-512e-47be-b8b7-95e2553a630b")
+		)
+		(pin "1"
+			(uuid "41caabf7-1368-4f20-a9a6-4927d931283b")
+		)
+		(pin "2"
+			(uuid "1abf77db-30ff-448f-8e73-6d4baff47455")
+		)
+		(instances
+			(project "Single_board"
+				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46/6de8313f-adfc-4236-b602-98157f8335d8"
+					(reference "D34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
-		(at 30.48 114.3 90)
+		(at 26.67 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5726,7 +5864,7 @@
 		(dnp no)
 		(uuid "9e0440b6-7b6f-4e8b-87ab-986dea0e498b")
 		(property "Reference" "C22"
-			(at 30.48 111.252 90)
+			(at 26.67 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5734,7 +5872,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 29.464 117.094 90)
+			(at 25.654 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5742,7 +5880,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 30.48 114.3 0)
+			(at 26.67 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5751,7 +5889,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 30.48 114.3 0)
+			(at 26.67 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5760,7 +5898,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 30.48 114.3 0)
+			(at 26.67 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5785,7 +5923,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 124.46 125.73 0)
+		(at 120.65 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5793,7 +5931,7 @@
 		(dnp no)
 		(uuid "a256b72b-be81-4696-9443-0aef7b498222")
 		(property "Reference" "D21"
-			(at 127.762 118.872 0)
+			(at 123.952 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5801,7 +5939,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 169.418 141.986 0)
+			(at 165.608 144.526 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5810,7 +5948,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 125.73 133.35 0)
+			(at 121.92 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5820,7 +5958,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 127 135.255 0)
+			(at 123.19 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5830,7 +5968,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 124.46 125.73 0)
+			(at 120.65 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5928,7 +6066,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 69.85 166.37 0)
+		(at 59.69 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5936,7 +6074,7 @@
 		(dnp no)
 		(uuid "aaf1c585-e624-4af3-ac16-f03c75372598")
 		(property "Reference" "D27"
-			(at 73.152 159.512 0)
+			(at 62.992 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5944,7 +6082,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 121.666 0)
+			(at 74.168 121.666 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5953,7 +6091,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 71.12 173.99 0)
+			(at 60.96 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5963,7 +6101,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 72.39 175.895 0)
+			(at 62.23 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5973,7 +6111,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 69.85 166.37 0)
+			(at 59.69 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6003,8 +6141,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 163.83 154.94 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "acaeeacb-5597-4d99-9514-f7723ed3584e")
+		(property "Reference" "C41"
+			(at 163.83 151.892 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 162.814 157.734 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 163.83 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 163.83 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 163.83 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6ee06b49-9a87-4ff9-a4e8-1cb9c54411b0")
+		)
+		(pin "2"
+			(uuid "fa22601b-835e-4048-bba2-4cedd3ffea14")
+		)
+		(instances
+			(project "Single_board"
+				(path "/f30854c1-5bc2-470d-aabe-1768a5b01b46/6de8313f-adfc-4236-b602-98157f8335d8"
+					(reference "C41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 100.33 166.37 0)
+		(at 90.17 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6012,7 +6217,7 @@
 		(dnp no)
 		(uuid "aecd647a-2a70-4901-9d4e-f06041590c9a")
 		(property "Reference" "D29"
-			(at 103.632 159.512 0)
+			(at 93.472 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6020,7 +6225,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 152.146 0)
+			(at 74.168 152.146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6029,7 +6234,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 101.6 173.99 0)
+			(at 91.44 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6039,7 +6244,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 102.87 175.895 0)
+			(at 92.71 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6049,7 +6254,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 100.33 166.37 0)
+			(at 90.17 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6080,7 +6285,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 113.03 154.94 90)
+		(at 102.87 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6088,7 +6293,7 @@
 		(dnp no)
 		(uuid "af55fb5c-9fec-4181-9d06-33aa83f27eb5")
 		(property "Reference" "C37"
-			(at 113.03 151.892 90)
+			(at 102.87 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6096,7 +6301,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 112.014 157.734 90)
+			(at 101.854 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6104,7 +6309,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 113.03 154.94 0)
+			(at 102.87 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6113,7 +6318,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 113.03 154.94 0)
+			(at 102.87 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6122,7 +6327,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 113.03 154.94 0)
+			(at 102.87 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6291,7 +6496,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 60.96 114.3 90)
+		(at 57.15 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6299,7 +6504,7 @@
 		(dnp no)
 		(uuid "bce0909a-eba1-43c2-8ec0-a8f7524a51d1")
 		(property "Reference" "C24"
-			(at 60.96 111.252 90)
+			(at 57.15 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6307,7 +6512,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 59.944 117.094 90)
+			(at 56.134 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6315,7 +6520,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 60.96 114.3 0)
+			(at 57.15 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6324,7 +6529,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 60.96 114.3 0)
+			(at 57.15 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6333,7 +6538,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 60.96 114.3 0)
+			(at 57.15 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6501,7 +6706,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 54.61 166.37 0)
+		(at 44.45 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6509,7 +6714,7 @@
 		(dnp no)
 		(uuid "c95c33d4-8ce4-4003-9e59-47de54c89b0f")
 		(property "Reference" "D26"
-			(at 57.912 159.512 0)
+			(at 47.752 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6517,7 +6722,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 23.368 258.826 0)
+			(at 13.208 258.826 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6526,7 +6731,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 55.88 173.99 0)
+			(at 45.72 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6536,7 +6741,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 57.15 175.895 0)
+			(at 46.99 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6546,7 +6751,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 54.61 166.37 0)
+			(at 44.45 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6644,7 +6849,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 130.81 166.37 0)
+		(at 120.65 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6652,7 +6857,7 @@
 		(dnp no)
 		(uuid "d8aa1c22-1e2b-4db7-9dfa-d41ed69f9366")
 		(property "Reference" "D31"
-			(at 134.112 159.512 0)
+			(at 123.952 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6660,7 +6865,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 182.626 0)
+			(at 74.168 182.626 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6669,7 +6874,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 132.08 173.99 0)
+			(at 121.92 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6679,7 +6884,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 133.35 175.895 0)
+			(at 123.19 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6689,7 +6894,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 130.81 166.37 0)
+			(at 120.65 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6720,7 +6925,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 76.2 114.3 90)
+		(at 72.39 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6728,7 +6933,7 @@
 		(dnp no)
 		(uuid "e1b25fc7-31e9-4983-ab14-2523f5804f0d")
 		(property "Reference" "C25"
-			(at 76.2 111.252 90)
+			(at 72.39 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6736,7 +6941,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 75.184 117.094 90)
+			(at 71.374 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6744,7 +6949,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 76.2 114.3 0)
+			(at 72.39 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6753,7 +6958,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 76.2 114.3 0)
+			(at 72.39 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6762,7 +6967,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 76.2 114.3 0)
+			(at 72.39 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6787,7 +6992,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 139.7 125.73 0)
+		(at 135.89 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6795,7 +7000,7 @@
 		(dnp no)
 		(uuid "e383372d-b69e-4517-b452-adf394979302")
 		(property "Reference" "D22"
-			(at 143.002 118.872 0)
+			(at 139.192 121.412 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6803,7 +7008,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 169.418 157.226 0)
+			(at 165.608 159.766 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6812,7 +7017,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 140.97 133.35 0)
+			(at 137.16 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6822,7 +7027,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 142.24 135.255 0)
+			(at 138.43 137.795 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6832,7 +7037,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 139.7 125.73 0)
+			(at 135.89 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7006,7 +7211,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 167.64 114.3 90)
+		(at 163.83 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7014,7 +7219,7 @@
 		(dnp no)
 		(uuid "eb716c53-f5bf-4e58-965e-5a6bc5fd64fc")
 		(property "Reference" "C31"
-			(at 167.64 111.252 90)
+			(at 163.83 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7022,7 +7227,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 166.624 117.094 90)
+			(at 162.814 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7030,7 +7235,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 167.64 114.3 0)
+			(at 163.83 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7039,7 +7244,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 114.3 0)
+			(at 163.83 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7048,7 +7253,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 167.64 114.3 0)
+			(at 163.83 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7140,7 +7345,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 45.72 114.3 90)
+		(at 41.91 116.84 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7148,7 +7353,7 @@
 		(dnp no)
 		(uuid "f056f793-5f37-4b49-a803-8002d6945204")
 		(property "Reference" "C23"
-			(at 45.72 111.252 90)
+			(at 41.91 113.792 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7156,7 +7361,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 44.704 117.094 90)
+			(at 40.894 119.634 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7164,7 +7369,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 45.72 114.3 0)
+			(at 41.91 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7173,7 +7378,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 45.72 114.3 0)
+			(at 41.91 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7182,7 +7387,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 45.72 114.3 0)
+			(at 41.91 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7350,7 +7555,7 @@
 	)
 	(symbol
 		(lib_id "LED:SK6812MINI")
-		(at 161.29 166.37 0)
+		(at 151.13 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7358,7 +7563,7 @@
 		(dnp no)
 		(uuid "fc113e97-92a9-4f17-9253-ed0d570f6ab9")
 		(property "Reference" "D33"
-			(at 164.592 159.512 0)
+			(at 154.432 159.512 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7366,7 +7571,7 @@
 			)
 		)
 		(property "Value" "SK6812MINI"
-			(at 84.328 213.106 0)
+			(at 74.168 213.106 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7375,7 +7580,7 @@
 			)
 		)
 		(property "Footprint" "Project Libraries:SK6812-MINI-E"
-			(at 162.56 173.99 0)
+			(at 152.4 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7385,7 +7590,7 @@
 			)
 		)
 		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf"
-			(at 163.83 175.895 0)
+			(at 153.67 175.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7395,7 +7600,7 @@
 			)
 		)
 		(property "Description" "RGB LED with integrated controller"
-			(at 161.29 166.37 0)
+			(at 151.13 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7493,7 +7698,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 97.79 154.94 90)
+		(at 87.63 154.94 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7501,7 +7706,7 @@
 		(dnp no)
 		(uuid "fd4f2f11-c2e8-4f3b-8e86-0ec9c1dff061")
 		(property "Reference" "C36"
-			(at 97.79 151.892 90)
+			(at 87.63 151.892 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7509,7 +7714,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 96.774 157.734 90)
+			(at 86.614 157.734 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7517,7 +7722,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 97.79 154.94 0)
+			(at 87.63 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7526,7 +7731,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 97.79 154.94 0)
+			(at 87.63 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7535,7 +7740,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 97.79 154.94 0)
+			(at 87.63 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
