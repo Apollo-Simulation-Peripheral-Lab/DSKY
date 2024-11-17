@@ -17,8 +17,8 @@
 			(justify mirror)
 		)
 	)
-	(property "Value" "Kailh_socket_MX"
-		(at 0 8.255 0)
+	(property "Value" "2V~12V SMD Mechanical Keyboard Shaft ROHS"
+		(at 0 13 0)
 		(layer "F.Fab")
 		(uuid "59a3c25b-5a7c-4a81-9cd8-2bf41fef24c0")
 		(effects
@@ -61,6 +61,30 @@
 			(font
 				(size 1.27 1.27)
 				(thickness 0.15)
+			)
+		)
+	)
+	(property "JLC" "C2803348"
+		(at 0 15 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a8ad74d7-fd81-4f31-a715-33083f6f252e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "JLCLayerOverride" "bottom"
+		(at 0 16.5 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f68e4157-27eb-4e19-aa82-b721f3d376ad")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
 			)
 		)
 	)
@@ -460,27 +484,14 @@
 		(uuid "60962ff3-ecd3-4902-a385-6ec64a4a2153")
 	)
 	(fp_text user "${REFERENCE}"
-		(at -0.635 -4.445 0)
-		(layer "B.Fab")
+		(at 0 8.5 180)
+		(layer "F.Fab")
 		(uuid "5b41a48a-9101-45ae-814c-7754db71e49b")
 		(effects
 			(font
 				(size 1 1)
 				(thickness 0.15)
 			)
-			(justify mirror)
-		)
-	)
-	(fp_text user "${VALUE}"
-		(at -0.635 0.635 0)
-		(layer "B.Fab")
-		(uuid "7c0aefb0-c878-43fd-a43f-efd9714f4391")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify mirror)
 		)
 	)
 	(pad "" np_thru_hole circle

@@ -15,7 +15,7 @@
 		)
 	)
 	(property "Value" "USB-C-TH_918-468K2029E50001"
-		(at 0 7.16 0)
+		(at 0 8.5 0)
 		(layer "F.Fab")
 		(uuid "09520350-d99c-4982-ac96-1dd77bb73a31")
 		(effects
@@ -58,6 +58,18 @@
 			(font
 				(size 1.27 1.27)
 				(thickness 0.15)
+			)
+		)
+	)
+	(property "JLC" "C709026"
+		(at 0 10.5 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5d338a71-2fd7-4425-b347-3617115d4fac")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
 			)
 		)
 	)
@@ -154,7 +166,7 @@
 		(uuid "ab9668c2-16ca-4537-a885-395510cd3849")
 	)
 	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
+		(at 0 6.5 180)
 		(layer "F.Fab")
 		(uuid "38313e66-7dc0-4c83-b50c-4175a9bd9dae")
 		(effects

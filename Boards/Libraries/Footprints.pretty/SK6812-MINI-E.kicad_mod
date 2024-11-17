@@ -16,7 +16,7 @@
 		)
 	)
 	(property "Value" "SK6812-MINI-E"
-		(at 0 -0.5 0)
+		(at 0 3.5 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(hide yes)
@@ -61,6 +61,30 @@
 			(font
 				(size 1.27 1.27)
 				(thickness 0.15)
+			)
+		)
+	)
+	(property "JLC" "C5378731"
+		(at 0 5 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4ad30a9d-2ccc-49da-aea1-c90223378a1f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "JLCPosOffset" "0,-0.26"
+		(at 0 6.5 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1018ff03-f8fc-498e-8769-3ec1956ee751")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
 			)
 		)
 	)

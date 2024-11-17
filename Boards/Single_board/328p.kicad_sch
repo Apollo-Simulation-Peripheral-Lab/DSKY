@@ -1289,7 +1289,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Project Libraries:0805 100nF"
 			(at 114.3 48.26 0)
 			(effects
 				(font
@@ -1359,7 +1359,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Project Libraries:0805 100nF"
 			(at 125.73 62.23 0)
 			(effects
 				(font
@@ -1589,7 +1589,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Project Libraries:0805 4.7uF"
 			(at 102.87 48.26 0)
 			(effects
 				(font
