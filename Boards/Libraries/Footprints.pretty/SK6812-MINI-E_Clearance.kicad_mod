@@ -1,4 +1,4 @@
-(footprint "SK6812-MINI-E"
+(footprint "SK6812-MINI-E_Clearance"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
@@ -15,7 +15,7 @@
 			)
 		)
 	)
-	(property "Value" "SK6812-MINI-E"
+	(property "Value" "SK6812-MINI-E_Clearance"
 		(at 0 3.5 0)
 		(unlocked yes)
 		(layer "F.SilkS")
@@ -141,45 +141,16 @@
 		(layer "Cmts.User")
 		(uuid "e370ce89-6287-4849-9937-2dbe810612cf")
 	)
-	(fp_line
-		(start -1.7 -1.5)
-		(end 1.7 -1.5)
+	(fp_rect
+		(start -1.8 -1.6)
+		(end 1.8 1.6)
 		(stroke
-			(width 0.12)
-			(type solid)
+			(width 0.1)
+			(type default)
 		)
+		(fill none)
 		(layer "Edge.Cuts")
-		(uuid "92cf997a-d5f7-4134-8f84-309196a0b982")
-	)
-	(fp_line
-		(start -1.7 1.5)
-		(end -1.7 -1.5)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Edge.Cuts")
-		(uuid "b5ec957e-2400-47e9-921d-7fa1a8429a5c")
-	)
-	(fp_line
-		(start 1.7 -1.5)
-		(end 1.7 1.5)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Edge.Cuts")
-		(uuid "7c04804c-48af-4832-8d5f-213ef0a6da71")
-	)
-	(fp_line
-		(start 1.7 1.5)
-		(end -1.7 1.5)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Edge.Cuts")
-		(uuid "b6151a20-90f1-4a56-9140-cdf825dfef13")
+		(uuid "f074fff8-555b-426e-b7bd-ee4867cc0c89")
 	)
 	(pad "1" smd rect
 		(at 2.55 0.75)
