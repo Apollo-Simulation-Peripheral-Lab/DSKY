@@ -64,7 +64,7 @@
 			)
 		)
 	)
-	(property "JLC" "C5378731"
+	(property "JLC" "C5149201"
 		(at 0 5 0)
 		(layer "F.Fab")
 		(hide yes)
@@ -207,8 +207,20 @@
 		(uuid "46131c86-bf69-4746-bccc-ea079c36ecc6")
 	)
 	(model "${KIPRJMOD}/../Libraries/3D/LED-SMD_4P-L3.2-W2.8_SK6812MINI-EA.step"
+		(hide yes)
 		(offset
 			(xyz 0 0 0.6)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/../Libraries/3D/LED-SMD_L3.2-W2.8-TR.wrl"
+		(offset
+			(xyz 0 0 0)
 		)
 		(scale
 			(xyz 1 1 1)
