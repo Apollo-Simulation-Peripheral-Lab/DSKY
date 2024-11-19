@@ -8,10 +8,10 @@
     (autoroute on)
     (postroute on)
     (vias on)
-    (via_costs 50)
+    (via_costs 15)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 873)
+    (start_pass_no 877)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
@@ -29,8 +29,9 @@
     (width 250.0)
     (clearance 200.0)
     (clearance 125.0 (type smd_to_turn_gap))
-    (clearance 50.0 (type smd))
+    (clearance 200.0 (type smd))
     (clearance 200.0 (type "kicad_default"))
+    (clearance 200.0 (type kicad))
   )
   (padstack "Via[0-1]_800:400_um"
     (shape
@@ -54,7 +55,6 @@
     "kicad_default" "Via[0-1]_800:400_um-kicad_default"
   )
   (class default
-    "@:no_net_0" "@:no_net_1"
     (clearance_class default)
     (via_rule default)
     (rule
@@ -65,16 +65,16 @@
     )
   )
   (class "kicad_default"
-    Y0 Y1 Y2 Y3 SCK GND CS MOSI
-    MISO "unconnected-(U2-PC5-Pad28)" X0 X1 X2 X3 X4 "RGB_DIN"
-    "unconnected-(U2-PC4-Pad27)" "Net-(D5-DOUT)" "Net-(D6-DOUT)" "Net-(D1-DIN)" "Net-(D7-DOUT)" "Net-(D8-DOUT)" "Net-(D10-DIN)" "Net-(D10-DOUT)"
-    "Net-(D11-DOUT)" "Net-(D12-DOUT)" "Net-(D13-DOUT)" "Net-(D14-DOUT)" "Net-(D15-DOUT)" "unconnected-(U2-PC2-Pad25)" "unconnected-(U2-ADC7-Pad22)" "unconnected-(U2-ADC6-Pad19)"
-    "unconnected-(U2-XTAL2{slash}PB7-Pad8)" "Net-(J3-CC1)" "unconnected-(U2-PC3-Pad26)" "unconnected-(U2-XTAL1{slash}PB6-Pad7)" "UC_RX" "Net-(U3-TXD)" "UC_TX" "Net-(U3-RXD)"
-    "unconnected-(U3-NC-Pad7)" "Net-(U3-~{DTR})" "Net-(U3-V3)" "Net-(U3-UD-)" "unconnected-(U3-~{OUT}{slash}~{DTR}-Pad8)" "Net-(U3-UD+)" RESET "unconnected-(U3-~{RTS}-Pad14)"
-    "unconnected-(U3-R232-Pad15)" "unconnected-(U3-~{DCD}-Pad12)" "unconnected-(U3-~{RI}-Pad11)" "unconnected-(U3-~{CTS}-Pad9)" "unconnected-(U3-~{DSR}-Pad10)" "Net-(U2-AREF)" "Net-(D16-DOUT)" "Net-(D17-DOUT)"
-    "Net-(D18-DOUT)" "Net-(D19-DOUT)" "Net-(D20-DOUT)" "Net-(D21-DOUT)" "Net-(D22-DOUT)" "Net-(D23-DOUT)" "Net-(D24-DOUT)" "Net-(D25-DOUT)"
-    "Net-(D26-DOUT)" "Net-(D27-DOUT)" "Net-(D28-DOUT)" "Net-(D29-DOUT)" "Net-(D31-DOUT)" "Net-(D30-DOUT)" "Net-(D35-A)" "Net-(D32-DOUT)"
-    "Net-(D2-DOUT)" "Net-(D3-DOUT)" "Net-(D4-DOUT)" "Net-(D1-DOUT)" 5V10A 5V1A "Net-(J4-CC1)" "Net-(J4-CC2)"
+    GND 5V10A Y0 Y1 Y2 Y3 SCK CS
+    MOSI MISO "unconnected-(U2-PC5-Pad28)" X0 X1 X2 X3 X4
+    "RGB_DIN" "unconnected-(U2-PC4-Pad27)" "Net-(D5-DOUT)" "Net-(D6-DOUT)" "Net-(D1-DIN)" "Net-(D7-DOUT)" "Net-(D8-DOUT)" "Net-(D10-DIN)"
+    "Net-(D10-DOUT)" "Net-(D11-DOUT)" "Net-(D12-DOUT)" "Net-(D13-DOUT)" "Net-(D14-DOUT)" "Net-(D15-DOUT)" "unconnected-(U2-PC2-Pad25)" "unconnected-(U2-ADC7-Pad22)"
+    "unconnected-(U2-ADC6-Pad19)" "unconnected-(U2-XTAL2{slash}PB7-Pad8)" "Net-(J3-CC1)" "unconnected-(U2-PC3-Pad26)" "unconnected-(U2-XTAL1{slash}PB6-Pad7)" "UC_RX" "Net-(U3-TXD)" "UC_TX"
+    "Net-(U3-RXD)" "unconnected-(U3-NC-Pad7)" "Net-(U3-~{DTR})" "Net-(U3-V3)" "Net-(U3-UD-)" "unconnected-(U3-~{OUT}{slash}~{DTR}-Pad8)" "Net-(U3-UD+)" RESET
+    "unconnected-(U3-~{RTS}-Pad14)" "unconnected-(U3-R232-Pad15)" "unconnected-(U3-~{DCD}-Pad12)" "unconnected-(U3-~{RI}-Pad11)" "unconnected-(U3-~{CTS}-Pad9)" "unconnected-(U3-~{DSR}-Pad10)" "Net-(U2-AREF)" "Net-(D16-DOUT)"
+    "Net-(D17-DOUT)" "Net-(D18-DOUT)" "Net-(D19-DOUT)" "Net-(D20-DOUT)" "Net-(D21-DOUT)" "Net-(D22-DOUT)" "Net-(D23-DOUT)" "Net-(D24-DOUT)"
+    "Net-(D25-DOUT)" "Net-(D26-DOUT)" "Net-(D27-DOUT)" "Net-(D28-DOUT)" "Net-(D29-DOUT)" "Net-(D31-DOUT)" "Net-(D30-DOUT)" "Net-(D35-A)"
+    "Net-(D32-DOUT)" "Net-(D2-DOUT)" "Net-(D3-DOUT)" "Net-(D4-DOUT)" "Net-(D1-DOUT)" 5V1A "Net-(J4-CC1)" "Net-(J4-CC2)"
     "Net-(J5-CC2)" "Net-(J5-CC1)" "Net-(J3-CC2)" "unconnected-(J4-D+-PadA6)" "unconnected-(J4-D--PadA7)" "unconnected-(J4-D--PadB7)" "unconnected-(J4-D+-PadB6)" "unconnected-(J5-D+-PadA6)"
     "unconnected-(J5-D--PadB7)" "unconnected-(J5-D+-PadB6)" "unconnected-(J5-D--PadA7)" "Net-(D33-DOUT)" "unconnected-(D34-DOUT-Pad1)"
     (clearance_class "kicad_default")
