@@ -6,7 +6,7 @@
 	(descr "MX-style keyswitch with Kailh socket mount")
 	(tags "MX,cherry,gateron,kailh,pg1511,socket")
 	(property "Reference" "REF**"
-		(at 0 -8.255 0)
+		(at -3.5 -8 0)
 		(layer "B.SilkS")
 		(uuid "d29c807a-16ca-4eea-be08-7e09233a35cb")
 		(effects
