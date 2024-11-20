@@ -76,7 +76,7 @@
 			)
 		)
 	)
-	(property "JLCPosOffset" "0,-0.26"
+	(property "JLCPosOffset" "0,0.3"
 		(at 0 6.5 0)
 		(layer "F.Fab")
 		(hide yes)
