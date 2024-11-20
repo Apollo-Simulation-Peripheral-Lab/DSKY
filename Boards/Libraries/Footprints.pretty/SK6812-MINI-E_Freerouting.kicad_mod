@@ -1,4 +1,4 @@
-(footprint "SK6812-MINI-E_Clearance"
+(footprint "SK6812-MINI-E_Freerouting"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
@@ -15,7 +15,7 @@
 			)
 		)
 	)
-	(property "Value" "SK6812-MINI-E_Clearance"
+	(property "Value" "SK6812-MINI-E_Freerouting"
 		(at 0 3.5 0)
 		(unlocked yes)
 		(layer "F.SilkS")
@@ -153,28 +153,27 @@
 		(uuid "f074fff8-555b-426e-b7bd-ee4867cc0c89")
 	)
 	(pad "1" smd rect
-		(at 2.55 0.75)
-		(size 1.7 0.82)
+		(at 2.6875 0.75)
+		(size 1.425 0.82)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "46131c86-bf69-4746-bccc-ea079c36ecc6")
 	)
 	(pad "2" smd rect
-		(at -2.55 0.75)
-		(size 1.7 0.82)
+		(at -2.6875 0.75)
+		(size 1.425 0.82)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "cdbbaaf7-b8b6-4cfc-ab43-bc7abc255dfe")
 	)
 	(pad "3" smd rect
-		(at -2.55 -0.75)
-		(size 1.7 0.82)
+		(at -2.6875 -0.75)
+		(size 1.425 0.82)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(uuid "78733858-2f54-44fd-8246-16dbd8e7d45a")
 	)
-	(pad "4" smd roundrect
-		(at 2.55 -0.75)
-		(size 1.7 0.82)
+	(pad "4" smd rect
+		(at 2.6875 -0.75)
+		(size 1.425 0.82)
 		(layers "F.Cu" "F.Paste" "F.Mask")
-		(roundrect_rratio 0.25)
 		(uuid "046d7794-09ef-42a4-aeba-5686e8ed20fa")
 	)
 	(model "${KIPRJMOD}/../Libraries/3D/LED-SMD_4P-L3.2-W2.8_SK6812MINI-EA.step"
