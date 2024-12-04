@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "C:\\Users\\pablo\\Proyectos\\DSKY\\Boards\\Single_board\\Single_board.kicad_sch")
-    (date "2024-11-17T21:44:35+0800")
+    (date "2024-12-04T21:09:22+0100")
     (tool "Eeschema 8.0.5")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block
