@@ -3,9 +3,6 @@
 
 Adafruit_NeoPixel leds(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-uint8_t r = 255, g = 0, b = 0; // Initial color state.
-int8_t deltaR = -1, deltaG = 1, deltaB = 0; // Direction of color changes.
-
 // Initialize LEDs and set all to off.
 void initAlarms() {
   leds.begin();      // Initialize the NeoPixel library.
@@ -13,13 +10,46 @@ void initAlarms() {
   leds.setBrightness(255); // Set full brightness.
 }
 
+uint32_t adjustBrightness(uint32_t color, uint8_t brightness) {
+    // Normalize brightness to the range 0–1
+    uint8_t scale = (uint8_t)((brightness * 255) / 130); // Dont scale to max brightness because it causes issues
+
+    // Extract the red, green, and blue components
+    uint8_t red = (color >> 16) & 0xFF;
+    uint8_t green = (color >> 8) & 0xFF;
+    uint8_t blue = color & 0xFF;
+
+    // Scale each color component
+    red = (red * scale) / 255;
+    green = (green * scale) / 255;
+    blue = (blue * scale) / 255;
+
+    // Combine the components back into a 32-bit color
+    return leds.Color(red,green,blue);
+}
+
+void setAlarm(uint8_t alarm, uint32_t alarmColor, bool enabled){
+  if(enabled) leds.setPixelColor(alarm, alarmColor);
+  else leds.setPixelColor(alarm, leds.Color(0,0,0));
+}
+
 // Smoothly updates the LED colors in the animation cycle.
 void updateAlarms(uint8_t *dskyState) {
+  leds.setBrightness(255);
+
+  // Dimming byte goes from 1 to 127
+  uint8_t alarmBrightness = dskyState[14];
+  uint8_t keyboardBrightness = dskyState[15];
+  uint32_t white = leds.Color(255, 255, 35); // White color
+  uint32_t orange = leds.Color(255, 60, 0); // Orange color
+  uint32_t alarmWhite = adjustBrightness(white,alarmBrightness);
+  uint32_t alarmOrange = adjustBrightness(orange,alarmBrightness);
+  uint32_t keyboardWhite = adjustBrightness(white,keyboardBrightness);
   
   // B6 Parsing
   uint8_t B6 = dskyState[6]; // B6 Value
   uint8_t UpLink = (B6 >> 4) & 0x01; // UpLink(A1) Value
-  //toggleAlarm(UPLINK_ACTY,UpLink);
+  setAlarm(6,alarmWhite,UpLink);
 
   // B9 Parsing
   uint8_t B9 = dskyState[9]; // B9 Value
@@ -27,10 +57,10 @@ void updateAlarms(uint8_t *dskyState) {
   uint8_t KeyRel = (B9 >> 5) & 0x01; // KeyRel(A4) Value
   uint8_t Stby = (B9 >> 6) & 0x01; // KeyRel(A3) Value
   uint8_t NoAtt = (B9 >> 7) & 0x01; // NoAtt(A2) Value
-  //toggleAlarm(OPR_ERR,OprErr);
-  //toggleAlarm(KEY_REL,KeyRel);
-  //toggleAlarm(STBY,Stby);
-  //toggleAlarm(NO_ATT,NoAtt);
+  setAlarm(2,alarmWhite,OprErr);
+  setAlarm(3,alarmWhite,KeyRel);
+  setAlarm(4,alarmWhite,Stby);
+  setAlarm(5,alarmWhite,NoAtt);
 
   // B12 Parsing
   uint8_t B12 = dskyState[12]; // B12 Value
@@ -41,25 +71,34 @@ void updateAlarms(uint8_t *dskyState) {
   uint8_t Temp = (B12 >> 5) & 0x01; // Temp(A8) Value
   uint8_t PrioDisp = (B12 >> 6) & 0x01; // PrioDisp(A7) Value
   uint8_t NoDap = (B12 >> 7) & 0x01; // NoDap(A6) Value
-  //toggleAlarm(TRACKER,Tracker);
-  //toggleAlarm(RESTART,Restart);
-  //toggleAlarm(PROG,Prog);
-  //toggleAlarm(GIMBAL_LOCK,GimbalLock);
-  //toggleAlarm(TEMP,Temp);
-  //toggleAlarm(PRIO_DISP,PrioDisp);
-  //toggleAlarm(NO_DAP,NoDap);
+  setAlarm(11,alarmOrange,Tracker);
+  setAlarm(10,alarmOrange,Restart);
+  setAlarm(9,alarmOrange,Prog);
+  setAlarm(8,alarmOrange,GimbalLock);
+  setAlarm(7,alarmOrange,Temp);
+  setAlarm(1,alarmOrange,PrioDisp);
+  setAlarm(0,alarmOrange,NoDap);
 
   // B13 Parsing
   uint8_t B13 = dskyState[13]; // B13 Value
   uint8_t Vel = (B13 >> 6) & 0x01; // Vel(A14) Value
   uint8_t Alt = (B13 >> 7) & 0x01; // Vel(A13) Value
-  //toggleAlarm(VEL,Vel);
-  //toggleAlarm(ALT,Alt);
+  setAlarm(13,alarmOrange,Vel);
+  setAlarm(12,alarmOrange,Alt);
 
-  // Dimming byte goes from 1 to 127. We want values from 0 to 127
-  uint8_t brightness = (uint8_t)(((dskyState[14] - 1) * 255) / 126);
-  leds.setBrightness(brightness); // Set full brightness.
-  
+  // Set all LEDs to the updated color.
+  for (int i = 14; i < NUM_LEDS; i++) {
+    leds.setPixelColor(i, keyboardWhite);
+  }
+  leds.show();
+}
+
+// Effects
+uint8_t r = 255, g = 0, b = 0; // Initial color state.
+int8_t deltaR = -1, deltaG = 1, deltaB = 0; // Direction of color changes.
+
+// Smoothly updates the LED colors in the animation cycle.
+void colorWheel() {
   // Update color values for the animation.
   r += deltaR;
   g += deltaG;
@@ -73,6 +112,37 @@ void updateAlarms(uint8_t *dskyState) {
   // Set all LEDs to the updated color.
   for (int i = 0; i < NUM_LEDS; i++) {
     leds.setPixelColor(i, leds.Color(r, g, b));
+  }
+  leds.setBrightness(20);
+  leds.show();
+}
+
+void christmasEffect() {
+  static uint8_t brightness = 0; // Current brightness level.
+  static int8_t fadeDirection = 1; // Direction of brightness change (+1 or -1).
+  
+  // Update brightness for fading effect.
+  brightness += fadeDirection;
+  if (brightness == 255 || brightness == 0) fadeDirection *= -1; // Reverse fade direction.
+
+  uint32_t red = leds.Color(255, 0, 0);     // Red color.
+  uint32_t green = leds.Color(0, 255, 0);   // Green color.
+
+  // Set alternating red and green colors with current brightness.
+  for (int i = 0; i < NUM_LEDS; i++) {
+    if (i % 2 == 0) {
+      leds.setPixelColor(i, adjustBrightness(red, brightness));
+    } else {
+      leds.setPixelColor(i, adjustBrightness(green, brightness));
+    }
+  }
+
+  leds.show();
+}
+
+void lightsOff(){
+  for (int i = 0; i < NUM_LEDS; i++) {
+      leds.setPixelColor(i, leds.Color(0,0,0));
   }
   leds.show();
 }
