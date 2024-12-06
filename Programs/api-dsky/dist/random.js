@@ -50,9 +50,9 @@ const getRandomState = () => {
         IlluminateTracker: Math.random() < 0.5,
         IlluminateAlt: Math.random() < 0.5,
         IlluminateVel: Math.random() < 0.5,
-        StatusBrightness: 127,
+        StatusBrightness: 5,
         DisplayBrightness: 127,
-        KeyboardBrightness: 127
+        KeyboardBrightness: 20
     };
 };
 const watchStateRandom = (callback) => {
