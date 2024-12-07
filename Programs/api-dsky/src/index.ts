@@ -44,6 +44,7 @@ const getKeyboardHandler = async (inputSource) => {
 const main = async() =>{
     program
         .option('-s, --serial <string>')
+        .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
         .option('-m, --mode <string>')
         .option('--shutdown <string>');
@@ -51,8 +52,7 @@ const main = async() =>{
     const options = program.opts()
 
     // Create serial connection
-    const serialSource = options.serial
-    await createSerial(serialSource)
+    await createSerial(options.serial, options.baud)
     
     // Handle keypresses during setup phase
     const setupKeyboardHandler = await getKeyboardHandler('setup')
