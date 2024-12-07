@@ -58,7 +58,11 @@ const main = async() =>{
     const setupKeyboardHandler = await getKeyboardHandler('setup')
     setSerialListener(async (data) => {
         const key = data.toString().toLowerCase().substring(0, 1)
-        await setupKeyboardHandler(key)
+        try{
+            await setupKeyboardHandler(key)
+        }catch{
+            console.log("Serial keyboard error")
+        }
     })
 
     // Create State watcher
