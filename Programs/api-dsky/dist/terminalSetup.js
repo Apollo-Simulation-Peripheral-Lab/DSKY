@@ -80,7 +80,7 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
         type: 'input',
         default: protocol == 'wss' ? '/ws' : '/'
     }).then(r));
-    return `${protocol}://${address}:${port}/${path}`;
+    return `${protocol}://${address}:${port}${path}`;
 });
 exports.getBridgeHost = getBridgeHost;
 const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
