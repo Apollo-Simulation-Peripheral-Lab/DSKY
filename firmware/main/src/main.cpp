@@ -49,8 +49,16 @@ void loop() {
 
   // Lighting
   if(verbPresses == 3){
-    lightMode = (lightMode + 1) % 4;
+    lightMode = (lightMode + 1) % 3;
     verbPresses = 0;
+  }
+  if(pressedKey == '+' && lightMode != 0){
+    dskyState[14] = min(dskyState[14] + 20, 127);
+    dskyState[15] = dskyState[14];
+  }
+  if(pressedKey == '-' && lightMode != 0){
+    dskyState[14] = max(dskyState[14] - 20, 0);
+    dskyState[15] = dskyState[14];
   }
 
   if (lightMode == 0) {
@@ -58,12 +66,9 @@ void loop() {
     updateAlarms(dskyState);
   }else if(lightMode == 1){
     // Display colorwheel effect
-    colorWheel();
+    colorWheel(dskyState);
   }else if(lightMode == 2){
     // Display colorwheel effect
     christmasEffect();
-  }else{
-    // Display colorwheel effect
-    lightsOff();
   }
 }

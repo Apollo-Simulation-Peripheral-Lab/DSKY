@@ -98,11 +98,13 @@ uint8_t r = 255, g = 0, b = 0; // Initial color state.
 int8_t deltaR = -1, deltaG = 1, deltaB = 0; // Direction of color changes.
 
 // Smoothly updates the LED colors in the animation cycle.
-void colorWheel() {
+void colorWheel(uint8_t *dskyState) {
+  uint8_t brightness = dskyState[15];
   // Update color values for the animation.
   r += deltaR;
   g += deltaG;
   b += deltaB;
+  uint32_t color = adjustBrightness(leds.Color(r, g, b), brightness);
 
   // Transition logic: when one color channel saturates, switch directions.
   if (r == 255 && g == 0 && b == 0) { deltaR = -1; deltaG = 1; deltaB = 0; } // Red to Green.
@@ -111,9 +113,8 @@ void colorWheel() {
 
   // Set all LEDs to the updated color.
   for (int i = 0; i < NUM_LEDS; i++) {
-    leds.setPixelColor(i, leds.Color(r, g, b));
+    leds.setPixelColor(i, color);
   }
-  leds.setBrightness(20);
   leds.show();
 }
 
@@ -137,12 +138,5 @@ void christmasEffect() {
     }
   }
 
-  leds.show();
-}
-
-void lightsOff(){
-  for (int i = 0; i < NUM_LEDS; i++) {
-      leds.setPixelColor(i, leds.Color(0,0,0));
-  }
   leds.show();
 }

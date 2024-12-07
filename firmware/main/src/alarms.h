@@ -7,6 +7,5 @@ void initAlarms();
 void setAlarm(uint8_t alarm, uint32_t alarmColor, bool enabled);
 uint32_t adjustBrightness(uint32_t color, uint8_t brightness);
 void updateAlarms(uint8_t *dskyState);
-void colorWheel();
+void colorWheel(uint8_t *dskyState);
 void christmasEffect();
-void lightsOff();
