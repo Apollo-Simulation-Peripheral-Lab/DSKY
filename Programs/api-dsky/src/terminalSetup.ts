@@ -85,7 +85,7 @@ export const getBridgeHost = async () => {
             default: protocol == 'wss' ? '/ws' : '/'
         }).then(r)
     ) as any
-    return `${protocol}://${address}:${port}/${path}`
+    return `${protocol}://${address}:${port}${path}`
 }
 
 export const getYaAGCPort = async () => {

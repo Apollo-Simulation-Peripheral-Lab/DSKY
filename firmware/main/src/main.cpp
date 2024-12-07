@@ -13,8 +13,8 @@ uint8_t lightMode = 0;
 void setup() {
   // Initialize state
   for(uint8_t i = 0; i<PACKET_SIZE;i++) dskyState[i] = 0xFF;
-  dskyState[14] = 20;
-  dskyState[15] = 20;
+  dskyState[14] = 127;
+  dskyState[15] = 127;
 
   Serial.begin(9600);
   initAlarms();
