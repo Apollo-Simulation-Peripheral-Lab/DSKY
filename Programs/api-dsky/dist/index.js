@@ -63,7 +63,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const setupKeyboardHandler = yield getKeyboardHandler('setup');
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         const key = data.toString().toLowerCase().substring(0, 1);
-        yield setupKeyboardHandler(key);
+        try {
+            yield setupKeyboardHandler(key);
+        }
+        catch (_a) {
+            console.log("Serial keyboard error");
+        }
     }));
     // Create State watcher
     const inputSource = options.mode || (yield (0, terminalSetup_1.getInputSource)());
