@@ -1,6 +1,3 @@
-*-backups/*
-gerbers
-*.zip
 *.7z
 *.lck
 fp-info-cache
@@ -8,3 +5,5 @@ fp-info-cache
 *.f3d
 *.step
 *.img*
+**/backups
+**/*-backups
