@@ -10,7 +10,7 @@ if [ "$1" = "api" ];then
 	    npm start -- \
             -s /dev/ttyUSB0 \
             --callback 'chromium-browser --start-fullscreen --incognito http://localhost:3000 && sleep 5 && wmctrl -a chromium' \
-            --shutdown 'shutdown -h now'
+            --shutdown 'shutdown -h now' $EXTRAPARAMS
     done
 elif [ "$1" = "cron" ]; then
     pgrep chromium | xargs kill -9
