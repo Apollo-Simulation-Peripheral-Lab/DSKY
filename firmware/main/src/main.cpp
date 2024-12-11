@@ -16,7 +16,7 @@ void setup() {
   dskyState[6] = 0xFF;
   dskyState[14] = 20;
 
-  Serial.begin(250000);
+  Serial.begin(9600);
   initAlarms();
 }
 
