@@ -94,7 +94,7 @@ const updateSerialState = (newState, force = false) => {
     }
 };
 exports.updateSerialState = updateSerialState;
-const createSerial = (desiredSerialSource = undefined, baudRate = '9600') => __awaiter(void 0, void 0, void 0, function* () {
+const createSerial = (desiredSerialSource = undefined, baudRate = '250000') => __awaiter(void 0, void 0, void 0, function* () {
     const serialSource = desiredSerialSource || (yield (0, terminalSetup_1.getSerialSource)());
     if (!serialSource || serialSource == 'none')
         return;
