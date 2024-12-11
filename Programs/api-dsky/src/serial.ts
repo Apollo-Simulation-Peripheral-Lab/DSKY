@@ -175,7 +175,7 @@ export const updateSerialState = (newState, force = false) =>{
     }
 }
 
-export const createSerial = async (desiredSerialSource = undefined, baudRate = '250000') =>{
+export const createSerial = async (desiredSerialSource = undefined, baudRate = '9600') =>{
     const serialSource = desiredSerialSource || await getSerialSource()
     if(!serialSource || serialSource == 'none') return
 
