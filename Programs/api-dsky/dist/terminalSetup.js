@@ -22,6 +22,7 @@ const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
         name: 'inputSource',
         type: 'list',
         choices: [
+            { name: 'Bridge to another DSKY API', value: 'bridge' },
             { name: 'yaAGC', value: 'yaagc' },
             { name: 'Random Values', value: 'random' },
             { name: 'HomeAssistant (WIP)', value: 'homeassistant' }
@@ -79,7 +80,7 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
         type: 'input',
         default: protocol == 'wss' ? '/ws' : '/'
     }).then(r));
-    return `${protocol}://${address}:${port}/${path}`;
+    return `${protocol}://${address}:${port}${path}`;
 });
 exports.getBridgeHost = getBridgeHost;
 const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
