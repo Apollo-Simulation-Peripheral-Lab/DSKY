@@ -11,9 +11,11 @@ uint8_t verbPresses = 0; // RGB Mode
 uint8_t lightMode = 0;
 
 void setup() {
-  // Initialize state
+  // Initialize state as only the RESTART alarm at low brightness.
+  // This improves the chances that the OrangePi will boot successfully
+  // while indicating correct Atmega power up.
   for(uint8_t i = 0; i<PACKET_SIZE;i++) dskyState[i] = 0x00;
-  dskyState[6] = 0xFF;
+  dskyState[12] = 0x04;
   dskyState[14] = 20;
 
   Serial.begin(9600);
