@@ -145,9 +145,12 @@ const stateToBinaryString = (state) =>{
     ) // B13
     bits += decimalToByte(
         // Only values from 1 to 127 will be sent
-        // Our DSKY currently only accepts 1 dimming level so status lights are dimmed with the keyboard's value
+        state.StatusBrightness ? Math.min(state.StatusBrightness, 127) : 127 
+    ) // B14
+    bits += decimalToByte(
+        // Only values from 1 to 127 will be sent
         state.KeyboardBrightness ? Math.min(state.KeyboardBrightness, 127) : 127 
-    ) // B13
+    ) // B15
     return bits
 }
 
@@ -172,11 +175,11 @@ export const updateSerialState = (newState, force = false) =>{
     }
 }
 
-export const createSerial = async (desiredSerialSource = undefined) =>{
+export const createSerial = async (desiredSerialSource = undefined, baudRate = '9600') =>{
     const serialSource = desiredSerialSource || await getSerialSource()
     if(!serialSource || serialSource == 'none') return
 
-    serial = new SerialPort({ path: serialSource, baudRate: 250000 })
+    serial = new SerialPort({ path: serialSource, baudRate: parseInt(baudRate) })
     
     updateSerialState(state, true)
 

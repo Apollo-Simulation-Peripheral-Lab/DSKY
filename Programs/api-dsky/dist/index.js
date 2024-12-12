@@ -66,14 +66,14 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     commander_1.program
         .option('-s, --serial <string>')
+        .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
         .option('-m, --mode <string>')
         .option('--shutdown <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
     // Create serial connection
-    const serialSource = options.serial;
-    yield (0, serial_1.createSerial)(serialSource);
+    yield (0, serial_1.createSerial)(options.serial, options.baud);
     // Handle keypresses during setup phase
     const setupKeyboardHandler = yield getKeyboardHandler('setup');
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
