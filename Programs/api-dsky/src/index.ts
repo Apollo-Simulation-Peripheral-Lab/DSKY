@@ -59,14 +59,15 @@ const getKeyboardHandler = async (inputSource) => {
 const main = async() =>{
     program
         .option('-s, --serial <string>')
+        .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
+        .option('-m, --mode <string>')
         .option('--shutdown <string>');
     program.parse();
     const options = program.opts()
 
     // Create serial connection
-    const serialSource = options.serial
-    await createSerial(serialSource)
+    await createSerial(options.serial, options.baud)
     
     // Handle keypresses during setup phase
     const setupKeyboardHandler = await getKeyboardHandler('setup')
@@ -76,22 +77,19 @@ const main = async() =>{
     })
 
     // Create State watcher
-    const inputSource = await getInputSource()
-    let updateTimeout, updateBusy
-    const doUpdate = (state) => {
-        updateBusy = true
-        updateSerialState(state)
-        updateWebSocketState(state)
-        if(updateTimeout) clearTimeout(updateTimeout)
-        updateTimeout = setTimeout(() => updateBusy = false, 50)
-    }
-    await watchState(inputSource, (state) =>{
-        if(updateBusy){
-            if(updateTimeout) clearTimeout(updateTimeout)
-            updateTimeout = setTimeout(() => doUpdate(state), 50)
-        }else{
-            doUpdate(state)
+    const inputSource = options.mode || await getInputSource()
+    let pendingUpdate
+    
+    const doUpdate = () => {
+        if(pendingUpdate){
+            updateSerialState(pendingUpdate)
+            updateWebSocketState(pendingUpdate)
+            pendingUpdate = null
         }
+    }
+    setInterval(doUpdate,70)
+    await watchState(inputSource, (state) =>{
+        pendingUpdate = state
     })
 
     if(options.callback){
@@ -101,17 +99,33 @@ const main = async() =>{
     // Create Keyboard handler
     let plusCount = 0
     let minusCount = 0
+    let shutdownTimeout, exitTimeout
     const keyboardHandler = await getKeyboardHandler(inputSource)
     setSerialListener(async (data) => {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1)
         console.log(`[Serial] KeyPress: ${key}`)
+        
+        if(shutdownTimeout) clearTimeout(shutdownTimeout)
+        if(exitTimeout) clearTimeout(exitTimeout)
+
+        // Three '-' presses & holding PRO for 3 seconds runs the shutdown handler (if any)
+        if(key == 'p' && minusCount >= 3 && options.shutdown){
+            shutdownTimeout = setTimeout(() => exec(options.shutdown), 3000)
+            return // Don't process this PRO press
+        }
+
+        // Three '+' presses & holding PRO for 3 seconds exits the API
+        if(key == 'p' && plusCount >= 3){
+            exitTimeout = setTimeout(process.exit, 3000)
+            return // Don't process this PRO press
+        }
+        
         if(key == '+') plusCount++
         else plusCount = 0
         if(key == '-') minusCount++
         else minusCount = 0
-        if(plusCount >= 3) process.exit() // Three '+' presses kills the API
-        if(minusCount >= 3 && options.shutdown) exec(options.shutdown) // Three '-' presses runs the shutdown handler (if any)
+
         await keyboardHandler(key)
     })
     setWebSocketListener(async (data)=>{

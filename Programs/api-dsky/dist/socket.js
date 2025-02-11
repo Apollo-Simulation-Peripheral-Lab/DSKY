@@ -12,30 +12,65 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWebSocket = exports.updateWebSocketState = exports.setWebSocketListener = void 0;
 const WebSocket = require("ws");
 const dskyStates_1 = require("./dskyStates");
+const geoip = require("geoip-lite");
 // Create WebSocket server
 const wss = new WebSocket.Server({ port: process.env.port || 3001 });
 let listener = (_data) => __awaiter(void 0, void 0, void 0, function* () { });
 const setWebSocketListener = (newListener) => { listener = newListener; };
 exports.setWebSocketListener = setWebSocketListener;
 let state = dskyStates_1.V35_TEST;
+let clientsData = new Map();
+// Function to get the country from an IP
+const getCountryFromIp = (ip) => {
+    const geo = geoip.lookup(ip);
+    return geo === null || geo === void 0 ? void 0 : geo.country;
+};
+const getClientIp = (req) => {
+    const forwardedFor = req.headers['x-forwarded-for'];
+    if (forwardedFor) {
+        // In case there are multiple proxies, use the first IP address
+        return forwardedFor.split(',')[0].trim();
+    }
+    return req.socket.remoteAddress.replace(/^.*:/, ''); // Extract IPv4 address
+};
+const getStateMessage = (connection, state) => {
+    var _a;
+    // Get the IP address of the current connection
+    const currentIp = (_a = clientsData.get(connection)) === null || _a === void 0 ? void 0 : _a.ip;
+    // Create the clients array with the "you" field set based on IP match
+    const clientsArray = Array.from(clientsData.values()).map(client => (Object.assign(Object.assign({}, client), { you: client.ip === currentIp, ip: undefined })));
+    return JSON.stringify(Object.assign(Object.assign({}, state), { clients: clientsArray }));
+};
 // WebSocket server event listeners
-wss.on('connection', (ws) => {
-    // Send initial object state to client
-    ws.send(JSON.stringify(state));
-    ws.on("message", (data) => {
+wss.on('connection', (ws, req) => {
+    ws.on('message', (data) => {
+        if (data == "agent") {
+            clientsData.delete(ws);
+            return;
+        }
         listener(data);
     });
+    ws.on('close', () => {
+        clientsData.delete(ws);
+        (0, exports.updateWebSocketState)(state); // Notify clients about the disconnection
+    });
+    // Get client's IP address
+    const ip = getClientIp(req);
+    const country = getCountryFromIp(ip);
+    // Add client data to clients map
+    clientsData.set(ws, { country, ip });
+    ws.send(getStateMessage(ws, state));
 });
 // Function to notify all WebSocket clients
 const updateWebSocketState = (newState) => {
-    const newPacket = JSON.stringify(newState);
-    if (JSON.stringify(state) != newPacket) {
+    if (JSON.stringify(state) !== JSON.stringify(newState)) {
         state = newState;
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(newPacket);
+        for (const connection of wss.clients) {
+            if (connection.readyState === WebSocket.OPEN) {
+                const newPacket = getStateMessage(connection, newState);
+                connection.send(newPacket);
             }
-        });
+        }
     }
 };
 exports.updateWebSocketState = updateWebSocketState;

@@ -68,8 +68,10 @@ const stateToBinaryString = (state) => {
     bits += decimalToByte(booleansToDecimal(state.IlluminateAlt, state.IlluminateVel, 0, 0, 0, 0, 0, 0)); // B13
     bits += decimalToByte(
     // Only values from 1 to 127 will be sent
-    // Our DSKY currently only accepts 1 dimming level so status lights are dimmed with the keyboard's value
-    state.KeyboardBrightness ? Math.min(state.KeyboardBrightness, 127) : 127); // B13
+    state.StatusBrightness ? Math.min(state.StatusBrightness, 127) : 127); // B14
+    bits += decimalToByte(
+    // Only values from 1 to 127 will be sent
+    state.KeyboardBrightness ? Math.min(state.KeyboardBrightness, 127) : 127); // B15
     return bits;
 };
 const binaryStringToBuffer = (bits) => {
@@ -92,11 +94,11 @@ const updateSerialState = (newState, force = false) => {
     }
 };
 exports.updateSerialState = updateSerialState;
-const createSerial = (desiredSerialSource = undefined) => __awaiter(void 0, void 0, void 0, function* () {
+const createSerial = (desiredSerialSource = undefined, baudRate = '9600') => __awaiter(void 0, void 0, void 0, function* () {
     const serialSource = desiredSerialSource || (yield (0, terminalSetup_1.getSerialSource)());
-    if (!serialSource)
+    if (!serialSource || serialSource == 'none')
         return;
-    serial = new serialport_1.SerialPort({ path: serialSource, baudRate: 250000 });
+    serial = new serialport_1.SerialPort({ path: serialSource, baudRate: parseInt(baudRate) });
     (0, exports.updateSerialState)(state, true);
     serial.on('data', (data) => __awaiter(void 0, void 0, void 0, function* () {
         yield listener(data);

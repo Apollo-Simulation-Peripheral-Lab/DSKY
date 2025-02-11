@@ -51,6 +51,17 @@ const LMButtons = {
     'r' : 25,
 }
 
+function normalizeBrightness(
+    value: number,
+    originalMin: number,
+    originalMax: number,
+    targetMin: number = 1,
+    targetMax: number = 127
+): number {
+    const normalized = ((value - originalMin) / (originalMax - originalMin)) * (targetMax - targetMin) + targetMin;
+    return Math.min(Math.max(targetMin,normalized), targetMax) // Ensure values stays within range
+}
+
 export const watchStateReentry = (callback) => {
     const APOLLO_PATH = `${getAppDataPath()}\\..\\LocalLow\\Wilhelmsen Studios\\ReEntry\\Export\\Apollo`;
     const AGC_PATH = `${APOLLO_PATH}\\outputAGC.json`;
@@ -68,6 +79,18 @@ export const watchStateReentry = (callback) => {
                 newState.NounD1 = ''
                 newState.NounD2 = ''
             }
+
+            // Reentry gives brighnesses in weird ranges, normalize them to 1-127 and save them in the standardized key names
+            if(newState.IsInCM != undefined){
+                newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646)
+                newState.StatusBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.2, 1.14117646)
+                newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.0, 0.9411765)
+            }else{
+                newState.DisplayBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.4, 1.4)
+                newState.StatusBrightness = normalizeBrightness(newState.BrightnessNumerics, 0.4, 1.4)
+                newState.KeyboardBrightness = normalizeBrightness(newState.BrightnessIntegral, 0.4, 1.4)
+            }
+
             if (condition(newState)) {
                 state = newState
                 callback(newState);

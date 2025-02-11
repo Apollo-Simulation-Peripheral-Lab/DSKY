@@ -22,12 +22,12 @@ const getInputSource = () => __awaiter(void 0, void 0, void 0, function* () {
         type: 'list',
         choices: [
             { name: 'NASSP', value: 'nassp' },
-            { name: 'yaAGC', value: 'yaagc' },
             { name: 'Reentry', value: 'reentry' },
+            { name: 'Bridge to another DSKY API', value: 'bridge' },
+            { name: 'yaAGC', value: 'yaagc' },
             { name: 'KSP', value: 'ksp' },
             { name: 'Random Values', value: 'random' },
-            { name: 'HomeAssistant (WIP)', value: 'homeassistant' },
-            { name: 'Bridge to another DSKY API', value: 'bridge' }
+            { name: 'HomeAssistant (WIP)', value: 'homeassistant' }
         ]
     }).then(r));
     return inputSource;

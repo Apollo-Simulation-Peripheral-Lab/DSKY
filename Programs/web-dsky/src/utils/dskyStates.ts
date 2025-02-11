@@ -41,7 +41,8 @@ export const V35_TEST = {
     StatusBrightness: 127,
     DisplayBrightness: 127,
     KeyboardBrightness: 127,
-    Standby: false
+    Standby: false,
+    clients: []
 }
 
 export const OFF_TEST = {
@@ -87,7 +88,8 @@ export const OFF_TEST = {
     StatusBrightness: 127,
     DisplayBrightness: 127,
     KeyboardBrightness: 127,
-    Standby: false
+    Standby: false,
+    clients: []
 }
 
 export const AUDIO_LOAD = {
@@ -133,7 +135,8 @@ export const AUDIO_LOAD = {
     StatusBrightness: 127,
     DisplayBrightness: 127,
     KeyboardBrightness: 127,
-    Standby: false
+    Standby: false,
+    clients: []
 }
 
 export const NO_CONN = {
@@ -179,7 +182,8 @@ export const NO_CONN = {
     StatusBrightness: 127,
     DisplayBrightness: 127,
     KeyboardBrightness: 127,
-    Standby: false
+    Standby: false,
+    clients: []
 }
 
 export const NO_CONN_UHOH = {
@@ -225,5 +229,6 @@ export const NO_CONN_UHOH = {
     StatusBrightness: 127,
     DisplayBrightness: 127,
     KeyboardBrightness: 127,
-    Standby: false
+    Standby: false,
+    clients: []
 }

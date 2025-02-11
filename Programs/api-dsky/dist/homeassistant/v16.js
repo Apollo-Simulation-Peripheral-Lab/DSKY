@@ -11,45 +11,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.v16 = void 0;
 const _1 = require(".");
-const numberToString = (num) => {
-    const sign = num >= 0 ? '+' : '';
-    return `${sign}${Math.abs(num).toString().padStart(5, '0')}`;
-};
-let refreshInterval;
-const v16 = () => {
+const utils_1 = require("./utils");
+const v16 = (enter = false, pro = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (refreshInterval)
-            clearInterval(refreshInterval);
-        _1.internalState.inputMode = '';
-        _1.internalState.verb = '16';
-        _1.internalState.verbStack.push('16');
-        const refresh = () => __awaiter(void 0, void 0, void 0, function* () {
-            if (_1.internalState.verb != '16') {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-                return;
+        console.log('v16', { enter, pro, stack: _1.internalState.verbStack });
+        if ((enter || pro) && _1.internalState.verb == '16') {
+            let previousVerb = _1.internalState.verbStack[_1.internalState.verbStack.length - 1];
+            if (previousVerb) {
+                return _1.verbs[previousVerb](enter, pro);
             }
+        }
+        if (pro)
+            return;
+        if (enter) { // Initialize V16
+            _1.internalState.inputMode = '';
+            _1.internalState.verb = '16';
+            _1.internalState.verbNounFlashing = false;
+            _1.internalState.keyRel = ['16', _1.internalState.noun];
+            _1.internalState.keyRelMode = true;
+            (0, exports.v16)(false, false);
+        }
+        else { // Perform V16 Update
             _1.internalState.compActy = true;
-            yield new Promise(r => setTimeout(r, 40));
-            const noun = _1.nouns[_1.internalState.noun];
-            if (!noun) {
-                clearInterval(refreshInterval);
-                refreshInterval = null;
-                _1.internalState.operatorErrorActive = true;
-                _1.internalState.compActy = false;
-                return;
-            }
-            _1.internalState.register1 = numberToString(noun[0]);
-            _1.internalState.register2 = numberToString(noun[1]);
-            _1.internalState.register3 = numberToString(noun[2]);
+            yield new Promise(r => setTimeout(r, 100));
             _1.internalState.compActy = false;
-        });
-        refreshInterval = setInterval(refresh, 1000);
-        refresh();
-        _1.internalState.verbNounFlashing = false;
+            const noun = _1.nouns[_1.internalState.noun];
+            if (!noun)
+                return;
+            _1.internalState.register1 = (0, utils_1.numberToString)(noun[0]);
+            _1.internalState.register2 = (0, utils_1.numberToString)(noun[1]);
+            _1.internalState.register3 = (0, utils_1.numberToString)(noun[2]);
+        }
     }
     catch (_a) {
         console.log("V16 fail");
     }
-};
+});
 exports.v16 = v16;

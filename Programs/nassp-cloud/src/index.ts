@@ -54,8 +54,14 @@ const onDisconnect = async () => {
     await connectClient()
 }
 
+let agentInterval
 const onConnect = connection => {
     console.log("Bridge connected!")
+
+    if(agentInterval) clearInterval(agentInterval)
+    agentInterval = setInterval(() => connection.send('agent'), 30000)
+    connection.send('agent')
+    
     connection.on("message", message =>{
         if (message.type === 'utf8') {
             shouldRestart(JSON.parse(message.utf8Data))

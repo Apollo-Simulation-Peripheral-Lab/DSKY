@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const uint8_t PACKET_SIZE = 15;
+const uint8_t PACKET_SIZE = 16;
 uint8_t dskyState[PACKET_SIZE];
 uint8_t memoryLocation = 0;
 
@@ -44,7 +44,7 @@ void loop() {
       dskyState[memoryLocation] = receivedByte; // Store the byte in the array
       memoryLocation = (memoryLocation + 1) % PACKET_SIZE; // Increment array index and wrap around if necessary
     }
-  } 
+  }
   // Update alarms in every cycle so that bad IO chips can still work
   updateAlarms(dskyState);
   char pressedKey = getKey();

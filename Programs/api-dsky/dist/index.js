@@ -66,13 +66,14 @@ const getKeyboardHandler = (inputSource) => __awaiter(void 0, void 0, void 0, fu
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     commander_1.program
         .option('-s, --serial <string>')
+        .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
+        .option('-m, --mode <string>')
         .option('--shutdown <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
     // Create serial connection
-    const serialSource = options.serial;
-    yield (0, serial_1.createSerial)(serialSource);
+    yield (0, serial_1.createSerial)(options.serial, options.baud);
     // Handle keypresses during setup phase
     const setupKeyboardHandler = yield getKeyboardHandler('setup');
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -80,10 +81,18 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         yield setupKeyboardHandler(key);
     }));
     // Create State watcher
-    const inputSource = yield (0, terminalSetup_1.getInputSource)();
-    yield watchState(inputSource, (newState) => {
-        (0, serial_1.updateSerialState)(newState);
-        (0, socket_1.updateWebSocketState)(newState);
+    const inputSource = options.mode || (yield (0, terminalSetup_1.getInputSource)());
+    let pendingUpdate;
+    const doUpdate = () => {
+        if (pendingUpdate) {
+            (0, serial_1.updateSerialState)(pendingUpdate);
+            (0, socket_1.updateWebSocketState)(pendingUpdate);
+            pendingUpdate = null;
+        }
+    };
+    setInterval(doUpdate, 70);
+    yield watchState(inputSource, (state) => {
+        pendingUpdate = state;
     });
     if (options.callback) {
         // Invoke callback to signal that setup is complete
@@ -92,11 +101,26 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     // Create Keyboard handler
     let plusCount = 0;
     let minusCount = 0;
+    let shutdownTimeout, exitTimeout;
     const keyboardHandler = yield getKeyboardHandler(inputSource);
     (0, serial_1.setSerialListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
         // Serial data received
         const key = data.toString().toLowerCase().substring(0, 1);
         console.log(`[Serial] KeyPress: ${key}`);
+        if (shutdownTimeout)
+            clearTimeout(shutdownTimeout);
+        if (exitTimeout)
+            clearTimeout(exitTimeout);
+        // Three '-' presses & holding PRO for 3 seconds runs the shutdown handler (if any)
+        if (key == 'p' && minusCount >= 3 && options.shutdown) {
+            shutdownTimeout = setTimeout(() => (0, child_process_1.exec)(options.shutdown), 3000);
+            return; // Don't process this PRO press
+        }
+        // Three '+' presses & holding PRO for 3 seconds exits the API
+        if (key == 'p' && plusCount >= 3) {
+            exitTimeout = setTimeout(process.exit, 3000);
+            return; // Don't process this PRO press
+        }
         if (key == '+')
             plusCount++;
         else
@@ -105,10 +129,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             minusCount++;
         else
             minusCount = 0;
-        if (plusCount >= 3)
-            process.exit(); // Three '+' presses kills the API
-        if (minusCount >= 3 && options.shutdown)
-            (0, child_process_1.exec)(options.shutdown); // Three '-' presses runs the shutdown handler (if any)
         yield keyboardHandler(key);
     }));
     (0, socket_1.setWebSocketListener)((data) => __awaiter(void 0, void 0, void 0, function* () {
