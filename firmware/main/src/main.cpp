@@ -21,7 +21,7 @@ void generateRandomDskyState() {
 }
 
 void setup() {
-  Serial.begin(250000);
+  Serial.begin(9600);
   initAlarms();
 }
 
