@@ -14,7 +14,7 @@ import {exec} from 'child_process'
 
 dotenv.config()
 
-const watchState = async (inputSource, callback) =>{
+const watchState = async (inputSource, callback, options = {}) =>{
     switch(inputSource){
         case "reentry":
             return watchStateReentry(callback)
@@ -25,7 +25,7 @@ const watchState = async (inputSource, callback) =>{
         case "bridge":
             return await watchStateBridge(callback)
         case "yaagc":
-            return watchStateYaAGC(callback)
+            return watchStateYaAGC(callback, options)
         case "homeassistant":
             return watchStateHA(callback)
         case "random":
@@ -62,6 +62,7 @@ const main = async() =>{
         .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
         .option('-m, --mode <string>')
+        .option('-y, --yaagc <string>')
         .option('--shutdown <string>');
     program.parse();
     const options = program.opts()
@@ -90,7 +91,7 @@ const main = async() =>{
     setInterval(doUpdate,70)
     await watchState(inputSource, (state) =>{
         pendingUpdate = state
-    })
+    }, options)
 
     if(options.callback){
         // Invoke callback to signal that setup is complete

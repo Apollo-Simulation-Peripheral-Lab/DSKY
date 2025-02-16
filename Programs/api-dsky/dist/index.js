@@ -23,7 +23,7 @@ const commander_1 = require("commander");
 const dotenv = require("dotenv");
 const child_process_1 = require("child_process");
 dotenv.config();
-const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, function* () {
+const watchState = (inputSource, callback, options = {}) => __awaiter(void 0, void 0, void 0, function* () {
     switch (inputSource) {
         case "reentry":
             return (0, reentry_1.watchStateReentry)(callback);
@@ -34,7 +34,7 @@ const watchState = (inputSource, callback) => __awaiter(void 0, void 0, void 0, 
         case "bridge":
             return yield (0, bridge_1.watchStateBridge)(callback);
         case "yaagc":
-            return (0, yaAGC_1.watchStateYaAGC)(callback);
+            return (0, yaAGC_1.watchStateYaAGC)(callback, options);
         case "homeassistant":
             return (0, homeassistant_1.watchStateHA)(callback);
         case "random":
@@ -69,6 +69,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         .option('-b, --baud <number>')
         .option('-cb, --callback <string>')
         .option('-m, --mode <string>')
+        .option('-y, --yaagc <string>')
         .option('--shutdown <string>');
     commander_1.program.parse();
     const options = commander_1.program.opts();
@@ -93,7 +94,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     setInterval(doUpdate, 70);
     yield watchState(inputSource, (state) => {
         pendingUpdate = state;
-    });
+    }, options);
     if (options.callback) {
         // Invoke callback to signal that setup is complete
         (0, child_process_1.exec)(options.callback);

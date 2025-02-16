@@ -85,18 +85,22 @@ const getBridgeHost = () => __awaiter(void 0, void 0, void 0, function* () {
     return `${protocol}://${address}:${port}/${path}`;
 });
 exports.getBridgeHost = getBridgeHost;
-const getYaAGCPort = () => __awaiter(void 0, void 0, void 0, function* () {
-    const { version } = yield new Promise(r => inquirer.prompt({
-        message: "Do you want the API to start any of these AGCs?",
-        name: 'version',
-        type: 'list',
-        choices: [
-            { name: 'Comanche055', value: 'Comanche055' },
-            { name: 'Luminary099', value: 'Luminary099' },
-            { name: 'Luminary210', value: 'Luminary210' },
-            { name: 'Start my own YaAGC', value: 'own' }
-        ]
-    }).then(r));
+const getYaAGCPort = (options = {}) => __awaiter(void 0, void 0, void 0, function* () {
+    let version = options.yaagc;
+    if (!version) {
+        const { version: versionSelection } = yield new Promise(r => inquirer.prompt({
+            message: "Do you want the API to start any of these AGCs?",
+            name: 'version',
+            type: 'list',
+            choices: [
+                { name: 'Comanche055', value: 'Comanche055' },
+                { name: 'Luminary099', value: 'Luminary099' },
+                { name: 'Luminary210', value: 'Luminary210' },
+                { name: 'Start my own YaAGC', value: 'own' }
+            ]
+        }).then(r));
+        version = versionSelection;
+    }
     if (version == 'own') {
         const { port } = yield new Promise(r => inquirer.prompt({
             message: "Select the port where the yaAGC is listening: ",
