@@ -346,8 +346,8 @@ setInterval(() => {
             state);
     }
 }, 600);
-const watchStateYaAGC = (callback) => __awaiter(void 0, void 0, void 0, function* () {
-    const port = yield (0, terminalSetup_1.getYaAGCPort)();
+const watchStateYaAGC = (callback, options = {}) => __awaiter(void 0, void 0, void 0, function* () {
+    const port = yield (0, terminalSetup_1.getYaAGCPort)(options);
     yaAGCClient = new net.Socket();
     yaAGCClient.connect({ port, host: '127.0.0.1', keepAlive: true }, () => {
         console.log('[yaAGC] Socket connected!');

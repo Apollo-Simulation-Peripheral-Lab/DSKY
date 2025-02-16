@@ -88,20 +88,24 @@ export const getBridgeHost = async () => {
     return `${protocol}://${address}:${port}${path}`
 }
 
-export const getYaAGCPort = async () => {
-    const {version} = await new Promise(r => 
-        inquirer.prompt({
-            message: "Do you want the API to start any of these AGCs?",
-            name: 'version',
-            type: 'list',
-            choices: [
-                {name:'Comanche055', value: 'Comanche055'},
-                {name:'Luminary099', value: 'Luminary099'},
-                {name:'Luminary210', value: 'Luminary210'},
-                {name:'Start my own YaAGC', value: 'own'}
-            ]
-        }).then(r)
-    ) as any
+export const getYaAGCPort = async (options = {}) => {
+    let version = (options as any).yaagc
+    if(!version){
+        const {version: versionSelection} = await new Promise(r => 
+            inquirer.prompt({
+                message: "Do you want the API to start any of these AGCs?",
+                name: 'version',
+                type: 'list',
+                choices: [
+                    {name:'Comanche055', value: 'Comanche055'},
+                    {name:'Luminary099', value: 'Luminary099'},
+                    {name:'Luminary210', value: 'Luminary210'},
+                    {name:'Start my own YaAGC', value: 'own'}
+                ]
+            }).then(r)
+        ) as any
+        version = versionSelection
+    }
     if(version == 'own'){
         const {port} = await new Promise(r => 
             inquirer.prompt({

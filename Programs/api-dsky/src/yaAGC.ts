@@ -314,8 +314,8 @@ setInterval(()=>{
     }
 },600)
 
-export const watchStateYaAGC = async (callback) =>{
-    const port = await getYaAGCPort()
+export const watchStateYaAGC = async (callback, options = {}) =>{
+    const port = await getYaAGCPort(options)
     yaAGCClient = new net.Socket();
     yaAGCClient.connect({port,host:'127.0.0.1',keepAlive:true}, () => {
         console.log('[yaAGC] Socket connected!');
