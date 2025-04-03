@@ -40,9 +40,9 @@ void loop() {
 
     if (receivedByte == 0xFF) { // Check if received byte is 0xFF
       memoryLocation = 0; // Reset the array index
-    } else {
+    } else if(memoryLocation < PACKET_SIZE) { // Check if the array index is within bounds
       dskyState[memoryLocation] = receivedByte; // Store the byte in the array
-      memoryLocation = (memoryLocation + 1) % PACKET_SIZE; // Increment array index and wrap around if necessary
+      memoryLocation = memoryLocation + 1; // Increment array index
     }
   }
   // Update alarms in every cycle so that bad IO chips can still work
