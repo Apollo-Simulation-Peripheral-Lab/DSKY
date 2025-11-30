@@ -1,7 +1,7 @@
 (footprint "Kailh_socket_MX"
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(layer "F.Cu")
 	(descr "MX-style keyswitch with Kailh socket mount")
 	(tags "MX,cherry,gateron,kailh,pg1511,socket")
@@ -24,18 +24,6 @@
 		(effects
 			(font
 				(size 1 1)
-				(thickness 0.15)
-			)
-		)
-	)
-	(property "Footprint" ""
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "5ca70492-42f2-4091-bfa6-21d7ec43b037")
-		(effects
-			(font
-				(size 1.27 1.27)
 				(thickness 0.15)
 			)
 		)
@@ -91,6 +79,7 @@
 	(property "JLCPosOffset" "-0.65,-3.8"
 		(at 0 0 0)
 		(layer "F.SilkS")
+		(hide yes)
 		(uuid "41a25002-90b4-46e2-a216-cd1f29da49fc")
 		(effects
 			(font
@@ -100,6 +89,86 @@
 		)
 	)
 	(attr smd)
+	(fp_line
+		(start -7 -6)
+		(end -7 -7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "13f2eafe-1b26-4357-90b2-5309bb2a09f4")
+	)
+	(fp_line
+		(start -7 7)
+		(end -7 6)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "23cdfd96-36cf-47a4-9e79-6b0066ea3fd9")
+	)
+	(fp_line
+		(start -7 7)
+		(end -6 7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0ffc78cc-e781-4801-beb9-887bc5fb22bf")
+	)
+	(fp_line
+		(start -6 -7)
+		(end -7 -7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "5b8bfb91-81f3-4452-86eb-0b4ccabdeca1")
+	)
+	(fp_line
+		(start 6 7)
+		(end 7 7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4b616089-8f97-4e9e-88ee-34ce9e106442")
+	)
+	(fp_line
+		(start 7 -7)
+		(end 6 -7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "875c36d3-fd77-4ef3-ae30-23df8b38d651")
+	)
+	(fp_line
+		(start 7 -7)
+		(end 7 -6)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "bdcfae74-4000-4a1c-a9ae-8bcdda033121")
+	)
+	(fp_line
+		(start 7 6)
+		(end 7 7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c57548e0-b0fb-4840-b34f-428261a50c12")
+	)
 	(fp_line
 		(start -6.35 -4.445)
 		(end -6.35 -4.064)
@@ -201,86 +270,6 @@
 		)
 		(layer "B.SilkS")
 		(uuid "96842af2-f50f-40d9-bd91-e36982d38592")
-	)
-	(fp_line
-		(start -7 -6)
-		(end -7 -7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "13f2eafe-1b26-4357-90b2-5309bb2a09f4")
-	)
-	(fp_line
-		(start -7 7)
-		(end -7 6)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "23cdfd96-36cf-47a4-9e79-6b0066ea3fd9")
-	)
-	(fp_line
-		(start -7 7)
-		(end -6 7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "0ffc78cc-e781-4801-beb9-887bc5fb22bf")
-	)
-	(fp_line
-		(start -6 -7)
-		(end -7 -7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "5b8bfb91-81f3-4452-86eb-0b4ccabdeca1")
-	)
-	(fp_line
-		(start 6 7)
-		(end 7 7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "4b616089-8f97-4e9e-88ee-34ce9e106442")
-	)
-	(fp_line
-		(start 7 -7)
-		(end 6 -7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "875c36d3-fd77-4ef3-ae30-23df8b38d651")
-	)
-	(fp_line
-		(start 7 -7)
-		(end 7 -6)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "bdcfae74-4000-4a1c-a9ae-8bcdda033121")
-	)
-	(fp_line
-		(start 7 6)
-		(end 7 7)
-		(stroke
-			(width 0.15)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "c57548e0-b0fb-4840-b34f-428261a50c12")
 	)
 	(fp_line
 		(start -6.9 6.9)
@@ -543,15 +532,16 @@
 	(pad "1" smd rect
 		(at 6.29 -5.08)
 		(size 2.55 2.5)
-		(layers "B.Cu" "B.Paste" "B.Mask")
+		(layers "B.Cu" "B.Mask" "B.Paste")
 		(uuid "8b375571-b038-47f8-96f3-954af273fb1d")
 	)
 	(pad "2" smd rect
 		(at -7.56 -2.54)
 		(size 2.55 2.5)
-		(layers "B.Cu" "B.Paste" "B.Mask")
+		(layers "B.Cu" "B.Mask" "B.Paste")
 		(uuid "2be3ff5e-a9a4-4ac5-8ccc-8da2eef693a7")
 	)
+	(embedded_fonts no)
 	(model "${KIPRJMOD}/../Libraries/3D/TH_L10.9-W5.9-CPG151101S11.step"
 		(offset
 			(xyz -0.65 3.8 -1.58)
