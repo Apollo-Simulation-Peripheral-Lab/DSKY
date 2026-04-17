@@ -21,9 +21,10 @@ function createKeyHandler(label: string) {
         const key = data.toString().toLowerCase().substring(0, 1)
         console.log(`[${label}] KeyPress: ${key}`)
 
-        if (key === 'o') {
+        if (key === 'o' && serverState.app.id !== 'games') {
             // PRO release: forward to the integration (NASSP needs this to unlatch
             // PRO) but skip menu/app/sequence handling, which don't expect it.
+            // The games app is the exception — it consumes O itself (e.g. flappy boost).
             if (activeIntegration) await activeIntegration.handleKey(key)
             return
         }

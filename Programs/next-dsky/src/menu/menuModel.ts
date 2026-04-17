@@ -74,7 +74,7 @@ function appsScreenItems(): MenuItemDef[] {
         { id: 'calculator', icon: 'calculator-svg', label: 'CALCULATOR', action: { type: 'action', action: 'action:switch-app', data: { app: 'calculator' }, then: 'close' } },
         { id: 'clock',      icon: 'clock-svg', label: 'CLOCK', action: { type: 'action', action: 'action:switch-app', data: { app: 'clock' }, then: 'close' } },
         { id: 'random',     icon: 'random-svg', label: 'RANDOM', action: { type: 'action', action: 'action:switch-app', data: { app: 'random' }, then: 'close' } },
-        { id: 'games',      icon: 'games-svg', label: 'GAMES', action: { type: 'navigate', screen: 'games' } },
+        { id: 'games',      icon: 'games-svg', label: 'GAMES', action: { type: 'action', action: 'action:switch-app', data: { app: 'games' }, then: 'close' } },
     ]
 }
 
@@ -274,7 +274,6 @@ export function getScreenItems(screen: MenuScreen, serverState: ServerState, _me
         // Screens with no selectable items
         case 'commands':
         case 'about':
-        case 'games':
         case 'haSetup':
         case 'wifi':
         case 'bridgeManual':

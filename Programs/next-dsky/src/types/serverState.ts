@@ -13,7 +13,6 @@ export type MenuScreen =
     | 'settings'
     | 'about'
     | 'apps'
-    | 'games'
     | 'yaAgcSelect'
     | 'bridgeSelect'
     | 'bridgeManual'
@@ -63,6 +62,7 @@ export interface AppState {
     haUrl?: string
     calculator?: CalculatorAppState
     clock?: ClockAppState
+    games?: GamesAppState
 }
 
 export interface CalculatorAppState {
@@ -129,6 +129,35 @@ export interface UpdateState {
     progress?: number
     error?: string
     lastChecked?: number
+}
+
+// --- Games ---
+
+export type GameId = 'flappy'
+
+export interface FlappyObstacle {
+    x: number       // 0..1 normalized
+    gapY: number    // 0..1 top of gap
+    gapSize: number // 0..1
+    passed: boolean
+}
+
+export interface FlappyState {
+    phase: 'ready' | 'playing' | 'gameover'
+    shipY: number           // 0..1 vertical position
+    shipVy: number          // world units / sec
+    boosting: boolean       // PRO held
+    obstacles: FlappyObstacle[]
+    spawnTimer: number      // seconds since last spawn
+    score: number
+    best: number
+    tickMs: number          // server timestamp of last tick (for client interpolation)
+}
+
+export interface GamesAppState {
+    activeGame: GameId | null
+    selectorIndex: number
+    flappy: FlappyState
 }
 
 // --- Server State ---
