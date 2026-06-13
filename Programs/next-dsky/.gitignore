@@ -37,6 +37,9 @@ yarn-error.log*
 # Home Assistant user-specific config
 ha_entities.json
 
+# Per-device game high scores
+game_scores.json
+
 # vercel
 .vercel
 

@@ -92,6 +92,7 @@ export default function SnakeGame({ state }: SnakeGameProps) {
                         <Overlay>
                             <div style={{ fontSize: '4.5cqh', fontWeight: 700, color: primary }}>SNAKE</div>
                             <div style={{ fontSize: '2.8cqh', color: primary, marginTop: '1.2cqh' }}>ENTR to start</div>
+                            <div style={{ fontSize: '2.3cqh', color: secondary, marginTop: '0.8cqh' }}>VERB scores</div>
                         </Overlay>
                     )}
                     {state.phase === 'paused' && (

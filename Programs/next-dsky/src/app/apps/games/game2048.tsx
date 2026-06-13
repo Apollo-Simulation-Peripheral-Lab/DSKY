@@ -173,6 +173,7 @@ function BoardView({ state, primary, secondary }: BoardViewProps) {
                 <Overlay>
                     <div style={{ fontSize: '4.8cqh', fontWeight: 700, color: primary }}>2048</div>
                     <div style={{ fontSize: '2.6cqh', color: primary, marginTop: '1.2cqh' }}>ENTR to start</div>
+                    <div style={{ fontSize: '2.3cqh', color: secondary, marginTop: '0.8cqh' }}>VERB scores</div>
                 </Overlay>
             )}
             {state.phase === 'won' && (

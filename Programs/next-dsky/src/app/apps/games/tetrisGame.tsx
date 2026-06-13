@@ -177,6 +177,7 @@ export default function TetrisGame({ state }: TetrisGameProps) {
                         <Overlay>
                             <div style={{ fontSize: '4.2cqh', fontWeight: 700, color: primary }}>TETRIS</div>
                             <div style={{ fontSize: '2.6cqh', color: primary, marginTop: '1.2cqh' }}>ENTR to start</div>
+                            <div style={{ fontSize: '2.3cqh', color: secondary, marginTop: '0.8cqh' }}>VERB scores</div>
                         </Overlay>
                     )}
                     {state.phase === 'paused' && (

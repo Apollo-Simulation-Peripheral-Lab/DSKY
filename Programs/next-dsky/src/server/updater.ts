@@ -36,7 +36,7 @@ const PENDING_FLAG = '.pending-verify'
 const ATTEMPTS_FILE = '.update-attempts'
 const PREVIOUS_POINTER = 'previous'
 /** Config files carried over from the running install to a new release. */
-const PERSISTED_FILES = ['.env', 'ha_entities.json']
+const PERSISTED_FILES = ['.env', 'ha_entities.json', 'game_scores.json']
 
 /** How long the new version must stay up before it is considered good. */
 const VERIFY_DELAY_MS = 90_000
