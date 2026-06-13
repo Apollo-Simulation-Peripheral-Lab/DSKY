@@ -33,6 +33,40 @@ export default function MinesweeperGame({ state }: MinesweeperGameProps) {
             : (now - state.startedAtMs) / 1000)
         : 0
 
+    // Setup screen — choose grid size and mine count before playing.
+    if (state.phase === 'setup') {
+        const Field = ({ label, value, sel }: { label: string; value: string; sel: boolean }) => (
+            <div style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                border: `1px solid ${sel ? primary : secondary}`,
+                background: sel ? 'rgba(94,240,138,0.12)' : 'transparent',
+                color: sel ? primary : secondary,
+                padding: '1.8cqh 4cqw', fontSize: '3.4cqh', fontWeight: sel ? 700 : 500,
+            }}>
+                <span>{label}</span>
+                <span>{sel ? `◂ ${value} ▸` : value}</span>
+            </div>
+        )
+        return (
+            <div style={{
+                position: 'absolute', inset: 0, background: '#000',
+                display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                padding: '3cqh 6cqw', boxSizing: 'border-box',
+                fontFamily: 'Gorton, "Arial Narrow", sans-serif', color: primary, gap: '1.6cqh',
+            }}>
+                <div style={{ fontSize: '4.2cqh', fontWeight: 700, textAlign: 'center', letterSpacing: '0.15em', marginBottom: '1cqh' }}>
+                    MINESWEEPER
+                </div>
+                <Field label="GRID" value={`${state.cols} × ${state.rows}`} sel={state.setupField === 'size'} />
+                <Field label="MINES" value={`${state.mines}`} sel={state.setupField === 'mines'} />
+                <div style={{ fontSize: '2.3cqh', color: secondary, textAlign: 'center', marginTop: '1.5cqh' }}>
+                    <K>8</K>/<K>2</K> field · <K>+</K>/<K>-</K> adjust · <K>ENTR</K> start<br />
+                    <K>VERB</K> scores · <K>RSET</K> back
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div style={{
             position: 'absolute',
@@ -148,12 +182,20 @@ interface CellViewProps {
     accent: string
 }
 
+// Covered (hidden/flagged) cells read as a raised green tile; revealed cells are
+// a flat dark "dug out" square — strong contrast between the two states.
+const COVERED_BG = 'rgba(94, 240, 138, 0.30)'
+const REVEALED_BG = '#070d09'
+
 function CellView({ cell, isCursor, phase, primary, secondary, border, accent }: CellViewProps) {
-    let background = 'transparent'
+    let background: string
     let content: string = ''
     let color = primary
+    let borderColor = border
 
     if (cell.state === 'revealed') {
+        background = REVEALED_BG
+        borderColor = 'rgba(94,240,138,0.12)'
         if (cell.mine) {
             background = '#f87171'
             content = '*'
@@ -162,18 +204,21 @@ function CellView({ cell, isCursor, phase, primary, secondary, border, accent }:
             content = String(cell.adjacent)
             color = ADJACENT_COLORS[cell.adjacent - 1] ?? primary
         }
-        // else: empty revealed cell stays transparent
+        // else: empty revealed cell stays the dark REVEALED_BG
     } else if (cell.state === 'flagged') {
+        background = COVERED_BG
+        borderColor = secondary
         content = 'F'
         color = accent
     } else {
-        // hidden
-        background = 'rgba(94, 240, 138, 0.08)'
+        // hidden / covered
+        background = COVERED_BG
+        borderColor = secondary
     }
 
     const outline = isCursor && phase === 'playing'
         ? `2px solid ${accent}`
-        : `1px solid ${border}`
+        : `1px solid ${borderColor}`
 
     return (
         <div

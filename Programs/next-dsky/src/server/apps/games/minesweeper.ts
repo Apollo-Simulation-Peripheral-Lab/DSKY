@@ -16,15 +16,27 @@ export const MINESWEEPER_CONFIG = {
     COLS: 9,
     ROWS: 9,
     MINES: 10,
+    SIZE_MIN: 5,
+    SIZE_MAX: 16,
+    MINE_RATIO_MAX: 0.4,    // mines capped at 40% of the cells
 } as const
+
+/** Largest allowed mine count for an N×N board. */
+export function maxMinesFor(size: number): number {
+    return Math.max(1, Math.floor(size * size * MINESWEEPER_CONFIG.MINE_RATIO_MAX))
+}
+
+function clampInt(v: number, min: number, max: number): number {
+    return v < min ? min : v > max ? max : v
+}
 
 function emptyCell(): MinesweeperCell {
     return { mine: false, adjacent: 0, state: 'hidden' }
 }
 
-function emptyBoard(): MinesweeperCell[][] {
-    return Array.from({ length: MINESWEEPER_CONFIG.ROWS }, () =>
-        Array.from({ length: MINESWEEPER_CONFIG.COLS }, () => emptyCell())
+function emptyBoard(cols: number, rows: number): MinesweeperCell[][] {
+    return Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => emptyCell())
     )
 }
 
@@ -117,8 +129,9 @@ function winCondition(board: MinesweeperCell[][], revealedCount: number, mines: 
 }
 
 export const INITIAL_MINESWEEPER: MinesweeperState = {
-    phase: 'ready',
-    board: emptyBoard(),
+    phase: 'setup',
+    setupField: 'size',
+    board: emptyBoard(MINESWEEPER_CONFIG.COLS, MINESWEEPER_CONFIG.ROWS),
     cursor: { x: Math.floor(MINESWEEPER_CONFIG.COLS / 2), y: Math.floor(MINESWEEPER_CONFIG.ROWS / 2) },
     cols: MINESWEEPER_CONFIG.COLS,
     rows: MINESWEEPER_CONFIG.ROWS,
@@ -130,20 +143,67 @@ export const INITIAL_MINESWEEPER: MinesweeperState = {
     startedAtMs: 0,
 }
 
-export function resetMinesweeper(preserveBest: number | null): MinesweeperState {
+/** Return to the setup screen, preserving the player's last size/mines choice. */
+export function resetMinesweeper(preserveBest: number | null, prev?: MinesweeperState): MinesweeperState {
+    const cols = prev?.cols ?? MINESWEEPER_CONFIG.COLS
+    const rows = prev?.rows ?? MINESWEEPER_CONFIG.ROWS
+    const mines = clampInt(prev?.mines ?? MINESWEEPER_CONFIG.MINES, 1, maxMinesFor(cols))
     return {
-        phase: 'playing',
-        board: emptyBoard(),
-        cursor: { x: Math.floor(MINESWEEPER_CONFIG.COLS / 2), y: Math.floor(MINESWEEPER_CONFIG.ROWS / 2) },
-        cols: MINESWEEPER_CONFIG.COLS,
-        rows: MINESWEEPER_CONFIG.ROWS,
-        mines: MINESWEEPER_CONFIG.MINES,
-        flagsRemaining: MINESWEEPER_CONFIG.MINES,
+        phase: 'setup',
+        setupField: prev?.setupField ?? 'size',
+        board: emptyBoard(cols, rows),
+        cursor: { x: Math.floor(cols / 2), y: Math.floor(rows / 2) },
+        cols,
+        rows,
+        mines,
+        flagsRemaining: mines,
         revealedCount: 0,
         firstMoveDone: false,
         bestTimeSec: preserveBest,
         startedAtMs: 0,
     }
+}
+
+/** Begin a game with the configured size/mines (called from the setup screen). */
+function startGame(state: MinesweeperState): MinesweeperState {
+    const { cols, rows, mines } = state
+    return {
+        ...state,
+        phase: 'playing',
+        board: emptyBoard(cols, rows),
+        cursor: { x: Math.floor(cols / 2), y: Math.floor(rows / 2) },
+        flagsRemaining: mines,
+        revealedCount: 0,
+        firstMoveDone: false,
+        startedAtMs: 0,
+    }
+}
+
+/** Setup-screen input: 8/2 pick field, +/- adjust, ENTR start. */
+function handleSetupKey(state: MinesweeperState, key: string): MinesweeperState {
+    const cfg = MINESWEEPER_CONFIG
+    if (key === '8') return { ...state, setupField: 'size' }
+    if (key === '2') return { ...state, setupField: 'mines' }
+    if (key === '+' || key === '-') {
+        const dir = key === '+' ? 1 : -1
+        if (state.setupField === 'size') {
+            const size = clampInt(state.cols + dir, cfg.SIZE_MIN, cfg.SIZE_MAX)
+            const mines = clampInt(state.mines, 1, maxMinesFor(size))
+            return {
+                ...state,
+                cols: size,
+                rows: size,
+                mines,
+                flagsRemaining: mines,
+                board: emptyBoard(size, size),
+                cursor: { x: Math.floor(size / 2), y: Math.floor(size / 2) },
+            }
+        }
+        const mines = clampInt(state.mines + dir, 1, maxMinesFor(state.cols))
+        return { ...state, mines, flagsRemaining: mines }
+    }
+    if (key === 'e') return startGame(state)
+    return state
 }
 
 function moveCursor(state: MinesweeperState, dx: number, dy: number): MinesweeperState {
@@ -226,6 +286,7 @@ function revealAtCursor(state: MinesweeperState): MinesweeperState {
 }
 
 export function handleMinesweeperKey(state: MinesweeperState, key: string): MinesweeperState {
+    if (state.phase === 'setup') return handleSetupKey(state, key)
     if (state.phase === 'gameover' || state.phase === 'won') return state
 
     if (key === '4') return moveCursor(state, -1, 0)
