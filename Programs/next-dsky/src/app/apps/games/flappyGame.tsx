@@ -5,12 +5,12 @@ import type { FlappyState } from "../../../types/serverState"
 
 // Must mirror server FLAPPY_CONFIG for correct client-side interpolation.
 const CONFIG = {
-    GRAVITY: 2.2,
+    GRAVITY: 1.6,
     MAX_VY: 1.4,
     MIN_VY: -1.0,
     SCROLL_SPEED: 0.32,
     SHIP_SIZE: 0.06,
-    SHIP_X: 0.22,
+    SHIP_X: 0.15,
     OBSTACLE_WIDTH: 0.1,
 }
 
@@ -92,6 +92,7 @@ export default function FlappyGame({ state }: FlappyGameProps) {
 
     const primary = 'var(--menu-primary, #5ef08a)'
     const secondary = 'var(--menu-secondary, #2a7a44)'
+    const accent = 'var(--menu-accent, #facc15)'
     const bg = '#000'
 
     return (
@@ -131,11 +132,11 @@ export default function FlappyGame({ state }: FlappyGameProps) {
                 {/* Ship */}
                 <g transform={`rotate(${tilt} ${shipX} ${shipY})`}>
                     <path d={shipPath} fill={primary} />
-                    {state.phase === 'playing' && interp.shipVy < -0.3 && (
+                    {state.phase === 'playing' && interp.shipVy < -0.15 && (
                         <path
-                            d={`M ${tailX} ${shipY - shipSize * 0.2} L ${tailX - shipSize * 0.6} ${shipY} L ${tailX} ${shipY + shipSize * 0.2} Z`}
-                            fill={secondary}
-                            opacity={Math.min(1, -interp.shipVy / 0.75)}
+                            d={`M ${tailX} ${shipY - shipSize * 0.22} L ${tailX - shipSize * 0.7} ${shipY} L ${tailX} ${shipY + shipSize * 0.22} Z`}
+                            fill={accent}
+                            opacity={Math.min(1, -interp.shipVy / 0.6)}
                         />
                     )}
                 </g>
@@ -174,10 +175,10 @@ export default function FlappyGame({ state }: FlappyGameProps) {
                         FLAPPY ROCKET
                     </div>
                     <div style={{ fontSize: '3cqh', color: primary, marginBottom: '2cqh' }}>
-                        PRO to flap
+                        ENTR jump · PRO small hop
                     </div>
                     <div style={{ fontSize: '2.6cqh', color: secondary }}>
-                        RSET back · NOUN NOUN NOUN exit
+                        VERB scores · RSET back · NOUN×3 exit
                     </div>
                     {state.best > 0 && (
                         <div style={{ fontSize: '2.4cqh', color: secondary, marginTop: '2cqh' }}>
@@ -210,7 +211,7 @@ export default function FlappyGame({ state }: FlappyGameProps) {
                         BEST: {state.best}
                     </div>
                     <div style={{ fontSize: '2.6cqh', color: secondary }}>
-                        PRO retry · RSET back · NOUN NOUN NOUN exit
+                        PRO retry · VERB scores · RSET back
                     </div>
                 </div>
             )}

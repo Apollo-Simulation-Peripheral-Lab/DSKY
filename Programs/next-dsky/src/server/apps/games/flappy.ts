@@ -9,17 +9,18 @@ import type { FlappyState, FlappyObstacle } from '../../../types/serverState'
 // Normalized units [0..1]. Original Flappy Bird: gravity ~900 px/s², flap ~-276 px/s
 // on a ~500 px tall playfield -> gravity ≈ 1.8 /s², flap ≈ -0.55 /s. Tuned for feel.
 export const FLAPPY_CONFIG = {
-    GRAVITY: 2.2,            // units / sec^2
-    FLAP_IMPULSE: -0.75,     // instant velocity on PRO tap
+    GRAVITY: 1.6,            // units / sec^2 (pulls down)
+    FLAP_IMPULSE: -0.75,     // ENTR: the normal jump.
+    SMALL_IMPULSE: -0.35,    // PRO: a gentle nudge, barely noticeable — for holding altitude.
     MAX_VY: 1.4,
     MIN_VY: -1.0,
     SCROLL_SPEED: 0.32,      // units / sec
-    OBSTACLE_INTERVAL: 1.5,  // seconds between spawns
+    OBSTACLE_INTERVAL: 2.2,  // seconds between spawns (wider gaps between pillars)
     GAP_SIZE: 0.34,
     GAP_MIN_Y: 0.10,
     GAP_MAX_TOP: 0.56,
     SHIP_SIZE: 0.06,
-    SHIP_X: 0.22,
+    SHIP_X: 0.15,
     OBSTACLE_WIDTH: 0.1,
 } as const
 
@@ -37,11 +38,6 @@ export const INITIAL_FLAPPY: FlappyState = {
     score: 0,
     best: 0,
     tickMs: 0,
-}
-
-/** Flap = instant velocity set. Return new state (phase unchanged). */
-export function flapFlappy(state: FlappyState): FlappyState {
-    return { ...state, shipVy: FLAPPY_CONFIG.FLAP_IMPULSE }
 }
 
 function clamp(v: number, min: number, max: number): number {
@@ -132,20 +128,21 @@ export function tickFlappy(state: FlappyState, dtSec: number): FlappyState {
 }
 
 /**
- * Handle a key event. Flap (p) is an instant velocity impulse per tap.
- * 'o' (PRO release) is ignored — flap is not held.
- * Expected keys: 'p' (PRO), 'e' (ENTR), 'r' (RSET).
+ * Handle a key event. Two fixed, instant flaps (one per press, no hold timing):
+ *   ENTR ('e') = the normal jump (FLAP_IMPULSE)
+ *   PRO  ('p') = a small nudge (SMALL_IMPULSE) — for holding altitude
+ * PRO release ('o') is ignored. RSET ('r') resets.
  */
 export function handleFlappyKey(state: FlappyState, key: string): FlappyState {
+    const cfg = FLAPPY_CONFIG
+
     if (key === 'p' || key === 'e') {
-        if (state.phase === 'ready') {
-            return { ...resetFlappy(state.best), phase: 'playing', shipVy: FLAPPY_CONFIG.FLAP_IMPULSE, tickMs: Date.now() }
+        const impulse = key === 'p' ? cfg.SMALL_IMPULSE : cfg.FLAP_IMPULSE
+        if (state.phase === 'ready' || state.phase === 'gameover') {
+            return { ...resetFlappy(state.best), phase: 'playing', shipVy: impulse, tickMs: Date.now() }
         }
         if (state.phase === 'playing') {
-            return flapFlappy(state)
-        }
-        if (state.phase === 'gameover') {
-            return resetFlappy(state.best)
+            return { ...state, shipVy: impulse }
         }
     }
     if (key === 'r') {
