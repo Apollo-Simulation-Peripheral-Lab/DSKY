@@ -6,6 +6,8 @@ import TetrisGame from "./games/tetrisGame"
 import SnakeGame from "./games/snakeGame"
 import Game2048 from "./games/game2048"
 import MinesweeperGame from "./games/minesweeperGame"
+import SudokuGame from "./games/sudokuGame"
+import ScoreEntryView from "./games/scoreEntry"
 
 const GAME_LIST = [
     { id: 'flappy', label: 'FLAPPY ROCKET', icon: '\u25B6' },
@@ -13,6 +15,7 @@ const GAME_LIST = [
     { id: 'snake', label: 'SNAKE', icon: '\u2B82' },
     { id: 'game2048', label: '2048', icon: '\u25A3' },
     { id: 'minesweeper', label: 'MINESWEEPER', icon: '\u2690' },
+    { id: 'sudoku', label: 'SUDOKU', icon: '\u25A6' },
 ]
 
 interface GamesAppProps {
@@ -22,6 +25,11 @@ interface GamesAppProps {
 export default function GamesApp({ serverState }: GamesAppProps) {
     const games = serverState.app.games
     if (!games) return null
+
+    // Arcade score-entry overlay takes over the screen when a high score lands.
+    if (games.scoreEntry.active) {
+        return <ScoreEntryView state={games.scoreEntry} />
+    }
 
     if (games.activeGame === 'flappy') {
         return <FlappyGame state={games.flappy} />
@@ -37,6 +45,9 @@ export default function GamesApp({ serverState }: GamesAppProps) {
     }
     if (games.activeGame === 'minesweeper') {
         return <MinesweeperGame state={games.minesweeper} />
+    }
+    if (games.activeGame === 'sudoku') {
+        return <SudokuGame state={games.sudoku} />
     }
 
     // Selector screen
@@ -95,7 +106,7 @@ export default function GamesApp({ serverState }: GamesAppProps) {
                 textAlign: 'center',
                 marginTop: '2cqh',
             }}>
-                +/- nav · ENTR select · NOUN NOUN NOUN to exit
+                +/- nav · ENTR select · VERB scores · NOUN×3 exit
             </div>
         </div>
     )

@@ -106,7 +106,7 @@ export const startCustomApp = (appId: string) => {
         const gamesState = initGames((s) => {
             setServerState({ ...serverState, app: { ...serverState.app, games: s } })
             broadcast()
-        })
+        }, setPendingUpdate)   // let the games hub drive the status lamps
         updateApp({ id: 'games', games: gamesState, calculator: undefined, clock: undefined })
     }
 }
