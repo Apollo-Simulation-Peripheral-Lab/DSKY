@@ -1,6 +1,11 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import {
+    House, LayoutGrid, SquareTerminal, Settings, Power, LogOut,
+    ArrowLeftRight, Calculator, Clock, Dices, Gamepad2, Usb, Network,
+    RotateCw, Info, Globe, RefreshCw, Pencil, Ban, type LucideIcon,
+} from "lucide-react"
 import type { ServerState, MenuScreen } from "../../types/serverState"
 import type { DskyClient } from "../../types/dsky"
 import { getScreenItems, getScreenColumns } from "../../menu/menuModel"
@@ -174,6 +179,41 @@ function UpdateStatus({ serverState }: { serverState: ServerState }) {
     )
 }
 
+// Update — cloud with a download arrow (over-the-air update)
+function UpdateIcon() {
+    return (
+        <svg {...svgBase} strokeWidth="1.6">
+            <path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9" />
+            <path d="M12 12 L12 21" />
+            <path d="M8.5 17.5 L12 21 L15.5 17.5" />
+        </svg>
+    )
+}
+
+// Generic UI icons sourced from lucide; keyed by the string used in menuModel.
+// The hand-drawn icons above (mission/themed) are intentionally kept.
+const LUCIDE_ICONS: Record<string, LucideIcon> = {
+    'home-svg':       House,
+    'apps-svg':       LayoutGrid,
+    'commands-svg':   SquareTerminal,
+    'settings-svg':   Settings,
+    'power-svg':      Power,
+    'logout-svg':     LogOut,
+    'bridge-svg':     ArrowLeftRight,
+    'calculator-svg': Calculator,
+    'clock-svg':      Clock,
+    'random-svg':     Dices,
+    'games-svg':      Gamepad2,
+    'serial-svg':     Usb,
+    'network-svg':    Network,
+    'reboot-svg':     RotateCw,
+    'info-svg':       Info,
+    'globe-svg':      Globe,
+    'refresh-svg':    RefreshCw,
+    'pencil-svg':     Pencil,
+    'ban-svg':        Ban,
+}
+
 function iconFor(icon: string) {
     switch (icon) {
         case 'wifi-svg':    return <WifiIcon />
@@ -182,8 +222,11 @@ function iconFor(icon: string) {
         case 'nassp-svg':   return <NasspIcon />
         case 'reentry-svg': return <ReentryIcon />
         case 'ksp-svg':     return <KspIcon />
-        default:            return icon
+        case 'update-svg':  return <UpdateIcon />
     }
+    const LucideGlyph = LUCIDE_ICONS[icon]
+    if (LucideGlyph) return <LucideGlyph size="1em" strokeWidth={1.6} />
+    return icon
 }
 
 export default function MenuOverlay({

@@ -39,12 +39,12 @@ function mainScreenItems(serverState: ServerState): MenuItemDef[] {
         { id: 'simulate', icon: 'rocket-svg', label: 'SIMS', action: { type: 'navigate', screen: 'simulate' } },
     ]
     if (serverState.ha.enabled) {
-        items.push({ id: 'ha', icon: '\u25CE', label: 'HOME ASST', action: { type: 'navigate', screen: 'haMenu' } })
+        items.push({ id: 'ha', icon: 'home-svg', label: 'HOME ASST', action: { type: 'navigate', screen: 'haMenu' } })
     }
     items.push(
-        { id: 'apps',     icon: '\u25A6', label: 'APPS', action: { type: 'navigate', screen: 'apps' } },
-        { id: 'commands', icon: '\u2630', label: 'COMMANDS', action: { type: 'navigate', screen: 'commands' } },
-        { id: 'settings', icon: '\u2699', label: 'SETTINGS', action: { type: 'navigate', screen: 'settings' } },
+        { id: 'apps',     icon: 'apps-svg', label: 'APPS', action: { type: 'navigate', screen: 'apps' } },
+        { id: 'commands', icon: 'commands-svg', label: 'COMMANDS', action: { type: 'navigate', screen: 'commands' } },
+        { id: 'settings', icon: 'settings-svg', label: 'SETTINGS', action: { type: 'navigate', screen: 'settings' } },
     )
     return items
 }
@@ -53,9 +53,9 @@ function haMenuScreenItems(serverState: ServerState): MenuItemDef[] {
     const haActive = serverState.app.id === 'homeassistant'
     return [
         haActive
-            ? { id: 'ha-quit', icon: '\u2298', label: 'QUIT', action: { type: 'action', action: 'action:enter-idle', then: 'close' } }
-            : { id: 'ha-enable', icon: '\u25CE', label: 'ENABLE', action: { type: 'action', action: 'action:switch-app', data: { app: 'homeassistant' }, then: 'close' } },
-        { id: 'ha-config', icon: '\u2699', label: 'CONFIGURE', action: { type: 'navigate', screen: 'haSetup' } },
+            ? { id: 'ha-quit', icon: 'logout-svg', label: 'QUIT', action: { type: 'action', action: 'action:enter-idle', then: 'close' } }
+            : { id: 'ha-enable', icon: 'power-svg', label: 'ENABLE', action: { type: 'action', action: 'action:switch-app', data: { app: 'homeassistant' }, then: 'close' } },
+        { id: 'ha-config', icon: 'settings-svg', label: 'CONFIGURE', action: { type: 'navigate', screen: 'haSetup' } },
     ]
 }
 
@@ -65,16 +65,16 @@ function simulateScreenItems(): MenuItemDef[] {
         { id: 'nassp',   icon: 'nassp-svg',   label: 'NASSP', action: { type: 'action', action: 'action:switch-app', data: { app: 'nassp' }, then: 'close' } },
         { id: 'reentry', icon: 'reentry-svg', label: 'REENTRY', action: { type: 'action', action: 'action:switch-app', data: { app: 'reentry' }, then: 'close' } },
         { id: 'ksp',     icon: 'ksp-svg',     label: 'KSP', action: { type: 'action', action: 'action:switch-app', data: { app: 'ksp' }, then: 'close' } },
-        { id: 'bridge',  icon: '\u21C4',      label: 'BRIDGE', action: { type: 'navigate', screen: 'bridgeSelect' } },
+        { id: 'bridge',  icon: 'bridge-svg',      label: 'BRIDGE', action: { type: 'navigate', screen: 'bridgeSelect' } },
     ]
 }
 
 function appsScreenItems(): MenuItemDef[] {
     return [
-        { id: 'calculator', icon: '\u2211', label: 'CALCULATOR', action: { type: 'action', action: 'action:switch-app', data: { app: 'calculator' }, then: 'close' } },
-        { id: 'clock',      icon: '\u25F4', label: 'CLOCK', action: { type: 'action', action: 'action:switch-app', data: { app: 'clock' }, then: 'close' } },
-        { id: 'random',     icon: '\u2684', label: 'RANDOM', action: { type: 'action', action: 'action:switch-app', data: { app: 'random' }, then: 'close' } },
-        { id: 'games',      icon: '\u2B23', label: 'GAMES', action: { type: 'navigate', screen: 'games' } },
+        { id: 'calculator', icon: 'calculator-svg', label: 'CALCULATOR', action: { type: 'action', action: 'action:switch-app', data: { app: 'calculator' }, then: 'close' } },
+        { id: 'clock',      icon: 'clock-svg', label: 'CLOCK', action: { type: 'action', action: 'action:switch-app', data: { app: 'clock' }, then: 'close' } },
+        { id: 'random',     icon: 'random-svg', label: 'RANDOM', action: { type: 'action', action: 'action:switch-app', data: { app: 'random' }, then: 'close' } },
+        { id: 'games',      icon: 'games-svg', label: 'GAMES', action: { type: 'navigate', screen: 'games' } },
     ]
 }
 
@@ -82,7 +82,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
     const items: MenuItemDef[] = [
         {
             id: 'serial',
-            icon: '\u2B80',
+            icon: 'serial-svg',
             label: 'SERIAL',
             badge: serverState.serial.port || 'None',
             badgeActive: !!serverState.serial.port,
@@ -93,7 +93,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
     if (!serverState.network.locked && (serverState.network.available?.length ?? 0) > 1) {
         items.push({
             id: 'network',
-            icon: '\u25CE',
+            icon: 'network-svg',
             label: 'NETWORK',
             badge: serverState.network.interface || 'Auto',
             badgeActive: !!serverState.network.interface,
@@ -117,7 +117,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
     if (serverState.update.supported) {
         items.push({
             id: 'update',
-            icon: '\u21D1',
+            icon: 'update-svg',
             label: 'UPDATE',
             badge: serverState.update.updateAvailable ? `NEW v${serverState.update.latest}` : undefined,
             badgeActive: serverState.update.updateAvailable,
@@ -128,7 +128,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
     if (serverState.reboot) {
         items.push({
             id: 'reboot',
-            icon: '\u21BB',
+            icon: 'reboot-svg',
             label: 'REBOOT',
             action: { type: 'action', action: 'action:reboot' },
         })
@@ -137,7 +137,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
     if (serverState.shutdown) {
         items.push({
             id: 'shutdown',
-            icon: '\u23FB',
+            icon: 'power-svg',
             label: 'SHUTDOWN',
             action: { type: 'action', action: 'action:shutdown' },
         })
@@ -145,7 +145,7 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
 
     items.push({
         id: 'about',
-        icon: '\u24D8',
+        icon: 'info-svg',
         label: 'ABOUT',
         action: { type: 'navigate', screen: 'about' },
     })
@@ -165,31 +165,31 @@ function yaAgcSelectScreenItems(): MenuItemDef[] {
 function bridgeSelectScreenItems(serverState: ServerState): MenuItemDef[] {
     const apis = serverState.bridge.discovered ?? []
     return [
-        { id: 'public', icon: '\u2295', label: 'PUBLIC', action: { type: 'action', action: 'action:switch-app', data: { app: 'bridge', bridgeUrl: 'wss://dsky.ortizma.com/ws' }, then: 'close' } },
+        { id: 'public', icon: 'globe-svg', label: 'PUBLIC', action: { type: 'action', action: 'action:switch-app', data: { app: 'bridge', bridgeUrl: 'wss://dsky.ortizma.com/ws' }, then: 'close' } },
         ...apis.map(api => ({
             id: `api-${api.ip}:${api.port}`,
-            icon: '\u21C4',
+            icon: 'bridge-svg',
             label: api.name ?? api.ip,
             action: { type: 'action' as const, action: 'action:switch-app', data: { app: 'bridge', bridgeUrl: api.url }, then: 'close' as const },
         })),
-        { id: 'rescan', icon: '\u21BB', label: 'RESCAN', action: { type: 'action', action: 'action:scan-bridges' } },
-        { id: 'manual', icon: '\u270E', label: 'MANUAL URL', action: { type: 'navigate', screen: 'bridgeManual' } },
+        { id: 'rescan', icon: 'refresh-svg', label: 'RESCAN', action: { type: 'action', action: 'action:scan-bridges' } },
+        { id: 'manual', icon: 'pencil-svg', label: 'MANUAL URL', action: { type: 'navigate', screen: 'bridgeManual' } },
     ]
 }
 
 function serialSelectScreenItems(serverState: ServerState): MenuItemDef[] {
     const ports = serverState.serial.available ?? []
     return [
-        { id: 'none', icon: '\u2298', label: 'NO SERIAL', action: { type: 'action', action: 'action:set-serial', data: { port: null }, then: 'back' } },
+        { id: 'none', icon: 'ban-svg', label: 'NO SERIAL', action: { type: 'action', action: 'action:set-serial', data: { port: null }, then: 'back' } },
         ...ports.map(p => ({
             id: `port-${p.path}`,
-            icon: '\u21C4',
+            icon: 'serial-svg',
             label: p.name,
             badge: p.path === serverState.serial.port ? 'ACTIVE' : undefined,
             badgeActive: p.path === serverState.serial.port ? true : undefined,
             action: { type: 'action' as const, action: 'action:set-serial', data: { port: p.path }, then: 'back' as const },
         })),
-        { id: 'refresh', icon: '\u21BB', label: 'REFRESH', action: { type: 'action', action: 'action:list-ports' } },
+        { id: 'refresh', icon: 'refresh-svg', label: 'REFRESH', action: { type: 'action', action: 'action:list-ports' } },
     ]
 }
 
@@ -203,14 +203,14 @@ function updateScreenItems(serverState: ServerState): MenuItemDef[] {
     if (u.updateAvailable && u.latest) {
         items.push({
             id: 'install',
-            icon: '\u21D1',
+            icon: 'update-svg',
             label: `INSTALL v${u.latest}`,
             action: { type: 'action', action: 'action:install-update' },
         })
     }
     items.push({
         id: 'check',
-        icon: '\u21BB',
+        icon: 'refresh-svg',
         label: 'CHECK AGAIN',
         action: { type: 'action', action: 'action:check-update' },
     })
@@ -222,7 +222,7 @@ function networkInterfaceScreenItems(serverState: ServerState): MenuItemDef[] {
     return [
         {
             id: 'auto',
-            icon: '\u25CE',
+            icon: 'globe-svg',
             label: 'AUTO',
             badge: 'DEFAULT',
             badgeActive: serverState.network.interface === null,
@@ -230,7 +230,7 @@ function networkInterfaceScreenItems(serverState: ServerState): MenuItemDef[] {
         },
         ...ifaces.map(iface => ({
             id: `iface-${iface.ip}`,
-            icon: '\u21C4',
+            icon: 'network-svg',
             label: iface.name,
             badge: iface.ip,
             badgeActive: iface.ip === serverState.network.interface,
