@@ -55,13 +55,30 @@ jobs:
           sha256sum "$TARBALL" > "$TARBALL.sha256"
 
       - name: Publish release
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ runner.temp }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TARBALL="$RUNNER_TEMP/next-dsky-${GITHUB_REF_NAME}-linux-arm64.tar.gz"
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" --clobber "$TARBALL" "$TARBALL.sha256"
-          else
-            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes "$TARBALL" "$TARBALL.sha256"
+          TARBALL="next-dsky-${GITHUB_REF_NAME}-linux-arm64.tar.gz"
+
+          # Start from a clean slate: remove any prior release for this tag
+          # (keep the git tag itself) so the create below is deterministic.
+          gh release delete "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag=false 2>/dev/null || true
+
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            --latest \
+            --verify-tag \
+            "$TARBALL" "$TARBALL.sha256"
+
+          # Assert the release actually exists with both assets attached —
+          # fail loudly here rather than reporting a misleading success.
+          echo "Published assets:"
+          gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name'
+          ASSET_COUNT=$(gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets | length')
+          if [ "$ASSET_COUNT" -lt 2 ]; then
+            echo "::error::Expected 2 assets, found $ASSET_COUNT"
+            exit 1
           fi
