@@ -37,7 +37,7 @@ This projects aims to create an affordable and easy to manufacture, yet as reali
   - Updates are installed from the DSKY itself: open the menu (press NOUN three times) and go to **SETTINGS → UPDATE**. See [Documentation/updates.md](Documentation/updates.md).
 
 ## Repository contents:
-* **Documentation**: Useful information to better understand how the different pieces of the puzzle talk to each other. Includes the [Orange Pi setup guide](Documentation/orangepi-setup.md), the [OTA update system](Documentation/updates.md), and how to [deploy code to a device over the network](Documentation/deploying-to-a-device.md).
+* **Documentation**: Useful information to better understand how the different pieces of the puzzle talk to each other. Includes the [Orange Pi setup guide](Documentation/orangepi-setup.md), the [OTA update system](Documentation/updates.md), how to [deploy code to a device over the network](Documentation/deploying-to-a-device.md), and how to [develop on a physical DSKY with hot reload](Documentation/dev-mode.md).
 * **2D Models**: SVG files for alarm labels and backlights.
 * **3D Models**:
   * **0.4 Nozzle:** All printable meshes (enclosure, display housing, keyboard plate, mounts, etc.) designed for a standard 0.4mm nozzle.
