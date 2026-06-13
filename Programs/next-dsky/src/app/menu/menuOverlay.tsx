@@ -24,7 +24,7 @@ interface MenuOverlayProps {
 // Card-grid screens rendered generically from menuModel
 const CARD_GRID_SCREENS: Set<MenuScreen> = new Set([
     'main', 'simulate', 'apps', 'settings', 'haMenu',
-    'yaAgcSelect', 'bridgeSelect', 'serialSelect', 'networkInterface',
+    'yaAgcSelect', 'bridgeSelect', 'serialSelect', 'networkInterface', 'update',
 ])
 
 const svgBase = {
@@ -119,6 +119,61 @@ function KspIcon() {
     )
 }
 
+// Status banner for the update screen, rendered above the action cards
+function UpdateStatus({ serverState }: { serverState: ServerState }) {
+    const u = serverState.update
+
+    let statusText: string
+    let statusColor = 'var(--menu-accent)'
+    switch (u.status) {
+        case 'checking':
+            statusText = 'Checking for updates…'
+            break
+        case 'downloading':
+            statusText = `Downloading… ${u.progress ?? 0}%`
+            break
+        case 'installing':
+            statusText = 'Installing… do not power off'
+            break
+        case 'restarting':
+            statusText = 'Restarting…'
+            break
+        case 'error':
+            statusText = u.error || 'Update failed'
+            statusColor = '#f87171'
+            break
+        default:
+            statusText = u.updateAvailable
+                ? 'Update available'
+                : (u.lastChecked ? 'Up to date' : '')
+            break
+    }
+
+    return (
+        <div style={{
+            textAlign: 'center',
+            fontFamily: 'monospace',
+            marginBottom: '2cqh',
+        }}>
+            <div style={{ fontSize: '3cqh', color: 'var(--menu-secondary)' }}>
+                Installed{' '}
+                <span style={{ color: 'var(--menu-primary)', fontWeight: 600 }}>v{u.version}</span>
+                {u.latest && (
+                    <>
+                        {' · '}Latest{' '}
+                        <span style={{ color: 'var(--menu-primary)', fontWeight: 600 }}>v{u.latest}</span>
+                    </>
+                )}
+            </div>
+            {statusText && (
+                <div style={{ fontSize: '2.8cqh', color: statusColor, marginTop: '1cqh' }}>
+                    {statusText}
+                </div>
+            )}
+        </div>
+    )
+}
+
 function iconFor(icon: string) {
     switch (icon) {
         case 'wifi-svg':    return <WifiIcon />
@@ -170,6 +225,9 @@ export default function MenuOverlay({
 
             return (
                 <>
+                    {activeScreen === 'update' && (
+                        <UpdateStatus serverState={serverState} />
+                    )}
                     {activeScreen === 'bridgeSelect' && serverState.bridge.scanning && (
                         <div style={{
                             textAlign: 'center',

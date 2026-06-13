@@ -9,6 +9,7 @@ import { cleanup as cleanupClock } from './apps/clockApp'
 import { serverState, broadcast, updateBridge, updateHa } from './stateManager'
 import { activeIntegration, programOptions, setProgramOptions, consumePendingUpdate, startIntegration, startCustomApp, enterIdle, routeKeyToApp } from './integrationManager'
 import { dispatchAction, handleHaConfigure, handleHaReconfigure, isWifiConnectRunning } from './actionHandlers'
+import { initUpdater, getAppVersion } from './updater'
 
 // --- Key Routing ---
 
@@ -73,6 +74,8 @@ export const initServer = async (wss: WebSocketServer, options: any) => {
     serverState.serial.port = options.serial || null
     serverState.ha.enabled = process.env.DSKY_HOMEASSISTANT === '1'
 
+    initUpdater()
+
     initMenuController({
         handleAction: (action, data) => dispatchAction(action, data),
         getServerState: () => serverState,
@@ -116,7 +119,7 @@ export const initServer = async (wss: WebSocketServer, options: any) => {
             mdnsService.start({
                 port,
                 name: serviceName,
-                version: '0.1.0'
+                version: getAppVersion()
             })
 
             mdnsService.setOnDiscoveryUpdate((apis) => {

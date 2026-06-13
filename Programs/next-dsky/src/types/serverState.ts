@@ -22,6 +22,7 @@ export type MenuScreen =
     | 'haMenu'
     | 'haSetup'
     | 'wifi'
+    | 'update'
 
 export interface MenuState {
     isOpen: boolean
@@ -113,6 +114,23 @@ export interface ClockAppState {
     pomodoro: PomodoroAppState
 }
 
+// --- OTA Update ---
+
+export interface UpdateState {
+    /** OTA updates possible on this install (appliance with DSKY_RELEASES_DIR) */
+    supported: boolean
+    /** Currently running version */
+    version: string
+    /** Latest version published on GitHub (after a check) */
+    latest?: string
+    updateAvailable: boolean
+    status: 'idle' | 'checking' | 'downloading' | 'installing' | 'restarting' | 'error'
+    /** Download progress 0-100 (only while downloading) */
+    progress?: number
+    error?: string
+    lastChecked?: number
+}
+
 // --- Server State ---
 
 export interface ServerState {
@@ -150,6 +168,8 @@ export interface ServerState {
         available: boolean
         running: boolean
     }
+
+    update: UpdateState
 
     shutdown: boolean
     reboot: boolean

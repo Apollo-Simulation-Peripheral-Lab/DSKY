@@ -85,6 +85,9 @@ export function navigateTo(screen: MenuScreen) {
         case 'networkInterface':
             callbacks.handleAction('action:list-interfaces')
             break
+        case 'update':
+            callbacks.handleAction('action:check-update')
+            break
     }
 
     callbacks.broadcast()

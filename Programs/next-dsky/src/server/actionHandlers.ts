@@ -6,6 +6,7 @@ import { detectNetworkInterfaces } from './networkInterfaces'
 import { closeMenu } from './menuController'
 import { serverState, updateSerial, updateNetwork, updateBridge, updateHa, updateWifi } from './stateManager'
 import { activeIntegration, programOptions, startIntegration, startCustomApp, enterIdle } from './integrationManager'
+import { checkForUpdate, installUpdate } from './updater'
 
 let wifiConnectRunning = false
 
@@ -217,6 +218,8 @@ export const dispatchAction = async (type: string, data?: any) => {
         case 'action:set-network-interface':   handleSetNetworkInterface(data); break
         case 'action:reboot':                 handleReboot(); break
         case 'action:shutdown':               handleShutdown(); break
+        case 'action:check-update':           await checkForUpdate(); break
+        case 'action:install-update':         await installUpdate(); break
         case 'action:enter-idle':
             await closeSerial()
             if (programOptions.serial) {

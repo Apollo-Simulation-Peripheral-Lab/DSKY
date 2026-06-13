@@ -154,6 +154,10 @@ sudo cp target/release/wifi-connect /usr/local/sbin/wifi-connect
 
 The `orangepi.sh` launcher script already passes `--wifi-connect` to `next-dsky` when needed.
 
+## Software updates
+
+After this initial setup the device updates itself over the air: new versions published as GitHub releases can be installed from the DSKY's own menu (**SETTINGS → UPDATE**), with automatic rollback if anything goes wrong. The git clone made above acts as the permanent factory fallback — don't delete it. See [updates.md](updates.md) for details.
+
 ## Notes
 
 - The Orange Pi connects to the PCB via USB serial (`/dev/ttyUSB0`).

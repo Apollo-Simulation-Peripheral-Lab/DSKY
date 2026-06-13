@@ -11,6 +11,7 @@ export let serverState: ServerState = {
     bridge: { discovered: [], scanning: false },
     ha: { enabled: false, configured: false },
     wifi: { available: false, running: false },
+    update: { supported: false, version: '0.0.0', updateAvailable: false, status: 'idle' },
     shutdown: false,
     reboot: false,
     baseUrl: null,
@@ -52,6 +53,11 @@ export const updateHa = (partial: Partial<ServerState['ha']>) => {
     if (!wasBefore && serverState.ha.configured) {
         checkHaAutoNav(serverState.ha.configured)
     }
+}
+
+export const updateUpdate = (partial: Partial<ServerState['update']>) => {
+    serverState = { ...serverState, update: { ...serverState.update, ...partial } }
+    broadcast()
 }
 
 export const updateWifi = (partial: Partial<ServerState['wifi']>) => {

@@ -114,6 +114,17 @@ function settingsScreenItems(serverState: ServerState): MenuItemDef[] {
         })
     }
 
+    if (serverState.update.supported) {
+        items.push({
+            id: 'update',
+            icon: '\u21D1',
+            label: 'UPDATE',
+            badge: serverState.update.updateAvailable ? `NEW v${serverState.update.latest}` : undefined,
+            badgeActive: serverState.update.updateAvailable,
+            action: { type: 'navigate', screen: 'update' },
+        })
+    }
+
     if (serverState.reboot) {
         items.push({
             id: 'reboot',
@@ -182,6 +193,30 @@ function serialSelectScreenItems(serverState: ServerState): MenuItemDef[] {
     ]
 }
 
+function updateScreenItems(serverState: ServerState): MenuItemDef[] {
+    const u = serverState.update
+    // No actions while an update is in flight — the banner shows progress.
+    if (u.status === 'checking' || u.status === 'downloading' || u.status === 'installing' || u.status === 'restarting') {
+        return []
+    }
+    const items: MenuItemDef[] = []
+    if (u.updateAvailable && u.latest) {
+        items.push({
+            id: 'install',
+            icon: '\u21D1',
+            label: `INSTALL v${u.latest}`,
+            action: { type: 'action', action: 'action:install-update' },
+        })
+    }
+    items.push({
+        id: 'check',
+        icon: '\u21BB',
+        label: 'CHECK AGAIN',
+        action: { type: 'action', action: 'action:check-update' },
+    })
+    return items
+}
+
 function networkInterfaceScreenItems(serverState: ServerState): MenuItemDef[] {
     const ifaces = serverState.network.available ?? []
     return [
@@ -211,6 +246,7 @@ const SCREEN_COLUMNS: Partial<Record<MenuScreen, 1 | 2>> = {
     yaAgcSelect: 1,
     serialSelect: 1,
     networkInterface: 1,
+    update: 1,
 }
 
 export function getScreenColumns(screen: MenuScreen): 1 | 2 | undefined {
@@ -234,6 +270,7 @@ export function getScreenItems(screen: MenuScreen, serverState: ServerState, _me
         case 'bridgeSelect':     return bridgeSelectScreenItems(serverState)
         case 'serialSelect':     return serialSelectScreenItems(serverState)
         case 'networkInterface': return networkInterfaceScreenItems(serverState)
+        case 'update':           return updateScreenItems(serverState)
         // Screens with no selectable items
         case 'commands':
         case 'about':

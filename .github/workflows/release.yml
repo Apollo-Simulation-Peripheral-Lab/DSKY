@@ -1,0 +1,67 @@
+name: Release device package
+
+# Builds a ready-to-run next-dsky bundle for the Orange Pi (linux-arm64) and
+# attaches it to a GitHub release. DSKYs in the field download these packages
+# through the on-device updater (SETTINGS > UPDATE) — they never build anything
+# themselves.
+#
+# To publish an update: git tag v0.2.0 && git push origin v0.2.0
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build next-dsky (linux-arm64)
+    runs-on: ubuntu-24.04-arm
+    defaults:
+      run:
+        working-directory: Programs/next-dsky
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Programs/next-dsky/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Stamp version from tag
+        run: npm pkg set version="${GITHUB_REF_NAME#v}"
+
+      - name: Build
+        run: npm run build
+
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
+
+      - name: Package
+        run: |
+          TARBALL="next-dsky-${GITHUB_REF_NAME}-linux-arm64.tar.gz"
+          tar -czf "$RUNNER_TEMP/$TARBALL" \
+            --exclude='./.next/cache' \
+            --exclude='./.env' \
+            --exclude='./ha_entities.json' \
+            .
+          cd "$RUNNER_TEMP"
+          sha256sum "$TARBALL" > "$TARBALL.sha256"
+
+      - name: Publish release
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TARBALL="$RUNNER_TEMP/next-dsky-${GITHUB_REF_NAME}-linux-arm64.tar.gz"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" --clobber "$TARBALL" "$TARBALL.sha256"
+          else
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes "$TARBALL" "$TARBALL.sha256"
+          fi

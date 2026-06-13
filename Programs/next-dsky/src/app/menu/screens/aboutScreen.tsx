@@ -32,6 +32,12 @@ export default function AboutScreen({ serverState, wsConnected, clients }: About
             <div style={sectionStyle}>
                 <div style={titleStyle}>Configuration</div>
                 <div style={rowStyle}>
+                    <span style={keyStyle}>Version</span>
+                    <span style={valueStyle}>
+                        v{serverState?.update?.version || '?'}
+                    </span>
+                </div>
+                <div style={rowStyle}>
                     <span style={keyStyle}>App</span>
                     <span style={valueStyle}>
                         {serverState?.app?.id || 'Idle'}
