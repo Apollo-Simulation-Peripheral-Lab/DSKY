@@ -133,7 +133,7 @@ export interface UpdateState {
 
 // --- Games ---
 
-export type GameId = 'flappy' | 'tetris' | 'snake' | 'game2048' | 'minesweeper'
+export type GameId = 'flappy' | 'tetris' | 'snake' | 'game2048' | 'minesweeper' | 'sudoku'
 
 export interface FlappyObstacle {
     x: number       // 0..1 normalized
@@ -146,7 +146,7 @@ export interface FlappyState {
     phase: 'ready' | 'playing' | 'gameover'
     shipY: number           // 0..1 vertical position
     shipVy: number          // world units / sec
-    boosting: boolean       // PRO held
+    boosting: boolean       // unused vestigial flag (kept for state shape stability)
     obstacles: FlappyObstacle[]
     spawnTimer: number      // seconds since last spawn
     score: number
@@ -227,8 +227,9 @@ export interface MinesweeperCell {
 }
 
 export interface MinesweeperState {
-    phase: 'ready' | 'playing' | 'won' | 'gameover'
-    board: MinesweeperCell[][]      // 9×9
+    phase: 'setup' | 'playing' | 'won' | 'gameover'
+    setupField: 'size' | 'mines'    // which parameter the setup screen is editing
+    board: MinesweeperCell[][]      // rows×cols
     cursor: { x: number; y: number }
     cols: number
     rows: number
@@ -240,6 +241,46 @@ export interface MinesweeperState {
     startedAtMs: number             // for elapsed display
 }
 
+// --- Sudoku ---
+
+export interface SudokuCell {
+    value: number       // 0 = empty, 1..9 filled
+    given: boolean      // part of the generated puzzle (immutable)
+}
+
+export interface SudokuState {
+    phase: 'playing' | 'won'
+    mode: 'move' | 'enter'          // KEY REL toggles: MOVE (arrows) vs NUM (type digits)
+    board: SudokuCell[][]           // 9×9
+    solution: number[][]            // 9×9 solved grid (for win check / validation)
+    cursor: { x: number; y: number }
+    startedAtMs: number
+    bestTimeSec: number | null      // fastest solve this session
+    finalTimeSec: number | null     // frozen elapsed on win
+}
+
+// --- Scoreboard (shared across games) ---
+
+export interface ScoreEntry {
+    initials: string    // 3 chars, e.g. "JON" ("---" = left blank)
+    value: number       // score, or seconds for time-based games
+}
+
+/** Overlay shown by the hub when a finished game qualifies for the leaderboard. */
+export interface ScoreEntryState {
+    active: boolean
+    stage: 'entry' | 'board'        // entering initials, or showing the leaderboard
+    viewOnly: boolean               // opened via VERB just to view scores (RSET returns to game/selector, no save)
+    gameId: GameId | null
+    value: number                   // the achieved score/time
+    metric: 'score' | 'time'        // how to format `value`
+    rank: number                    // 1-based placement in the board
+    initials: string                // 3-char buffer being edited (A-Z)
+    cursor: number                  // 0..2, slot being edited
+    recent: string[]                // last distinct initials, for VERB quick-pick
+    board: ScoreEntry[]             // top entries for this game (for the board stage)
+}
+
 export interface GamesAppState {
     activeGame: GameId | null
     selectorIndex: number
@@ -248,6 +289,8 @@ export interface GamesAppState {
     snake: SnakeState
     game2048: Game2048State
     minesweeper: MinesweeperState
+    sudoku: SudokuState
+    scoreEntry: ScoreEntryState
 }
 
 // --- Server State ---
