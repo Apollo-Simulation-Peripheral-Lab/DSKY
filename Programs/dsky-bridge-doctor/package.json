@@ -1,0 +1,13 @@
+{
+  "name": "dsky-bridge-doctor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Diagnoses why a physical DSKY can't bridge to a PC running next-dsky. Checks both the PC and the OrangePi (over SSH).",
+  "main": "doctor.js",
+  "scripts": {
+    "start": "node doctor.js"
+  },
+  "dependencies": {
+    "node-ssh": "^13.2.0"
+  }
+}
