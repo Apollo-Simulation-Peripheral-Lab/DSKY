@@ -3,6 +3,7 @@ import { SerialPort } from 'serialport'
 import { createSerial, createSerialFromConfig, closeSerial } from './serial'
 import { mdnsService } from './mdnsService'
 import { detectNetworkInterfaces } from './networkInterfaces'
+import { saveNetworkInterface } from './networkSettings'
 import { closeMenu } from './menuController'
 import { serverState, updateSerial, updateNetwork, updateBridge, updateHa, updateWifi } from './stateManager'
 import { activeIntegration, programOptions, startIntegration, startCustomApp, enterIdle } from './integrationManager'
@@ -183,6 +184,7 @@ const handleSetNetworkInterface = (data: any) => {
     const { ip } = data
     mdnsService.setRuntimeInterface(ip || null)
     updateNetwork({ interface: ip || null })
+    saveNetworkInterface(ip || null)
 }
 
 const handleReboot = () => {

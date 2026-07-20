@@ -1,5 +1,6 @@
 import Bonjour, { Service, Browser } from 'bonjour-service'
 import * as os from 'os'
+import { addressesForInterfaceOf, pickBestInterface } from './networkInterfaces'
 
 // Service type for discovered services (same as Service but used for clarity)
 type RemoteService = Service
@@ -69,7 +70,10 @@ class MDNSService {
 
         // `multicast-dns` accepts `opts.interface` as a single IP string for binding + outbound multicast.
         // Passing an array breaks `dgram.socket.bind()` ("hostname must be of type string").
-        const mdnsInterface = interfaceCandidates[0]
+        // When no interface is selected (AUTO), resolve to the best real LAN
+        // address so we advertise exactly one honest, reachable IP — never the
+        // full multi-NIC list (which could include VirtualBox/WSL/VPN adapters).
+        const mdnsInterface = interfaceCandidates[0] || pickBestInterface() || undefined
 
         if (debugEnabled) {
             console.log('[mDNS] Interface override:', mdnsInterface ?? '(none)')
@@ -120,8 +124,33 @@ class MDNSService {
 
         console.log(`[mDNS] Published: ${serviceName} on port ${options.port}`)
 
+        // When an interface is selected, advertise ONLY that interface's
+        // address(es). bonjour-service's Service.records() emits an A-record for
+        // every local interface and ignores `host`, so a multi-NIC host (e.g. a
+        // PC with a VirtualBox 192.168.56.x adapter) would otherwise advertise
+        // unreachable addresses the DSKY might dial. Pruning keeps the
+        // advertisement honest with what the menu shows as "selected".
+        this.pruneAdvertisedAddresses(mdnsInterface)
+
         // Start browsing for other DSKY services
         this.startBrowser()
+    }
+
+    // Filter the published service's A/AAAA records to a single interface.
+    private pruneAdvertisedAddresses(ip: string | undefined): void {
+        const service = this.publishedService as (Service & { records?: () => any[] }) | null
+        if (!service || !ip || typeof service.records !== 'function') return
+
+        const allowed = new Set(addressesForInterfaceOf(ip))
+        const originalRecords = service.records.bind(service)
+
+        service.records = () =>
+            originalRecords().filter((rr: any) => {
+                if (rr?.type !== 'A' && rr?.type !== 'AAAA') return true
+                return allowed.has(rr.data)
+            })
+
+        console.log(`[mDNS] Advertising only interface addresses: ${[...allowed].join(', ')}`)
     }
 
     private startBrowser(): void {

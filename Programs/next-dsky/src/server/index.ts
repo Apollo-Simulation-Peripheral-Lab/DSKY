@@ -4,6 +4,7 @@ import { initWebSocket, setWebSocketListener, updateWebSocketState, setMessageLi
 import { updateSerialState, setSerialListener } from './serial'
 import { mdnsService } from './mdnsService'
 import { detectNetworkInterfaces, pickBestInterface } from './networkInterfaces'
+import { loadNetworkInterface } from './networkSettings'
 import { initMenuController, openMenu, closeMenu, navigateBack, setSelectedIndex, moveSelection, selectItem, processKey } from './menuController'
 import { cleanup as cleanupClock } from './apps/clockApp'
 import { serverState, broadcast, updateBridge, updateHa } from './stateManager'
@@ -91,11 +92,26 @@ export const initServer = async (wss: WebSocketServer, options: any) => {
             : (options.port ?? 3000)
     const port = Number.isFinite(resolvedPort) ? resolvedPort : 3000
 
+    // Resolve the mDNS advertising interface:
+    //   1. explicit --interface flag (highest priority; won't be persisted)
+    //   2. the user's persisted menu selection
+    //   3. auto-pick the best real LAN interface (ranks VirtualBox/WSL/VPN last)
+    // Picking one interface (rather than advertising all) keeps the mDNS
+    // announcement honest with what the NETWORK menu shows as selected.
     if (typeof options.interface === 'string' && options.interface.trim().length > 0) {
         serverState.network.interface = options.interface.trim()
-    } else if (process.platform === 'win32') {
-        const best = pickBestInterface()
-        if (best) serverState.network.interface = best
+    } else {
+        const persisted = loadNetworkInterface()
+        if (persisted) {
+            serverState.network.interface = persisted
+            console.log(`[Server] Using persisted network interface: ${persisted}`)
+        } else {
+            const best = pickBestInterface()
+            if (best) {
+                serverState.network.interface = best
+                console.log(`[Server] Auto-selected network interface: ${best}`)
+            }
+        }
     }
 
     const baseUrlOverride = process.env.DSKY_BASE_URL?.trim()

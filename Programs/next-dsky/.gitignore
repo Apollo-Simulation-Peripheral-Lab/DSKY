@@ -40,6 +40,9 @@ ha_entities.json
 # Per-device game high scores
 game_scores.json
 
+# Per-device network interface preference
+network_settings.json
+
 # vercel
 .vercel
 
